@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Arithmetic.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-05-23 by Justyn Durnford
+// Last modified on 2021-05-23 by Justyn Durnford
 // Header file defining the std_arithmetic and jl_arithmetic concepts.
 
 #pragma once
