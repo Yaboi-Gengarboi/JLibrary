@@ -29,5 +29,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Point3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Fraction.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
