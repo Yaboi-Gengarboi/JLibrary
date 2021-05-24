@@ -38,5 +38,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
