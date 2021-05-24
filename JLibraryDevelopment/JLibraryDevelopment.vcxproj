@@ -162,10 +162,11 @@
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Arithmetic.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Fraction.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Point2.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Point3.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Fraction.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point2.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point3.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector2.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

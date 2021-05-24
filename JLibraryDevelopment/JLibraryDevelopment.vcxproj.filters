@@ -20,16 +20,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Arithmetic.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Point2.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Fraction.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Point3.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\Jlibrary\Math\Fraction.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
