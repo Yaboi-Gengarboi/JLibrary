@@ -84,8 +84,11 @@ namespace jl
             return *this;
         }
 
-        // 
-        void setAll(T X, T Y, T Z)
+        // Sets the Vector3 from the given coordinates.
+        // \param X: X coordinate
+        // \param Y: Y coordinate
+        // \param Z: Z coordinate
+        void set(T X, T Y, T Z)
         {
             x = X;
             y = Y;
@@ -93,7 +96,7 @@ namespace jl
         }
 
         // Returns the magnitude of the Vector3.
-        float magnitude() const
+        double magnitude() const
         {
             return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
         }
@@ -105,10 +108,10 @@ namespace jl
         }
 
         // Returns a unit vector in the direction of the Vector3.
-        Vector3<float> unitVector() const
+        Vector3<double> unitVector() const
         {
-            float m = magnitude();
-            return Vector3<float>(x / m, y / m, z / m);
+            double m = magnitude();
+            return Vector3<double>(x / m, y / m, z / m);
         }
 
         // Returns a std::string representation of the Vector3.
@@ -120,9 +123,9 @@ namespace jl
 
     // Returns the dot product of the 2 given Vector3s.
     template <std_arithmetic T, std_arithmetic U>
-    inline float dot_product(const Vector3<T>& A, const Vector3<U>& B)
+    inline double dot_product(const Vector3<T>& A, const Vector3<U>& B)
     {
-        return static_cast<float>(A.x * B.x + A.y * B.y + A.z * B.z);
+        return static_cast<double>(A.x * B.x + A.y * B.y + A.z * B.z);
     }
 
     // Returns the cross product of the 2 given Vector3s.
@@ -134,7 +137,7 @@ namespace jl
 
     // Returns the scalar projection of A onto B.
     template <std_arithmetic T, std_arithmetic U>
-    inline float scalar_proj(const Vector3<T>& A, const Vector3<U>& B)
+    inline double scalar_proj(const Vector3<T>& A, const Vector3<U>& B)
     {
         return dot_product(A, B) / A.magnitude();
     }
@@ -143,8 +146,8 @@ namespace jl
     template <std_arithmetic T, std_arithmetic U>
     Vector3<float> vector_proj(const Vector3<T>& A, const Vector3<T>& B)
     {
-        float f = (dot_product(A, B) * 1.f / dot_product(A, A) * 1.f);
-        return Vector3<double>(A.x * f, A.y * f, A.z * f);
+        double d = (dot_product(A, B) / dot_product(A, A));
+        return Vector3<double>(A.x * d, A.y * d, A.z * d);
     }
 
     // Determines if the 2 given Vector3s are orthogonal to eachother.
@@ -153,17 +156,20 @@ namespace jl
     template <std_arithmetic T, std_arithmetic U>
     inline bool are_normal(const Vector3<T>& A, const Vector3<U>& B)
     {
-        return dot_product(A, B) == 0.f;
+        return dot_product(A, B) == 0.0;
     }
 
     // Define common types
-    typedef jl::Vector3<char>           Vector3c;
-    typedef jl::Vector3<unsigned char>  Vector3uc;
-    typedef jl::Vector3<short>          Vector3s;
-    typedef jl::Vector3<unsigned short> Vector3us;
-    typedef jl::Vector3<int>            Vector3i;
-    typedef jl::Vector3<unsigned int>   Vector3u;
-    typedef jl::Vector3<float>          Vector3f;
+    typedef jl::Vector3<char>               Vector3_8;
+    typedef jl::Vector3<unsigned char>      Vector3_8u;
+    typedef jl::Vector3<short>              Vector3_16;
+    typedef jl::Vector3<unsigned short>     Vector3_16u;
+    typedef jl::Vector3<int>                Vector3_32;
+    typedef jl::Vector3<unsigned int>       Vector3_32u;
+    typedef jl::Vector3<long long>          Vector3_64;
+    typedef jl::Vector3<unsigned long long> Vector3_64u;
+    typedef jl::Vector3<float>              Vector3_32f;
+    typedef jl::Vector3<double>             Vector3_64f;
 }
 
 // Overload of unary operator -
