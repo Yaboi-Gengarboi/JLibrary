@@ -86,6 +86,12 @@ namespace jl
 		{
 			return '(' + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ')';
 		}
+
+		// Returns a std::wstring representation of the Point3.
+		std::wstring toWString() const
+		{
+			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L')';
+		}
 	};
 
 	// Returns the distance between the two Point3s.

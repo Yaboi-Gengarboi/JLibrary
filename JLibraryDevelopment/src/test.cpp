@@ -16,6 +16,7 @@ using namespace jl;
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <string>
 using namespace std;
 
 template <std_arithmetic T, size_t R, size_t C>
@@ -136,5 +137,7 @@ int main()
 	test_vector();
 	cout << "////////////////////" << endl;
 	test_matrix();
+	cout << "////////////////////" << endl;
+
 	return 0;
 }
