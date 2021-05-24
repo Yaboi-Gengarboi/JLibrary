@@ -10,8 +10,8 @@
 
 namespace jl
 {
-    // Utility template class for representing and
-    // computing 2-dimensional vectors.
+    // Utility template class for representing, manipulating
+    // and computing with vectors in 2-dimensional space.
     template <std_arithmetic T> class Vector2
     {
         public:
@@ -53,7 +53,7 @@ namespace jl
             y = B.y - A.y;
         }
 
-        // Construct the Vector2 from another type of Vector2.
+        // Constructs the Vector2 from another type of Vector2.
         //
         // This constructor doesn't replace the copy constructor,
         // it's called only when U != T.
