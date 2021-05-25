@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector2.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector3.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,6 +18,9 @@
     <ClCompile Include="src\test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
