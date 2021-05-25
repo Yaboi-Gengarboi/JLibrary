@@ -160,6 +160,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Keyboard.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mouse.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +173,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector2.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Keyboard.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mouse.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
