@@ -1,16 +1,11 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-05-24 by Justyn Durnford
+// Last updated on 2021-05-25 by Justyn Durnford
 // Main file for testing.
 
-#include <JLibrary/Math/Arithmetic.hpp>
-#include <JLibrary/Math/Fraction.hpp>
-#include <JLibrary/Math/Matrix.hpp>
-#include <JLibrary/Math/Point2.hpp>
-#include <JLibrary/Math/Point3.hpp>
-#include <JLibrary/Math/Vector2.hpp>
-#include <JLibrary/Math/Vector3.hpp>
+#include <JLibrary/Math.hpp>
+#include <JLibrary/System.hpp>
 using namespace jl;
 
 #include <cstddef>
@@ -132,12 +127,17 @@ void test_matrix()
 
 int main()
 {
-	test_fraction();
-	cout << "////////////////////" << endl;
-	test_vector();
-	cout << "////////////////////" << endl;
-	test_matrix();
-	cout << "////////////////////" << endl;
+	//test_fraction();
+	//cout << "////////////////////" << endl;
+	//test_vector();
+	//cout << "////////////////////" << endl;
+	//test_matrix();
+	//cout << "////////////////////" << endl;
+
+	while (true)
+	{
+		cout << Mouse::getPosition().toString() << endl;
+	}
 
 	return 0;
 }

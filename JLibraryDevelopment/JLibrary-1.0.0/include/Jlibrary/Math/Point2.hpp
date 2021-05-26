@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-23 by Justyn Durnford
+// Last modified on 2021-05-25 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
@@ -88,8 +88,8 @@ namespace jl
 	};
 
 	// Returns the distance between the two Point2s.
-	template <std_arithmetic T, std_arithmetic U>
-	inline double distance_between(const Point2<T>& A, const Point2<U>& B)
+	template <std_arithmetic T>
+	inline double distance_between(const Point2<T>& A, const Point2<T>& B)
 	{
 		return std::sqrt(std::pow(B.x - A.x, 2) + std::pow(B.y - A.y, 2));
 	}
@@ -112,8 +112,8 @@ namespace jl
 //  - A.x == B.x AND
 //  - A.y == B.y
 // Returns false otherwise.
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-bool operator == (const jl::Point2<T>& A, const jl::Point2<U>& B)
+template <jl::std_arithmetic T>
+bool operator == (const jl::Point2<T>& A, const jl::Point2<T>& B)
 {
 	return (A.x == B.x) && (A.y == B.y);
 }
@@ -123,8 +123,8 @@ bool operator == (const jl::Point2<T>& A, const jl::Point2<U>& B)
 //  - A.x != B.x OR
 //  - A.y != B.y
 // Returns false otherwise.
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-bool operator != (const jl::Point2<T>& A, const jl::Point2<U>& B)
+template <jl::std_arithmetic T>
+bool operator != (const jl::Point2<T>& A, const jl::Point2<T>& B)
 {
 	return (A.x != B.x) || (A.y == B.y);
 }
