@@ -134,10 +134,7 @@ int main()
 	//test_matrix();
 	//cout << "////////////////////" << endl;
 
-	while (true)
-	{
-		cout << Mouse::getPosition().toString() << endl;
-	}
+	cout << Mouse::getPosition().toString() << endl;
 
 	return 0;
 }
