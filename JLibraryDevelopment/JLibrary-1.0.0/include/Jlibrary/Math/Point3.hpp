@@ -114,24 +114,14 @@ namespace jl
 	typedef jl::Point3<double>             Point3_64f;
 }
 
-// Equality comparison operator.
-// Returns true if:
-//  - A.x == B.x AND
-//  - A.y == B.y AND
-//  - A.z == B.z
-// Returns false otherwise.
+// Overload of binary operator ==
 template <jl::std_arithmetic T>
 bool operator == (const jl::Point3<T>& A, const jl::Point3<T>& B)
 {
 	return (A.x == B.x) && (A.y == B.y) && (A.z == B.z);
 }
 
-// Inequality comparison operator.
-// Returns true if:
-//  - A.x != B.x OR
-//  - A.y != B.y OR
-//  - A.z != B.z
-// Returns false otherwise.
+// Overload of binary operator !=
 template <jl::std_arithmetic T>
 bool operator != (const jl::Point3<T>& A, const jl::Point3<T>& B)
 {

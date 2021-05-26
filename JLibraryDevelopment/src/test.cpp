@@ -127,14 +127,13 @@ void test_matrix()
 
 int main()
 {
-	//test_fraction();
-	//cout << "////////////////////" << endl;
-	//test_vector();
-	//cout << "////////////////////" << endl;
-	//test_matrix();
-	//cout << "////////////////////" << endl;
+	string str("Hello, world!");
+	wstring wstr(str.size(), '0');
 
-	cout << Mouse::getPosition().toString() << endl;
+	for (size_t i(0ull); i < wstr.size(); ++i)
+		wstr[i] = static_cast<wchar_t>(str[i]);
+
+	wcout << wstr << endl;
 
 	return 0;
 }
