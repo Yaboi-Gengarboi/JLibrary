@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Fraction.hpp" />

@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-24 by Justyn Durnford
+// Last modified on 2021-05-25 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
@@ -73,6 +73,12 @@ namespace jl
             z = static_cast<T>(other.z);
         }
 
+        // Copy constructor.
+        Vector3(const Vector3& other) = default;
+
+        // Move constructor.
+        Vector3(Vector3&& other) = default;
+
         // Assigns the Vector3 from the given Point3.
         // \param P: Point3 to copy the coordinates from 
         Vector3& operator = (const Point3<T>& P)
@@ -83,6 +89,12 @@ namespace jl
 
             return *this;
         }
+
+        // Copy assignment operator.
+        Vector3& operator = (const Vector3& other) = default;
+
+        // Move assignment operator.
+        Vector3& operator = (Vector3&& other) = default;
 
         // Sets the Vector3 from the given coordinates.
         // \param X: X coordinate

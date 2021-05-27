@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vector2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-24 by Justyn Durnford
+// Last modified on 2021-05-25 by Justyn Durnford
 // Header file for the Vector2 template class.
 
 #pragma once
@@ -66,6 +66,12 @@ namespace jl
             y = static_cast<T>(other.y);
         }
 
+        // Copy constructor.
+        Vector2(const Vector2& other) = default;
+
+        // Move constructor.
+        Vector2(Vector2&& other) = default;
+
         // Assigns the Vector2 from the given Point2.
         // \param P: Point2 to copy the coordinates from 
         Vector2& operator = (const Point2<T>& P)
@@ -75,6 +81,12 @@ namespace jl
 
             return *this;
         }
+
+        // Copy assignment operator.
+        Vector2& operator = (const Vector2& other) = default;
+
+        // Move assignment operator.
+        Vector2& operator = (Vector2 && other) = default;
 
         // Sets the Vector2 from the given coordinates.
         // \param X: X coordinate
