@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-25 by Justyn Durnford
+// Last modified on 2021-05-26 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
@@ -23,7 +23,7 @@ namespace jl
 		T y;
 		T z;
 
-		// Default constructor.
+		// \brief Default constructor.
 		// Sets the x component of the Point3 to 0.
 		// Sets the y component of the Point3 to 0.
 		Point3()
@@ -33,7 +33,10 @@ namespace jl
 			z = static_cast<T>(0);
 		}
 
-		// Constructs the Point2 from the given coordinates.
+		// \brief Constructs the Point2 from the given coordinates.
+		// Sets the x component of the Point3 to X.
+		// Sets the y component of the Point3 to Y.
+		// Sets the z component of the Point3 to Z.
 		// \param X: X coordinate
 		// \param Y: Y coordinate
 		// \param Z: Z coordinate
@@ -44,12 +47,10 @@ namespace jl
 			z = Z;
 		}
 
-		// Constructs the Point3 from another type of Point3.
-		//
+		// \brief Constructs the Point3 from another type of Point3.
 		// This constructor doesn't replace the copy constructor,
 		// it's called only when U != T.
-		//
-		// \param other: Point3 to convert
+		// \param other: Point3 to copy from
 		template <std_arithmetic U>
 		explicit Point3(const Point3<U>& other)
 		{
@@ -70,7 +71,10 @@ namespace jl
 		// Move assignment operator.
 		Point3& operator = (Point3&& other) = default;
 
-		// Sets the Point3 from the given coordinates.
+		// \brief Sets all the values of the Point3 at once.
+		// Sets the x component of the Point3 to X.
+		// Sets the y component of the Point3 to Y.
+		// Sets the z component of the Point3 to Z.
 		// \param X: X coordinate
 		// \param Y: Y coordinate
 		// \param Z: Z coordinate
@@ -82,19 +86,21 @@ namespace jl
 		}
 
 		// Returns a std::string representation of the Point3.
-		std::string toString() const
+		inline std::string toString() const
 		{
 			return '(' + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ')';
 		}
 
 		// Returns a std::wstring representation of the Point3.
-		std::wstring toWString() const
+		inline std::wstring toWString() const
 		{
 			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L')';
 		}
 	};
 
 	// Returns the distance between the two Point3s.
+	// \param A: First Point2
+	// \param B: Second Point2
 	template <std_arithmetic T>
 	inline double distance_between(const Point3<T>& A, const Point3<T>& B)
 	{

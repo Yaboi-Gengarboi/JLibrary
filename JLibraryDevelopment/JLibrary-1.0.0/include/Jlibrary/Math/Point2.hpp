@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-25 by Justyn Durnford
+// Last modified on 2021-05-26 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
@@ -22,7 +22,7 @@ namespace jl
 		T x;
 		T y;
 
-		// Default constructor.
+		// \brief Default constructor.
 		// Sets the x component of the Point2 to 0.
 		// Sets the y component of the Point2 to 0.
 		Point2()
@@ -31,7 +31,9 @@ namespace jl
 			y = static_cast<T>(0);
 		}
 
-		// Constructs the Point2 from the given coordinates.
+		// \brief Constructs the Point2 from the given coordinates.
+		// Sets the x component of the Point2 to X.
+		// Sets the y component of the Point2 to Y.
 		// \param X: X coordinate
 		// \param Y: Y coordinate
 		Point2(T X, T Y)
@@ -40,12 +42,10 @@ namespace jl
 			y = Y;
 		}
 
-		// Constructs the Point2 from another type of Point2.
-		//
+		// \brief Constructs the Point2 from another type of Point2.
 		// This constructor doesn't replace the copy constructor,
 		// it's called only when U != T.
-		//
-		// \param other: Point2 to convert
+		// \param other: Point2 to copy from
 		template <std_arithmetic U>
 		explicit Point2(const Point2<U>& other)
 		{
@@ -65,7 +65,9 @@ namespace jl
 		// Move assignment operator.
 		Point2& operator = (Point2 && other) = default;
 
-		// Sets the Point2 from the given coordinates.
+		// \brief Sets all the values of the Point2 at once.
+		// Sets the x component of the Point2 to X.
+		// Sets the y component of the Point2 to Y.
 		// \param X: X coordinate
 		// \param Y: Y coordinate
 		void set(T X, T Y)
@@ -75,19 +77,21 @@ namespace jl
 		}
 
 		// Returns a std::string representation of the Point2.
-		std::string toString() const
+		inline std::string toString() const
 		{
 			return '(' + std::to_string(x) + ", " + std::to_string(y) + ')';
 		}
 
 		// Returns a std::wstring representation of the Point2.
-		std::wstring toWString() const
+		inline std::wstring toWString() const
 		{
 			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L')';
 		}
 	};
 
 	// Returns the distance between the two Point2s.
+	// \param A: First Point2
+	// \param B: Second Point2
 	template <std_arithmetic T>
 	inline double distance_between(const Point2<T>& A, const Point2<T>& B)
 	{

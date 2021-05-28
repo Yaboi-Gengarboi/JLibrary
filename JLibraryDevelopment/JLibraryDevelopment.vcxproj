@@ -167,6 +167,7 @@
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Circle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math.hpp" />

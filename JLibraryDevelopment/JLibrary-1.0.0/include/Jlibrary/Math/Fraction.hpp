@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-23 by Justyn Durnford
+// Last modified on 2021-05-27 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
@@ -22,25 +22,30 @@ namespace jl
 		T numer;
 		T denom;
 
-		// Default constructor.
+		// \brief Default constructor.
+		// Sets the numerator of the Fraction to 0.
+		// Sets the denominator of the Fraction to 1.
 		Fraction()
 		{
 			numer = static_cast<T>(0);
 			denom = static_cast<T>(1);
 		}
 
-		// 1-int constructor.
+		// \brief 1-int constructor.
 		// Sets the numerator of the Fraction to Numer.
 		// Sets the denominator of the Fraction to 1.
+		// \param Numer: Numerator of the Fraction
 		Fraction(T Numer)
 		{
 			numer = Numer;
 			denom = static_cast<T>(1);
 		}
 
-		// 2-int constructor.
+		// \brief 2-int constructor.
 		// Sets the numerator of the Fraction to numer.
 		// Sets the denominator of the Fraction to denom.
+		// \param Numer: Numerator of the Fraction
+		// \param Denom: Denominator of the Fraction
 		Fraction(T Numer, T Denom)
 		{
 			numer = Numer;
@@ -48,16 +53,15 @@ namespace jl
 		}
 
 		// Copy constructor.
-		// Copies the values from the passed Fraction into the new Fraction.
 		Fraction(const Fraction& other) = default;
 
 		// Move constructor.
-		// Moves the passed Fraction into the new Fraction.
 		Fraction(Fraction&& other) = default;
 
-		// 1-int assignment operator.
-		// Sets the numerator of the Fraction to numer.
+		// \brief 1-int assignment operator.
+		// Sets the numerator of the Fraction to Numer.
 		// Sets the denominator of the Fraction to 1.
+		// \param Numer: Numerator of the Fraction
 		Fraction& operator = (T Numer)
 		{
 			numer = Numer;
@@ -66,32 +70,33 @@ namespace jl
 		}
 
 		// Copy assignment operator.
-		// Copies the values from the passed Fraction into the new Fraction.
 		Fraction& operator = (const Fraction& other) = default;
 
 		// Move assignment operator.
-		// Moves the passed Fraction into the new Fraction.
 		Fraction& operator = (Fraction&& other) = default;
 
 		// Destructor.
-		// Destroys the Fraction and its data.
 		~Fraction() = default;
 
-		// Sets the numerator of the Fraction to numer.
-		// Sets the denominator of the Fraction to denom.
-		void setAll(T Numer, T Denom)
+		// \brief Sets all the values of the Fraction at once.
+		// Sets the numerator of the Fraction to Numer.
+		// Sets the denominator of the Fraction to Denom.
+		// \param Numer: Numerator of the Fraction
+		// \param Denom: Denominator of the Fraction
+		void set(T Numer, T Denom)
 		{
 			numer = Numer;
 			denom = Denom;
 		}
 
 		// Raises both the numerator and denominator of the Fraction to the nth power.
-		template <std::unsigned_integral U> void pow(U n)
+		// \param N: Power to raise the Fraction by
+		template <std::unsigned_integral U> void pow(U N)
 		{
-			if (n == 1)
+			if (N == 1)
 				return;
 
-			if (n == 0)
+			if (N == 0)
 			{
 				numer = static_cast<U>(1);
 				denom = static_cast<U>(1);
@@ -101,7 +106,7 @@ namespace jl
 			T old_numer = numer;
 			T old_denom = denom;
 
-			for (U i = 0; i < n; ++i)
+			for (U i = 0; i < N; ++i)
 			{
 				numer *= old_numer;
 				denom *= old_denom;
@@ -110,25 +115,30 @@ namespace jl
 
 		// Returns the result of the Fraction as a float.
 		// This function may throw if a division by 0 is attempted.
-		float evaluate() const
+		inline float evaluate() const
 		{
 			return static_cast<float>(numer) / static_cast<float>(denom);
 		}
 
 		// Returns true if the denominator of the Fraction is NOT 0.
-		bool isValid() const
+		inline bool isValid() const
 		{
 			return (denom != 0);
 		}
 
 		// Returns a std::string representation of the Fraction.
-		std::string toString() const
+		inline std::string toString() const
 		{
 			return std::to_string(numer) + " / " + std::to_string(denom);
 		}
 
+		// Returns a std::wstring representation of the Fraction.
+		inline std::wstring toWString() const
+		{
+			return std::to_wstring(numer) + " / " + std::to_wstring(denom);
+		}
+
 		// Preincrement operator.
-		// Adds 1 onto the Fraction.
 		Fraction& operator ++ ()
 		{
 			numer += denom;
@@ -136,7 +146,6 @@ namespace jl
 		}
 
 		// Postincrement operator.
-		// Adds 1 onto the Fraction.
 		Fraction operator ++ (int)
 		{
 			Fraction fr(*this);
@@ -146,7 +155,6 @@ namespace jl
 		}
 
 		// Predecrement operator.
-		// Subtracts 1 from the Fraction.
 		Fraction& operator -- ()
 		{
 			numer -= denom;
@@ -154,7 +162,6 @@ namespace jl
 		}
 
 		// Postdecrement operator.
-		// Subtracts 1 from the Fraction.
 		Fraction operator -- (int)
 		{
 			Fraction fr(*this);

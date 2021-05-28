@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vector2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-25 by Justyn Durnford
+// Last modified on 2021-05-26 by Justyn Durnford
 // Header file for the Vector2 template class.
 
 #pragma once
@@ -19,15 +19,18 @@ namespace jl
         T x;
         T y;
 
-        // Default constructor.
-        // Creates a Vector2(0, 0).
+        // \brief Default constructor.
+        // Sets the x component of the Vector2 to 0.
+        // Sets the y component of the Vector2 to 0.
         Vector2()
         {
             x = static_cast<T>(0);
             y = static_cast<T>(0);
         }
 
-        // Constructs the Vector2 from the given coordinates.
+        // \brief Constructs the Vector2 from the given coordinates.
+        // Sets the x component of the Vector2 to X.
+		// Sets the y component of the Vector2 to Y.
         // \param X: X coordinate
         // \param Y: Y coordinate
         Vector2(T X, T Y)
@@ -36,7 +39,9 @@ namespace jl
             y = Y;
         }
 
-        // Constructs the Vector2 from the given Point2.
+        // \brief Constructs the Vector2 from the given Point2.
+        // Sets the x component of the Vector2 to the x component of the given Point2.
+		// Sets the y component of the Vector2 to the y component of the given Point2.
         // \param P: Point2 to copy the coordinates from 
         Vector2(const Point2<T>& P)
         {
@@ -44,7 +49,9 @@ namespace jl
             y = P.y;
         }
 
-        // Constructs the Vector2 as the displacement vector of the two Point2s.
+        // \brief Constructs the Vector2 as the displacement vector of the two Point2s.
+        // Sets the x component of the Vector2 to B.x - A.x.
+        // Sets the y component of the Vector2 to B.y - A.y.
         // \param A: First Point2
         // \param B: Second Point2
         Vector2(const Point2<T>& A, const Point2<T>& B)
@@ -53,12 +60,10 @@ namespace jl
             y = B.y - A.y;
         }
 
-        // Constructs the Vector2 from another type of Vector2.
-        //
+        // \brief Constructs the Vector2 from another type of Vector2.
         // This constructor doesn't replace the copy constructor,
         // it's called only when U != T.
-        //
-        // \param other: Vector2 to convert
+        // \param other: Vector2 to copy from
         template <std_arithmetic U>
         explicit Vector2(const Vector2<U>& other)
         {
@@ -72,7 +77,9 @@ namespace jl
         // Move constructor.
         Vector2(Vector2&& other) = default;
 
-        // Assigns the Vector2 from the given Point2.
+        // \brief Assigns the Vector2 from the given Point2.
+        // Sets the x component of the Vector2 to the x component of the given Point2.
+        // Sets the y component of the Vector2 to the y component of the given Point2.
         // \param P: Point2 to copy the coordinates from 
         Vector2& operator = (const Point2<T>& P)
         {
@@ -88,7 +95,9 @@ namespace jl
         // Move assignment operator.
         Vector2& operator = (Vector2 && other) = default;
 
-        // Sets the Vector2 from the given coordinates.
+        // \brief Sets all the values of the Vector2 at once.
+        // Sets the x component of the Vector2 to X.
+        // Sets the y component of the Vector2 to Y.
         // \param X: X coordinate
         // \param Y: Y coordinate
         void set(T X, T Y)
@@ -98,13 +107,13 @@ namespace jl
         }
 
         // Returns the magnitude of the Vector2.
-        double magnitude() const
+        inline double magnitude() const
         {
             return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
         }
 
         // Returns the endpoint of the Point2.
-        Point2<T> endpoint() const
+        inline Point2<T> endpoint() const
         {
             return Point2<T>(x, y);
         }
@@ -117,19 +126,21 @@ namespace jl
         }
 
         // Returns a std::string representation of the Vector2.
-        std::string toString() const
+        inline std::string toString() const
         {
             return '<' + std::to_string(x) + ", " + std::to_string(y) + '>';
         }
 
         // Returns a std::wstring representation of the Vector2.
-        std::wstring toWString() const
+        inline std::wstring toWString() const
         {
             return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L'>';
         }
     };
 
     // Returns the dot product of the 2 given Vector2s.
+    // \param A: First Vector2
+    // \param B: Second Vector2
     template <std_arithmetic T, std_arithmetic U>
     inline double dot_product(const Vector2<T>& A, const Vector2<U>& B)
     {
@@ -137,6 +148,8 @@ namespace jl
     }
 
     // Returns the scalar projection of A onto B.
+    // \param A: First Vector2
+    // \param B: Second Vector2
     template <std_arithmetic T, std_arithmetic U>
     inline double scalar_proj(const Vector2<T>& A, const Vector2<U>& B)
     {
@@ -144,6 +157,8 @@ namespace jl
     }
 
     // Returns the vector projection of A onto B.
+    // \param A: First Vector2
+    // \param B: Second Vector2
     template <std_arithmetic T, std_arithmetic U>
     Vector2<double> vector_proj(const Vector2<T>& A, const Vector2<U>& B)
     {
@@ -151,9 +166,9 @@ namespace jl
         return Vector2<double>(A.x * d, A.y * d);
     }
 
-    // Determines if the 2 given Vector2s are orthogonal to eachother.
-    // - Returns true if dot_product(A, B) == 0.
-    // - Returns false otherwise.
+    // Checks if the 2 given Vector2s are orthogonal to eachother.
+    // \param A: First Vector2
+    // \param B: Second Vector2
     template <std_arithmetic T, std_arithmetic U>
     inline bool are_normal(const Vector2<T>& A, const Vector2<U>& B)
     {

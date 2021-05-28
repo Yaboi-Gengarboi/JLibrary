@@ -80,5 +80,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Circle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
