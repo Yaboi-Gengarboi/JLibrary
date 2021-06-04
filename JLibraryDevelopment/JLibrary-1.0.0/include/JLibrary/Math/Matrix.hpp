@@ -1,13 +1,12 @@
 // JLibraryDevelopment
 // Matrix.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-23 by Justyn Durnford
+// Last modified on 2021-06-03 by Justyn Durnford
 // Header file for the Matrix template class.
 
 #pragma once
 
 #include <Jlibrary/Math/Arithmetic.hpp>
-
 #include <algorithm>
 #include <array>
 #include <concepts>
@@ -32,21 +31,26 @@ namespace jl
 
 		// Private member functions
 
-		//
+		// Checks if the given row is a valid row index and throws if it is not.
 		inline void checkRow(std::size_t row) const
 		{
-			if (row >= R)
-				throw std::out_of_range("Invalid row index");
+			if (row >= R) { throw std::out_of_range("Invalid row index"); }
 		}
 
-		//
+		// Checks if the given column is a valid column index and throws if it is not.
 		inline void checkCol(std::size_t col) const
 		{
-			if (col >= C)
-				throw std::out_of_range("Invalid column index");
+			if (col >= C) { throw std::out_of_range("Invalid column index"); }
 		}
 
-		// 
+		// Checks if the given index is a valid element of the Matrix and throws if it is not.
+		inline void checkIndex(std::size_t index) const
+		{
+			if (index >= R * C) { throw std::out_of_range("Invalid matrix index"); }
+		}
+
+		// Checks if the given row is a valid row index and throws if it is not.
+		// Checks if the given column is a valid column index and throws if it is not.
 		void checkBounds(std::size_t row, std::size_t col) const
 		{
 			checkRow(row);
@@ -60,10 +64,11 @@ namespace jl
 		using reference = T&;
 		using const_reference = const T&;
 
-		// 
+		// Default constructor.
 		Matrix() = default;
 
-		// 
+		// 1-parameter constructor.
+		// Sets every value of the Matrix to value.
 		Matrix(T value)
 		{
 			for (std::size_t row_i(0u); row_i < R; ++row_i)
@@ -73,7 +78,7 @@ namespace jl
 			}
 		}
 
-		// 
+		// 2-dimensional std::initializer_list constructor.
 		Matrix(std::initializer_list<std::initializer_list<T>> list)
 		{
 			std::size_t row_i(0u);
@@ -85,7 +90,9 @@ namespace jl
 			}
 		}
 
-		// 
+		// Constructs the Matrix from another type of Matrix.
+		// This constructor doesn't replace the copy constructor,
+		// it's called only when U != T.
 		template <std_arithmetic U>
 		explicit Matrix(const Matrix<U, R, C>& other)
 		{
@@ -96,13 +103,13 @@ namespace jl
 			}
 		}
 
-		// 
+		// Copy constructor.
 		Matrix(const Matrix& other) = default;
 
-		// 
+		// Move constructor.
 		Matrix(Matrix&& other) = default;
 
-		// 
+		// 2-dimensional std::initializer_list assignment operator.
 		Matrix& operator = (std::initializer_list<std::initializer_list<T>> list)
 		{
 			std::size_t row_i(0u);
@@ -116,74 +123,133 @@ namespace jl
 			return *this;
 		}
 
-		// 
+		// Copy assignment operator.
 		Matrix& operator = (const Matrix& other) = default;
 
-		// 
+		// Move assignment operator.
 		Matrix& operator = (Matrix&& other) = default;
 
-		// 
+		// Destructor.
 		~Matrix() = default;
 
-		// 
+		// Returns the number of rows in the Matrix.
 		std::size_t rowCount() const
 		{
 			return R;
 		}
 
-		// 
+		// Returns the number of columns in the Matrix.
 		std::size_t colCount() const
 		{
 			return C;
 		}
 
-		//
+		// Returns a copy of the given row.
 		std::array<T, C> getRow(std::size_t row) const
 		{
 			checkRow(row);
 			return data_[row];
 		}
 
-		//
+		// Returns a copy of the given column.
 		std::array<T, R> getCol(std::size_t col) const
 		{
 			checkRow(col);
 			std::array<T, R> arr;
 
-			for (std::size_t row_i = 0; row_i < R; ++row_i)
+			for (std::size_t row_i(0u); row_i < R; ++row_i)
 				arr[row_i] = data_[row_i][col];
 
 			return arr;
 		}
 
-		// 
+		// Returns the submatrix formed by the row and col indices.
+		template <std::size_t R2, std::size_t C2>
+		Matrix<T, R2, C2> submatrix(std::size_t row_begin, std::size_t col_begin) const
+		{
+			checkRow(row_begin);
+			checkCol(col_begin);
+			checkRow(row_begin + R2);
+			checkCol(col_begin + C2);
+
+			Matrix<T, R2, C2> M;
+
+			for (std::size_t row_i(0u); row_i < R2; ++row_i)
+			{
+				for (std::size_t col_i(0u); col_i < C2; ++col_i)
+					M(row_i, col_i) = data_[row_begin + row_i][col_begin + col_i];
+			}
+
+			return M;
+		}
+
+		// Returns the nth element of the Matrix.
+		// Performs bounds-checking.
+		T& at(std::size_t n)
+		{
+			checkIndex(n);
+			return data_[n / R][n % C];
+		}
+
+		// Returns the nth element of the Matrix.
+		// Performs bounds-checking.
+		const T& at(std::size_t n) const
+		{
+			checkIndex(n);
+			return data_[n / R][n % C];
+		}
+
+		// Returns the element at [row][col].
+		// Performs bounds-checking.
 		T& at(std::size_t row, std::size_t col)
 		{
 			checkBounds(row, col);
 			return data_[row][col];
 		}
 
-		// 
+		// Returns the element at [row][col].
+		// Performs bounds-checking.
 		const T& at(std::size_t row, std::size_t col) const
 		{
 			checkBounds(row, col);
 			return data_[row][col];
 		}
 
-		// 
+		// Sets the nth element of the Matrix to value.
+		// Performs bounds-checking.
+		void set(std::size_t n, T value)
+		{
+			checkIndex(n);
+			data_[n / R][n % C] = value;
+		}
+
+		// Sets the element at [row][col] to value.
+		// Performs bounds-checking.
 		void set(std::size_t row, std::size_t col, T value)
 		{
 			checkBounds(row, col);
 			data_[row][col] = value;
 		}
 
-		// 
+		// Returns the nth element of the Matrix.
+		T& operator () (std::size_t n)
+		{
+			return data_[n / R][n % C];
+		}
+
+		// Returns the nth element of the Matrix.
+		const T& operator () (std::size_t n) const
+		{
+			return data_[n / R][n % C];
+		}
+
+		// Returns the element at [row][col].
 		T& operator () (std::size_t row, std::size_t col)
 		{
 			return data_[row][col];
 		}
 
-		// 
+		// Returns the element at [row][col].
 		const T& operator () (std::size_t row, std::size_t col) const
 		{
 			return data_[row][col];
@@ -191,8 +257,8 @@ namespace jl
 	};
 
 	// Returns the determinant of the 2x2 Matrix formed as
-	// { a, b }
-	// { c, d }
+	// {  a,  b  }
+	// {  c,  d  }
 	template <std_arithmetic T>
 	inline T determinant(T a, T b, T c, T d)
 	{
@@ -215,6 +281,67 @@ namespace jl
 		T C = M(0, 2) * determinant(M(1, 0), M(1, 1), M(2, 0), M(2, 1));
 
 		return A - B + C;
+	}
+
+	// Returns the determinant of the 4x4 Matrix.
+	template <std_arithmetic T>
+	T determinant(const Matrix<T, 4, 4>& M)
+	{
+		Matrix<T, 3, 3> A =
+		{
+			{ M(1, 1), M(1, 2), M(1, 3) },
+			{ M(2, 1), M(2, 2), M(2, 3) },
+			{ M(3, 1), M(3, 2), M(3, 3) }
+		};
+
+		Matrix<T, 3, 3> B =
+		{
+			{ M(1, 0), M(1, 2), M(1, 3) },
+			{ M(2, 0), M(2, 2), M(2, 3) },
+			{ M(3, 0), M(3, 2), M(3, 3) }
+		};
+
+		Matrix<T, 3, 3> C =
+		{
+			{ M(1, 0), M(1, 1), M(1, 3) },
+			{ M(2, 0), M(2, 1), M(2, 3) },
+			{ M(3, 0), M(3, 1), M(3, 3) }
+		};
+
+		Matrix<T, 3, 3> D =
+		{
+			{ M(1, 0), M(1, 1), M(1, 2) },
+			{ M(2, 0), M(2, 1), M(2, 2) },
+			{ M(3, 0), M(3, 1), M(3, 2) }
+		};
+
+		return M(0, 0) * determinant(A) - M(0, 1) * determinant(B) + M(0, 2) * determinant(C) - M(0, 3) * determinant(D);
+	}
+
+	// Returns the dot product of the given Matrices.
+	template <std_arithmetic T, std::size_t M, std::size_t N, std::size_t P>
+	Matrix<T, M, P> dot_product(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B)
+	{
+		Matrix<T, M, P> C;
+		T value;
+
+		for (std::size_t m(0u); m < M; ++m)
+		{
+			std::array<T, N> row(A.getRow(m));
+
+			for (std::size_t p(0u); p < P; ++p)
+			{
+				value = 0;
+				std::array<T, N> col(B.getCol(p));
+
+				for (std::size_t n(0u); n < N; ++n)
+					value += row[n] * col[n];
+
+				C(m, p) = value;
+			}
+		}
+
+		return C;
 	}
 }
 
@@ -309,8 +436,8 @@ jl::Matrix<T, R, C> operator / (const jl::Matrix<T, R, C>& A, U scalar)
 }
 
 // Overload of binary operator +=
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C>& operator += (jl::Matrix<T, R, C>& A, const jl::Matrix<U, R, C>& B)
+template <jl::std_arithmetic T, std::size_t R, std::size_t C>
+jl::Matrix<T, R, C>& operator += (jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -322,8 +449,8 @@ jl::Matrix<T, R, C>& operator += (jl::Matrix<T, R, C>& A, const jl::Matrix<U, R,
 }
 
 // Overload of binary operator -=
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C>& operator -= (jl::Matrix<T, R, C>& A, const jl::Matrix<U, R, C>& B)
+template <jl::std_arithmetic T, std::size_t R, std::size_t C>
+jl::Matrix<T, R, C>& operator -= (jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -358,4 +485,36 @@ jl::Matrix<T, R, C>& operator /= (jl::Matrix<T, R, C>& M, U scalar)
 	}
 
 	return M;
+}
+
+// Overload of binary operator == 
+template <jl::std_arithmetic T, std::size_t R, std::size_t C>
+bool operator == (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+{
+	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	{
+		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		{
+			if (A(row_i, col_i) != B(row_i, col_i))
+				return false;
+		}
+	}
+
+	return true;
+}
+
+// Overload of binary operator == 
+template <jl::std_arithmetic T, std::size_t R, std::size_t C>
+bool operator != (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+{
+	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	{
+		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		{
+			if (A(row_i, col_i) != B(row_i, col_i))
+				return true;
+		}
+	}
+
+	return false;
 }

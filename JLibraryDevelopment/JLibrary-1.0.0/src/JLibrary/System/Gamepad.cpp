@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Gamepad.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-25 by Justyn Durnford
+// Last modified on 2021-05-28 by Justyn Durnford
 // Source file for the Joystick and Gamepad classes.
 
 #include <JLibrary/System/Gamepad.hpp>
@@ -14,16 +14,16 @@ Joystick::Joystick()
 	yDeadzone = 0.1f;
 }
 
-Joystick::Joystick(float x_pos, float y_pos, float x_dz, float y_dz)
+Joystick::Joystick(float X, float Y, float x_dz, float y_dz)
 {
-	position.set(x_pos, y_pos);
+	position.set(X, Y);
 	xDeadzone = x_dz;
 	yDeadzone = y_dz;
 }
 
-Joystick::Joystick(const Point2_32f& new_pos, float x_dz, float y_dz)
+Joystick::Joystick(const Point2_32f& Position, float x_dz, float y_dz)
 {
-	position = new_pos;
+	position = Position;
 	xDeadzone = x_dz;
 	yDeadzone = y_dz;
 }
@@ -55,9 +55,9 @@ Gamepad::Gamepad()
 	rightTrigger = 0.f;
 }
 
-Gamepad::Gamepad(unsigned char port, float lx_dz, float ly_dz, float rx_dz, float ry_dz)
+Gamepad::Gamepad(unsigned char Port, float lx_dz, float ly_dz, float rx_dz, float ry_dz)
 {
-	port_ = port;
+	port_ = Port;
 	leftTrigger = 0.0f;
 	rightTrigger = 0.0f;
 	leftStick.xDeadzone = lx_dz;

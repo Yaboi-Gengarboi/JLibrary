@@ -1,13 +1,12 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-26 by Justyn Durnford
+// Last modified on 2021-05-30 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
 
 #include <Jlibrary/Math/Arithmetic.hpp>
-
 #include <cmath>
 #include <string>
 
@@ -23,7 +22,7 @@ namespace jl
 		T y;
 		T z;
 
-		// \brief Default constructor.
+		// Default constructor.
 		// Sets the x component of the Point3 to 0.
 		// Sets the y component of the Point3 to 0.
 		Point3()
@@ -33,13 +32,10 @@ namespace jl
 			z = static_cast<T>(0);
 		}
 
-		// \brief Constructs the Point2 from the given coordinates.
+		// Constructs the Point2 from the given coordinates.
 		// Sets the x component of the Point3 to X.
 		// Sets the y component of the Point3 to Y.
 		// Sets the z component of the Point3 to Z.
-		// \param X: X coordinate
-		// \param Y: Y coordinate
-		// \param Z: Z coordinate
 		Point3(T X, T Y, T Z)
 		{
 			x = X;
@@ -47,10 +43,9 @@ namespace jl
 			z = Z;
 		}
 
-		// \brief Constructs the Point3 from another type of Point3.
+		// Constructs the Point3 from another type of Point3.
 		// This constructor doesn't replace the copy constructor,
 		// it's called only when U != T.
-		// \param other: Point3 to copy from
 		template <std_arithmetic U>
 		explicit Point3(const Point3<U>& other)
 		{
@@ -71,13 +66,10 @@ namespace jl
 		// Move assignment operator.
 		Point3& operator = (Point3&& other) = default;
 
-		// \brief Sets all the values of the Point3 at once.
+		// Sets all the values of the Point3 at once.
 		// Sets the x component of the Point3 to X.
 		// Sets the y component of the Point3 to Y.
 		// Sets the z component of the Point3 to Z.
-		// \param X: X coordinate
-		// \param Y: Y coordinate
-		// \param Z: Z coordinate
 		void set(T X, T Y, T Z)
 		{
 			x = X;
@@ -99,25 +91,20 @@ namespace jl
 	};
 
 	// Returns the distance between the two Point3s.
-	// \param A: First Point2
-	// \param B: Second Point2
 	template <std_arithmetic T>
-	inline double distance_between(const Point3<T>& A, const Point3<T>& B)
+	inline float distance_between(const Point3<T>& A, const Point3<T>& B)
 	{
-		return std::sqrt(std::pow(B.x - A.x, 2) + std::pow(B.y - A.y, 2) + std::pow(B.z - A.z, 2));
+		return std::sqrt(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f) + std::powf(B.z - A.z, 2.f));
 	}
 
 	// Define common types
-	typedef jl::Point3<char>               Point3_8;
+	typedef jl::Point3<char>               Point3_8i;
 	typedef jl::Point3<unsigned char>      Point3_8u;
-	typedef jl::Point3<short>              Point3_16;
+	typedef jl::Point3<short>              Point3_16i;
 	typedef jl::Point3<unsigned short>     Point3_16u;
-	typedef jl::Point3<int>                Point3_32;
+	typedef jl::Point3<int>                Point3_32i;
 	typedef jl::Point3<unsigned int>       Point3_32u;
-	typedef jl::Point3<long long>          Point3_64;
-	typedef jl::Point3<unsigned long long> Point3_64u;
 	typedef jl::Point3<float>              Point3_32f;
-	typedef jl::Point3<double>             Point3_64f;
 }
 
 // Overload of binary operator ==

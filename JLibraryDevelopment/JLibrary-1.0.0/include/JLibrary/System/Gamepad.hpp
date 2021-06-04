@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Gamepad.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-25 by Justyn Durnford
+// Last modified on 2021-05-28 by Justyn Durnford
 // Header file for the Joystick and Gamepad classes.
 
 #pragma once
@@ -26,16 +26,16 @@ class Joystick
 	Joystick();
 
 	// 3-float constructor.
-	// Sets the position of the Joystick to (x_pos, y_pos).
+	// Sets the position of the Joystick to (X, Y).
 	// Sets the horizontal deadzone of the Joystick to x_dz.
 	// Sets the vertical deadzone of the Joysticl to y_dz.
-	Joystick(float x_pos, float y_pos, float x_dz, float y_dz);
+	Joystick(float X, float Y, float x_dz, float y_dz);
 
 	// Point2_32f& float constructor.
-	// Sets the position of the Joystick to new_pos.
+	// Sets the position of the Joystick to Position.
 	// Sets the horizontal deadzone of the Joystick to x_dz.
 	// Sets the vertical deadzone of the Joysticl to y_dz.
-	Joystick(const jl::Point2_32f& new_pos, float x_dz, float y_dz);
+	Joystick(const jl::Point2_32f& Position, float x_dz, float y_dz);
 
 	// Copy constructor.
 	Joystick(const Joystick& other) = delete;
@@ -100,18 +100,18 @@ class Gamepad
 	float leftTrigger, rightTrigger;
 
 	// Default constructor.
-	// Sets the horizontal and vertical deadzones of each Joystick to 0.05f.
+	// Sets the horizontal and vertical deadzones of each Joystick to 0.1f.
 	// Sets the values of each Trigger to 0.0f.
 	Gamepad();
 
 	// 1-unsigned char, 4-float constructor.
-	// Sets the port of the Gamepad to port.
+	// Sets the port of the Gamepad to Port.
 	// Sets the horizontal deadzone for the left Joystick to lx_dz.
 	// Sets the vertical deadzone for the left Joystick to ly_dz.
 	// Sets the horizontal deadzone for the right Joystick to rx_dz.
 	// Sets the vertical deadzone for the right Joystick to ry_dz.
 	// Sets the values of each Trigger to 0.0f.
-	Gamepad(unsigned char port, float lx_dz, float ly_dz, float rx_dz, float ry_dz);
+	Gamepad(unsigned char Port, float lx_dz, float ly_dz, float rx_dz, float ry_dz);
 
 	// Copy constructor.
 	Gamepad(const Gamepad& other) = delete;

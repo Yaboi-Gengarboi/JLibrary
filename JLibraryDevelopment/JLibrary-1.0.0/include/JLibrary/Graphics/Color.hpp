@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Color.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-25 by Justyn Durnford
+// Last modified on 2021-05-28 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
@@ -32,18 +32,18 @@ namespace jl
 		Color();
 
 		// 3-unsigned char constructor.
-		// Sets the red component of the Color to r.
-		// Sets the green component of the Color to g.
-		// Sets the blue component of the Color to b.
+		// Sets the red component of the Color to R.
+		// Sets the green component of the Color to G.
+		// Sets the blue component of the Color to B.
 		// Sets the alpha component of the Color to 255u.
-		Color(unsigned char r, unsigned char g, unsigned char b);
+		Color(unsigned char R, unsigned char G, unsigned char B);
 
 		// 4-unsigned char constructor.
-		// Sets the red component of the Color to r.
-		// Sets the green component of the Color to g.
-		// Sets the blue component of the Color to b.
-		// Sets the alpha component of the Color to a.
-		Color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+		// Sets the red component of the Color to R.
+		// Sets the green component of the Color to G.
+		// Sets the blue component of the Color to B.
+		// Sets the alpha component of the Color to A.
+		Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
 
 		// Copy constructor.
 		Color(const Color& other) = default;
@@ -60,11 +60,12 @@ namespace jl
 		// Destructor.
 		~Color() = default;
 
-		// Sets the red component of the Color to r.
-		// Sets the green component of the Color to g.
-		// Sets the blue component of the Color to b.
-		// Sets the alpha component of the Color to a.
-		void set(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+		// Sets all the values of the Color at once.
+		// Sets the red component of the Color to R.
+		// Sets the green component of the Color to G.
+		// Sets the blue component of the Color to B.
+		// Sets the alpha component of the Color to A.
+		void set(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
 
 		// Returns a std::string representation of the Color.
 		std::string toString() const;

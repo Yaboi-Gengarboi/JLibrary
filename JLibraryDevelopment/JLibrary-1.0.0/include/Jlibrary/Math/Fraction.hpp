@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-27 by Justyn Durnford
+// Last modified on 2021-05-29 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
@@ -22,7 +22,7 @@ namespace jl
 		T numer;
 		T denom;
 
-		// \brief Default constructor.
+		// Default constructor.
 		// Sets the numerator of the Fraction to 0.
 		// Sets the denominator of the Fraction to 1.
 		Fraction()
@@ -31,25 +31,32 @@ namespace jl
 			denom = static_cast<T>(1);
 		}
 
-		// \brief 1-int constructor.
+		// 1-int constructor.
 		// Sets the numerator of the Fraction to Numer.
 		// Sets the denominator of the Fraction to 1.
-		// \param Numer: Numerator of the Fraction
 		Fraction(T Numer)
 		{
 			numer = Numer;
 			denom = static_cast<T>(1);
 		}
 
-		// \brief 2-int constructor.
+		// 2-int constructor.
 		// Sets the numerator of the Fraction to numer.
 		// Sets the denominator of the Fraction to denom.
-		// \param Numer: Numerator of the Fraction
-		// \param Denom: Denominator of the Fraction
 		Fraction(T Numer, T Denom)
 		{
 			numer = Numer;
 			denom = Denom;
+		}
+
+		// Constructs the Fraction from another type of Fraction.
+		// This constructor doesn't replace the copy constructor,
+		// it's called only when U != T.
+		template <std::integral U>
+		explicit Fraction(const Fraction<U>& other)
+		{
+			numer = static_cast<T>(other.numer);
+			denom = static_cast<T>(other.denom);
 		}
 
 		// Copy constructor.
@@ -58,10 +65,9 @@ namespace jl
 		// Move constructor.
 		Fraction(Fraction&& other) = default;
 
-		// \brief 1-int assignment operator.
+		// 1-int assignment operator.
 		// Sets the numerator of the Fraction to Numer.
 		// Sets the denominator of the Fraction to 1.
-		// \param Numer: Numerator of the Fraction
 		Fraction& operator = (T Numer)
 		{
 			numer = Numer;
@@ -78,11 +84,9 @@ namespace jl
 		// Destructor.
 		~Fraction() = default;
 
-		// \brief Sets all the values of the Fraction at once.
+		// Sets all the values of the Fraction at once.
 		// Sets the numerator of the Fraction to Numer.
 		// Sets the denominator of the Fraction to Denom.
-		// \param Numer: Numerator of the Fraction
-		// \param Denom: Denominator of the Fraction
 		void set(T Numer, T Denom)
 		{
 			numer = Numer;
@@ -90,7 +94,6 @@ namespace jl
 		}
 
 		// Raises both the numerator and denominator of the Fraction to the nth power.
-		// \param N: Power to raise the Fraction by
 		template <std::unsigned_integral U> void pow(U N)
 		{
 			if (N == 1)
@@ -321,8 +324,8 @@ jl::Fraction<T>& operator *= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
 }
 
 // Overloaf of binary operator *=
-template <std::integral T>
-jl::Fraction<T>& operator *= (jl::Fraction<T>& A, T value)
+template <std::integral T, std::integral U>
+jl::Fraction<T>& operator *= (jl::Fraction<T>& A, U value)
 {
 	A.numer *= value;
 	return A;
@@ -338,8 +341,8 @@ jl::Fraction<T>& operator /= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
 }
 
 // Overloaf of binary operator /=
-template <std::integral T>
-jl::Fraction<T>& operator /= (jl::Fraction<T>& A, T value)
+template <std::integral T, std::integral U>
+jl::Fraction<T>& operator /= (jl::Fraction<T>& A, U value)
 {
 	A.denom *= value;
 	return A;

@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-05-25 by Justyn Durnford
+// Last updated on 2021-05-29 by Justyn Durnford
 // Main file for testing.
 
 #include <JLibrary/Math.hpp>
@@ -57,13 +57,13 @@ void test_vector()
 	c *= 2.4f;
 	Vector2_32f d(6.7f, 21.9f);
 	Vector2_32f e = d - c;
-	Vector3_64f f(e.x, e.y, 5.0);
+	Vector3_32f f(e.x, e.y, 5.f);
 
 	// Expected Vector3: <1.18, 6.3, 5.0>
 	cout << f.toString() << endl;
 
-	f += Vector3_64f(3.49, 0.027, 1.365);
-	Vector3_64f g = f.unitVector();
+	f += Vector3_32f(3.49f, 0.027f, 1.365f);
+	Vector3_32f g = f.unitVector();
 
 	// Expected Vector3: <0.461601, 0.625385, 0.629141>
 	cout << g.toString() << endl;
@@ -127,13 +127,20 @@ void test_matrix()
 
 int main()
 {
-	string str("Hello, world!");
-	wstring wstr(str.size(), '0');
+	Matrix<int, 4, 4> M =
+	{
+		{  0,  1,  2,  3 },
+		{  4,  5,  6,  7 },
+		{  8,  9, 10, 11 },
+		{ 12, 13, 14, 15 }
+	};
 
-	for (size_t i(0ull); i < wstr.size(); ++i)
-		wstr[i] = static_cast<wchar_t>(str[i]);
-
-	wcout << wstr << endl;
+	cout << M(7) << endl;
+	cout << M(2) << endl;
+	cout << M(8) << endl;
+	cout << M(13) << endl;
+	cout << M(0) << endl;
+	cout << M(15) << endl;
 
 	return 0;
 }

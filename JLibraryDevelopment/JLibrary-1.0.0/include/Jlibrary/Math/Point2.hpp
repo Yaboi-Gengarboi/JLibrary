@@ -1,13 +1,12 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-26 by Justyn Durnford
+// Last modified on 2021-05-30 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
 
 #include <Jlibrary/Math/Arithmetic.hpp>
-
 #include <cmath>
 #include <string>
 
@@ -22,7 +21,7 @@ namespace jl
 		T x;
 		T y;
 
-		// \brief Default constructor.
+		// Default constructor.
 		// Sets the x component of the Point2 to 0.
 		// Sets the y component of the Point2 to 0.
 		Point2()
@@ -31,21 +30,18 @@ namespace jl
 			y = static_cast<T>(0);
 		}
 
-		// \brief Constructs the Point2 from the given coordinates.
+		// Constructs the Point2 from the given coordinates.
 		// Sets the x component of the Point2 to X.
 		// Sets the y component of the Point2 to Y.
-		// \param X: X coordinate
-		// \param Y: Y coordinate
 		Point2(T X, T Y)
 		{
 			x = X;
 			y = Y;
 		}
 
-		// \brief Constructs the Point2 from another type of Point2.
+		// Constructs the Point2 from another type of Point2.
 		// This constructor doesn't replace the copy constructor,
 		// it's called only when U != T.
-		// \param other: Point2 to copy from
 		template <std_arithmetic U>
 		explicit Point2(const Point2<U>& other)
 		{
@@ -65,11 +61,9 @@ namespace jl
 		// Move assignment operator.
 		Point2& operator = (Point2 && other) = default;
 
-		// \brief Sets all the values of the Point2 at once.
+		// Sets all the values of the Point2 at once.
 		// Sets the x component of the Point2 to X.
 		// Sets the y component of the Point2 to Y.
-		// \param X: X coordinate
-		// \param Y: Y coordinate
 		void set(T X, T Y)
 		{
 			x = X;
@@ -90,25 +84,20 @@ namespace jl
 	};
 
 	// Returns the distance between the two Point2s.
-	// \param A: First Point2
-	// \param B: Second Point2
 	template <std_arithmetic T>
-	inline double distance_between(const Point2<T>& A, const Point2<T>& B)
+	inline float distance_between(const Point2<T>& A, const Point2<T>& B)
 	{
-		return std::sqrt(std::pow(B.x - A.x, 2) + std::pow(B.y - A.y, 2));
+		return std::sqrt(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f));
 	}
 
 	// Define common types
-	typedef jl::Point2<char>               Point2_8;
+	typedef jl::Point2<char>               Point2_8i;
 	typedef jl::Point2<unsigned char>      Point2_8u;
-	typedef jl::Point2<short>              Point2_16;
+	typedef jl::Point2<short>              Point2_16i;
 	typedef jl::Point2<unsigned short>     Point2_16u;
-	typedef jl::Point2<int>                Point2_32;
+	typedef jl::Point2<int>                Point2_32i;
 	typedef jl::Point2<unsigned int>       Point2_32u;
-	typedef jl::Point2<long long>          Point2_64;
-	typedef jl::Point2<unsigned long long> Point2_64u;
 	typedef jl::Point2<float>              Point2_32f;
-	typedef jl::Point2<double>             Point2_64f;
 }
 
 // Overload of binary operator ==

@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-26 by Justyn Durnford
+// Last modified on 2021-05-29 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
@@ -20,7 +20,7 @@ namespace jl
         T y;
         T z;
 
-        // \brief Default constructor.
+        // Default constructor.
         // Sets the x component of the Vector3 to 0.
         // Sets the y component of the Vector3 to 0.
         // Sets the z component of the Vector3 to 0.
@@ -31,13 +31,10 @@ namespace jl
             z = static_cast<T>(0);
         }
 
-        // \brief Constructs the Vector3 from the given coordinates.
+        // Constructs the Vector3 from the given coordinates.
         // Sets the x component of the Vector3 to X.
         // Sets the y component of the Vector3 to Y.
         // Sets the z component of the Vector3 to Z.
-        // \param X: X coordinate
-        // \param Y: Y coordinate
-        // \param Z: Z coordinate
         Vector3(T X, T Y, T Z)
         {
             x = X;
@@ -45,11 +42,10 @@ namespace jl
             z = Z;
         }
 
-        // \brief Constructs the Vector3 from the given Point3.
+        // Constructs the Vector3 from the given Point3.
         // Sets the x component of the Vector3 to the x component of the given Point3.
 		// Sets the y component of the Vector3 to the y component of the given Point3.
         // Sets the z component of the Vector3 to the z component of the given Point3.
-        // \param P: Point3 to copy the coordinates from 
         Vector3(const Point3<T>& P)
         {
             x = P.x;
@@ -57,12 +53,10 @@ namespace jl
             z = P.z;
         }
 
-        // \brief Constructs the Vector3 as the displacement vector of the two Point3s.
+        // Constructs the Vector3 as the displacement vector of the two Point3s.
         // Sets the x component of the Vector3 to B.x - A.x.
         // Sets the y component of the Vector3 to B.y - A.y.
         // Sets the z component of the Vector3 to B.z - A.z.
-        // \param A: First Point3
-        // \param B: Second Point3
         Vector3(const Point3<T>& A, const Point3<T>& B)
         {
             x = B.x - A.x;
@@ -70,10 +64,9 @@ namespace jl
             z = B.z - A.z;
         }
 
-        // \brief Constructs the Vector3 from another type of Vector3.
+        // Constructs the Vector3 from another type of Vector3.
         // This constructor doesn't replace the copy constructor,
         // it's called only when U != T.
-        // \param other: Vector3 to copy from
         template <std_arithmetic U>
         explicit Vector3(const Vector3<U>& other)
         {
@@ -88,11 +81,10 @@ namespace jl
         // Move constructor.
         Vector3(Vector3&& other) = default;
 
-        // \brief Assigns the Vector3 from the given Point3.
+        // Assigns the Vector3 from the given Point3.
         // Sets the x component of the Vector3 to the x component of the given Point3.
         // Sets the y component of the Vector3 to the y component of the given Point3.
         // Sets the z component of the Vector3 to the z component of the given Point3.
-        // \param P: Point3 to copy the coordinates from 
         Vector3& operator = (const Point3<T>& P)
         {
             x = P.x;
@@ -108,13 +100,10 @@ namespace jl
         // Move assignment operator.
         Vector3& operator = (Vector3&& other) = default;
 
-        // \brief Sets all the values of the Vector3 at once.
+        // Sets all the values of the Vector3 at once.
         // Sets the x component of the Vector3 to X.
         // Sets the y component of the Vector3 to Y.
         // Sets the z component of the Vector3 to Z.
-        // \param X: X coordinate
-        // \param Y: Y coordinate
-        // \param Z: Z coordinate
         void set(T X, T Y, T Z)
         {
             x = X;
@@ -123,9 +112,9 @@ namespace jl
         }
 
         // Returns the magnitude of the Vector3.
-        inline double magnitude() const
+        inline float magnitude() const
         {
-            return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
+            return std::sqrt(std::powf(x, 2.f) + std::powf(y, 2.f) + std::powf(z, 2.f));
         }
 
         // Returns the endpoint of the Point3.
@@ -135,10 +124,10 @@ namespace jl
         }
 
         // Returns a unit vector in the direction of the Vector3.
-        Vector3<double> unitVector() const
+        Vector3<float> unitVector() const
         {
-            double m = magnitude();
-            return Vector3<double>(x / m, y / m, z / m);
+            float m = magnitude();
+            return Vector3<float>(x / m, y / m, z / m);
         }
 
         // Returns a std::string representation of the Vector3.
@@ -155,62 +144,49 @@ namespace jl
     };
 
     // Returns the dot product of the 2 given Vector3s.
-    // \param A: First Vector3
-    // \param B: Second Vector3
-    template <std_arithmetic T, std_arithmetic U>
-    inline double dot_product(const Vector3<T>& A, const Vector3<U>& B)
+    template <std_arithmetic T>
+    inline float dot_product(const Vector3<T>& A, const Vector3<T>& B)
     {
-        return static_cast<double>(A.x * B.x + A.y * B.y + A.z * B.z);
+        return A.x * B.x + A.y * B.y + A.z * B.z;
     }
 
     // Returns the cross product of the 2 given Vector3s.
-    // \param A: First Vector3
-    // \param B: Second Vector3
-    template <jl::std_arithmetic T, jl::std_arithmetic U, jl::std_arithmetic V>
-    inline jl::Vector3<T> cross_product(const Vector3<U>& A, const Vector3<V>& B)
+    template <jl::std_arithmetic T>
+    inline jl::Vector3<T> cross_product(const Vector3<T>& A, const Vector3<T>& B)
     {
         return Vector3<T>(A.y * B.z - A.z * B.y, -(A.x * B.z - A.z * B.x), A.x * B.y - A.y * B.x);
     }
 
     // Returns the scalar projection of A onto B.
-    // \param A: First Vector3
-    // \param B: Second Vector3
-    template <std_arithmetic T, std_arithmetic U>
-    inline double scalar_proj(const Vector3<T>& A, const Vector3<U>& B)
+    template <std_arithmetic T>
+    inline double scalar_proj(const Vector3<T>& A, const Vector3<T>& B)
     {
         return dot_product(A, B) / A.magnitude();
     }
 
     // Returns the vector projection of A onto B.
-    // \param A: First Vector3
-    // \param B: Second Vector3
-    template <std_arithmetic T, std_arithmetic U>
+    template <std_arithmetic T>
     Vector3<float> vector_proj(const Vector3<T>& A, const Vector3<T>& B)
     {
-        double d = (dot_product(A, B) / dot_product(A, A));
-        return Vector3<double>(A.x * d, A.y * d, A.z * d);
+        float f = (dot_product(A, B) / dot_product(A, A));
+        return Vector3<float>(A.x * f, A.y * f, A.z * f);
     }
 
     // Determines if the 2 given Vector3s are orthogonal to eachother.
-    // \param A: First Vector3
-    // \param B: Second Vector3
-    template <std_arithmetic T, std_arithmetic U>
-    inline bool are_normal(const Vector3<T>& A, const Vector3<U>& B)
+    template <std_arithmetic T>
+    inline bool are_normal(const Vector3<T>& A, const Vector3<T>& B)
     {
-        return dot_product(A, B) == 0.0;
+        return dot_product(A, B) == 0.f;
     }
 
     // Define common types
-    typedef jl::Vector3<char>               Vector3_8;
+    typedef jl::Vector3<char>               Vector3_8i;
     typedef jl::Vector3<unsigned char>      Vector3_8u;
-    typedef jl::Vector3<short>              Vector3_16;
+    typedef jl::Vector3<short>              Vector3_16i;
     typedef jl::Vector3<unsigned short>     Vector3_16u;
-    typedef jl::Vector3<int>                Vector3_32;
+    typedef jl::Vector3<int>                Vector3_32i;
     typedef jl::Vector3<unsigned int>       Vector3_32u;
-    typedef jl::Vector3<long long>          Vector3_64;
-    typedef jl::Vector3<unsigned long long> Vector3_64u;
     typedef jl::Vector3<float>              Vector3_32f;
-    typedef jl::Vector3<double>             Vector3_64f;
 }
 
 // Overload of unary operator -
@@ -237,13 +213,6 @@ jl::Vector3<T> operator - (const jl::Vector3<T>& A, const jl::Vector3<T>& B)
 // Overload of binary operator *
 template <jl::std_arithmetic T, jl::std_arithmetic U>
 jl::Vector3<T> operator * (const jl::Vector3<T>& A, U scalar)
-{
-    return jl::Vector3<T>(A.x * scalar, A.y * scalar, A.z * scalar);
-}
-
-// Overload of binary operator *
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector3<T> operator * (U scalar, const jl::Vector3<T>& A)
 {
     return jl::Vector3<T>(A.x * scalar, A.y * scalar, A.z * scalar);
 }
