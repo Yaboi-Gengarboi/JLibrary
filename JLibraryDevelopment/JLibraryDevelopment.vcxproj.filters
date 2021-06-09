@@ -92,5 +92,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
