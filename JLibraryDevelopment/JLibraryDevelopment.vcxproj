@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Color.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformable.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformation.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Gamepad.cpp" />

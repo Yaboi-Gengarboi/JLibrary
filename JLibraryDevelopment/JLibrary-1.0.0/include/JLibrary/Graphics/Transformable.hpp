@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Transformable.hpp
 // Created on 2021-06-03 by Justyn Durnford
-// Last modified on 2021-06-08 by Justyn Durnford
+// Last modified on 2021-06-09 by Justyn Durnford
 // Header file for the Transformable class.
 
 #pragma once
@@ -61,13 +61,13 @@ namespace jl
 		void setOrigin(const Point2_32f& origin);
 
 		// Sets the rotation angle of the transformable object to the given float.
-		void setRotation(float rotation);
+		void setRotation(float degree);
 
 		// Sets the scale factors of the transformable object to the given factors.
 		void setScale(float scale_x, float scale_y);
 
 		// Sets the scale factors of the transformable object to the given factors.
-		void setScale(const Vector2_32f& factors);
+		void setScale(const Vector2_32f& scale);
 
 		// Move the transformable object's position by the given offset.
 		void move(float offset_x, float offset_y);
@@ -76,7 +76,7 @@ namespace jl
 		void move(const Vector2_32f& offset);
 
 		// Rotates the transformable object by the given angle.
-		void rotate(float angle);
+		void rotate(float degree);
 
 		// Scales the transformable object by the given scales.
 		void scale(float scale_x, float scale_y);
