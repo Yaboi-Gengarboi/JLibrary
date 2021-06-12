@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-30 by Justyn Durnford
+// Last modified on 2021-06-11 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once

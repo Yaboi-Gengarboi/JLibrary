@@ -1,16 +1,20 @@
 // JLibraryDevelopment
 // Keyboard.hpp
 // Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-05-24 by Justyn Durnford
+// Last modified on 2021-06-11 by Justyn Durnford
 // Header file for the Keyboard class.
 
 #pragma once
 
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif // NOMINMAX
+
 namespace jl
 {
-	class Keyboard
+    class Keyboard
 	{
-		public:
+        public:
 
 		enum Key
 		{

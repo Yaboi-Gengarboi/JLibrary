@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Color.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-28 by Justyn Durnford
+// Last modified on 2021-06-11 by Justyn Durnford
 // Source file for the Color class.
 
 #include <JLibrary/Graphics/Color.hpp>
@@ -56,64 +56,103 @@ wstring jl::to_hex_wstr(unsigned char byte)
 
 Color::Color()
 {
-	red = 0u;
-	green = 0u;
-	blue = 0u;
-	alpha = 0u;
+	r = 0u;
+	g = 0u;
+	b = 0u;
+	a = 0u;
 }
 
 Color::Color(unsigned char R, unsigned char G, unsigned char B)
 {
-	red = R;
-	green = G;
-	blue = B;
-	alpha = MAX;
+	r = R;
+	g = G;
+	b = B;
+	a = MAX;
 }
 
 Color::Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A)
 {
-	red = R;
-	green = G;
-	blue = B;
-	alpha = A;
+	r = R;
+	g = G;
+	b = B;
+	a = A;
+}
+
+Color::Color(unsigned int color)
+{
+	r = (color & 0xff000000) >> 24;
+	g = (color & 0x00ff0000) >> 16;
+	b = (color & 0x0000ff00) >> 8;
+	a = (color & 0x000000ff) >> 0;
 }
 
 void Color::set(unsigned char R, unsigned char G, unsigned char B, unsigned char A)
 {
-	red = R;
-	green = G;
-	blue = B;
-	alpha = A;
+	r = R;
+	g = G;
+	b = B;
+	a = A;
+}
+
+void Color::set(unsigned int color)
+{
+	r = (color & 0xff000000) >> 24;
+	g = (color & 0x00ff0000) >> 16;
+	b = (color & 0x0000ff00) >> 8;
+	a = (color & 0x000000ff) >> 0;
+}
+
+unsigned int Color::toInt() const
+{
+	return (r << 24) | (g << 16) | (b << 8) | a;
 }
 
 string Color::toString() const
 {
 	string str;
-	str.reserve(8ull);
-	str += to_hex_str(red);
-	str += to_hex_str(green);
-	str += to_hex_str(blue);
-	str += to_hex_str(alpha);
+	str.reserve(8u);
+	str += to_hex_str(r);
+	str += to_hex_str(g);
+	str += to_hex_str(b);
+	str += to_hex_str(a);
 	return str;
 }
 
 wstring Color::toWString() const
 {
 	wstring wstr;
-	wstr.reserve(8ull);
-	wstr += to_hex_wstr(red);
-	wstr += to_hex_wstr(green);
-	wstr += to_hex_wstr(blue);
-	wstr += to_hex_wstr(alpha);
+	wstr.reserve(8u);
+	wstr += to_hex_wstr(r);
+	wstr += to_hex_wstr(g);
+	wstr += to_hex_wstr(b);
+	wstr += to_hex_wstr(a);
 	return wstr;
 }
 
 bool operator == (const Color& A, const Color& B)
 {
-	return (A.red == B.red) && (A.green == B.green) && (A.blue == B.blue) && (A.alpha == B.alpha);
+	return (A.r == B.r) && (A.g == B.g) && (A.b == B.b) && (A.a == B.a);
 }
 
 bool operator != (const Color& A, const Color& B)
 {
-	return (A.red != B.red) || (A.green != B.green) || (A.blue != B.blue) || (A.alpha != B.alpha);
+	return (A.r != B.r) || (A.g != B.g) || (A.b != B.b) || (A.a != B.a);
 }
+
+const Color Color::Black(0x00, 0x00, 0x00);
+const Color Color::White(0xff, 0xff, 0xff);
+const Color Color::Red(0xff, 0x00, 0x00);
+const Color Color::Green(0x00, 0xff, 0x00);
+const Color Color::Blue(0x00, 0x00, 0xff);
+const Color Color::Cyan(0x00, 0xff, 0xff);
+const Color Color::Magenta(0xff, 0x00, 0xff);
+const Color Color::Yellow(0xff, 0xff, 0x00);
+const Color Color::Silver(0xc0, 0xc0, 0xc0);
+const Color Color::Gray(0x80, 0x80, 0x80);
+const Color Color::Maroon(0x80, 0x00, 0x00);
+const Color Color::Olive(0x80, 0x80, 0x00);
+const Color Color::Dark_Green(0x00, 0x80, 0x00);
+const Color Color::Purple(0x80, 0x00, 0x80);
+const Color Color::Teal(0x00, 0x80, 0x80);
+const Color Color::Navy(0x00, 0x00, 0x80);
+const Color Color::Transparent(0x00, 0x00, 0x00, 0x00);

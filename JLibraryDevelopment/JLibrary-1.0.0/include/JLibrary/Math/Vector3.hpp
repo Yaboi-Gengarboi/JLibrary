@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-29 by Justyn Durnford
+// Last modified on 2021-06-11 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
@@ -12,7 +12,7 @@ namespace jl
 {
     // Utility template class for representing, manipulating
     // and computing with vectors in 3-dimensional space.
-    template <std_arithmetic T> class Vector3
+    template <std_arithmetic T> struct Vector3
     {
         public:
 

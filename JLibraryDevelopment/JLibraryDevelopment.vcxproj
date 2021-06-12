@@ -98,6 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,6 +116,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +134,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +152,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +166,8 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Color.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformable.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformation.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex2.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex3.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Gamepad.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Keyboard.cpp" />
@@ -175,6 +181,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformation.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex2.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Fraction.hpp" />

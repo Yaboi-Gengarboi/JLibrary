@@ -1,8 +1,8 @@
 // JLibraryDevelopment
 // Rectangle.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-30 by Justyn Durnford
-// Header file for the Rectangle template class.
+// Last modified on 2021-06-11 by Justyn Durnford
+// Header file for the Rectangle template class
 
 #pragma once
 

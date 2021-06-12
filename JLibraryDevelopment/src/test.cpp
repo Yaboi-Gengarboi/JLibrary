@@ -1,18 +1,26 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-05-29 by Justyn Durnford
+// Last updated on 2021-06-11 by Justyn Durnford
 // Main file for testing.
 
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif // NOMINMAX
+
+#include <JLibrary/Graphics.hpp>
 #include <JLibrary/Math.hpp>
 #include <JLibrary/System.hpp>
 using namespace jl;
 
+#include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <limits>
 #include <string>
 using namespace std;
+
 
 template <std_arithmetic T, size_t R, size_t C>
 void print(const Matrix<T, R, C>& M)
@@ -123,11 +131,8 @@ void test_matrix()
 
 	// Expected determinant: 2.3125f
 	cout << determinant(E) << endl;
-}
 
-int main()
-{
-	Matrix<int, 4, 4> M =
+	Matrix<int, 4, 4> F =
 	{
 		{  0,  1,  2,  3 },
 		{  4,  5,  6,  7 },
@@ -135,12 +140,25 @@ int main()
 		{ 12, 13, 14, 15 }
 	};
 
-	cout << M(7) << endl;
-	cout << M(2) << endl;
-	cout << M(8) << endl;
-	cout << M(13) << endl;
-	cout << M(0) << endl;
-	cout << M(15) << endl;
+	print(F);
+
+	cout << F(7) << endl;
+	cout << F(2) << endl;
+	cout << F(8) << endl;
+	cout << F(13) << endl;
+	cout << F(0) << endl;
+	cout << F(15) << endl;
+}
+
+int main()
+{
+	Color A(0xff0000ff);
+	Color B(0x00ff00ff);
+	Color C(A.r + B.r, A.g + B.g, A.b + B.b, 0xff);
+
+	cout << A.toString() << endl;
+	cout << B.toString() << endl;
+	cout << C.toString() << endl;
 
 	return 0;
 }

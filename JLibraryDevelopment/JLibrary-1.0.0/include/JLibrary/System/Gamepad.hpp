@@ -1,12 +1,16 @@
 // JLibraryDevelopment
 // Gamepad.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-28 by Justyn Durnford
-// Header file for the Joystick and Gamepad classes.
+// Last modified on 2021-06-11 by Justyn Durnford
+// Header file for the Joystick class and Gamepad class.
 
 #pragma once
 #pragma comment(lib,"XInput.lib")
 #pragma comment(lib,"Xinput9_1_0.lib")
+
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif // NOMINMAX
 
 #include <JLibrary/Math/Point2.hpp>
 #include <bitset>

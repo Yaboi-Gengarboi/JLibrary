@@ -1,12 +1,12 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-05-30 by Justyn Durnford
+// Last modified on 2021-06-11 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
 
-#include <Jlibrary/Math/Arithmetic.hpp>
+#include <JLibrary/Math/Arithmetic.hpp>
 #include <cmath>
 #include <string>
 
@@ -59,7 +59,7 @@ namespace jl
 		Point2& operator = (const Point2& other) = default;
 
 		// Move assignment operator.
-		Point2& operator = (Point2 && other) = default;
+		Point2& operator = (Point2&& other) = default;
 
 		// Sets all the values of the Point2 at once.
 		// Sets the x component of the Point2 to X.
@@ -90,7 +90,7 @@ namespace jl
 		return std::sqrt(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f));
 	}
 
-	// Define common types
+	// Define common types.
 	typedef jl::Point2<char>               Point2_8i;
 	typedef jl::Point2<unsigned char>      Point2_8u;
 	typedef jl::Point2<short>              Point2_16i;

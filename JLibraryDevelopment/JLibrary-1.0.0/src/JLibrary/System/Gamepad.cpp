@@ -1,8 +1,8 @@
 // JLibraryDevelopment
 // Gamepad.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-05-28 by Justyn Durnford
-// Source file for the Joystick and Gamepad classes.
+// Last modified on 2021-06-11 by Justyn Durnford
+// Source file for the Joystick class and Gamepad class.
 
 #include <JLibrary/System/Gamepad.hpp>
 using namespace std;
