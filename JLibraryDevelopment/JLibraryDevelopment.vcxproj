@@ -168,6 +168,7 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformation.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex2.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex3.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Math\Angle.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Gamepad.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Keyboard.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex2.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Angle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Fraction.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Matrix.hpp" />

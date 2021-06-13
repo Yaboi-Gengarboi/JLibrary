@@ -1,11 +1,12 @@
 // JLibraryDevelopment
 // Vector2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Vector2 template class.
 
 #pragma once
 
+#include <JLibrary/Math/Angle.hpp>
 #include <JLibrary/Math/Point2.hpp>
 
 namespace jl
@@ -35,6 +36,15 @@ namespace jl
         {
             x = X;
             y = Y;
+        }
+
+        // Constructs the Vector2 from the given magnitude and Angle.
+        // Sets the x component of the Vector2 to F * std::cos(angle).
+        // Sets the y component of the Vector2 to F * std::sin(angle).
+        Vector2(float F, const Angle& angle)
+        {
+            x = F * std::cos(angle.degree);
+            y = F * std::sin(angle.degree);
         }
 
         // Constructs the Vector2 from the given Point2.

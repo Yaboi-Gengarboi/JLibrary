@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-06-11 by Justyn Durnford
+// Last updated on 2021-06-12 by Justyn Durnford
 // Main file for testing.
 
 #ifndef NOMINMAX
@@ -13,6 +13,7 @@
 #include <JLibrary/System.hpp>
 using namespace jl;
 
+#include <cmath>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -152,13 +153,14 @@ void test_matrix()
 
 int main()
 {
-	Color A(0xff0000ff);
-	Color B(0x00ff00ff);
-	Color C(A.r + B.r, A.g + B.g, A.b + B.b, 0xff);
+	Angle A;
 
-	cout << A.toString() << endl;
-	cout << B.toString() << endl;
-	cout << C.toString() << endl;
+	while (A != 720.f)
+	{
+		cout << A.toString() << ": ";
+		cout << cosine(A) << endl;
+		A.degree += 5.f;
+	}
 
 	return 0;
 }
