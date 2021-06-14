@@ -1,14 +1,14 @@
 // JLibraryDevelopment
 // Circle.hpp
 // Created on 2021-05-26 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Circle template class.
 
 #pragma once
 
 #include <JLibrary/Math/Point2.hpp>
 
-namespace jl
+namespace jlib
 {
 	// 
 	template <std_arithmetic T> class Circle
@@ -130,15 +130,15 @@ namespace jl
 }
 
 // Overload of binary operator == 
-template <jl::std_arithmetic T>
-bool operator == (const jl::Circle<T>& A, const jl::Circle<T>& B)
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Circle<T>& A, const jlib::Circle<T>& B)
 {
 	return (A.center == B.center) && (A.radius == B.radius);
 }
 
 // Overload of binary operator != 
-template <jl::std_arithmetic T>
-bool operator != (const jl::Circle<T>& A, const jl::Circle<T>& B)
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Circle<T>& A, const jlib::Circle<T>& B)
 {
 	return (A.center != B.center) || (A.radius != B.radius);
 }

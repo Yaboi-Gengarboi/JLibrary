@@ -1,14 +1,14 @@
 // JLibraryDevelopment
 // Color.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
 
 #include <string>
 
-namespace jl
+namespace jlib
 {
 	class Color
 	{
@@ -108,7 +108,7 @@ namespace jl
 }
 
 // Overload of binary operator ==
-bool operator == (const jl::Color& A, const jl::Color& B);
+bool operator == (const jlib::Color& A, const jlib::Color& B);
 
 // Overload of binary operator !=
-bool operator != (const jl::Color& A, const jl::Color& B);
+bool operator != (const jlib::Color& A, const jlib::Color& B);

@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <concepts>
 #include <string>
 
-namespace jl
+namespace jlib
 {
 	// This class provides an "exact" representation of the quotient of two 
 	// integers by storing them and allowing fraction arithmetic with them. 
@@ -177,90 +177,90 @@ namespace jl
 
 // Overload of unary operator -
 template <std::integral T>
-jl::Fraction<T> operator - (const jl::Fraction<T>& A)
+jlib::Fraction<T> operator - (const jlib::Fraction<T>& A)
 {
-	return jl::Fraction<T>(-A.numer, -A.denom);
+	return jlib::Fraction<T>(-A.numer, -A.denom);
 }
 
 // Overload of binary operator +
 template <std::integral T>
-jl::Fraction<T> operator + (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T> operator + (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	if (A.denom == B.denom)
-		return jl::Fraction<T>(A.numer + B.numer, A.denom);
+		return jlib::Fraction<T>(A.numer + B.numer, A.denom);
 	// else if (A.denom != B.denom)
-	return jl::Fraction<T>(A.numer * B.denom + B.numer * A.denom, A.denom * B.denom);
+	return jlib::Fraction<T>(A.numer * B.denom + B.numer * A.denom, A.denom * B.denom);
 }
 
 // Overload of binary operator +
 template <std::integral T>
-jl::Fraction<T> operator + (const jl::Fraction<T>& A, T value)
+jlib::Fraction<T> operator + (const jlib::Fraction<T>& A, T value)
 {
-	return A + jl::Fraction<T>(value);
+	return A + jlib::Fraction<T>(value);
 }
 
 // Overload of binary operator -
 template <std::integral T>
-jl::Fraction<T> operator - (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T> operator - (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	if (A.denom == B.denom)
-		return jl::Fraction<T>(A.numer - B.numer, A.denom);
+		return jlib::Fraction<T>(A.numer - B.numer, A.denom);
 	// else if (A.denom != B.denom)
-	return jl::Fraction<T>(A.numer * B.denom - B.numer * A.denom, A.denom * B.denom);
+	return jlib::Fraction<T>(A.numer * B.denom - B.numer * A.denom, A.denom * B.denom);
 }
 
 // Overload of binary operator -
 template <std::integral T>
-jl::Fraction<T> operator - (const jl::Fraction<T>& A, T value)
+jlib::Fraction<T> operator - (const jlib::Fraction<T>& A, T value)
 {
-	return A - jl::Fraction<T>(value);
+	return A - jlib::Fraction<T>(value);
 }
 
 // Overload of binary operator *
 template <std::integral T>
-jl::Fraction<T> operator * (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T> operator * (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
-	return jl::Fraction<T>(A.numer * B.numer, A.denom * B.denom);
+	return jlib::Fraction<T>(A.numer * B.numer, A.denom * B.denom);
 }
 
 // Overload of binary operator *
 template <std::integral T>
-jl::Fraction<T> operator * (const jl::Fraction<T>& A, T value)
+jlib::Fraction<T> operator * (const jlib::Fraction<T>& A, T value)
 {
-	return jl::Fraction<T>(A.numer * value, A.denom * value);
+	return jlib::Fraction<T>(A.numer * value, A.denom * value);
 }
 
 // Overload of binary operator *
 template <std::integral T>
-jl::Fraction<T> operator * (T value, const jl::Fraction<T>& A)
+jlib::Fraction<T> operator * (T value, const jlib::Fraction<T>& A)
 {
 	return value * A.evaluate();
 }
 
 // Overload of binary operator /
 template <std::integral T>
-jl::Fraction<T> operator / (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T> operator / (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
-	return jl::Fraction<T>(A.numer * B.denom, A.denom * B.numer);
+	return jlib::Fraction<T>(A.numer * B.denom, A.denom * B.numer);
 }
 
 // Overload of binary operator /
 template <std::integral T>
-jl::Fraction<T> operator / (const jl::Fraction<T>& A, T value)
+jlib::Fraction<T> operator / (const jlib::Fraction<T>& A, T value)
 {
-	return jl::Fraction<T>(A.numer, A.denom * value);
+	return jlib::Fraction<T>(A.numer, A.denom * value);
 }
 
 // Overload of binary operator /
 template <std::integral T>
-jl::Fraction<T> operator / (T value, const jl::Fraction<T>& A)
+jlib::Fraction<T> operator / (T value, const jlib::Fraction<T>& A)
 {
 	return value / A.evaluate();
 }
 
 // Overload of binary operator +=
 template <std::integral T>
-jl::Fraction<T>& operator += (jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T>& operator += (jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	if (A.denom == B.denom)
 	{
@@ -280,15 +280,15 @@ jl::Fraction<T>& operator += (jl::Fraction<T>& A, const jl::Fraction<T>& B)
 
 // Overload of binary operator +=
 template <std::integral T>
-jl::Fraction<T>& operator += (jl::Fraction<T>& A, T value)
+jlib::Fraction<T>& operator += (jlib::Fraction<T>& A, T value)
 {
-	A += jl::Fraction<T>(value);
+	A += jlib::Fraction<T>(value);
 	return A;
 }
 
 // Overload of binary operator -=
 template <std::integral T>
-jl::Fraction<T>& operator -= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T>& operator -= (jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	if (A.denom == B.denom)
 	{
@@ -308,15 +308,15 @@ jl::Fraction<T>& operator -= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
 
 // Overload of binary operator -=
 template <std::integral T>
-jl::Fraction<T>& operator -= (jl::Fraction<T>& A, T value)
+jlib::Fraction<T>& operator -= (jlib::Fraction<T>& A, T value)
 {
-	A -= jl::Fraction<T>(value);
+	A -= jlib::Fraction<T>(value);
 	return A;
 }
 
 // Overloaf of binary operator *=
 template <std::integral T>
-jl::Fraction<T>& operator *= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T>& operator *= (jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	A.numer *= B.numer;
 	A.denom *= B.denom;
@@ -325,7 +325,7 @@ jl::Fraction<T>& operator *= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
 
 // Overloaf of binary operator *=
 template <std::integral T, std::integral U>
-jl::Fraction<T>& operator *= (jl::Fraction<T>& A, U value)
+jlib::Fraction<T>& operator *= (jlib::Fraction<T>& A, U value)
 {
 	A.numer *= value;
 	return A;
@@ -333,7 +333,7 @@ jl::Fraction<T>& operator *= (jl::Fraction<T>& A, U value)
 
 // Overloaf of binary operator /=
 template <std::integral T>
-jl::Fraction<T>& operator /= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
+jlib::Fraction<T>& operator /= (jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	A.numer *= B.denom;
 	A.denom *= B.numer;
@@ -342,7 +342,7 @@ jl::Fraction<T>& operator /= (jl::Fraction<T>& A, const jl::Fraction<T>& B)
 
 // Overloaf of binary operator /=
 template <std::integral T, std::integral U>
-jl::Fraction<T>& operator /= (jl::Fraction<T>& A, U value)
+jlib::Fraction<T>& operator /= (jlib::Fraction<T>& A, U value)
 {
 	A.denom *= value;
 	return A;
@@ -350,91 +350,91 @@ jl::Fraction<T>& operator /= (jl::Fraction<T>& A, U value)
 
 // Overload of binary operator ==
 template <std::integral T>
-bool operator == (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+bool operator == (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	return A.evaluate() == B.evaluate();
 }
 
 // Overload of binary operator ==
 template <std::integral T>
-bool operator == (const jl::Fraction<T>& A, float B)
+bool operator == (const jlib::Fraction<T>& A, float B)
 {
 	return A.evaluate() == B;
 }
 
 // Overload of binary operator !=
 template <std::integral T>
-bool operator != (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+bool operator != (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	return A.evaluate() != B.evaluate();
 }
 
 // Overload of binary operator !=
 template <std::integral T>
-bool operator != (const jl::Fraction<T>& A, float B)
+bool operator != (const jlib::Fraction<T>& A, float B)
 {
 	return A.evaluate() != B;
 }
 
 // Overload of binary operator >
 template <std::integral T>
-bool operator > (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+bool operator > (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	return A.evaluate() > B.evaluate();
 }
 
 // Overload of binary operator >
 template <std::integral T>
-bool operator > (const jl::Fraction<T>& A, float B)
+bool operator > (const jlib::Fraction<T>& A, float B)
 {
 	return A.evaluate() > B;
 }
 
 // Overload of binary operator >=
 template <std::integral T>
-bool operator >= (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+bool operator >= (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	return A.evaluate() >= B.evaluate();
 }
 
 // Overload of binary operator >=
 template <std::integral T>
-bool operator >= (const jl::Fraction<T>& A, float B)
+bool operator >= (const jlib::Fraction<T>& A, float B)
 {
 	return A.evaluate() >= B;
 }
 
 // Overload of binary operator <
 template <std::integral T>
-bool operator < (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+bool operator < (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	return A.evaluate() < B.evaluate();
 }
 
 // Overload of binary operator <
 template <std::integral T>
-bool operator < (const jl::Fraction<T>& A, float B)
+bool operator < (const jlib::Fraction<T>& A, float B)
 {
 	return A.evaluate() < B;
 }
 
 // Overload of binary operator <=
 template <std::integral T>
-bool operator <= (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+bool operator <= (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	return A.evaluate() <= B.evaluate();
 }
 
 // Overload of binary operator <=
 template <std::integral T>
-bool operator <= (const jl::Fraction<T>& A, float B)
+bool operator <= (const jlib::Fraction<T>& A, float B)
 {
 	return A.evaluate() <= B;
 }
 
 // Overload of binary operator <=>
 template <std::integral T>
-std::strong_ordering operator <=> (const jl::Fraction<T>& A, const jl::Fraction<T>& B)
+std::strong_ordering operator <=> (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
 {
 	if (A.evaluate() < B.evaluate())
 		return std::strong_ordering::less;
@@ -447,7 +447,7 @@ std::strong_ordering operator <=> (const jl::Fraction<T>& A, const jl::Fraction<
 
 // Overload of binary operator <=>
 template <std::integral T>
-std::strong_ordering operator <=> (const jl::Fraction<T>& A, float B)
+std::strong_ordering operator <=> (const jlib::Fraction<T>& A, float B)
 {
 	if (A.evaluate() < B)
 		return std::strong_ordering::less;

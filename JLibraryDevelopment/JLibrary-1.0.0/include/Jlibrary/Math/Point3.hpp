@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-12 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
@@ -14,7 +14,7 @@
 #include <cmath>
 #include <string>
 
-namespace jl
+namespace jlib
 {
 	// Utility template class for representing, manipulating
 	// and computing with points in 3-dimensional space.
@@ -102,25 +102,25 @@ namespace jl
 	}
 
 	// Define common types
-	typedef jl::Point3<char>               Point3_8i;
-	typedef jl::Point3<unsigned char>      Point3_8u;
-	typedef jl::Point3<short>              Point3_16i;
-	typedef jl::Point3<unsigned short>     Point3_16u;
-	typedef jl::Point3<int>                Point3_32i;
-	typedef jl::Point3<unsigned int>       Point3_32u;
-	typedef jl::Point3<float>              Point3_32f;
+	typedef jlib::Point3<char>               Point3_8i;
+	typedef jlib::Point3<unsigned char>      Point3_8u;
+	typedef jlib::Point3<short>              Point3_16i;
+	typedef jlib::Point3<unsigned short>     Point3_16u;
+	typedef jlib::Point3<int>                Point3_32i;
+	typedef jlib::Point3<unsigned int>       Point3_32u;
+	typedef jlib::Point3<float>              Point3_32f;
 }
 
 // Overload of binary operator ==
-template <jl::std_arithmetic T>
-bool operator == (const jl::Point3<T>& A, const jl::Point3<T>& B)
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Point3<T>& A, const jlib::Point3<T>& B)
 {
 	return (A.x == B.x) && (A.y == B.y) && (A.z == B.z);
 }
 
 // Overload of binary operator !=
-template <jl::std_arithmetic T>
-bool operator != (const jl::Point3<T>& A, const jl::Point3<T>& B)
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Point3<T>& A, const jlib::Point3<T>& B)
 {
 	return (A.x != B.x) || (A.y != B.y) || (A.z != B.z);
 }

@@ -1,14 +1,14 @@
 // JLibraryDevelopment
 // Transformable.hpp
 // Created on 2021-06-03 by Justyn Durnford
-// Last modified on 2021-06-09 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Transformable class.
 
 #pragma once
 
 #include <JLibrary/Graphics/Transformation.hpp>
 
-namespace jl
+namespace jlib
 {
 	//
 	class Transformable

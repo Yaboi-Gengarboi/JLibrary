@@ -1,13 +1,13 @@
 // JLibraryDevelopment
 // Transformable.cpp
 // Created on 2021-06-09 by Justyn Durnford
-// Last modified on 2021-06-09 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Transformable class.
 
 #include <JLibrary/Graphics/Transformable.hpp>
 #include <cmath>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
 Transformable::Transformable()
 {

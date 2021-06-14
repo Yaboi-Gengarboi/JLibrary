@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Matrix.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-03 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Matrix template class.
 
 #pragma once
@@ -14,7 +14,7 @@
 #include <initializer_list>
 #include <stdexcept>
 
-namespace jl
+namespace jlib
 {
 	// Utility template class for representing and          
 	// computing matrices of varying sizes.
@@ -346,10 +346,10 @@ namespace jl
 }
 
 // Overload of unary operator -
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C> operator - (const jl::Matrix<T, R, C>& A)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C> operator - (const jlib::Matrix<T, R, C>& A)
 {
-	jl::Matrix<T, R, C> M;
+	jlib::Matrix<T, R, C> M;
 
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -361,10 +361,10 @@ jl::Matrix<T, R, C> operator - (const jl::Matrix<T, R, C>& A)
 }
 
 // Overload of binary operator +
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C> operator + (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C> operator + (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
-	jl::Matrix<T, R, C> M;
+	jlib::Matrix<T, R, C> M;
 
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -376,10 +376,10 @@ jl::Matrix<T, R, C> operator + (const jl::Matrix<T, R, C>& A, const jl::Matrix<T
 }
 
 // Overload of binary operator -
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C> operator - (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C> operator - (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
-	jl::Matrix<T, C, R> M;
+	jlib::Matrix<T, C, R> M;
 
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -391,10 +391,10 @@ jl::Matrix<T, R, C> operator - (const jl::Matrix<T, R, C>& A, const jl::Matrix<T
 }
 
 // Overload of binary operator *
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C> operator * (const jl::Matrix<T, R, C>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C> operator * (const jlib::Matrix<T, R, C>& A, U scalar)
 {
-	jl::Matrix<T, C, R> M;
+	jlib::Matrix<T, C, R> M;
 	
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -406,10 +406,10 @@ jl::Matrix<T, R, C> operator * (const jl::Matrix<T, R, C>& A, U scalar)
 }
 
 // Overload of binary operator *
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C> operator * (U scalar, const jl::Matrix<T, R, C>& A)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C> operator * (U scalar, const jlib::Matrix<T, R, C>& A)
 {
-	jl::Matrix<T, C, R> M;
+	jlib::Matrix<T, C, R> M;
 	
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -421,10 +421,10 @@ jl::Matrix<T, R, C> operator * (U scalar, const jl::Matrix<T, R, C>& A)
 }
 
 // Overload of binary operator /
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C> operator / (const jl::Matrix<T, R, C>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C> operator / (const jlib::Matrix<T, R, C>& A, U scalar)
 {
-	jl::Matrix<T, C, R> M;
+	jlib::Matrix<T, C, R> M;
 	
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -436,8 +436,8 @@ jl::Matrix<T, R, C> operator / (const jl::Matrix<T, R, C>& A, U scalar)
 }
 
 // Overload of binary operator +=
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C>& operator += (jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C>& operator += (jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -449,8 +449,8 @@ jl::Matrix<T, R, C>& operator += (jl::Matrix<T, R, C>& A, const jl::Matrix<T, R,
 }
 
 // Overload of binary operator -=
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C>& operator -= (jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C>& operator -= (jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -462,8 +462,8 @@ jl::Matrix<T, R, C>& operator -= (jl::Matrix<T, R, C>& A, const jl::Matrix<T, R,
 }
 
 // Overload of binary operator *=
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C>& operator *= (jl::Matrix<T, R, C>& M, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C>& operator *= (jlib::Matrix<T, R, C>& M, U scalar)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -475,8 +475,8 @@ jl::Matrix<T, R, C>& operator *= (jl::Matrix<T, R, C>& M, U scalar)
 }
 
 // Overload of binary operator /=
-template <jl::std_arithmetic T, jl::std_arithmetic U, std::size_t R, std::size_t C>
-jl::Matrix<T, R, C>& operator /= (jl::Matrix<T, R, C>& M, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
+jlib::Matrix<T, R, C>& operator /= (jlib::Matrix<T, R, C>& M, U scalar)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -488,8 +488,8 @@ jl::Matrix<T, R, C>& operator /= (jl::Matrix<T, R, C>& M, U scalar)
 }
 
 // Overload of binary operator == 
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-bool operator == (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+bool operator == (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{
@@ -504,8 +504,8 @@ bool operator == (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
 }
 
 // Overload of binary operator == 
-template <jl::std_arithmetic T, std::size_t R, std::size_t C>
-bool operator != (const jl::Matrix<T, R, C>& A, const jl::Matrix<T, R, C>& B)
+template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+bool operator != (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
 	for (std::size_t row_i(0u); row_i < R; ++row_i)
 	{

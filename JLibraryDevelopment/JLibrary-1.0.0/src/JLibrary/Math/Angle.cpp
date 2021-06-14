@@ -6,7 +6,7 @@
 
 #include <JLibrary/Math/Angle.hpp>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
 const float Angle::PI = 3.141592654f;
 
@@ -36,17 +36,17 @@ wstring Angle::toWString() const
 	return to_wstring(degree) + static_cast<wchar_t>('\370');
 }
 
-float jl::to_radians(float degree)
+float jlib::to_radians(float degree)
 {
 	return degree * Angle::PI / 180.f;
 }
 
-float jl::to_degrees(float radian)
+float jlib::to_degrees(float radian)
 {
 	return radian * 180.f / Angle::PI;
 }
 
-Angle& jl::least(Angle& A, Angle& B)
+Angle& jlib::least(Angle& A, Angle& B)
 {
 	if (A.degree < B.degree)
 		return A;
@@ -55,7 +55,7 @@ Angle& jl::least(Angle& A, Angle& B)
 	return A;
 }
 
-Angle& jl::greatest(Angle& A, Angle& B)
+Angle& jlib::greatest(Angle& A, Angle& B)
 {
 	if (A.degree < B.degree)
 		return B;
@@ -64,7 +64,7 @@ Angle& jl::greatest(Angle& A, Angle& B)
 	return A;
 }
 
-float jl::sine(const Angle& angle)
+float jlib::sine(const Angle& angle)
 {
 	if (fmodf(angle.degree, 180.f) == 0.f)
 		return 0.f;
@@ -72,7 +72,7 @@ float jl::sine(const Angle& angle)
 	return sinf(to_radians(angle.degree));
 }
 
-float jl::cosine(const Angle& angle)
+float jlib::cosine(const Angle& angle)
 {
 	if ((fmodf(angle.degree, 90.f) == 0.f) && ((fmodf(angle.degree, 180.f) != 0.f)))
 		return 0.f;
@@ -80,7 +80,7 @@ float jl::cosine(const Angle& angle)
 	return cosf(to_radians(angle.degree));
 }
 
-float jl::tangent(const Angle& angle)
+float jlib::tangent(const Angle& angle)
 {
 	return tanf(to_radians(angle.degree));
 }

@@ -1,14 +1,14 @@
 // JLibraryDevelopment
 // Clock.hpp
 // Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-05-24 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Clock class.
 
 #pragma once
 
 #include <chrono>
 
-namespace jl
+namespace jlib
 {
 	// 
 	class Clock

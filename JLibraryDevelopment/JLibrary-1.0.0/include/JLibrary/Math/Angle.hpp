@@ -14,7 +14,7 @@
 #include <compare>
 #include <string>
 
-namespace jl
+namespace jlib
 {
 	// 
 	class Angle
@@ -81,82 +81,82 @@ namespace jl
 }
 
 // Overload of unary operator -
-jl::Angle operator - (const jl::Angle& A);
+jlib::Angle operator - (const jlib::Angle& A);
 
 // Overload of binary operator +
-jl::Angle operator + (const jl::Angle& A, const jl::Angle& B);
+jlib::Angle operator + (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator +
-jl::Angle operator + (const jl::Angle& A, float degree);
+jlib::Angle operator + (const jlib::Angle& A, float degree);
 
 // Overload of binary operator -
-jl::Angle operator - (const jl::Angle& A, const jl::Angle& B);
+jlib::Angle operator - (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator -
-jl::Angle operator - (const jl::Angle& A, float degree);
+jlib::Angle operator - (const jlib::Angle& A, float degree);
 
 // Overload of binary operator *
-jl::Angle operator * (const jl::Angle& A, float scalar);
+jlib::Angle operator * (const jlib::Angle& A, float scalar);
 
 // Overload of binary operator /
-jl::Angle operator / (const jl::Angle& A, float scalar);
+jlib::Angle operator / (const jlib::Angle& A, float scalar);
 
 // Overload of binary operator +=
-jl::Angle& operator += (jl::Angle& A, const jl::Angle& B);
+jlib::Angle& operator += (jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator +=
-jl::Angle& operator += (jl::Angle& A, float degree);
+jlib::Angle& operator += (jlib::Angle& A, float degree);
 
 // Overload of binary operator -=
-jl::Angle& operator -= (jl::Angle& A, const jl::Angle& B);
+jlib::Angle& operator -= (jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator -=
-jl::Angle& operator -= (jl::Angle& A, float degree);
+jlib::Angle& operator -= (jlib::Angle& A, float degree);
 
 // Overload of binary operator *=
-jl::Angle& operator *= (jl::Angle& A, float scalar);
+jlib::Angle& operator *= (jlib::Angle& A, float scalar);
 
 // Overload of binary operator /=
-jl::Angle& operator /= (jl::Angle& A, float scalar);
+jlib::Angle& operator /= (jlib::Angle& A, float scalar);
 
 // Overload of binary operator ==
-bool operator == (const jl::Angle& A, const jl::Angle& B);
+bool operator == (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator ==
-bool operator == (const jl::Angle& A, float degree);
+bool operator == (const jlib::Angle& A, float degree);
 
 // Overload of binary operator !=
-bool operator != (const jl::Angle& A, const jl::Angle& B);
+bool operator != (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator !=
-bool operator != (const jl::Angle& A, float degree);
+bool operator != (const jlib::Angle& A, float degree);
 
 // Overload of binary operator <
-bool operator < (const jl::Angle& A, const jl::Angle& B);
+bool operator < (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator <
-bool operator < (const jl::Angle& A, float degree);
+bool operator < (const jlib::Angle& A, float degree);
 
 // Overload of binary operator <=
-bool operator <= (const jl::Angle& A, const jl::Angle& B);
+bool operator <= (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator <=
-bool operator <= (const jl::Angle& A, float degree);
+bool operator <= (const jlib::Angle& A, float degree);
 
 // Overload of binary operator >
-bool operator > (const jl::Angle& A, const jl::Angle& B);
+bool operator > (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator >
-bool operator > (const jl::Angle& A, float degree);
+bool operator > (const jlib::Angle& A, float degree);
 
 // Overload of binary operator >=
-bool operator >= (const jl::Angle& A, const jl::Angle& B);
+bool operator >= (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator >=
-bool operator >= (const jl::Angle& A, float degree);
+bool operator >= (const jlib::Angle& A, float degree);
 
 // Overload of binary operator <=>
-std::strong_ordering operator <=> (const jl::Angle& A, const jl::Angle& B);
+std::strong_ordering operator <=> (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator <=>
-std::strong_ordering operator <=> (const jl::Angle& A, float degree);
+std::strong_ordering operator <=> (const jlib::Angle& A, float degree);

@@ -1,14 +1,14 @@
 // JLibraryDevelopment
 // Color.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Color class.
 
 #include <JLibrary/Graphics/Color.hpp>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
-string jl::to_hex_str(unsigned char byte)
+string jlib::to_hex_str(unsigned char byte)
 {
 	string hexstr("00");
 
@@ -31,7 +31,7 @@ string jl::to_hex_str(unsigned char byte)
 	return hexstr;
 }
 
-wstring jl::to_hex_wstr(unsigned char byte)
+wstring jlib::to_hex_wstr(unsigned char byte)
 {
 	wstring hexstr(L"00");
 

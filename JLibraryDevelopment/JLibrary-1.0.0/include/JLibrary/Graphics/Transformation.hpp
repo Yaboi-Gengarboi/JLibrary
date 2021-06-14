@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Transformation.hpp
 // Created on 2021-05-28 by Justyn Durnford
-// Last modified on 2021-06-03 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Transformation class.
 
 #pragma once
@@ -10,7 +10,7 @@
 #include <JLibrary/Math/Vector2.hpp>
 #include <JLibrary/Graphics/Rectangle.hpp>
 
-namespace jl
+namespace jlib
 {
 	class Transformation
 	{
@@ -96,19 +96,19 @@ namespace jl
 }
 
 // Overload of binary operator *
-jl::Transformation operator * (const jl::Transformation& A, const jl::Transformation& B);
+jlib::Transformation operator * (const jlib::Transformation& A, const jlib::Transformation& B);
 
 // Overload of binary operator *=
-jl::Transformation& operator *= (jl::Transformation& A, const jl::Transformation& B);
+jlib::Transformation& operator *= (jlib::Transformation& A, const jlib::Transformation& B);
 
 // Overload of binary operator *
-jl::Point2_32f operator * (const jl::Transformation& T, const jl::Point2_32f& P);
+jlib::Point2_32f operator * (const jlib::Transformation& T, const jlib::Point2_32f& P);
 
 // Overload of binary operator *
-jl::Vector2_32f operator * (const jl::Transformation& T, const jl::Vector2_32f& V);
+jlib::Vector2_32f operator * (const jlib::Transformation& T, const jlib::Vector2_32f& V);
 
 // Overload of binary operator ==
-bool operator == (const jl::Transformation& A, const jl::Transformation& B);
+bool operator == (const jlib::Transformation& A, const jlib::Transformation& B);
 
 // Overload of binary operator !=
-bool operator != (const jl::Transformation& A, const jl::Transformation& B);
+bool operator != (const jlib::Transformation& A, const jlib::Transformation& B);

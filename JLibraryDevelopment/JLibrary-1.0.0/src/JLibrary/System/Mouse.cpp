@@ -1,13 +1,13 @@
 // JLibraryDevelopment
 // Mouse.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Mouse class.
 
 #include <JLibrary/System/Mouse.hpp>
 #include <windows.h>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
 bool Mouse::isButtonPressed(Button button)
 {

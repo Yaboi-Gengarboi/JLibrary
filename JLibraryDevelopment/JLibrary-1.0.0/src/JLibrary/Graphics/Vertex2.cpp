@@ -1,12 +1,12 @@
 // JLibraryDevelopment
 // Vertex2.cpp
 // Created on 2021-06-11 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Vertex2 class.
 
 #include <JLibrary/Graphics/Vertex2.hpp>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
 Vertex2::Vertex2() 
 	: color(0xffffffff) {}
@@ -23,7 +23,7 @@ Vertex2::Vertex2(const Point2_32f& pos, const Color& col)
 Vertex2::Vertex2(const Point2_32f& pos, const Color& col, const Point2_32f& coord)
 	: position(pos), color(col), textureCoordinates(coord) {}
 
-inline float jl::distance_between(const Vertex2& A, const Vertex2& B)
+inline float jlib::distance_between(const Vertex2& A, const Vertex2& B)
 {
 	return distance_between(A.position, B.position);
 }

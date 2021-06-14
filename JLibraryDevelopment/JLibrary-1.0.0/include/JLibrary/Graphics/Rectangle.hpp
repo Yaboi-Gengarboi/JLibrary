@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Rectangle.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Rectangle template class
 
 #pragma once
@@ -9,7 +9,7 @@
 #include <JLibrary/Math/Point2.hpp>
 #include <algorithm>
 
-namespace jl
+namespace jlib
 {
 	// 
 	template <std_arithmetic T> class Rectangle
@@ -175,15 +175,15 @@ namespace jl
 }
 
 // Overload of binary operator ==
-template <jl::std_arithmetic T>
-bool operator == (const jl::Rectangle<T>& A, const jl::Rectangle<T>& B)
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Rectangle<T>& A, const jlib::Rectangle<T>& B)
 {
 	return (A.vertex == B.vertex) && (A.width == B.width) && (A.height == B.height);
 }
 
 // Overload of binary operator !=
-template <jl::std_arithmetic T>
-bool operator != (const jl::Rectangle<T>& A, const jl::Rectangle<T>& B)
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Rectangle<T>& A, const jlib::Rectangle<T>& B)
 {
 	return (A.vertex != B.vertex) || (A.width != B.width) || (A.height != B.height);
 }

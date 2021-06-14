@@ -1,14 +1,14 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
 
 #include <JLibrary/Math/Point3.hpp>
 
-namespace jl
+namespace jlib
 {
     // Utility template class for representing, manipulating
     // and computing with vectors in 3-dimensional space.
@@ -151,8 +151,8 @@ namespace jl
     }
 
     // Returns the cross product of the 2 given Vector3s.
-    template <jl::std_arithmetic T>
-    inline jl::Vector3<T> cross_product(const Vector3<T>& A, const Vector3<T>& B)
+    template <jlib::std_arithmetic T>
+    inline jlib::Vector3<T> cross_product(const Vector3<T>& A, const Vector3<T>& B)
     {
         return Vector3<T>(A.y * B.z - A.z * B.y, -(A.x * B.z - A.z * B.x), A.x * B.y - A.y * B.x);
     }
@@ -180,53 +180,53 @@ namespace jl
     }
 
     // Define common types
-    typedef jl::Vector3<char>               Vector3_8i;
-    typedef jl::Vector3<unsigned char>      Vector3_8u;
-    typedef jl::Vector3<short>              Vector3_16i;
-    typedef jl::Vector3<unsigned short>     Vector3_16u;
-    typedef jl::Vector3<int>                Vector3_32i;
-    typedef jl::Vector3<unsigned int>       Vector3_32u;
-    typedef jl::Vector3<float>              Vector3_32f;
+    typedef jlib::Vector3<char>               Vector3_8i;
+    typedef jlib::Vector3<unsigned char>      Vector3_8u;
+    typedef jlib::Vector3<short>              Vector3_16i;
+    typedef jlib::Vector3<unsigned short>     Vector3_16u;
+    typedef jlib::Vector3<int>                Vector3_32i;
+    typedef jlib::Vector3<unsigned int>       Vector3_32u;
+    typedef jlib::Vector3<float>              Vector3_32f;
 }
 
 // Overload of unary operator -
-template <jl::std_arithmetic T>
-jl::Vector3<T> operator - (const jl::Vector3<T>& A)
+template <jlib::std_arithmetic T>
+jlib::Vector3<T> operator - (const jlib::Vector3<T>& A)
 {
-    return jl::Vector3<T>(-A.x, -A.y, -A.z);
+    return jlib::Vector3<T>(-A.x, -A.y, -A.z);
 }
 
 // Overload of binary operator +
-template <jl::std_arithmetic T>
-jl::Vector3<T> operator + (const jl::Vector3<T>& A, const jl::Vector3<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector3<T> operator + (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
 {
-    return jl::Vector3<T>(A.x + B.x, A.y + B.y, A.z + B.z);
+    return jlib::Vector3<T>(A.x + B.x, A.y + B.y, A.z + B.z);
 }
 
 // Overload of binary operator -
-template <jl::std_arithmetic T>
-jl::Vector3<T> operator - (const jl::Vector3<T>& A, const jl::Vector3<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector3<T> operator - (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
 {
-    return jl::Vector3<T>(A.x - B.x, A.y - B.y, A.z - B.z);
+    return jlib::Vector3<T>(A.x - B.x, A.y - B.y, A.z - B.z);
 }
 
 // Overload of binary operator *
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector3<T> operator * (const jl::Vector3<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector3<T> operator * (const jlib::Vector3<T>& A, U scalar)
 {
-    return jl::Vector3<T>(A.x * scalar, A.y * scalar, A.z * scalar);
+    return jlib::Vector3<T>(A.x * scalar, A.y * scalar, A.z * scalar);
 }
 
 // Overload of binary operator /
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector3<T> operator / (const jl::Vector3<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector3<T> operator / (const jlib::Vector3<T>& A, U scalar)
 {
-    return jl::Vector3<T>(A.x / scalar, A.y / scalar, A.z / scalar);
+    return jlib::Vector3<T>(A.x / scalar, A.y / scalar, A.z / scalar);
 }
 
 // Overload of binary operator +=
-template <jl::std_arithmetic T>
-jl::Vector3<T>& operator += (jl::Vector3<T>& A, const jl::Vector3<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector3<T>& operator += (jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
 {
     A.x += B.x;
     A.y += B.y;
@@ -236,8 +236,8 @@ jl::Vector3<T>& operator += (jl::Vector3<T>& A, const jl::Vector3<T>& B)
 }
 
 // Overload of binary operator -=
-template <jl::std_arithmetic T>
-jl::Vector3<T>& operator -= (jl::Vector3<T>& A, const jl::Vector3<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector3<T>& operator -= (jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
 {
     A.x -= B.x;
     A.y -= B.y;
@@ -247,8 +247,8 @@ jl::Vector3<T>& operator -= (jl::Vector3<T>& A, const jl::Vector3<T>& B)
 }
 
 // Overload of binary operator *=
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector3<T>& operator *= (jl::Vector3<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector3<T>& operator *= (jlib::Vector3<T>& A, U scalar)
 {
     A.x *= scalar;
     A.y *= scalar;
@@ -258,8 +258,8 @@ jl::Vector3<T>& operator *= (jl::Vector3<T>& A, U scalar)
 }
 
 // Overload of binary operator /=
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector3<T>& operator /= (jl::Vector3<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector3<T>& operator /= (jlib::Vector3<T>& A, U scalar)
 {
     A.x /= scalar;
     A.y /= scalar;
@@ -269,15 +269,15 @@ jl::Vector3<T>& operator /= (jl::Vector3<T>& A, U scalar)
 }
 
 // Overload of binary operator ==
-template <jl::std_arithmetic T>
-bool operator == (const jl::Vector3<T>& A, const jl::Vector3<T>& B)
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
 {
     return (A.x == B.x) && (A.y == B.y) && (A.z == B.z);
 }
 
 // Overload of binary operator !=
-template <jl::std_arithmetic T>
-bool operator != (const jl::Vector3<T>& A, const jl::Vector3<T>& B)
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
 {
     return (A.x != B.x) || (A.y != B.y) || (A.z != B.z);
 }

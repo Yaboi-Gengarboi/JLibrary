@@ -1,12 +1,12 @@
 // JLibraryDevelopment
 // Vertex3.cpp
 // Created on 2021-06-11 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Vertex3 class.
 
 #include <JLibrary/Graphics/Vertex3.hpp>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
 Vertex3::Vertex3()
 	: color(0xffffffff) {}
@@ -23,7 +23,7 @@ Vertex3::Vertex3(const Point3_32f& pos, const Color& col)
 Vertex3::Vertex3(const Point3_32f& pos, const Color& col, const Point3_32f& coord)
 	: position(pos), color(col), textureCoordinates(coord) {}
 
-inline float jl::distance_between(const Vertex3& A, const Vertex3& B)
+inline float jlib::distance_between(const Vertex3& A, const Vertex3& B)
 {
 	return distance_between(A.position, B.position);
 }

@@ -1,12 +1,12 @@
 // JLibraryDevelopment
 // Transformation.cpp
 // Created on 2021-05-29 by Justyn Durnford
-// Last modified on 2021-06-03 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Transformation class.
 
 #include <JLibrary/Graphics/Transformation.hpp>
 using namespace std;
-using namespace jl;
+using namespace jlib;
 
 Transformation::Transformation()
 {

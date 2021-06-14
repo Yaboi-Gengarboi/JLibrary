@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vertex3.hpp
 // Created on 2021-06-11 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Vertex3 class.
 
 #pragma once
@@ -9,7 +9,7 @@
 #include <JLibrary/Graphics/Color.hpp>
 #include <JLibrary/Math/Point3.hpp>
 
-namespace jl
+namespace jlib
 {
 	// A specialized 3-dimensional float point with color 
 	// and texture coordinates.
@@ -65,7 +65,7 @@ namespace jl
 }
 
 // Overload of binary operator ==
-bool operator == (const jl::Vertex3& A, const jl::Vertex3& B);
+bool operator == (const jlib::Vertex3& A, const jlib::Vertex3& B);
 
 // Overload of binary operator !=
-bool operator != (const jl::Vertex3& A, const jl::Vertex3& B);
+bool operator != (const jlib::Vertex3& A, const jlib::Vertex3& B);

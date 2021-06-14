@@ -9,7 +9,7 @@
 #include <JLibrary/Math/Angle.hpp>
 #include <JLibrary/Math/Point2.hpp>
 
-namespace jl
+namespace jlib
 {
     // Utility template class for representing, manipulating
     // and computing with vectors in 2-dimensional space.
@@ -169,53 +169,53 @@ namespace jl
     }
 
     // Define common types
-    typedef jl::Vector2<char>               Vector2_8i;
-    typedef jl::Vector2<unsigned char>      Vector2_8u;
-    typedef jl::Vector2<short>              Vector2_16i;
-    typedef jl::Vector2<unsigned short>     Vector2_16u;
-    typedef jl::Vector2<int>                Vector2_32i;
-    typedef jl::Vector2<unsigned int>       Vector2_32u;
-    typedef jl::Vector2<float>              Vector2_32f;
+    typedef jlib::Vector2<char>               Vector2_8i;
+    typedef jlib::Vector2<unsigned char>      Vector2_8u;
+    typedef jlib::Vector2<short>              Vector2_16i;
+    typedef jlib::Vector2<unsigned short>     Vector2_16u;
+    typedef jlib::Vector2<int>                Vector2_32i;
+    typedef jlib::Vector2<unsigned int>       Vector2_32u;
+    typedef jlib::Vector2<float>              Vector2_32f;
 }
 
 // Overload of unary operator -
-template <jl::std_arithmetic T>
-jl::Vector2<T> operator - (const jl::Vector2<T>& A)
+template <jlib::std_arithmetic T>
+jlib::Vector2<T> operator - (const jlib::Vector2<T>& A)
 {
-    return jl::Vector2<T>(-A.x, -A.y);
+    return jlib::Vector2<T>(-A.x, -A.y);
 }
 
 // Overload of binary operator +
-template <jl::std_arithmetic T>
-jl::Vector2<T> operator + (const jl::Vector2<T>& A, const jl::Vector2<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector2<T> operator + (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
 {
-    return jl::Vector2<T>(A.x + B.x, A.y + B.y);
+    return jlib::Vector2<T>(A.x + B.x, A.y + B.y);
 }
 
 // Overload of binary operator -
-template <jl::std_arithmetic T>
-jl::Vector2<T> operator - (const jl::Vector2<T>& A, const jl::Vector2<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector2<T> operator - (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
 {
-    return jl::Vector2<T>(A.x - B.x, A.y - B.y);
+    return jlib::Vector2<T>(A.x - B.x, A.y - B.y);
 }
 
 // Overload of binary operator *
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector2<T> operator * (const jl::Vector2<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector2<T> operator * (const jlib::Vector2<T>& A, U scalar)
 {
-    return jl::Vector2<T>(A.x * scalar, A.y * scalar);
+    return jlib::Vector2<T>(A.x * scalar, A.y * scalar);
 }
 
 // Overload of binary operator /
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector2<T> operator / (const jl::Vector2<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector2<T> operator / (const jlib::Vector2<T>& A, U scalar)
 {
-    return jl::Vector2<T>(A.x / scalar, A.y / scalar);
+    return jlib::Vector2<T>(A.x / scalar, A.y / scalar);
 }
 
 // Overload of binary operator +=
-template <jl::std_arithmetic T>
-jl::Vector2<T>& operator += (jl::Vector2<T>& A, const jl::Vector2<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector2<T>& operator += (jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
 {
     A.x += B.x;
     A.y += B.y;
@@ -224,8 +224,8 @@ jl::Vector2<T>& operator += (jl::Vector2<T>& A, const jl::Vector2<T>& B)
 }
 
 // Overload of binary operator -=
-template <jl::std_arithmetic T>
-jl::Vector2<T>& operator -= (jl::Vector2<T>& A, const jl::Vector2<T>& B)
+template <jlib::std_arithmetic T>
+jlib::Vector2<T>& operator -= (jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
 {
     A.x -= B.x;
     A.y -= B.y;
@@ -234,8 +234,8 @@ jl::Vector2<T>& operator -= (jl::Vector2<T>& A, const jl::Vector2<T>& B)
 }
 
 // Overload of binary operator *=
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector2<T>& operator *= (jl::Vector2<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector2<T>& operator *= (jlib::Vector2<T>& A, U scalar)
 {
     A.x *= scalar;
     A.y *= scalar;
@@ -244,8 +244,8 @@ jl::Vector2<T>& operator *= (jl::Vector2<T>& A, U scalar)
 }
 
 // Overload of binary operator /=
-template <jl::std_arithmetic T, jl::std_arithmetic U>
-jl::Vector2<T>& operator /= (jl::Vector2<T>& A, U scalar)
+template <jlib::std_arithmetic T, jlib::std_arithmetic U>
+jlib::Vector2<T>& operator /= (jlib::Vector2<T>& A, U scalar)
 {
     A.x /= scalar;
     A.y /= scalar;
@@ -254,15 +254,15 @@ jl::Vector2<T>& operator /= (jl::Vector2<T>& A, U scalar)
 }
 
 // Overload of binary operator ==
-template <jl::std_arithmetic T>
-bool operator == (const jl::Vector2<T>& A, const jl::Vector2<T>& B)
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
 {
     return (A.x == B.x) && (A.y == B.y);
 }
 
 // Overload of binary operator !=
-template <jl::std_arithmetic T>
-bool operator != (const jl::Vector2<T>& A, const jl::Vector2<T>& B)
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
 {
     return (A.x != B.x) || (A.y != B.y);
 }

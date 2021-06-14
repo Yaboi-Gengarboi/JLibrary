@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Vertex2.hpp
 // Created on 2021-06-09 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Header file for the Vertex2 class.
 
 #pragma once
@@ -9,7 +9,7 @@
 #include <JLibrary/Graphics/Color.hpp>
 #include <JLibrary/Math/Point2.hpp>
 
-namespace jl
+namespace jlib
 {
 	// A specialized 2-dimensional float point with color 
 	// and texture coordinates.
@@ -65,7 +65,7 @@ namespace jl
 }
 
 // Overload of binary operator ==
-bool operator == (const jl::Vertex2& A, const jl::Vertex2& B);
+bool operator == (const jlib::Vertex2& A, const jlib::Vertex2& B);
 
 // Overload of binary operator !=
-bool operator != (const jl::Vertex2& A, const jl::Vertex2& B);
+bool operator != (const jlib::Vertex2& A, const jlib::Vertex2& B);

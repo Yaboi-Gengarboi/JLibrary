@@ -1,13 +1,13 @@
 // JLibraryDevelopment
 // Clock.cpp
 // Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-05-24 by Justyn Durnford
+// Last modified on 2021-06-13 by Justyn Durnford
 // Source file for the Clock class.
 
 #include <JLibrary/System/Clock.hpp>
 using namespace std;
 using namespace chrono;
-using namespace jl;
+using namespace jlib;
 
 Clock::Clock()
 {
