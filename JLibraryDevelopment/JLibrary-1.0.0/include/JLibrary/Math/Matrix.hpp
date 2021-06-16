@@ -1,10 +1,14 @@
 // JLibraryDevelopment
 // Matrix.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-14 by Justyn Durnford
 // Header file for the Matrix template class.
 
 #pragma once
+
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif // NOMINMAX
 
 #include <Jlibrary/Math/Arithmetic.hpp>
 #include <algorithm>
@@ -68,7 +72,7 @@ namespace jlib
 		Matrix() = default;
 
 		// 1-parameter constructor.
-		// Sets every value of the Matrix to value.
+		// Sets every element of the Matrix to value.
 		Matrix(T value)
 		{
 			for (std::size_t row_i(0u); row_i < R; ++row_i)
@@ -98,8 +102,8 @@ namespace jlib
 		{
 			for (std::size_t row_i(0u); row_i < R; ++row_i)
 			{
-				for (std::size_t c(0u); c < C; ++c)
-					data_[row_i][c] = static_cast<T>(other.data_[row_i][c]);
+				for (std::size_t col_i(0u); col_i < C; ++col_i)
+					data_[row_i][col_i] = static_cast<T>(other.data_[row_i][col_i]);
 			}
 		}
 
