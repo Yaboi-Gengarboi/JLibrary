@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // BlendMode.cpp
 // Created on 2021-06-13 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-14 by Justyn Durnford
 // Source file for the BlendMode struct.
 
 #include <JLibrary/Graphics/BlendMode.hpp>
@@ -66,7 +66,7 @@ bool operator == (const BlendMode& A, const BlendMode& B)
 		   (A.alphaEquation == B.alphaEquation);
 }
 
-bool operator == (const BlendMode& A, const BlendMode& B)
+bool operator != (const BlendMode& A, const BlendMode& B)
 {
 	return (A.colorSourceFactor != B.colorSourceFactor) ||
 		   (A.colorDestinationFactor != B.colorDestinationFactor) ||
