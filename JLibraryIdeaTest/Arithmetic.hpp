@@ -1,14 +1,14 @@
-// JLibraryDevelopment
+// JLibraryIdeaTest
 // Arithmetic.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-11 by Justyn Durnford
+// Last modified on 2021-06-14 by Justyn Durnford
 // Header file defining the std_arithmetic concept.
 
 #pragma once
 
 #include <concepts>
 
-namespace jl
+namespace jlib
 {
 	#ifndef JLIBRARY_STD_ARITHMETIC
 	#define JLIBRARY_STD_ARITHMETIC

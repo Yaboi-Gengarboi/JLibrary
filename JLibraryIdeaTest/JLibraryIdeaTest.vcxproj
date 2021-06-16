@@ -147,8 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Point2.ixx" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Point2.ixx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arithmetic.hpp" />
