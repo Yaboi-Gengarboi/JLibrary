@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -112,7 +112,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -130,7 +130,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -148,7 +148,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -171,6 +171,7 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex3.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Math\Angle.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Gamepad.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Keyboard.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mouse.cpp" />
@@ -178,7 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\BlendMode.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Circle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp" />
@@ -197,7 +197,10 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\FileInputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Gamepad.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\InputStream.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Integer.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Keyboard.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mouse.hpp" />
   </ItemGroup>

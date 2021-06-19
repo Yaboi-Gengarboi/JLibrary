@@ -51,6 +51,9 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\BlendMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp">
@@ -119,7 +122,13 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Angle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\BlendMode.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Integer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\InputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\FileInputStream.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

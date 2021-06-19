@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-06-13 by Justyn Durnford
+// Last updated on 2021-06-15 by Justyn Durnford
 // Main file for testing.
 
 #ifndef NOMINMAX
@@ -22,6 +22,26 @@ using namespace jlib;
 #include <string>
 using namespace std;
 
+void println()
+{
+	cout << endl;
+}
+
+template <std_arithmetic T>
+void println(T value)
+{
+	cout << value << endl;
+}
+
+void println(const string& str)
+{
+	cout << str << endl;
+}
+
+void println(const wstring& wstr)
+{
+	wcout << wstr << endl;
+}
 
 template <std_arithmetic T, size_t R, size_t C>
 void print(const Matrix<T, R, C>& M)
@@ -153,14 +173,22 @@ void test_matrix()
 
 int main()
 {
-	Angle A;
+	cout << INT8_MIN << " || " << I8_MIN << endl;
+	cout << INT8_MAX << " || " << I8_MAX << endl;
 
-	while (A != 720.f)
-	{
-		cout << A.toString() << ": ";
-		cout << cosine(A) << endl;
-		A.degree += 5.f;
-	}
+	cout << INT16_MIN << " || " << I16_MIN << endl;
+	cout << INT16_MAX << " || " << I16_MAX << endl;
+
+	cout << INT32_MIN << " || " << I32_MIN << endl;
+	cout << INT32_MAX << " || " << I32_MAX << endl;
+
+	cout << INT64_MIN << " || " << I64_MIN << endl;
+	cout << INT64_MAX << " || " << I64_MAX << endl;
+	
+	cout << UINT8_MAX << " || " << U8_MAX << endl;
+	cout << UINT16_MAX << " || " << U16_MAX << endl;
+	cout << UINT32_MAX << " || " << U32_MAX << endl;
+	cout << UINT64_MAX << " || " << U64_MAX << endl;
 
 	return 0;
 }
