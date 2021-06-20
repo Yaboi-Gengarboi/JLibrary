@@ -181,6 +181,7 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Circle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Glyph.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformation.hpp" />

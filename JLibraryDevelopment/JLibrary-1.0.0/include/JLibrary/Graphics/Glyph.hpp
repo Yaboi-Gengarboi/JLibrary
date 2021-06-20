@@ -25,29 +25,26 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// Clock.cpp
-// Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
-// Source file for the Clock class.
+// Glyph.hpp
+// Created on 2021-06-19 by Justyn Durnford
+// Last modified on 2021-06-19 by Justyn Durnford
+// Header file for the Glyph struct.
 
-#include <JLibrary/System/Clock.hpp>
-using namespace std;
-using namespace chrono;
-using namespace jlib;
+#pragma once
 
-Clock::Clock()
+#include <JLibrary/Graphics/Rectangle.hpp>
+
+namespace jlib
 {
-	start_ = system_clock::now();
-}
+	struct Glyph
+	{
+		float advanceOffset;
+		int lDelta;
+		int rDelta;
+		Rectangle<float> bounds;
+		Rectangle<int> textureRect;
 
-duration<double> Clock::timeElapsed() const
-{
-	return system_clock::now() - start_;
-}
-
-duration<double> Clock::restart()
-{
-	duration<double> time_elapsed(system_clock::now() - start_);
-	start_ = system_clock::now();
-	return time_elapsed;
+		// Default constructor.
+		Glyph() : advanceOffset(0.f), lDelta(0), rDelta(0) {}
+	};
 }
