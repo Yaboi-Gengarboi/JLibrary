@@ -48,10 +48,10 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Math\Angle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\BlendMode.cpp">
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp">
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\MemoryInputStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -129,6 +129,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\FileInputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\MemoryInputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

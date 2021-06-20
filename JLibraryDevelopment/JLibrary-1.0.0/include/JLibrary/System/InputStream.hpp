@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // InputStream.hpp
 // Created on 2021-06-18 by Justyn Durnford
-// Last modified on 2021-06-18 by Justyn Durnford
+// Last modified on 2021-06-19 by Justyn Durnford
 // Header file for the abstract InputStream class.
 
 #pragma once
@@ -45,7 +45,7 @@ namespace jlib
 
         // Reads data from the stream.
         // Returns the number of bytes actually read, or -1 on error.
-        virtual i64 read(void* data, i64 size) = 0;
+        virtual i64 read(void* data, i64 byteCount) = 0;
 
         // Changes the current reading position.
         // Returns the position actually sought to, or -1 on error.

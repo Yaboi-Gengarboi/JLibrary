@@ -27,10 +27,11 @@
 // JLibraryDevelopment
 // FileInputStream.cpp
 // Created on 2021-06-18 by Justyn Durnford
-// Last modified on 2021-06-18 by Justyn Durnford
+// Last modified on 2021-06-19 by Justyn Durnford
 // Source file for the FileInputStream class.
 
 #include <JLibrary/System/FileInputStream.hpp>
+#include <cstdio>
 using namespace std;
 using namespace jlib;
 
@@ -53,10 +54,10 @@ bool FileInputStream::open(const string& filename)
 	return file_ != nullptr;
 }
 
-i64 FileInputStream::read(void* data, i64 size)
+i64 FileInputStream::read(void* data, i64 byteCount)
 {
 	if (file_ != nullptr)
-		return fread(data, 1, static_cast<size_t>(size), file_);
+		return fread(data, 1, static_cast<size_t>(byteCount), file_);
 	return -1;
 }
 
