@@ -173,8 +173,10 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Gamepad.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Keyboard.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Lock.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\MemoryInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mouse.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mutex.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -203,8 +205,11 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\InputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Integer.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Keyboard.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Lock.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\MemoryInputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mouse.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mutex.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
