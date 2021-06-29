@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
@@ -36,7 +36,7 @@ namespace jlib
 			z = static_cast<T>(0);
 		}
 
-		// Constructs the Point2 from the given coordinates.
+		// Constructs the Point3 from the given coordinates.
 		// Sets the x component of the Point3 to X.
 		// Sets the y component of the Point3 to Y.
 		// Sets the z component of the Point3 to Z.
@@ -88,28 +88,43 @@ namespace jlib
 		}
 
 		// Returns a std::wstring representation of the Point3.
-		inline std::wstring toWString() const
+		inline std::wstring toWideString() const
 		{
 			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L')';
 		}
 	};
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Returns the distance between the two Point3s.
 	template <std_arithmetic T>
 	inline float distance_between(const Point3<T>& A, const Point3<T>& B)
 	{
-		return std::sqrt(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f) + std::powf(B.z - A.z, 2.f));
+		return std::sqrtf(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f) + std::powf(B.z - A.z, 2.f));
 	}
 
-	// Define common types
-	typedef jlib::Point3<char>               Point3_8i;
-	typedef jlib::Point3<unsigned char>      Point3_8u;
-	typedef jlib::Point3<short>              Point3_16i;
-	typedef jlib::Point3<unsigned short>     Point3_16u;
-	typedef jlib::Point3<int>                Point3_32i;
-	typedef jlib::Point3<unsigned int>       Point3_32u;
-	typedef jlib::Point3<float>              Point3_32f;
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Shorthand for jlib::Point3<char>.
+	typedef jlib::Point3<char>                   Point3c;
+	// Shorthand for jlib::Point3<unsigned char>.
+	typedef jlib::Point3<unsigned char>          Point3uc;
+	// Shorthand for jlib::Point3<short>
+	typedef jlib::Point3<short>                  Point3s;
+	// Shorthand for jlib::Point3<unsigned short>
+	typedef jlib::Point3<unsigned short>         Point3us;
+	// Shorthand for jlib::Point3<int>
+	typedef jlib::Point3<int>                    Point3i;
+	// Shorthand for jlib::Point3<unsigned int>
+	typedef jlib::Point3<unsigned int>           Point3ui;
+	// Shorthand for jlib::Point3<float>
+	typedef jlib::Point3<float>                  Point3f;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of binary operator ==
 template <jlib::std_arithmetic T>

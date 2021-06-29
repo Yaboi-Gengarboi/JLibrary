@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Vector2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Vector2 template class.
 
 #pragma once
@@ -69,17 +69,8 @@ namespace jlib
         // Sets the y component of the Vector2 to F * std::sin(angle).
         Vector2(float F, const Angle& angle)
         {
-            x = F * std::cos(angle.degree);
-            y = F * std::sin(angle.degree);
-        }
-
-        // Constructs the Vector2 from the given Point2.
-        // Sets the x component of the Vector2 to the x component of the given Point2.
-		// Sets the y component of the Vector2 to the y component of the given Point2.
-        Vector2(const Point2<T>& P)
-        {
-            x = P.x;
-            y = P.y;
+            x = F * std::cosf(angle.degree);
+            y = F * std::sinf(angle.degree);
         }
 
         // Constructs the Vector2 as the displacement vector of the two Point2s.
@@ -136,7 +127,7 @@ namespace jlib
         // Returns the magnitude of the Vector2.
         inline float magnitude() const
         {
-            return std::sqrt(std::powf(x, 2.f) + std::powf(y, 2.f));
+            return std::sqrtf(std::powf(x, 2.f) + std::powf(y, 2.f));
         }
 
         // Returns the endpoint of the Point2.
@@ -159,11 +150,14 @@ namespace jlib
         }
 
         // Returns a std::wstring representation of the Vector2.
-        inline std::wstring toWString() const
+        inline std::wstring toWideString() const
         {
             return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L'>';
         }
     };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Returns the dot product of the 2 given Vector2s.
     template <std_arithmetic T>
@@ -194,15 +188,27 @@ namespace jlib
         return dot_product(A, B) == 0.f;
     }
 
-    // Define common types
-    typedef jlib::Vector2<char>               Vector2_8i;
-    typedef jlib::Vector2<unsigned char>      Vector2_8u;
-    typedef jlib::Vector2<short>              Vector2_16i;
-    typedef jlib::Vector2<unsigned short>     Vector2_16u;
-    typedef jlib::Vector2<int>                Vector2_32i;
-    typedef jlib::Vector2<unsigned int>       Vector2_32u;
-    typedef jlib::Vector2<float>              Vector2_32f;
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+    // Shorthand for jlib::Vector2<char>
+    typedef jlib::Vector2<char>                  Vector2c;
+    // Shorthand for jlib::Vector2<unsigned char>
+    typedef jlib::Vector2<unsigned char>         Vector2uc;
+    // Shorthand for jlib::Vector2<short>
+    typedef jlib::Vector2<short>                 Vector2s;
+    // Shorthand for jlib::Vector2<unsigned short>
+    typedef jlib::Vector2<unsigned short>        Vector2us;
+    // Shorthand for jlib::Vector2<int>
+    typedef jlib::Vector2<int>                   Vector2i;
+    // Shorthand for jlib::Vector2<unsigned int>
+    typedef jlib::Vector2<unsigned int>          Vector2ui;
+    // Shorthand for jlib::Vector2<float>
+    typedef jlib::Vector2<float>                 Vector2f;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of unary operator -
 template <jlib::std_arithmetic T>

@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Color.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Image.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformable.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformation.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex2.cpp" />
@@ -180,11 +181,12 @@
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image.h" />
+    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image_write.h" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Circle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Glyph.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Image.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformation.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex2.hpp" />
@@ -192,13 +194,17 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Angle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Circle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Fraction.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Matrix.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point2.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Point3.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Rectangle.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Table.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector2.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Vector3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Array.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\FileInputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Gamepad.hpp" />
@@ -210,7 +216,6 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mouse.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mutex.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

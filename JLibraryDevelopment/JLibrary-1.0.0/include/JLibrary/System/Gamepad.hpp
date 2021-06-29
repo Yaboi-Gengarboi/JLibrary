@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Gamepad.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Joystick class and Gamepad class.
 
 #pragma once
@@ -12,7 +12,7 @@
 #define NOMINMAX
 #endif // NOMINMAX
 
-#include <JLibrary/Math/Point2.hpp>
+#include <JLibrary/Math/Vector2.hpp>
 #include <bitset>
 #include <windows.h>
 #include <xinput.h>
@@ -23,7 +23,7 @@ namespace jlib
 	{
 		public:
 
-		Point2_32f position;
+		Vector2f position;
 		float xDeadzone, yDeadzone;
 
 		// Default constructor.
@@ -41,7 +41,7 @@ namespace jlib
 		// Sets the position of the Joystick to Position.
 		// Sets the horizontal deadzone of the Joystick to x_dz.
 		// Sets the vertical deadzone of the Joysticl to y_dz.
-		Joystick(const jlib::Point2_32f& Position, float x_dz, float y_dz);
+		Joystick(const Vector2f& Position, float x_dz, float y_dz);
 
 		// Copy constructor.
 		Joystick(const Joystick& other) = delete;
@@ -71,6 +71,9 @@ namespace jlib
 		// Returns true if the Joystick's position is within its deadzone.
 		bool isStickInDeadZone() const;
 	};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	class Gamepad
 	{

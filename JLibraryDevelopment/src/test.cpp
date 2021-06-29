@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-06-15 by Justyn Durnford
+// Last updated on 2021-06-27 by Justyn Durnford
 // Main file for testing.
 
 #ifndef NOMINMAX
@@ -13,6 +13,8 @@
 #include <JLibrary/System.hpp>
 using namespace jlib;
 
+#include <algorithm>
+#include <array>
 #include <cmath>
 #include <concepts>
 #include <cstddef>
@@ -22,15 +24,33 @@ using namespace jlib;
 #include <string>
 using namespace std;
 
+unsigned int constructed = 0;
+unsigned int destructed = 0;
+
+struct Counter
+{
+	Counter()
+	{
+		++constructed;
+	}
+
+	Counter(const Counter& other) = default;
+
+	Counter(Counter&& other) = default;
+
+	Counter& operator = (const Counter& other) = default;
+
+	Counter& operator = (Counter&& other) = default;
+
+	~Counter()
+	{
+		++destructed;
+	}
+};
+
 void println()
 {
 	cout << endl;
-}
-
-template <std_arithmetic T>
-void println(T value)
-{
-	cout << value << endl;
 }
 
 void println(const string& str)
@@ -75,24 +95,24 @@ void test_fraction()
 
 void test_vector()
 {
-	Point2_32f a(1.2f, 0.8f);
-	Point2_32f b(3.5f, 7.3f);
+	Point2f a(1.2f, 0.8f);
+	Point2f b(3.5f, 7.3f);
 
-	Vector2_32f c(a, b);
+	Vector2f c(a, b);
 
 	// Expected Vector2: <2.3f, 6.5f>
 	cout << c.toString() << endl;
 
 	c *= 2.4f;
-	Vector2_32f d(6.7f, 21.9f);
-	Vector2_32f e = d - c;
-	Vector3_32f f(e.x, e.y, 5.f);
+	Vector2f d(6.7f, 21.9f);
+	Vector2f e = d - c;
+	Vector3f f(e.x, e.y, 5.f);
 
 	// Expected Vector3: <1.18, 6.3, 5.0>
 	cout << f.toString() << endl;
 
-	f += Vector3_32f(3.49f, 0.027f, 1.365f);
-	Vector3_32f g = f.unitVector();
+	f += Vector3f(3.49f, 0.027f, 1.365f);
+	Vector3f g = f.unitVector();
 
 	// Expected Vector3: <0.461601, 0.625385, 0.629141>
 	cout << g.toString() << endl;
@@ -171,24 +191,31 @@ void test_matrix()
 	cout << F(15) << endl;
 }
 
+void test_matrix_memory_leak()
+{
+	for (int i = 0; i < 5000; ++i)
+	{
+		Matrix<int, 3, 3> A
+		{
+			{ 5, 1, -8 },
+			{ -3, 1, 1 },
+			{ -1, -11, 4 }
+		};
+
+		Matrix<int, 3, 3> B
+		{
+			{ -7, -2, 10 },
+			{ 5, 0, 3 },
+			{ -2, 14, -5 }
+		};
+
+		print(dot_product(A, B));
+	}
+}
+
 int main()
 {
-	cout << INT8_MIN << " || " << I8_MIN << endl;
-	cout << INT8_MAX << " || " << I8_MAX << endl;
 
-	cout << INT16_MIN << " || " << I16_MIN << endl;
-	cout << INT16_MAX << " || " << I16_MAX << endl;
-
-	cout << INT32_MIN << " || " << I32_MIN << endl;
-	cout << INT32_MAX << " || " << I32_MAX << endl;
-
-	cout << INT64_MIN << " || " << I64_MIN << endl;
-	cout << INT64_MAX << " || " << I64_MAX << endl;
-	
-	cout << UINT8_MAX << " || " << U8_MAX << endl;
-	cout << UINT16_MAX << " || " << U16_MAX << endl;
-	cout << UINT32_MAX << " || " << U32_MAX << endl;
-	cout << UINT64_MAX << " || " << U64_MAX << endl;
 
 	return 0;
 }

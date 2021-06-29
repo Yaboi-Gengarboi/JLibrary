@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Vertex2.hpp
 // Created on 2021-06-09 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Header file for the Vertex2 class.
 
 #pragma once
@@ -43,32 +43,32 @@ namespace jlib
 	{
 		public:
 
-		Point2_32f position;
+		Point2f position;
 		Color color;
-		Point2_32f textureCoordinates;
+		Point2f textureCoordinates;
 
 		// Default constructor.
 		Vertex2();
 
 		// Position constructor.
 		// Sets the position of the Vertex2 to the given position Point2.
-		Vertex2(const Point2_32f& pos);
+		Vertex2(const Point2f& pos);
 
 		// Position and color constructor.
 		// Sets the position of the Vertex2 to the given position Point2.
 		// Sets the color of the Vertex2 to the given Color.
-		Vertex2(const Point2_32f& pos, const Color& col);
+		Vertex2(const Point2f& pos, const Color& col);
 
 		// Position and texture coordinate constructor.
 		// Sets the position of the Vertex2 to the given position Point2.
 		// Sets the texture coordinates of the Vertex2 to the given Coordinate Point2.
-		Vertex2(const Point2_32f& pos, const Point2_32f& coord);
+		Vertex2(const Point2f& pos, const Point2f& coord);
 
 		// Full constructor.
 		// Sets the position of the Vertex2 to the given position Point2.
 		// Sets the color of the Vertex2 to the given Color.
 		// Sets the texture coordinates of the Vertex2 to the given Coordinate Point2.
-		Vertex2(const Point2_32f& pos, const Color& col, const Point2_32f& coord);
+		Vertex2(const Point2f& pos, const Color& col, const Point2f& coord);
 
 		// Copy constructor.
 		Vertex2(const Vertex2& other) = default;

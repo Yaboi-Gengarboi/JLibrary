@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Integer.hpp
 // Created on 2021-06-15 by Justyn Durnford
-// Last modified on 2021-06-15 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Integer typedefs.
 
 #pragma once
@@ -34,6 +34,9 @@ namespace jlib
 		// 64-bit unsigned integer.
 		typedef unsigned __int64 u64;
 	#endif
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Minimum 8-bit signed integer value (-128).
 	constexpr i8 I8_MIN = static_cast<i8>(-128);

@@ -27,14 +27,14 @@
 // JLibraryDevelopment
 // Transformation.hpp
 // Created on 2021-05-28 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-237 by Justyn Durnford
 // Header file for the Transformation class.
 
 #pragma once
 
 #include <JLibrary/Math/Matrix.hpp>
 #include <JLibrary/Math/Vector2.hpp>
-#include <JLibrary/Graphics/Rectangle.hpp>
+#include <JLibrary/Math/Rectangle.hpp>
 
 namespace jlib
 {
@@ -78,16 +78,16 @@ namespace jlib
 		Transformation inverse() const;
 
 		// Returns the transformation of the Point2_32f given as (X, Y).
-		Point2_32f transformPoint(float X, float Y) const;
+		Point2f transformPoint(float X, float Y) const;
 
 		// Returns the transformation of the given Point2_32f.
-		Point2_32f transformPoint(const Point2_32f& P) const;
+		Point2f transformPoint(const Point2f& P) const;
 
 		// Returns the transformation of the Vector2_32f given as (X, Y).
-		Vector2_32f transformVector(float X, float Y) const;
+		Vector2f transformVector(float X, float Y) const;
 
 		// Returns the transformation of the given Vector2_32f.
-		Vector2_32f transformVector(const Vector2_32f& V) const;
+		Vector2f transformVector(const Vector2f& V) const;
 
 		// Returns the transformation of the Rectangle<float> given as Rectangle<float>(X, Y, Width, Height).
 		Rectangle<float> transformRectangle(float X, float Y, float Width, float Height) const;
@@ -102,7 +102,7 @@ namespace jlib
 		Transformation& translate(float offset_x, float offset_y);
 
 		// 
-		Transformation& translate(const Vector2_32f& offset);
+		Transformation& translate(const Vector2f& offset);
 
 		//
 		Transformation& rotate(float angle);
@@ -111,7 +111,7 @@ namespace jlib
 		Transformation& rotate(float angle, float center_x, float center_y);
 
 		// 
-		Transformation& rotate(float angle, const Point2_32f& center);
+		Transformation& rotate(float angle, const Point2f& center);
 
 		// 
 		Transformation& scale(float scale_x, float scale_y);
@@ -128,10 +128,10 @@ jlib::Transformation operator * (const jlib::Transformation& A, const jlib::Tran
 jlib::Transformation& operator *= (jlib::Transformation& A, const jlib::Transformation& B);
 
 // Overload of binary operator *
-jlib::Point2_32f operator * (const jlib::Transformation& T, const jlib::Point2_32f& P);
+jlib::Point2f operator * (const jlib::Transformation& T, const jlib::Point2f& P);
 
 // Overload of binary operator *
-jlib::Vector2_32f operator * (const jlib::Transformation& T, const jlib::Vector2_32f& V);
+jlib::Vector2f operator * (const jlib::Transformation& T, const jlib::Vector2f& V);
 
 // Overload of binary operator ==
 bool operator == (const jlib::Transformation& A, const jlib::Transformation& B);

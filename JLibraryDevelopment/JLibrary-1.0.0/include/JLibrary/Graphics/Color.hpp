@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Color.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
@@ -103,7 +103,10 @@ namespace jlib
 		std::string toString() const;
 
 		// Returns a std::wstring representation of the Color.
-		std::wstring toWString() const;
+		std::wstring toWideString() const;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Define common colors.
 		// More RGB color combinations can be found at https://www.rapidtables.com/web/color/RGB_Color.html
@@ -126,12 +129,22 @@ namespace jlib
 		const static Color Transparent;
 	};
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Returns the individual bytes of the unsigned int.
+	// Allocates memory on the heap. Call delete[] when done.
+	unsigned char* to_bytes(unsigned int i);
+
 	// Returns a hexadecimal std::string representation of the byte.
 	std::string to_hex_str(unsigned char byte);
 
 	// Returns a hexadecimal std::wstring representation of the byte.
 	std::wstring to_hex_wstr(unsigned char byte);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of binary operator ==
 bool operator == (const jlib::Color& A, const jlib::Color& B);

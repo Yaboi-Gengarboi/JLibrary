@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
@@ -81,28 +81,43 @@ namespace jlib
 		}
 
 		// Returns a std::wstring representation of the Point2.
-		inline std::wstring toWString() const
+		inline std::wstring toWideString() const
 		{
 			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L')';
 		}
 	};
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Returns the distance between the two Point2s.
 	template <std_arithmetic T>
 	inline float distance_between(const Point2<T>& A, const Point2<T>& B)
 	{
-		return std::sqrt(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f));
+		return std::sqrtf(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f));
 	}
 
-	// Define common types.
-	typedef jlib::Point2<char>               Point2_8i;
-	typedef jlib::Point2<unsigned char>      Point2_8u;
-	typedef jlib::Point2<short>              Point2_16i;
-	typedef jlib::Point2<unsigned short>     Point2_16u;
-	typedef jlib::Point2<int>                Point2_32i;
-	typedef jlib::Point2<unsigned int>       Point2_32u;
-	typedef jlib::Point2<float>              Point2_32f;
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Shorthand for jlib::Point2<char>.
+	typedef jlib::Point2<char>                   Point2c;
+	// Shorthand for jlib::Point2<unsigned char>.
+	typedef jlib::Point2<unsigned char>          Point2uc;
+	// Shorthand for jlib::Point2<short>
+	typedef jlib::Point2<short>                  Point2s;
+	// Shorthand for jlib::Point2<unsigned short>
+	typedef jlib::Point2<unsigned short>         Point2us;
+	// Shorthand for jlib::Point2<int>
+	typedef jlib::Point2<int>                    Point2i;
+	// Shorthand for jlib::Point2<unsigned int>
+	typedef jlib::Point2<unsigned int>           Point2ui;
+	// Shorthand for jlib::Point2<float>
+	typedef jlib::Point2<float>                  Point2f;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of binary operator ==
 template <jlib::std_arithmetic T>

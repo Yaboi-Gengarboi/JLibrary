@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Angle.cpp
 // Created on 2021-06-12 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-23 by Justyn Durnford
 // Source file for the Angle class.
 
 #include <JLibrary/Math/Angle.hpp>
@@ -31,7 +31,7 @@ string Angle::toString() const
 	return to_string(degree) + '\370';
 }
 
-wstring Angle::toWString() const
+wstring Angle::toWideString() const
 {
 	return to_wstring(degree) + static_cast<wchar_t>('\370');
 }

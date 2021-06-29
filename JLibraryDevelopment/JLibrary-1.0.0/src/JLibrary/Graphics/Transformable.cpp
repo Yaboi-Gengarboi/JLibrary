@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Transformable.cpp
 // Created on 2021-06-09 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Source file for the Transformable class.
 
 #include <JLibrary/Graphics/Transformable.hpp>
@@ -38,20 +38,20 @@ using namespace jlib;
 Transformable::Transformable()
 {
 	rotation_ = 0.f;
-	scale_.x = 1.f;
-	scale_.y = 1.f;
+	x_scale_ = 1.f;
+	y_scale_ = 1.f;
 	transformationUpdate_ = true;
 	inverseTransformationUpdate_ = true;
 }
 
 Transformable::~Transformable() {}
 
-Point2_32f Transformable::position() const
+Point2f Transformable::position() const
 {
 	return position_;
 }
 
-Point2_32f Transformable::origin() const
+Point2f Transformable::origin() const
 {
 	return origin_;
 }
@@ -61,9 +61,14 @@ float Transformable::rotation() const
 	return rotation_;
 }
 
-Vector2_32f Transformable::scale() const
+float Transformable::x_scale() const
 {
-	return scale_;
+	return x_scale_;
+}
+
+float Transformable::y_scale() const
+{
+	return y_scale_;
 }
 
 const Transformation& Transformable::transformation() const
@@ -73,10 +78,10 @@ const Transformation& Transformable::transformation() const
 		float angle = -rotation_ * 3.141592654f / 180.f;
 		float cosine = cos(angle);
 		float sine = sin(angle);
-		float sxc = scale_.x * cosine;
-		float syc = scale_.y * cosine;
-		float sxs = scale_.x * sine;
-		float sys = scale_.y * sine;
+		float sxc = x_scale_ * cosine;
+		float syc = y_scale_ * cosine;
+		float sxs = x_scale_ * sine;
+		float sys = y_scale_ * sine;
 		float tx = -origin_.x * sxc - origin_.y * sys + origin_.x;
 		float ty = origin_.x * sxs - origin_.y * syc + origin_.y;
 
@@ -106,7 +111,7 @@ void Transformable::setPosition(float X, float Y)
 	inverseTransformationUpdate_ = true;
 }
 
-void Transformable::setPosition(const Point2_32f& position)
+void Transformable::setPosition(const Point2f& position)
 {
 	position_ = position;
 	transformationUpdate_ = true;
@@ -121,7 +126,7 @@ void Transformable::setOrigin(float X, float Y)
 	inverseTransformationUpdate_ = true;
 }
 
-void Transformable::setOrigin(const Point2_32f& origin)
+void Transformable::setOrigin(const Point2f& origin)
 {
 	origin_ = origin;
 	transformationUpdate_ = true;
@@ -140,13 +145,8 @@ void Transformable::setRotation(float degree)
 
 void Transformable::setScale(float scale_x, float scale_y)
 {
-	scale_.x = scale_x;
-	scale_.y = scale_y;
-}
-
-void Transformable::setScale(const Vector2_32f& scale)
-{
-	scale_ = scale;
+	x_scale_ = scale_x;
+	y_scale_ = scale_y;
 }
 
 void Transformable::move(float offset_x, float offset_y)
@@ -157,7 +157,7 @@ void Transformable::move(float offset_x, float offset_y)
 	inverseTransformationUpdate_ = true;
 }
 
-void Transformable::move(const Vector2_32f& offset)
+void Transformable::move(const Vector2f& offset)
 {
 	position_.x += offset.x;
 	position_.y += offset.y;
@@ -172,16 +172,8 @@ void Transformable::rotate(float degree)
 
 void Transformable::scale(float scale_x, float scale_y)
 {
-	scale_.x *= scale_x;
-	scale_.y *= scale_y;
-	transformationUpdate_ = true;
-	inverseTransformationUpdate_ = true;
-}
-
-void Transformable::scale(const Vector2_32f& scale)
-{
-	scale_.x *= scale.x;
-	scale_.y *= scale.y;
+	x_scale_ *= scale_x;
+	y_scale_ *= scale_y;
 	transformationUpdate_ = true;
 	inverseTransformationUpdate_ = true;
 }

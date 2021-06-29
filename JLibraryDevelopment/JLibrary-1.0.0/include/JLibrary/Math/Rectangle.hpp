@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Rectangle.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Rectangle template class
 
 #pragma once
@@ -179,11 +179,14 @@ namespace jlib
 		}
 
 		// Returns a std::wstring representation of the Rectangle.
-		inline std::wstring toWString() const
+		inline std::wstring toWideString() const
 		{
-			return vertex.toWString() + L", " + std::to_wstring(width) + L", " + std::to_wstring(height);
+			return vertex.toWideString() + L", " + std::to_wstring(width) + L", " + std::to_wstring(height);
 		}
 	};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Checks if there is an intersection between the given Rectangles.
 	template <std_arithmetic T>
@@ -198,7 +201,18 @@ namespace jlib
 			return false;
 		return true;
 	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Shorthand for jlib::Rectangle<int>.
+	typedef jlib::Rectangle<int>                 IntRect;
+	// Shorthand for jlib::Rectangle<float>.
+	typedef jlib::Rectangle<float>               FloatRect;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of binary operator ==
 template <jlib::std_arithmetic T>

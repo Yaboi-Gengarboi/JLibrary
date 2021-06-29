@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Transformation.cpp
 // Created on 2021-05-29 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Source file for the Transformation class.
 
 #include <JLibrary/Graphics/Transformation.hpp>
@@ -79,22 +79,22 @@ Transformation Transformation::inverse() const
 						  (matrix_(5)  * matrix_(0) - matrix_(1) * matrix_(4))  / det);
 }
 
-Point2_32f Transformation::transformPoint(float X, float Y) const
+Point2f Transformation::transformPoint(float X, float Y) const
 {
-	return Point2_32f(matrix_(0) * X + matrix_(4) * Y + matrix_(12), matrix_(1) * X + matrix_(5) * Y + matrix_(13));
+	return Point2f(matrix_(0) * X + matrix_(4) * Y + matrix_(12), matrix_(1) * X + matrix_(5) * Y + matrix_(13));
 }
 
-Point2_32f Transformation::transformPoint(const Point2_32f& P) const
+Point2f Transformation::transformPoint(const Point2f& P) const
 {
 	return transformPoint(P.x, P.y);
 }
 
-Vector2_32f Transformation::transformVector(float X, float Y) const
+Vector2f Transformation::transformVector(float X, float Y) const
 {
-	return Vector2_32f(matrix_(0) * X + matrix_(4) * Y + matrix_(12), matrix_(1) * X + matrix_(5) * Y + matrix_(13));
+	return Vector2f(matrix_(0) * X + matrix_(4) * Y + matrix_(12), matrix_(1) * X + matrix_(5) * Y + matrix_(13));
 }
 
-Vector2_32f Transformation::transformVector(const Vector2_32f& V) const
+Vector2f Transformation::transformVector(const Vector2f& V) const
 {
 	return transformVector(V.x, V.y);
 }
@@ -103,10 +103,10 @@ Rectangle<float> Transformation::transformRectangle(float X, float Y, float Widt
 {
 	Rectangle R(X, Y, Width, Height);
 
-	Point2_32f A(transformPoint(R.topLeft()));
-	Point2_32f B(transformPoint(R.topRight()));
-	Point2_32f C(transformPoint(R.bottomLeft()));
-	Point2_32f D(transformPoint(R.bottomRight()));
+	Point2f A(transformPoint(R.topLeft()));
+	Point2f B(transformPoint(R.topRight()));
+	Point2f C(transformPoint(R.bottomLeft()));
+	Point2f D(transformPoint(R.bottomRight()));
 
 	float min_x = min({ A.x, B.x, C.x, D.x });
 	float min_y = min({ A.y, B.y, C.y, D.y });
@@ -118,10 +118,10 @@ Rectangle<float> Transformation::transformRectangle(float X, float Y, float Widt
 
 Rectangle<float> Transformation::transformRectangle(const Rectangle<float>& R) const
 {
-	Point2_32f A(transformPoint(R.topLeft()));
-	Point2_32f B(transformPoint(R.topRight()));
-	Point2_32f C(transformPoint(R.bottomLeft()));
-	Point2_32f D(transformPoint(R.bottomRight()));
+	Point2f A(transformPoint(R.topLeft()));
+	Point2f B(transformPoint(R.topRight()));
+	Point2f C(transformPoint(R.bottomLeft()));
+	Point2f D(transformPoint(R.bottomRight()));
 
 	float min_x = min({ A.x, B.x, C.x, D.x });
 	float min_y = min({ A.y, B.y, C.y, D.y });
@@ -147,7 +147,7 @@ Transformation& Transformation::translate(float offset_x, float offset_y)
 	return combine(Transformation(1.f, 0.f, offset_x, 0.f, 1.f, offset_y, 0.f, 0.f, 1.f));
 }
 
-Transformation& Transformation::translate(const Vector2_32f& offset)
+Transformation& Transformation::translate(const Vector2f& offset)
 {
 	return translate(offset.x, offset.y);
 }
@@ -170,7 +170,7 @@ Transformation& Transformation::rotate(float angle, float center_x, float center
 								  0.f, 0.f, 1.f));
 }
 
-Transformation& Transformation::rotate(float angle, const Point2_32f& center)
+Transformation& Transformation::rotate(float angle, const Point2f& center)
 {
 	return rotate(angle, center.x, center.y);
 }
@@ -197,12 +197,12 @@ Transformation& operator *= (Transformation& A, const Transformation& B)
 	return A.combine(B);
 }
 
-Point2_32f operator * (const Transformation& T, const Point2_32f& P)
+Point2f operator * (const Transformation& T, const Point2f& P)
 {
 	return T.transformPoint(P);
 }
 
-Vector2_32f operator * (const Transformation& T, const Vector2_32f& V)
+Vector2f operator * (const Transformation& T, const Vector2f& V)
 {
 	return T.transformVector(V);
 }

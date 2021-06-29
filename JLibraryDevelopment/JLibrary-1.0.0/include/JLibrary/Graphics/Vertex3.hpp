@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Vertex3.hpp
 // Created on 2021-06-11 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Header file for the Vertex3 class.
 
 #pragma once
@@ -43,32 +43,32 @@ namespace jlib
 	{
 		public:
 
-		Point3_32f position;
+		Point3f position;
 		Color color;
-		Point3_32f textureCoordinates;
+		Point3f textureCoordinates;
 
 		// Default constructor.
 		Vertex3();
 
 		// Position constructor.
 		// Sets the position of the Vertex3 to the given position Point3.
-		Vertex3(const Point3_32f& pos);
+		Vertex3(const Point3f& pos);
 
 		// Position and color constructor.
 		// Sets the position of the Vertex3 to the given position Point3.
 		// Sets the color of the Vertex3 to the given Color.
-		Vertex3(const Point3_32f& pos, const Color& col);
+		Vertex3(const Point3f& pos, const Color& col);
 
 		// Position and texture coordinate constructor.
 		// Sets the position of the Vertex3 to the given position Point3.
 		// Sets the texture coordinatesof the Vertex3 to the given Coordinate Point3.
-		Vertex3(const Point3_32f& pos, const Point3_32f& coord);
+		Vertex3(const Point3f& pos, const Point3f& coord);
 
 		// Full constructor.
 		// Sets the position of the Vertex3 to the given position Point3.
 		// Sets the color of the Vertex3 to the given Color.
 		// Sets the texture coordinates of the Vertex3 to the given Coordinate Point3.
-		Vertex3(const Point3_32f& pos, const Color& col, const Point3_32f& coord);
+		Vertex3(const Point3f& pos, const Color& col, const Point3f& coord);
 
 		// Copy constructor.
 		Vertex3(const Vertex3& other) = default;

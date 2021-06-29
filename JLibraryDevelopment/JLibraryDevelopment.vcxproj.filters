@@ -60,6 +60,9 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mutex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp">
@@ -104,12 +107,6 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Rectangle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Circle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -140,9 +137,6 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\MemoryInputStream.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Glyph.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -153,6 +147,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Circle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Rectangle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image_write.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Table.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

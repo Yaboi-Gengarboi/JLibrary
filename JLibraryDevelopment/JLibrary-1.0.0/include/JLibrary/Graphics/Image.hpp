@@ -27,17 +27,17 @@
 // JLibraryDevelopment
 // Image.hpp
 // Created on 2021-06-21 by Justyn Durnford
-// Last modified on 2021-06-22 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Header file for the Image class.
 
 #pragma once
 
 #include <JLibrary/Graphics/Color.hpp>
-#include <JLibrary/Graphics/Rectangle.hpp>
+#include <JLibrary/Math/Rectangle.hpp>
+#include <JLibrary/System/Array.hpp>
 #include <JLibrary/System/InputStream.hpp>
 #include <JLibrary/System/Integer.hpp>
 #include <string>
-#include <vector>
 
 namespace jlib
 {
@@ -47,10 +47,6 @@ namespace jlib
 	// like progressive jpeg.
 	class Image
 	{
-		unsigned int x_;
-		unsigned int y_;
-		std::vector<unsigned char> pixels_;
-
 		public:
 
 		enum Format
@@ -64,6 +60,14 @@ namespace jlib
 			HDR = 6,
 			PIC = 7
 		};
+
+		private:
+
+		unsigned int width_;
+		unsigned int height_;
+		Array<unsigned char> pixels_;
+
+		public:
 
 		// Default constructor.
 		Image();
@@ -103,12 +107,12 @@ namespace jlib
 		// If the pixel pointer is nullptr, an empty image is created.
 		void create(unsigned int width, unsigned int height, const unsigned char* pixels);
 
-		// Creates the image from the std::vector of pixels.
+		// Creates the image from the Array of pixels.
 		// The pixel vector is assumed to contain 32-bit RGBA pixels,
 		// and have the given width and height. If not, this
 		// results in undefined behavior.
-		// If the pixel std::vector is empty, an empty image is created.
-		void create(unsigned int width, unsigned int height, const std::vector<unsigned char>& pixels);
+		// If the pixel Array is empty, an empty image is created.
+		void create(unsigned int width, unsigned int height, const Array<unsigned char>& pixels);
 
 		// Loads the image from a file on the disk.
 		// If this function fails, the image is left unchanged.
@@ -135,13 +139,13 @@ namespace jlib
 		// Saves the image to a buffer in memory.
 		// The format of the image MUST be specified.
 		// This function fails if the image is empty.
-		bool saveToMemory(std::vector<unsigned char>& output, Format format) const;
+		bool saveToMemory(Array<unsigned char>& output, Format format) const;
 
 		// Saves the image to a buffer in memory.
 		// The format of the image MUST be specified.
 		// This function fails if the image is empty, or if
 		// the format was invalid.
-		bool saveToMemory(std::vector<unsigned char>& output, const std::string& format) const;
+		bool saveToMemory(Array<unsigned char>& output, const std::string& format) const;
 
 		// Returns the width of the image.
 		unsigned int width() const;
@@ -175,8 +179,8 @@ namespace jlib
 		// static image from several others, but if you need this
 		// kind of feature in real-time, you'd be better off 
 		// using a jlib::RenderTexture.
-		void copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y,
-					  const IntRect& sourceRect);
+		void copyFrom(const Image& source, unsigned int dest_x, 
+					  unsigned int dest_y, const IntRect& sourceRect);
 
 		// Copies pixels from another image onto this one.
 		// 
@@ -185,10 +189,22 @@ namespace jlib
 		// static image from several others, but if you need this
 		// kind of feature in real-time, you'd be better off 
 		// using a jlib::RenderTexture.
-		void copyFrom(const Image & source, unsigned int dest_x, unsigned int dest_y,
-					  const IntRect & sourceRect, bool applyAlpha);
+		void copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y,
+					  const IntRect& sourceRect, bool applyAlpha);
 
 		// Returns the color of the pixel at coordinate (x, y).
-		Color pixel(unsigned int x, unsigned int y) const;
+		Color getPixel(unsigned int x, unsigned int y) const;
+
+		// Changes the color of the pixel at coordinate (x, y) to the given Color.
+		void setPixel(unsigned int x, unsigned int y, const Color& color);
+
+		// Returns a read-only pointer to the array of pixels.
+		const unsigned char* getPixelPtr() const;
+
+		// Flips the image horizontally.
+		void flipHorizontally();
+
+		// Flips the image vertically.
+		void flipVertically();
 	};
 }

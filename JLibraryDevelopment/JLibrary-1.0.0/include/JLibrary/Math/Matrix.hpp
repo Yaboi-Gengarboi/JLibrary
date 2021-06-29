@@ -1,18 +1,12 @@
 // JLibraryDevelopment
 // Matrix.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-14 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Header file for the Matrix template class.
 
 #pragma once
 
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif // NOMINMAX
-
 #include <Jlibrary/Math/Arithmetic.hpp>
-#include <algorithm>
-#include <array>
 #include <concepts>
 #include <cstddef>
 #include <initializer_list>
@@ -28,56 +22,69 @@ namespace jlib
 	// This seems a bit confusing to people who are
 	// used to X x Y coordinates, but this is consistent
 	// with how they are represented in mathematics.
-	template <std_arithmetic T, std::size_t R, std::size_t C> class Matrix
+	template <std::semiregular T, std::size_t R, std::size_t C> class Matrix
 	{
-		// Private member variable
-		std::array<std::array<T, C>, R> data_;
-
-		// Private member functions
-
-		// Checks if the given row is a valid row index and throws if it is not.
-		inline void checkRow(std::size_t row) const
-		{
-			if (row >= R) { throw std::out_of_range("Invalid row index"); }
-		}
-
-		// Checks if the given column is a valid column index and throws if it is not.
-		inline void checkCol(std::size_t col) const
-		{
-			if (col >= C) { throw std::out_of_range("Invalid column index"); }
-		}
-
-		// Checks if the given index is a valid element of the Matrix and throws if it is not.
-		inline void checkIndex(std::size_t index) const
-		{
-			if (index >= R * C) { throw std::out_of_range("Invalid matrix index"); }
-		}
-
-		// Checks if the given row is a valid row index and throws if it is not.
-		// Checks if the given column is a valid column index and throws if it is not.
-		void checkBounds(std::size_t row, std::size_t col) const
-		{
-			checkRow(row);
-			checkCol(col);
-		}
-
 		public:
 
 		using value_type = T;
 		using size_type = std::size_t;
 		using reference = T&;
 		using const_reference = const T&;
+		using pointer = T*;
+		using const_pointer = const T*;
+
+		private:
+
+		T** data_;
+
+		// 
+		void allocate()
+		{
+			if (R != 0 && C != 0)
+			{
+				data_ = new T*[R];
+				for (std::size_t row_i(0); row_i < R; ++row_i)
+					data_[row_i] = new T[C];
+			}
+			else
+				data_ = nullptr;
+		}
+
+		// 
+		void deallocate() noexcept
+		{
+			if (data_ != nullptr)
+			{
+				for (std::size_t row_i(0); row_i < R; ++row_i)
+					delete[] data_[row_i];
+				delete[] data_;
+			}
+		}
+
+		// 
+		void copyElements(T* dst_begin, const T* src_begin, std::size_t count)
+		{
+			for (std::size_t i(0); i < count; ++i)
+				dst_begin[i] = src_begin[i];
+		}
+
+		public:
 
 		// Default constructor.
-		Matrix() = default;
+		Matrix()
+		{
+			allocate();
+		}
 
 		// 1-parameter constructor.
 		// Sets every element of the Matrix to value.
-		Matrix(T value)
+		Matrix(const T& value)
 		{
-			for (std::size_t row_i(0u); row_i < R; ++row_i)
+			allocate();
+
+			for (std::size_t row_i(0); row_i < R; ++row_i)
 			{
-				for (std::size_t col_i(0u); col_i < C; ++col_i)
+				for (std::size_t col_i(0); col_i < C; ++col_i)
 					data_[row_i][col_i] = value;
 			}
 		}
@@ -85,56 +92,80 @@ namespace jlib
 		// 2-dimensional std::initializer_list constructor.
 		Matrix(std::initializer_list<std::initializer_list<T>> list)
 		{
-			std::size_t row_i(0u);
+			allocate();
+			std::size_t row_i(0);
 
 			for (const auto& row : list)
-			{
-				std::copy(row.begin(), row.begin() + C, data_[row_i].begin());
-				++row_i;
-			}
+				copyElements(data_[row_i++], row.begin(), C);
+		}
+
+		// Copy constructor.
+		Matrix(const Matrix& other)
+		{
+			allocate();
+
+			for (std::size_t row_i(0); row_i < R; ++row_i)
+				copyElements(data_[row_i], other.data_[row_i], C);
 		}
 
 		// Constructs the Matrix from another type of Matrix.
 		// This constructor doesn't replace the copy constructor,
 		// it's called only when U != T.
-		template <std_arithmetic U>
+		template <std::semiregular U>
 		explicit Matrix(const Matrix<U, R, C>& other)
 		{
-			for (std::size_t row_i(0u); row_i < R; ++row_i)
+			allocate();
+
+			for (std::size_t row_i(0); row_i < R; ++row_i)
 			{
-				for (std::size_t col_i(0u); col_i < C; ++col_i)
+				for (std::size_t col_i(0); col_i < C; ++col_i)
 					data_[row_i][col_i] = static_cast<T>(other.data_[row_i][col_i]);
 			}
 		}
 
-		// Copy constructor.
-		Matrix(const Matrix& other) = default;
-
 		// Move constructor.
-		Matrix(Matrix&& other) = default;
+		Matrix(Matrix&& other) noexcept
+		{
+			data_ = other.data_;
+			other.data_ = nullptr;
+		}
 
 		// 2-dimensional std::initializer_list assignment operator.
 		Matrix& operator = (std::initializer_list<std::initializer_list<T>> list)
 		{
-			std::size_t row_i(0u);
+			std::size_t row_i(0);
 
 			for (const auto& row : list)
-			{
-				std::copy(row.begin(), row.begin() + C, data_[row_i].begin());
-				++row_i;
-			}
+				copyElements(data_[row_i++], row.begin(), C);
 
 			return *this;
 		}
 
 		// Copy assignment operator.
-		Matrix& operator = (const Matrix& other) = default;
+		Matrix& operator = (const Matrix& other)
+		{
+			for (std::size_t row_i(0); row_i < R; ++row_i)
+				copyElements(data_[row_i], other.data_[row_i], C);
+
+			return *this;
+		}
 
 		// Move assignment operator.
-		Matrix& operator = (Matrix&& other) = default;
+		Matrix& operator = (Matrix&& other) noexcept
+		{
+			deallocate();
+
+			data_ = other.data_;
+			other.data_ = nullptr;
+
+			return *this;
+		}
 
 		// Destructor.
-		~Matrix() = default;
+		~Matrix() noexcept
+		{
+			deallocate();
+		}
 
 		// Returns the number of rows in the Matrix.
 		std::size_t rowCount() const
@@ -149,19 +180,26 @@ namespace jlib
 		}
 
 		// Returns a copy of the given row.
-		std::array<T, C> getRow(std::size_t row) const
+		T* getRow(std::size_t row) const
 		{
-			checkRow(row);
-			return data_[row];
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+
+			T* arr = new T[C];
+			for (std::size_t col_i(0); col_i < C; ++col_i)
+				arr[col_i] = data_[row][col_i];
+
+			return arr;
 		}
 
 		// Returns a copy of the given column.
-		std::array<T, R> getCol(std::size_t col) const
+		T* getCol(std::size_t col) const
 		{
-			checkRow(col);
-			std::array<T, R> arr;
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
 
-			for (std::size_t row_i(0u); row_i < R; ++row_i)
+			T* arr = new T[R];
+			for (std::size_t row_i(0); row_i < R; ++row_i)
 				arr[row_i] = data_[row_i][col];
 
 			return arr;
@@ -171,17 +209,17 @@ namespace jlib
 		template <std::size_t R2, std::size_t C2>
 		Matrix<T, R2, C2> submatrix(std::size_t row_begin, std::size_t col_begin) const
 		{
-			checkRow(row_begin);
-			checkCol(col_begin);
-			checkRow(row_begin + R2);
-			checkCol(col_begin + C2);
+			if (row_begin >= R || row_begin + R2)
+				throw std::out_of_range("Invalid row index");
+			if (col_begin >= C || col_begin + C >= C2)
+				throw std::out_of_range("Invalid column index");
 
 			Matrix<T, R2, C2> M;
 
-			for (std::size_t row_i(0u); row_i < R2; ++row_i)
+			for (std::size_t row_i(0); row_i < R2; ++row_i)
 			{
-				for (std::size_t col_i(0u); col_i < C2; ++col_i)
-					M(row_i, col_i) = data_[row_begin + row_i][col_begin + col_i];
+				for (std::size_t col_i(0); col_i < C2; ++col_i)
+					M.data_[row_i][col_i] = data_[row_begin + row_i][col_begin + col_i];
 			}
 
 			return M;
@@ -191,7 +229,9 @@ namespace jlib
 		// Performs bounds-checking.
 		T& at(std::size_t n)
 		{
-			checkIndex(n);
+			if (n >= R * C)
+				throw std::out_of_range("Invalid matrix index");
+
 			return data_[n / R][n % C];
 		}
 
@@ -199,7 +239,9 @@ namespace jlib
 		// Performs bounds-checking.
 		const T& at(std::size_t n) const
 		{
-			checkIndex(n);
+			if (n >= R * C)
+				throw std::out_of_range("Invalid matrix index");
+
 			return data_[n / R][n % C];
 		}
 
@@ -207,7 +249,11 @@ namespace jlib
 		// Performs bounds-checking.
 		T& at(std::size_t row, std::size_t col)
 		{
-			checkBounds(row, col);
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
+
 			return data_[row][col];
 		}
 
@@ -215,23 +261,33 @@ namespace jlib
 		// Performs bounds-checking.
 		const T& at(std::size_t row, std::size_t col) const
 		{
-			checkBounds(row, col);
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
+
 			return data_[row][col];
 		}
 
 		// Sets the nth element of the Matrix to value.
 		// Performs bounds-checking.
-		void set(std::size_t n, T value)
+		void set(std::size_t n, const T& value)
 		{
-			checkIndex(n);
+			if (n >= R * C)
+				throw std::out_of_range("Invalid matrix index");
+
 			data_[n / R][n % C] = value;
 		}
 
 		// Sets the element at [row][col] to value.
 		// Performs bounds-checking.
-		void set(std::size_t row, std::size_t col, T value)
+		void set(std::size_t row, std::size_t col, const T& value)
 		{
-			checkBounds(row, col);
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
+
 			data_[row][col] = value;
 		}
 
@@ -259,6 +315,9 @@ namespace jlib
 			return data_[row][col];
 		}
 	};
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 	// Returns the determinant of the 2x2 Matrix formed as
 	// {  a,  b  }
@@ -329,25 +388,31 @@ namespace jlib
 		Matrix<T, M, P> C;
 		T value;
 
-		for (std::size_t m(0u); m < M; ++m)
+		for (std::size_t m(0); m < M; ++m)
 		{
-			std::array<T, N> row(A.getRow(m));
+			T* row(A.getRow(m));
 
-			for (std::size_t p(0u); p < P; ++p)
+			for (std::size_t p(0); p < P; ++p)
 			{
 				value = 0;
-				std::array<T, N> col(B.getCol(p));
+				T* col(B.getCol(p));
 
-				for (std::size_t n(0u); n < N; ++n)
+				for (std::size_t n(0); n < N; ++n)
 					value += row[n] * col[n];
 
+				delete[] col;
 				C(m, p) = value;
 			}
+
+			delete[] row;
 		}
 
 		return C;
 	}
 }
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 // Overload of unary operator -
 template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
@@ -355,9 +420,9 @@ jlib::Matrix<T, R, C> operator - (const jlib::Matrix<T, R, C>& A)
 {
 	jlib::Matrix<T, R, C> M;
 
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) = A(row_i, col_i) * static_cast<T>(-1);
 	}
 
@@ -370,9 +435,9 @@ jlib::Matrix<T, R, C> operator + (const jlib::Matrix<T, R, C>& A, const jlib::Ma
 {
 	jlib::Matrix<T, R, C> M;
 
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) = A(row_i, col_i) + B(row_i, col_i);
 	}
 
@@ -385,9 +450,9 @@ jlib::Matrix<T, R, C> operator - (const jlib::Matrix<T, R, C>& A, const jlib::Ma
 {
 	jlib::Matrix<T, C, R> M;
 
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) = A(row_i, col_i) - B(row_i, col_i);
 	}
 
@@ -400,9 +465,9 @@ jlib::Matrix<T, R, C> operator * (const jlib::Matrix<T, R, C>& A, U scalar)
 {
 	jlib::Matrix<T, C, R> M;
 	
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) = A(row_i, col_i) * scalar;
 	}
 
@@ -415,9 +480,9 @@ jlib::Matrix<T, R, C> operator * (U scalar, const jlib::Matrix<T, R, C>& A)
 {
 	jlib::Matrix<T, C, R> M;
 	
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) = A(row_i, col_i) * scalar;
 	}
 
@@ -430,9 +495,9 @@ jlib::Matrix<T, R, C> operator / (const jlib::Matrix<T, R, C>& A, U scalar)
 {
 	jlib::Matrix<T, C, R> M;
 	
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) = A(row_i, col_i) / scalar;
 	}
 
@@ -443,9 +508,9 @@ jlib::Matrix<T, R, C> operator / (const jlib::Matrix<T, R, C>& A, U scalar)
 template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
 jlib::Matrix<T, R, C>& operator += (jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			A(row_i, col_i) += B(row_i, col_i);
 	}
 
@@ -456,9 +521,9 @@ jlib::Matrix<T, R, C>& operator += (jlib::Matrix<T, R, C>& A, const jlib::Matrix
 template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
 jlib::Matrix<T, R, C>& operator -= (jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			A(row_i, col_i) -= B(row_i, col_i);
 	}
 
@@ -469,9 +534,9 @@ jlib::Matrix<T, R, C>& operator -= (jlib::Matrix<T, R, C>& A, const jlib::Matrix
 template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
 jlib::Matrix<T, R, C>& operator *= (jlib::Matrix<T, R, C>& M, U scalar)
 {
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) *= scalar;
 	}
 
@@ -482,9 +547,9 @@ jlib::Matrix<T, R, C>& operator *= (jlib::Matrix<T, R, C>& M, U scalar)
 template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
 jlib::Matrix<T, R, C>& operator /= (jlib::Matrix<T, R, C>& M, U scalar)
 {
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 			M(row_i, col_i) /= scalar;
 	}
 
@@ -492,12 +557,12 @@ jlib::Matrix<T, R, C>& operator /= (jlib::Matrix<T, R, C>& M, U scalar)
 }
 
 // Overload of binary operator == 
-template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+template <std::regular T, std::size_t R, std::size_t C>
 bool operator == (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 		{
 			if (A(row_i, col_i) != B(row_i, col_i))
 				return false;
@@ -507,13 +572,13 @@ bool operator == (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B
 	return true;
 }
 
-// Overload of binary operator == 
-template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
+// Overload of binary operator != 
+template <std::regular T, std::size_t R, std::size_t C>
 bool operator != (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
 {
-	for (std::size_t row_i(0u); row_i < R; ++row_i)
+	for (std::size_t row_i(0); row_i < R; ++row_i)
 	{
-		for (std::size_t col_i(0u); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < C; ++col_i)
 		{
 			if (A(row_i, col_i) != B(row_i, col_i))
 				return true;

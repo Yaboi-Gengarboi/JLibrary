@@ -18,6 +18,14 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Arithmetic.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\Point2.ixx" />
+    <ClCompile Include="include\Vector2.ixx" />
+    <ClCompile Include="source\main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -72,15 +80,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
+    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
+    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
+    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
+    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -146,13 +162,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Point2.ixx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Arithmetic.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

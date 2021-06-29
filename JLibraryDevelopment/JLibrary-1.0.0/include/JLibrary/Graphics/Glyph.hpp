@@ -27,12 +27,12 @@
 // JLibraryDevelopment
 // Glyph.hpp
 // Created on 2021-06-19 by Justyn Durnford
-// Last modified on 2021-06-19 by Justyn Durnford
+// Last modified on 2021-06-23 by Justyn Durnford
 // Header file for the Glyph struct.
 
 #pragma once
 
-#include <JLibrary/Graphics/Rectangle.hpp>
+#include <JLibrary/Math/Rectangle.hpp>
 
 namespace jlib
 {

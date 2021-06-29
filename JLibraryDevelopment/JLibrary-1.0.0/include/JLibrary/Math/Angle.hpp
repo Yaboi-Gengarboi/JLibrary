@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Angle.hpp
 // Created on 2021-06-12 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Header file for the Angle class.
 
 #pragma once
@@ -55,8 +55,11 @@ namespace jlib
 		std::string toString() const;
 
 		// Returns a std::wstring representation of the Angle.
-		std::wstring toWString() const;
+		std::wstring toWideString() const;
 	};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Returns the convertion from degrees to radians.
 	float to_radians(float degree);
@@ -79,6 +82,9 @@ namespace jlib
 	// Returns the largest of the two Angles.
 	Angle& greatest(Angle& A, Angle& B);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of unary operator -
 jlib::Angle operator - (const jlib::Angle& A);

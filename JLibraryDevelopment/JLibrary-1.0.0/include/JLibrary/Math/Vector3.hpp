@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
@@ -66,17 +66,6 @@ namespace jlib
             x = X;
             y = Y;
             z = Z;
-        }
-
-        // Constructs the Vector3 from the given Point3.
-        // Sets the x component of the Vector3 to the x component of the given Point3.
-		// Sets the y component of the Vector3 to the y component of the given Point3.
-        // Sets the z component of the Vector3 to the z component of the given Point3.
-        Vector3(const Point3<T>& P)
-        {
-            x = P.x;
-            y = P.y;
-            z = P.z;
         }
 
         // Constructs the Vector3 as the displacement vector of the two Point3s.
@@ -140,7 +129,7 @@ namespace jlib
         // Returns the magnitude of the Vector3.
         inline float magnitude() const
         {
-            return std::sqrt(std::powf(x, 2.f) + std::powf(y, 2.f) + std::powf(z, 2.f));
+            return std::sqrtf(std::powf(x, 2.f) + std::powf(y, 2.f) + std::powf(z, 2.f));
         }
 
         // Returns the endpoint of the Point3.
@@ -163,11 +152,14 @@ namespace jlib
         }
 
         // Returns a std::wstring representation of the Vector3.
-        inline std::wstring toWString() const
+        inline std::wstring toWideString() const
         {
             return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L'>';
         }
     };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Returns the dot product of the 2 given Vector3s.
     template <std_arithmetic T>
@@ -205,15 +197,27 @@ namespace jlib
         return dot_product(A, B) == 0.f;
     }
 
-    // Define common types
-    typedef jlib::Vector3<char>               Vector3_8i;
-    typedef jlib::Vector3<unsigned char>      Vector3_8u;
-    typedef jlib::Vector3<short>              Vector3_16i;
-    typedef jlib::Vector3<unsigned short>     Vector3_16u;
-    typedef jlib::Vector3<int>                Vector3_32i;
-    typedef jlib::Vector3<unsigned int>       Vector3_32u;
-    typedef jlib::Vector3<float>              Vector3_32f;
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Shorthand for jlib::Vector3<char>
+    typedef jlib::Vector3<char>                  Vector3c;
+    // Shorthand for jlib::Vector3<unsigned char>
+    typedef jlib::Vector3<unsigned char>         Vector3uc;
+    // Shorthand for jlib::Vector3<short>
+    typedef jlib::Vector3<short>                 Vector3s;
+    // Shorthand for jlib::Vector3<unsigned short>
+    typedef jlib::Vector3<unsigned short>        Vector3us;
+    // Shorthand for jlib::Vector3<int>
+    typedef jlib::Vector3<int>                   Vector3i;
+    // Shorthand for jlib::Vector3<unsigned int>
+    typedef jlib::Vector3<unsigned int>          Vector3ui;
+    // Shorthand for jlib::Vector3<float>
+    typedef jlib::Vector3<float>                 Vector3f;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of unary operator -
 template <jlib::std_arithmetic T>

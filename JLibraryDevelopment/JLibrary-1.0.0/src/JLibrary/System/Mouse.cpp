@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Mouse.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Source file for the Mouse class.
 
 #include <JLibrary/System/Mouse.hpp>
@@ -50,14 +50,14 @@ bool Mouse::isButtonPressed(Button button)
 	return (GetAsyncKeyState(virtual_key) & 0x8000) != 0;
 }
 
-Point2_32u Mouse::getPosition()
+Point2ui Mouse::getPosition()
 {
 	POINT pos;
 	GetCursorPos(&pos);
-	return Point2_32u(pos.x, pos.y);
+	return Point2ui(pos.x, pos.y);
 }
 
-void Mouse::setPosition(const Point2_32u& pos)
+void Mouse::setPosition(const Point2ui& pos)
 {
 	SetCursorPos(pos.x, pos.y);
 }

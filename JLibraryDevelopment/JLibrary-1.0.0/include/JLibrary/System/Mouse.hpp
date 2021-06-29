@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Mouse.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-27 by Justyn Durnford
 // Header file for the Mouse class.
 
 #pragma once
@@ -55,9 +55,9 @@ namespace jlib
 		static bool isButtonPressed(Button button);
 
 		// 
-		static Point2_32u getPosition();
+		static Point2ui getPosition();
 
 		// 
-		static void setPosition(const Point2_32u& pos);
+		static void setPosition(const Point2ui& pos);
 	};
 }

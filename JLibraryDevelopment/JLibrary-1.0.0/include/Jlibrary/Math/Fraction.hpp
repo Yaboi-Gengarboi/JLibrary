@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
@@ -162,10 +162,13 @@ namespace jlib
 		}
 
 		// Returns a std::wstring representation of the Fraction.
-		inline std::wstring toWString() const
+		inline std::wstring toWideString() const
 		{
-			return std::to_wstring(numer) + " / " + std::to_wstring(denom);
+			return std::to_wstring(numer) + L" / " + std::to_wstring(denom);
 		}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Preincrement operator.
 		Fraction& operator ++ ()
@@ -200,6 +203,9 @@ namespace jlib
 		}
 	};
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Overload of unary operator -
 template <std::integral T>
