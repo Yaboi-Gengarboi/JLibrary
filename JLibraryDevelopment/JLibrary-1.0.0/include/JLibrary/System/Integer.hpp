@@ -1,10 +1,21 @@
 // JLibraryDevelopment
 // Integer.hpp
 // Created on 2021-06-15 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-06-29 by Justyn Durnford
 // Header file for the Integer typedefs.
 
 #pragma once
+
+#include <cstddef>
+
+#ifdef _WIN64
+
+	constexpr std::size_t operator "" uz(unsigned long long n)
+	{
+		return static_cast<std::size_t>(n);
+	}
+
+#endif // _WIN64
 
 namespace jlib
 {
@@ -33,7 +44,7 @@ namespace jlib
 		typedef signed __int64 i64;
 		// 64-bit unsigned integer.
 		typedef unsigned __int64 u64;
-	#endif
+	#endif // _WIN64
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////

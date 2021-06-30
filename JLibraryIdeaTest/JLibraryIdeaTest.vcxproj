@@ -19,11 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Arithmetic.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="include\Point2.ixx" />
-    <ClCompile Include="include\Vector2.ixx" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

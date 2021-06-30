@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Image.cpp
 // Created on 2021-06-24 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-06-29 by Justyn Durnford
 // Source file for the Image class.
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -599,147 +599,8 @@ void Image::createMaskFromColor(const Color& color, unsigned char alpha)
     }
 }
 
-void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y)
-{
-    // Make sure that both images are valid.
-    if ((source.width_ == 0) || (source.height_ == 0) || (dest_x == 0) || (dest_y == 0))
-        return;
-
-    // Adjust the source rectangle.
-    IntRect srcRect = IntRect(0, 0, 0, 0);
-    if (srcRect.width == 0 || (srcRect.height == 0))
-    {
-        srcRect.vertex = Point2i(0, 0);
-        srcRect.width = source.width_;
-        srcRect.height = source.height_;
-    }
-    else
-    {
-        if (srcRect.vertex.x < 0)
-            srcRect.vertex.x = 0;
-        if (srcRect.vertex.y < 0)
-            srcRect.vertex.y = 0;
-        if (srcRect.width > static_cast<int>(source.width_)) 
-            srcRect.width = source.width_;
-        if (srcRect.height > static_cast<int>(source.height_)) 
-            srcRect.height = source.height_;
-    }
-
-    // Find the valid bounds of the destination rectangle.
-    int width = srcRect.width;
-    int height = srcRect.height;
-    if (dest_x + width > width_) 
-        width = width_ - dest_x;
-    if (dest_y + height > height_) 
-        height = height_ - dest_y;
-
-    // Make sure the destination area is valid.
-    if ((width <= 0) || (height <= 0))
-        return;
-
-    // Precompute as much as possible.
-    int                  pitch = width * 4;
-    int                  rows = height;
-    int                  srcStride = source.width_ * 4;
-    int                  dstStride = width_ * 4;
-    const unsigned char* srcPixels = &source.pixels_[0] + (srcRect.vertex.x + srcRect.vertex.y * source.width_) * 4;
-    unsigned char*       dstPixels = &pixels_[0] + (dest_x + dest_y * width_) * 4;
-
-    // Copy the pixels.
-    // Interpolation using alpha values, pixel by pixel.
-    for (int i = 0; i < rows; ++i)
-    {
-        for (int j = 0; j < width; ++j)
-        {
-            // Get a direct pointer to the components of the current pixel.
-            const unsigned char* src = srcPixels + j * 4;
-            unsigned char* dst = dstPixels + j * 4;
-
-            // Interpolate RGBA components using the alpha value of the source pixel.
-            unsigned char alpha = src[3];
-            dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
-            dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
-            dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
-            dst[3] = alpha + dst[3] * (255 - alpha) / 255;
-        }
-
-        srcPixels += srcStride;
-        dstPixels += dstStride;
-    }
-}
-
-void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y,
-                     const IntRect& sourceRect)
-{
-    // Make sure that both images are valid.
-    if ((source.width_ == 0) || (source.height_ == 0) || (width_ == 0) || (height_ == 0))
-        return;
-
-    // Adjust the source rectangle.
-    IntRect srcRect = sourceRect;
-    if (srcRect.width == 0 || (srcRect.height == 0))
-    {
-        srcRect.vertex = Point2i(0, 0);
-        srcRect.width = source.width_;
-        srcRect.height = source.height_;
-    }
-    else
-    {
-        if (srcRect.vertex.x < 0) 
-            srcRect.vertex.x = 0;
-        if (srcRect.vertex.y < 0) 
-            srcRect.vertex.y = 0;
-        if (srcRect.width > static_cast<int>(source.width_)) 
-            srcRect.width = source.width_;
-        if (srcRect.height > static_cast<int>(source.height_)) 
-            srcRect.height = source.height_;
-    }
-
-    // Then find the valid bounds of the destination rectangle.
-    int width = srcRect.width;
-    int height = srcRect.height;
-    if (dest_x + width > width_) 
-        width = width_ - dest_x;
-    if (dest_y + height > height_) 
-        height = height_ - dest_y;
-
-    // Make sure the destination area is valid
-    if ((width <= 0) || (height <= 0))
-        return;
-
-    // Precompute as much as possible.
-    int                  pitch = width * 4;
-    int                  rows = height;
-    int                  srcStride = source.width_ * 4;
-    int                  dstStride = width_ * 4;
-    const unsigned char* srcPixels = &source.pixels_[0] + (srcRect.vertex.x + srcRect.vertex.y * source.width_) * 4;
-    unsigned char* dstPixels = &pixels_[0] + (dest_x + dest_y * width_) * 4;
-
-    // Copy the pixels.
-    // Interpolation using alpha values, pixel by pixel.
-    for (int i = 0; i < rows; ++i)
-    {
-        for (int j = 0; j < width; ++j)
-        {
-            // Get a direct pointer to the components of the current pixel.
-            const unsigned char* src = srcPixels + j * 4;
-            unsigned char* dst = dstPixels + j * 4;
-
-            // Interpolate RGBA components using the alpha value of the source pixel.
-            unsigned char alpha = src[3];
-            dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
-            dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
-            dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
-            dst[3] = alpha + dst[3] * (255 - alpha) / 255;
-        }
-
-        srcPixels += srcStride;
-        dstPixels += dstStride;
-    }
-}
-
 void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y, 
-                     const IntRect& sourceRect, bool applyAlpha)
+                     const IntRect& sourceRect = IntRect(), bool applyAlpha = true)
 {
     // Make sure that both images are valid.
     if ((source.width_ == 0) || (source.height_ == 0) || (width_ == 0) || (height_ == 0))

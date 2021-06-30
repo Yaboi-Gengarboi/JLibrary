@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Image.hpp
 // Created on 2021-06-21 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-06-29 by Justyn Durnford
 // Header file for the Image class.
 
 #pragma once
@@ -170,27 +170,8 @@ namespace jlib
 		// static image from several others, but if you need this
 		// kind of feature in real-time, you'd be better off 
 		// using a jlib::RenderTexture.
-		void copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y);
-
-		// Copies pixels from another image onto this one.
-		// 
-		// This function does a slow pixel copy and should not be
-		// used intensively. It can be used to prepare a complex
-		// static image from several others, but if you need this
-		// kind of feature in real-time, you'd be better off 
-		// using a jlib::RenderTexture.
-		void copyFrom(const Image& source, unsigned int dest_x, 
-					  unsigned int dest_y, const IntRect& sourceRect);
-
-		// Copies pixels from another image onto this one.
-		// 
-		// This function does a slow pixel copy and should not be
-		// used intensively. It can be used to prepare a complex
-		// static image from several others, but if you need this
-		// kind of feature in real-time, you'd be better off 
-		// using a jlib::RenderTexture.
 		void copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y,
-					  const IntRect& sourceRect, bool applyAlpha);
+					  const IntRect& sourceRect = IntRect(), bool applyAlpha = true);
 
 		// Returns the color of the pixel at coordinate (x, y).
 		Color getPixel(unsigned int x, unsigned int y) const;

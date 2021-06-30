@@ -1,23 +1,25 @@
 // JLibraryIdeaTest
 // main.cpp
 // Created on 2021-06-11 by Justyn Durnford
-// Last modified on 2021-06-20 by Justyn Durnford
+// Last modified on 2021-06-28 by Justyn Durnford
 
-import Point2;
-import Vector2;
+#include <cstddef>
+using std::size_t;
 
-#include "Arithmetic.hpp"
-#include <iostream>
-using std::cout;
-using std::endl;
+#ifdef _WIN64
+
+constexpr size_t operator "" uz(unsigned long long n)
+{
+	return n;
+}
+
+#endif // _WIN64
+
 
 int main()
 {
-	jlib::Point2<int> P(3, 5);
-	jlib::Point2<int> Q(4, 2);
-	
-	if (P != Q)
-		cout << P.toString();
+	size_t i = 100uz;
+	++i;
 
 	return 0;
 }

@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Transformable.hpp
 // Created on 2021-06-03 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-06-29 by Justyn Durnford
 // Header file for the Transformable class.
 
 #pragma once
@@ -53,6 +53,18 @@ namespace jlib
 
 		// Default constructor.
 		Transformable();
+
+		// Copy constructor.
+		Transformable(const Transformable& other) = default;
+
+		// Move constructor.
+		Transformable(Transformable&& other) = default;
+
+		// Copy assignment operator.
+		Transformable& operator = (const Transformable& other) = default;
+
+		// Move assignment operator.
+		Transformable& operator = (Transformable&& other) = default;
 
 		// Virtual destructor.
 		virtual ~Transformable();

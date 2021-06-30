@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Color.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-24 by Justyn Durnford
+// Last modified on 2021-06-29 by Justyn Durnford
 // Source file for the Color class.
 
 #include <JLibrary/Graphics/Color.hpp>
@@ -42,15 +42,7 @@ Color::Color()
 	a = 0u;
 }
 
-Color::Color(unsigned char R, unsigned char G, unsigned char B)
-{
-	r = R;
-	g = G;
-	b = B;
-	a = MAX;
-}
-
-Color::Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A)
+Color::Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A = MAX)
 {
 	r = R;
 	g = G;

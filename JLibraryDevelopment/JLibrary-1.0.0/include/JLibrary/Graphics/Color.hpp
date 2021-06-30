@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Color.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-06-29 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
@@ -55,15 +55,13 @@ namespace jlib
 		// Sets the red component of the Color to R.
 		// Sets the green component of the Color to G.
 		// Sets the blue component of the Color to B.
-		// Sets the alpha component of the Color to 255u.
-		Color(unsigned char R, unsigned char G, unsigned char B);
+		// Sets the alpha component of the Color to A.
+		Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A = MAX);
 
 		// 4-unsigned char constructor.
 		// Sets the red component of the Color to R.
 		// Sets the green component of the Color to G.
 		// Sets the blue component of the Color to B.
-		// Sets the alpha component of the Color to A.
-		Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
 
 		// unsigned int constructor.
 		// Calculates each byte of the given color and sets
