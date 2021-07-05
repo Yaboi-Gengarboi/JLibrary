@@ -54,12 +54,6 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\MemoryInputStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Lock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mutex.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,7 +69,16 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\StringConvert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Thread.cpp">
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Lock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Mutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\ThreadLocal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,12 +158,6 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Glyph.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Lock.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mutex.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -203,10 +200,22 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Thread.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\StringConvert.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\StringConvert.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Lock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Mutex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Thread.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\ThreadLocal.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

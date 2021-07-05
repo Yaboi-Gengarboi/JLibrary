@@ -25,22 +25,55 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// System.hpp
-// Created on 2021-05-25 by Justyn Durnford
+// ThreadLocal.hpp
+// Created on 2021-07-04 by Justyn Durnford
 // Last modified on 2021-07-04 by Justyn Durnford
-// Header file that includes all header files found in include\JLibrary\System
+// Header file for the ThreadLocal class.
 
 #pragma once
 
-#include <JLibrary/System/Array.hpp>
-#include <JLibrary/System/Clock.hpp>
-#include <JLibrary/System/FileInputStream.hpp>
-#include <JLibrary/System/Gamepad.hpp>
-#include <JLibrary/System/Integer.hpp>
-#include <JLibrary/System/InputStream.hpp>
-#include <JLibrary/System/Keyboard.hpp>
-#include <JLibrary/System/MemoryInputStream.hpp>
-#include <JLibrary/System/Mouse.hpp>
 #include <JLibrary/System/NonCopyable.hpp>
-#include <JLibrary/System/Pointer.hpp>
-#include <JLibrary/System/StringConvert.hpp>
+#include <windows.h>
+
+namespace jlib
+{
+	// 
+	class ThreadLocal : NonCopyable
+	{
+		// 
+		class ThreadLocalImpl : NonCopyable
+		{
+			DWORD index_;
+
+			public:
+
+            // Default constructor.
+            ThreadLocalImpl();
+
+            // Destructor.
+            ~ThreadLocalImpl();
+
+            // Sets the thread-specific value of the variable.
+            void setValue(void* value);
+
+            // Retrieves the thread-specific value of the variable.
+            void* getValue() const;
+		};
+
+		ThreadLocalImpl* impl_;
+
+		public:
+
+        // Default constructor.
+        ThreadLocal(void* value = nullptr);
+
+        // Destructor.
+        ~ThreadLocal();
+
+        // Set the thread-specific value of the variable.
+        void setValue(void* value);
+
+        // Retrieve the thread-specific value of the variable.
+        void* getValue() const;
+	};
+}

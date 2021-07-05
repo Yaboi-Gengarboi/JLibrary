@@ -25,21 +25,51 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// Lock.cpp
-// Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
-// Source file for the Lock class.
+// ThreadLocal.cpp
+// Created on 2021-07-04 by Justyn Durnford
+// Last modified on 2021-07-04 by Justyn Durnford
+// Source file for the ThreadLocal class.
 
-#include <JLibrary/System/Lock.hpp>
-#include <JLibrary/System/Mutex.hpp>
+#include <JLibrary/Multithread/ThreadLocal.hpp>
 using namespace jlib;
 
-Lock::Lock(Mutex& mutex) : mutex_(mutex)
+ThreadLocal::ThreadLocalImpl::ThreadLocalImpl()
 {
-	mutex_.lock();
+    index_ = TlsAlloc();
 }
 
-Lock::~Lock()
+ThreadLocal::ThreadLocalImpl::~ThreadLocalImpl()
 {
-	mutex_.unlock();
+    TlsFree(index_);
+}
+
+void ThreadLocal::ThreadLocalImpl::setValue(void* value)
+{
+    TlsSetValue(index_, value);
+}
+
+void* ThreadLocal::ThreadLocalImpl::getValue() const
+{
+    return TlsGetValue(index_);
+}
+
+ThreadLocal::ThreadLocal(void* value)
+{
+    impl_ = new ThreadLocalImpl;
+    setValue(value);
+}
+
+ThreadLocal::~ThreadLocal()
+{
+    delete impl_;
+}
+
+void ThreadLocal::setValue(void* value)
+{
+    impl_->setValue(value);
+}
+
+void* ThreadLocal::getValue() const
+{
+    return impl_->getValue();
 }

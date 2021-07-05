@@ -11,14 +11,10 @@
 #include <JLibrary/Graphics.hpp>
 #include <JLibrary/Math.hpp>
 #include <JLibrary/System.hpp>
-#include <JLibrary/System/Pointer.hpp>
 using namespace jlib;
 
 #include <compare>
 using std::strong_ordering;
-
-#include <functional>
-using std::function;
 
 #include <iostream>
 using std::cout;

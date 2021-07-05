@@ -25,30 +25,14 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// Mutex.cpp
-// Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
-// Source file for the Mutex class.
+// Multithread.hpp
+// Created on 2021-07-04 by Justyn Durnford
+// Last modified on 2021-07-04 by Justyn Durnford
+// Header file that includes all header files found in include\JLibrary\Multithread
 
-#include <JLibrary/System/Mutex.hpp>
-using namespace jlib;
+#pragma once
 
-Mutex::Mutex()
-{
-	InitializeCriticalSection(&mutex_);
-}
-
-Mutex::~Mutex()
-{
-	DeleteCriticalSection(&mutex_);
-}
-
-void Mutex::lock()
-{
-	EnterCriticalSection(&mutex_);
-}
-
-void Mutex::unlock()
-{
-	LeaveCriticalSection(&mutex_);
-}
+#include <JLibrary/Multithread/Lock.hpp>
+#include <JLibrary/Multithread/Mutex.hpp>
+#include <JLibrary/Multithread/Thread.hpp>
+#include <JLibrary/Multithread/ThreadLocal.hpp>

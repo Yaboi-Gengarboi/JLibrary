@@ -25,22 +25,21 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// System.hpp
-// Created on 2021-05-25 by Justyn Durnford
+// Lock.cpp
+// Created on 2021-06-20 by Justyn Durnford
 // Last modified on 2021-07-04 by Justyn Durnford
-// Header file that includes all header files found in include\JLibrary\System
+// Source file for the Lock class.
 
-#pragma once
+#include <JLibrary/Multithread/Lock.hpp>
+#include <JLibrary/Multithread/Mutex.hpp>
+using namespace jlib;
 
-#include <JLibrary/System/Array.hpp>
-#include <JLibrary/System/Clock.hpp>
-#include <JLibrary/System/FileInputStream.hpp>
-#include <JLibrary/System/Gamepad.hpp>
-#include <JLibrary/System/Integer.hpp>
-#include <JLibrary/System/InputStream.hpp>
-#include <JLibrary/System/Keyboard.hpp>
-#include <JLibrary/System/MemoryInputStream.hpp>
-#include <JLibrary/System/Mouse.hpp>
-#include <JLibrary/System/NonCopyable.hpp>
-#include <JLibrary/System/Pointer.hpp>
-#include <JLibrary/System/StringConvert.hpp>
+Lock::Lock(Mutex& mutex) : mutex_(mutex)
+{
+	mutex_.lock();
+}
+
+Lock::~Lock()
+{
+	mutex_.unlock();
+}

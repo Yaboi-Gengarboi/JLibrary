@@ -30,7 +30,7 @@
 // Last modified on 2021-07-04 by Justyn Durnford
 // Source file for the Thread template class.
 
-#include <JLibrary/System/Thread.hpp>
+#include <JLibrary/Multithread/Thread.hpp>
 using namespace jlib;
 
 #include <cassert>

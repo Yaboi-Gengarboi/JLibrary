@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Table.hpp
 // Created on 2021-06-27 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-07-04 by Justyn Durnford
 // Header file for the Table template class.
 
 #pragma once
@@ -162,7 +162,7 @@ namespace jlib
 		}
 
 		// Move assignment operator.
-		Table(Table&& other) noexcept
+		Table& operator = (Table&& other) noexcept
 		{
 			data_ = other.data_;
 			rows_ = other.rows_;
@@ -315,9 +315,12 @@ namespace jlib
 template <std::regular T>
 bool operator == (const jlib::Table<T>& A, const jlib::Table<T>& B)
 {
-	for (std::size_t row_i(0); row_i < R; ++row_i)
+	if (A.rowCount() != B.rowCount() || A.colCount() != B.colCount())
+		return false;
+
+	for (std::size_t row_i(0); row_i < A.rowCount(); ++row_i)
 	{
-		for (std::size_t col_i(0); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < A.colCount(); ++col_i)
 		{
 			if (A(row_i, col_i) != B(row_i, col_i))
 				return false;
@@ -331,9 +334,12 @@ bool operator == (const jlib::Table<T>& A, const jlib::Table<T>& B)
 template <std::regular T>
 bool operator != (const jlib::Table<T>& A, const jlib::Table<T>& B)
 {
-	for (std::size_t row_i(0); row_i < R; ++row_i)
+	if (A.rowCount() != B.rowCount() || A.colCount() != B.colCount())
+		return true;
+
+	for (std::size_t row_i(0); row_i < A.rowCount(); ++row_i)
 	{
-		for (std::size_t col_i(0); col_i < C; ++col_i)
+		for (std::size_t col_i(0); col_i < A.colCount(); ++col_i)
 		{
 			if (A(row_i, col_i) != B(row_i, col_i))
 				return true;
