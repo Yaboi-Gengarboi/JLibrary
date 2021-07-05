@@ -25,37 +25,46 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// Lock.hpp
-// Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-07-01 by Justyn Durnford
-// Header file for the Lock class.
+// Context.hpp
+// Created on 2021-06-30 by Justyn Durnford
+// Last modified on 2021-06-30 by Justyn Durnford
+// Header file for the Context class and the ContextSettings struct.
 
 #pragma once
 
+#include <JLibrary/Graphics/GlResource.hpp>
+#include <JLibrary/System/Integer.hpp>
 #include <JLibrary/System/NonCopyable.hpp>
+
+typedef void (*GlFunctionPointer)();
 
 namespace jlib
 {
-	// 
-	class Mutex;
-
-	// Automatic wrapper class for locking and unlocking mutexes.
-	class Lock : public NonCopyable
+	// Structure defining the settings of the OpenGL
+	// context attached to a window.
+	struct ContextSettings
 	{
-		// Mutex to lock and unlock.
-		Mutex& mutex_;
+		// Enumeration of the context attribute flags.
+		enum Attribute
+		{
+			Default = 0,
+			Core    = 1,
+			Debug   = 4
+		};
 
-		public:
+		u32 depthBits;         // Bits of the depth buffer.
+		u32 stencilBits;       // Bits of the stencil buffer.
+		u32 antialiasingLevel; // Level of antialiasing.
+		u32 majorVersion;      // Major number of the context version to create.
+		u32 minorVersion;      // Minor number of the context version to create.
+		u32 attributeFlags;    // The attribute flags to create the context with.
+		bool         sRgbCapable;       // Whether the context framebuffer is sRGB capable.
 
-		// Disabled default constructor.
-		Lock() = delete;
+		// Default constructor.
+		ContextSettings() = default;
 
-		// Constructs the lock with a target mutex,
-		// automatically locking it.
-		explicit Lock(Mutex& mutex);
-
-		// Destructor.
-		// Automatically unlocks the locked mutex.
-		~Lock();
+		// Primary constructor.
+		ContextSettings(u32 depth = 0, u32 stencil = 0, u32 antialiasing = 0, u32 major = 1, 
+						u32 minor = 1, Attribute attributes = Default, bool sRgb = false);
 	};
 }

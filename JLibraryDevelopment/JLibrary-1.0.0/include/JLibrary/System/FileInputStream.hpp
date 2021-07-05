@@ -27,12 +27,13 @@
 // JLibraryDevelopment
 // FileInputStream.hpp
 // Created on 2021-06-18 by Justyn Durnford
-// Last modified on 2021-06-19 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Header file for the FileInputStream class.
 
 #pragma once
 
 #include <JLibrary/System/InputStream.hpp>
+#include <cstdio>
 #include <string>
 
 namespace jlib

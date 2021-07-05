@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
@@ -11,8 +11,8 @@
 #endif // NOMINMAX
 
 #include <JLibrary/Math/Arithmetic.hpp>
+#include <JLibrary/System/StringConvert.hpp>
 #include <cmath>
-#include <string>
 
 namespace jlib
 {
@@ -53,18 +53,6 @@ namespace jlib
 			y = static_cast<T>(other.y);
 		}
 
-		// Copy constructor.
-		Point2(const Point2& other) = default;
-
-		// Move constructor.
-		Point2(Point2&& other) = default;
-
-		// Copy assignment operator.
-		Point2& operator = (const Point2& other) = default;
-
-		// Move assignment operator.
-		Point2& operator = (Point2&& other) = default;
-
 		// Sets all the values of the Point2 at once.
 		// Sets the x component of the Point2 to X.
 		// Sets the y component of the Point2 to Y.
@@ -75,15 +63,21 @@ namespace jlib
 		}
 
 		// Returns a std::string representation of the Point2.
-		inline std::string toString() const
+		std::string toString() const
 		{
 			return '(' + std::to_string(x) + ", " + std::to_string(y) + ')';
 		}
 
 		// Returns a std::wstring representation of the Point2.
-		inline std::wstring toWideString() const
+		std::wstring toWideString() const
 		{
-			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L')';
+			return str_to_wstr(toString());
+		}
+
+		// Returns a std::u32string representation of the Point2.
+		std::u32string toU32String() const
+		{
+			return str_to_u32str(toString());
 		}
 	};
 	
@@ -92,7 +86,7 @@ namespace jlib
 
 	// Returns the distance between the two Point2s.
 	template <std_arithmetic T>
-	inline float distance_between(const Point2<T>& A, const Point2<T>& B)
+	float distance_between(const Point2<T>& A, const Point2<T>& B)
 	{
 		return std::sqrtf(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f));
 	}

@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
@@ -10,9 +10,9 @@
 #define NOMINMAX
 #endif // NOMINMAX
 
-#include <Jlibrary/Math/Arithmetic.hpp>
+#include <JLibrary/Math/Arithmetic.hpp>
+#include <JLibrary/System/StringConvert.hpp>
 #include <cmath>
-#include <string>
 
 namespace jlib
 {
@@ -58,18 +58,6 @@ namespace jlib
 			z = static_cast<T>(other.z);
 		}
 
-		// Copy constructor.
-		Point3(const Point3& other) = default;
-
-		// Move constructor.
-		Point3(Point3&& other) = default;
-
-		// Copy assignment operator.
-		Point3& operator = (const Point3& other) = default;
-
-		// Move assignment operator.
-		Point3& operator = (Point3&& other) = default;
-
 		// Sets all the values of the Point3 at once.
 		// Sets the x component of the Point3 to X.
 		// Sets the y component of the Point3 to Y.
@@ -82,15 +70,21 @@ namespace jlib
 		}
 
 		// Returns a std::string representation of the Point3.
-		inline std::string toString() const
+		std::string toString() const
 		{
 			return '(' + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ')';
 		}
 
 		// Returns a std::wstring representation of the Point3.
-		inline std::wstring toWideString() const
+		std::wstring toWideString() const
 		{
-			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L')';
+			return str_to_wstr(toString());
+		}
+
+		// Returns a std::u32string representation of the Point3.
+		std::u32string toU32String() const
+		{
+			return str_to_u32str(toString());
 		}
 	};
 
@@ -99,7 +93,7 @@ namespace jlib
 
 	// Returns the distance between the two Point3s.
 	template <std_arithmetic T>
-	inline float distance_between(const Point3<T>& A, const Point3<T>& B)
+	float distance_between(const Point3<T>& A, const Point3<T>& B)
 	{
 		return std::sqrtf(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f) + std::powf(B.z - A.z, 2.f));
 	}

@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-06-27 by Justyn Durnford
+// Last updated on 2021-07-04 by Justyn Durnford
 // Main file for testing.
 
 #ifndef NOMINMAX
@@ -11,18 +11,30 @@
 #include <JLibrary/Graphics.hpp>
 #include <JLibrary/Math.hpp>
 #include <JLibrary/System.hpp>
+#include <JLibrary/System/Pointer.hpp>
 using namespace jlib;
 
-#include <algorithm>
-#include <array>
-#include <cmath>
-#include <concepts>
-#include <cstddef>
-#include <cstdint>
+#include <compare>
+using std::strong_ordering;
+
+#include <functional>
+using std::function;
+
 #include <iostream>
-#include <limits>
+using std::cout;
+using std::wcout;
+using std::endl;
+
 #include <string>
-using namespace std;
+using std::size_t;
+using std::string;
+using std::wstring;
+
+#include <thread>
+using std::thread;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 unsigned int constructed = 0;
 unsigned int destructed = 0;
@@ -48,8 +60,31 @@ struct Counter
 	}
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 void println()
 {
+	cout << endl;
+}
+
+void println(bool b)
+{
+	if (b)
+		cout << "true";
+	else
+		cout << "false";
+	cout << endl;
+}
+
+void println(strong_ordering order)
+{
+	if (order == strong_ordering::less)
+		cout << "less";
+	else if (order == strong_ordering::greater)
+		cout << "greater";
+	else
+		cout << "equal";
 	cout << endl;
 }
 
@@ -64,33 +99,192 @@ void println(const wstring& wstr)
 }
 
 template <std_arithmetic T, size_t R, size_t C>
-void print(const Matrix<T, R, C>& M)
+void print_matrix(const Matrix<T, R, C>& M)
 {
-	for (size_t row_i(0u); row_i < R; ++row_i)
+	for (size_t row_i(0); row_i < R; ++row_i)
 	{
 		cout << "{ ";
-		for (size_t col_i(0u); col_i < C - 1u; ++col_i)
+		for (size_t col_i(0); col_i < C - 1; ++col_i)
 			cout << M(row_i, col_i) << ", ";
-		cout << M(row_i, C - 1u) << " }" << endl;
+		cout << M(row_i, C - 1) << " }" << endl;
 	}
 }
 
-void test_fraction()
-{
-	Fraction<uint8_t> A(1, 4);
-	Fraction<uint8_t> B(2, 3);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-	Fraction<uint8_t> C = A + B;
+void test_angle()
+{
+	// Test constructors.
+
+	// Test default constructor.
+	Angle a;
+
+	// Test angle constructor.
+	Angle b(0.f);
+
+	// Test copy constructor and assignment.
+	Angle c(b);
+	Angle d = c;
+
+	// Test move constructor and assignment.
+	Angle e(Angle(90.f));
+	Angle f = Angle(45.f);
+
+
+}
+
+void test_array()
+{
+
+}
+
+void test_circle()
+{
+
+}
+
+void test_color()
+{
+
+}
+
+Fraction<u16> test_fraction(u16 numer, u16 denom)
+{
+	Fraction<u16> A(numer, denom);
+	Fraction<u16> B(2, 3);
+
+	Fraction<u16> C = A + B;
 	++C;
 
-	// Expected Fraction: 23 / 12
-	cout << C.toString() << endl;
+	Fraction<u16> D(C - Fraction<u16>(1, 5));
+	D /= Fraction<u16>(1, 2);
 
-	Fraction<uint8_t> D(C - Fraction<uint8_t>(1, 3));
-	D /= Fraction<uint8_t>(1, 2);
+	return D;
+}
 
-	// Expected Fraction: 114 / 36
-	cout << D.toString() << endl;
+void test_gamepad()
+{
+
+}
+
+void test_matrix(bool test_memory)
+{
+	Matrix<int, 3, 3> A
+	{
+		{ 5, 1, -8 },
+		{ -3, 1, 1 },
+		{ -1, -11, 4 }
+	};
+
+	Matrix<int, 3, 3> B
+	{
+		{ -7, -2, 10 },
+		{ 5, 0, 3 },
+		{ -2, 14, -5 }
+	};
+
+	Matrix<int, 3, 3> C = A + B;
+
+	// Expected Matrix:
+	// { -2, -1,  2 }
+	// {  2,  1,  4 }
+	// { -3,  3, -1 }    
+	print_matrix(C);
+
+	// Expected determinant: 54
+	cout << determinant(C) << endl;
+
+	Matrix<float, 2, 2> D;
+	D(0, 0) = 1.f;
+	D(1, 0) = 1.f;
+	D(0, 1) = -2.f;
+	D(1, 1) = 2.f;
+
+	D *= 1.5f;
+
+	// Expected Matrix:
+	// {  1.5f,  1.5f }
+	// { -3.0f,  3.0f }
+	print_matrix(D);
+
+	// Expected determinant: 9.0f
+	cout << determinant(D) << endl;
+
+	Matrix<float, 2, 2> E = (D - Matrix<float, 2, 2>(0.5f)) / 2.f;
+	E(1, 0) += 0.25f;
+	E(0, 1) -= 0.5f;
+
+	// Expected Matrix:
+	// {  0.5f,  0.75f }
+	// { -2.25f,  1.25f }
+	print_matrix(E);
+
+	// Expected determinant: 2.3125f
+	cout << determinant(E) << endl;
+
+	Matrix<int, 4, 4> F =
+	{
+		{  0,  1,  2,  3 },
+		{  4,  5,  6,  7 },
+		{  8,  9, 10, 11 },
+		{ 12, 13, 14, 15 }
+	};
+
+	print_matrix(F);
+
+	cout << F(7) << endl;
+	cout << F(2) << endl;
+	cout << F(8) << endl;
+	cout << F(13) << endl;
+	cout << F(0) << endl;
+	cout << F(15) << endl;
+
+	if (!test_memory)
+		return;
+
+	for (int i = 0; i < 5000; ++i)
+	{
+		Matrix<int, 3, 3> G
+		{
+			{ 5, 1, -8 },
+			{ -3, 1, 1 },
+			{ -1, -11, 4 }
+		};
+
+		Matrix<int, 3, 3> H
+		{
+			{ -7, -2, 10 },
+			{ 5, 0, 3 },
+			{ -2, 14, -5 }
+		};
+
+		print_matrix(dot_product(G, H));
+	}
+}
+
+void test_point()
+{
+
+}
+
+void test_pointer()
+{
+	int A = 5;
+	Pointer<int> a = &A;
+
+	Pointer<int> b = a.release();
+	println(b == &A);
+}
+
+void test_rectangle()
+{
+
+}
+
+void test_transformable()
+{
+
 }
 
 void test_vector()
@@ -118,104 +312,17 @@ void test_vector()
 	cout << g.toString() << endl;
 }
 
-void test_matrix()
-{
-	Matrix<int, 3, 3> A
-	{
-		{ 5, 1, -8 },
-		{ -3, 1, 1 },
-		{ -1, -11, 4 }
-	};
-
-	Matrix<int, 3, 3> B
-	{
-		{ -7, -2, 10 },
-		{ 5, 0, 3 },
-		{ -2, 14, -5 }
-	};
-
-	Matrix<int, 3, 3> C = A + B;
-
-	// Expected Matrix:
-	// { -2, -1,  2 }
-	// {  2,  1,  4 }
-	// { -3,  3, -1 }    
-	print(C);
-
-	// Expected determinant: 54
-	cout << determinant(C) << endl;
-
-	Matrix<float, 2, 2> D;
-	D(0, 0) = 1.f;
-	D(1, 0) = 1.f;
-	D(0, 1) = -2.f;
-	D(1, 1) = 2.f;
-
-	D *= 1.5f;
-
-	// Expected Matrix:
-	// {  1.5f,  1.5f }
-	// { -3.0f,  3.0f }
-	print(D);
-
-	// Expected determinant: 9.0f
-	cout << determinant(D) << endl;
-
-	Matrix<float, 2, 2> E = (D - Matrix<float, 2, 2>(0.5f)) / 2.f;
-	E(1, 0) += 0.25f;
-	E(0, 1) -= 0.5f;
-
-	// Expected Matrix:
-	// {  0.5f,  0.75f }
-	// { -2.25f,  1.25f }
-	print(E);
-
-	// Expected determinant: 2.3125f
-	cout << determinant(E) << endl;
-
-	Matrix<int, 4, 4> F =
-	{
-		{  0,  1,  2,  3 },
-		{  4,  5,  6,  7 },
-		{  8,  9, 10, 11 },
-		{ 12, 13, 14, 15 }
-	};
-
-	print(F);
-
-	cout << F(7) << endl;
-	cout << F(2) << endl;
-	cout << F(8) << endl;
-	cout << F(13) << endl;
-	cout << F(0) << endl;
-	cout << F(15) << endl;
-}
-
-void test_matrix_memory_leak()
-{
-	for (int i = 0; i < 5000; ++i)
-	{
-		Matrix<int, 3, 3> A
-		{
-			{ 5, 1, -8 },
-			{ -3, 1, 1 },
-			{ -1, -11, 4 }
-		};
-
-		Matrix<int, 3, 3> B
-		{
-			{ -7, -2, 10 },
-			{ 5, 0, 3 },
-			{ -2, 14, -5 }
-		};
-
-		print(dot_product(A, B));
-	}
-}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
-	
+	// Expected output:
+	// 118 / 30
+	// 3.93333
+	Fraction<u16> f(test_fraction(1, 2));
+	cout << f.toString() << endl;
+	cout << f.evaluate() << endl;
 
 	return 0;
 }

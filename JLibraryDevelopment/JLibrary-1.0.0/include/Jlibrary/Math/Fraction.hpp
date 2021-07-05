@@ -27,14 +27,13 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
 
+#include <JLibrary/System/StringConvert.hpp>
 #include <compare>
-#include <concepts>
-#include <string>
 
 namespace jlib
 {
@@ -85,12 +84,6 @@ namespace jlib
 			denom = static_cast<T>(other.denom);
 		}
 
-		// Copy constructor.
-		Fraction(const Fraction& other) = default;
-
-		// Move constructor.
-		Fraction(Fraction&& other) = default;
-
 		// 1-int assignment operator.
 		// Sets the numerator of the Fraction to Numer.
 		// Sets the denominator of the Fraction to 1.
@@ -100,15 +93,6 @@ namespace jlib
 			denom = static_cast<T>(1);
 			return *this;
 		}
-
-		// Copy assignment operator.
-		Fraction& operator = (const Fraction& other) = default;
-
-		// Move assignment operator.
-		Fraction& operator = (Fraction&& other) = default;
-
-		// Destructor.
-		~Fraction() = default;
 
 		// Sets all the values of the Fraction at once.
 		// Sets the numerator of the Fraction to Numer.
@@ -144,27 +128,33 @@ namespace jlib
 
 		// Returns the result of the Fraction as a float.
 		// This function may throw if a division by 0 is attempted.
-		inline float evaluate() const
+		float evaluate() const
 		{
 			return static_cast<float>(numer) / static_cast<float>(denom);
 		}
 
 		// Returns true if the denominator of the Fraction is NOT 0.
-		inline bool isValid() const
+		bool isValid() const
 		{
 			return (denom != 0);
 		}
 
 		// Returns a std::string representation of the Fraction.
-		inline std::string toString() const
+		std::string toString() const
 		{
 			return std::to_string(numer) + " / " + std::to_string(denom);
 		}
 
 		// Returns a std::wstring representation of the Fraction.
-		inline std::wstring toWideString() const
+		std::wstring toWideString() const
 		{
-			return std::to_wstring(numer) + L" / " + std::to_wstring(denom);
+			return str_to_wstr(toString());
+		}
+
+		// Returns a std::u32string representation of the Fraction.
+		std::u32string toU32String() const
+		{
+			return str_to_u32str(toString());
 		}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,6 +192,119 @@ namespace jlib
 			return fr;
 		}
 	};
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Overload of binary operator ==
+template <std::integral T>
+bool operator == (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	return A.evaluate() == B.evaluate();
+}
+
+// Overload of binary operator ==
+template <std::integral T>
+bool operator == (const jlib::Fraction<T>& A, float B)
+{
+	return A.evaluate() == B;
+}
+
+// Overload of binary operator !=
+template <std::integral T>
+bool operator != (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	return A.evaluate() != B.evaluate();
+}
+
+// Overload of binary operator !=
+template <std::integral T>
+bool operator != (const jlib::Fraction<T>& A, float B)
+{
+	return A.evaluate() != B;
+}
+
+// Overload of binary operator >
+template <std::integral T>
+bool operator > (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	return A.evaluate() > B.evaluate();
+}
+
+// Overload of binary operator >
+template <std::integral T>
+bool operator > (const jlib::Fraction<T>& A, float B)
+{
+	return A.evaluate() > B;
+}
+
+// Overload of binary operator >=
+template <std::integral T>
+bool operator >= (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	return A.evaluate() >= B.evaluate();
+}
+
+// Overload of binary operator >=
+template <std::integral T>
+bool operator >= (const jlib::Fraction<T>& A, float B)
+{
+	return A.evaluate() >= B;
+}
+
+// Overload of binary operator <
+template <std::integral T>
+bool operator < (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	return A.evaluate() < B.evaluate();
+}
+
+// Overload of binary operator <
+template <std::integral T>
+bool operator < (const jlib::Fraction<T>& A, float B)
+{
+	return A.evaluate() < B;
+}
+
+// Overload of binary operator <=
+template <std::integral T>
+bool operator <= (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	return A.evaluate() <= B.evaluate();
+}
+
+// Overload of binary operator <=
+template <std::integral T>
+bool operator <= (const jlib::Fraction<T>& A, float B)
+{
+	return A.evaluate() <= B;
+}
+
+// Overload of binary operator <=>
+template <std::integral T>
+std::strong_ordering operator <=> (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
+{
+	if (A.evaluate() < B.evaluate())
+		return std::strong_ordering::less;
+
+	if (A.evaluate() > B.evaluate())
+		return std::strong_ordering::greater;
+
+	return std::strong_ordering::equal;
+}
+
+// Overload of binary operator <=>
+template <std::integral T>
+std::strong_ordering operator <=> (const jlib::Fraction<T>& A, float B)
+{
+	if (A.evaluate() < B)
+		return std::strong_ordering::less;
+
+	if (A.evaluate() > B)
+		return std::strong_ordering::greater;
+
+	return std::strong_ordering::equal;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -378,114 +481,4 @@ jlib::Fraction<T>& operator /= (jlib::Fraction<T>& A, U value)
 {
 	A.denom *= value;
 	return A;
-}
-
-// Overload of binary operator ==
-template <std::integral T>
-bool operator == (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	return A.evaluate() == B.evaluate();
-}
-
-// Overload of binary operator ==
-template <std::integral T>
-bool operator == (const jlib::Fraction<T>& A, float B)
-{
-	return A.evaluate() == B;
-}
-
-// Overload of binary operator !=
-template <std::integral T>
-bool operator != (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	return A.evaluate() != B.evaluate();
-}
-
-// Overload of binary operator !=
-template <std::integral T>
-bool operator != (const jlib::Fraction<T>& A, float B)
-{
-	return A.evaluate() != B;
-}
-
-// Overload of binary operator >
-template <std::integral T>
-bool operator > (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	return A.evaluate() > B.evaluate();
-}
-
-// Overload of binary operator >
-template <std::integral T>
-bool operator > (const jlib::Fraction<T>& A, float B)
-{
-	return A.evaluate() > B;
-}
-
-// Overload of binary operator >=
-template <std::integral T>
-bool operator >= (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	return A.evaluate() >= B.evaluate();
-}
-
-// Overload of binary operator >=
-template <std::integral T>
-bool operator >= (const jlib::Fraction<T>& A, float B)
-{
-	return A.evaluate() >= B;
-}
-
-// Overload of binary operator <
-template <std::integral T>
-bool operator < (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	return A.evaluate() < B.evaluate();
-}
-
-// Overload of binary operator <
-template <std::integral T>
-bool operator < (const jlib::Fraction<T>& A, float B)
-{
-	return A.evaluate() < B;
-}
-
-// Overload of binary operator <=
-template <std::integral T>
-bool operator <= (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	return A.evaluate() <= B.evaluate();
-}
-
-// Overload of binary operator <=
-template <std::integral T>
-bool operator <= (const jlib::Fraction<T>& A, float B)
-{
-	return A.evaluate() <= B;
-}
-
-// Overload of binary operator <=>
-template <std::integral T>
-std::strong_ordering operator <=> (const jlib::Fraction<T>& A, const jlib::Fraction<T>& B)
-{
-	if (A.evaluate() < B.evaluate())
-		return std::strong_ordering::less;
-
-	if (A.evaluate() > B.evaluate())
-		return std::strong_ordering::greater;
-
-	return std::strong_ordering::equal;
-}
-
-// Overload of binary operator <=>
-template <std::integral T>
-std::strong_ordering operator <=> (const jlib::Fraction<T>& A, float B)
-{
-	if (A.evaluate() < B)
-		return std::strong_ordering::less;
-
-	if (A.evaluate() > B)
-		return std::strong_ordering::greater;
-
-	return std::strong_ordering::equal;
 }

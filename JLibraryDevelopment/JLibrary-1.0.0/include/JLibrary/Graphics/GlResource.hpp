@@ -25,30 +25,45 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// Mutex.cpp
-// Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
-// Source file for the Mutex class.
+// GlResource.hpp
+// Created on 2021-06-30 by Justyn Durnford
+// Last modified on 2021-07-01 by Justyn Durnford
+// Header file for the GlResource class.
 
-#include <JLibrary/System/Mutex.hpp>
-using namespace jlib;
+#include <JLibrary/System/NonCopyable.hpp>
 
-Mutex::Mutex()
+#pragma once
+
+namespace jlib
 {
-	InitializeCriticalSection(&mutex_);
-}
+	typedef void(*ContextDestroyCallback)(void*);
 
-Mutex::~Mutex()
-{
-	DeleteCriticalSection(&mutex_);
-}
+	// Base class for classes that require an OpenGL context.
+	class GlResource
+	{
+		protected:
 
-void Mutex::lock()
-{
-	EnterCriticalSection(&mutex_);
-}
+		// Default constructor.
+		GlResource();
 
-void Mutex::unlock()
-{
-	LeaveCriticalSection(&mutex_);
+		// Destructor.
+		~GlResource();
+
+		// Register a function to be called when a context is destroyed.
+		// This is used for internal purposes in order to properly clean up 
+		// OpenGL resources that cannot be shared between contexts.
+		static void registerContextDestroyCallback(ContextDestroyCallback callback, void* arg);
+
+		// RAII helper class to temporarily lock an available context for use.
+		class TransientContextLock : NonCopyable
+		{
+			public:
+			
+			// Default constructor.
+			TransientContextLock();
+
+			// Destructor.
+			~TransientContextLock();
+		};
+	};
 }

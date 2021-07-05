@@ -27,18 +27,19 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
 
+#include <JLibrary/Math/Angle.hpp>
 #include <JLibrary/Math/Point3.hpp>
 
 namespace jlib
 {
     // Utility template class for representing, manipulating
     // and computing with vectors in 3-dimensional space.
-    template <std_arithmetic T> struct Vector3
+    template <std_arithmetic T> class Vector3
     {
         public:
 
@@ -90,31 +91,6 @@ namespace jlib
             z = static_cast<T>(other.z);
         }
 
-        // Copy constructor.
-        Vector3(const Vector3& other) = default;
-
-        // Move constructor.
-        Vector3(Vector3&& other) = default;
-
-        // Assigns the Vector3 from the given Point3.
-        // Sets the x component of the Vector3 to the x component of the given Point3.
-        // Sets the y component of the Vector3 to the y component of the given Point3.
-        // Sets the z component of the Vector3 to the z component of the given Point3.
-        Vector3& operator = (const Point3<T>& P)
-        {
-            x = P.x;
-            y = P.y;
-            z = P.z;
-
-            return *this;
-        }
-
-        // Copy assignment operator.
-        Vector3& operator = (const Vector3& other) = default;
-
-        // Move assignment operator.
-        Vector3& operator = (Vector3&& other) = default;
-
         // Sets all the values of the Vector3 at once.
         // Sets the x component of the Vector3 to X.
         // Sets the y component of the Vector3 to Y.
@@ -127,13 +103,13 @@ namespace jlib
         }
 
         // Returns the magnitude of the Vector3.
-        inline float magnitude() const
+        float magnitude() const
         {
             return std::sqrtf(std::powf(x, 2.f) + std::powf(y, 2.f) + std::powf(z, 2.f));
         }
 
         // Returns the endpoint of the Point3.
-        inline Point3<T> endpoint() const
+        Point3<T> endpoint() const
         {
             return Point3<T>(x, y, z);
         }
@@ -146,15 +122,21 @@ namespace jlib
         }
 
         // Returns a std::string representation of the Vector3.
-        inline std::string toString() const
+        std::string toString() const
         {
             return '<' + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + '>';
         }
 
         // Returns a std::wstring representation of the Vector3.
-        inline std::wstring toWideString() const
+        std::wstring toWideString() const
         {
-            return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L'>';
+            return str_to_wstr(toString());
+        }
+
+        // Returns a std::u32string representation of the Vector3.
+        std::u32string toU32String() const
+        {
+            return str_to_u32str(toString());
         }
     };
 
@@ -163,21 +145,21 @@ namespace jlib
 
     // Returns the dot product of the 2 given Vector3s.
     template <std_arithmetic T>
-    inline float dot_product(const Vector3<T>& A, const Vector3<T>& B)
+    float dot_product(const Vector3<T>& A, const Vector3<T>& B)
     {
         return A.x * B.x + A.y * B.y + A.z * B.z;
     }
 
     // Returns the cross product of the 2 given Vector3s.
     template <jlib::std_arithmetic T>
-    inline jlib::Vector3<T> cross_product(const Vector3<T>& A, const Vector3<T>& B)
+    jlib::Vector3<T> cross_product(const Vector3<T>& A, const Vector3<T>& B)
     {
         return Vector3<T>(A.y * B.z - A.z * B.y, -(A.x * B.z - A.z * B.x), A.x * B.y - A.y * B.x);
     }
 
     // Returns the scalar projection of A onto B.
     template <std_arithmetic T>
-    inline double scalar_proj(const Vector3<T>& A, const Vector3<T>& B)
+    float scalar_proj(const Vector3<T>& A, const Vector3<T>& B)
     {
         return dot_product(A, B) / A.magnitude();
     }
@@ -192,7 +174,7 @@ namespace jlib
 
     // Determines if the 2 given Vector3s are orthogonal to eachother.
     template <std_arithmetic T>
-    inline bool are_normal(const Vector3<T>& A, const Vector3<T>& B)
+    bool are_normal(const Vector3<T>& A, const Vector3<T>& B)
     {
         return dot_product(A, B) == 0.f;
     }
@@ -218,6 +200,20 @@ namespace jlib
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Overload of binary operator ==
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
+{
+    return (A.x == B.x) && (A.y == B.y) && (A.z == B.z);
+}
+
+// Overload of binary operator !=
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
+{
+    return (A.x != B.x) || (A.y != B.y) || (A.z != B.z);
+}
 
 // Overload of unary operator -
 template <jlib::std_arithmetic T>
@@ -296,18 +292,4 @@ jlib::Vector3<T>& operator /= (jlib::Vector3<T>& A, U scalar)
     A.z /= scalar;
 
     return A;
-}
-
-// Overload of binary operator ==
-template <jlib::std_arithmetic T>
-bool operator == (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
-{
-    return (A.x == B.x) && (A.y == B.y) && (A.z == B.z);
-}
-
-// Overload of binary operator !=
-template <jlib::std_arithmetic T>
-bool operator != (const jlib::Vector3<T>& A, const jlib::Vector3<T>& B)
-{
-    return (A.x != B.x) || (A.y != B.y) || (A.z != B.z);
 }

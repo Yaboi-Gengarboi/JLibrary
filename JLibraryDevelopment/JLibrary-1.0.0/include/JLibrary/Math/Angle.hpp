@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Angle.hpp
 // Created on 2021-06-12 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Angle class.
 
 #pragma once
@@ -10,9 +10,9 @@
 #define NOMINMAX
 #endif // NOMINMAX
 
+#include <JLibrary/System/StringConvert.hpp>
 #include <cmath>
 #include <compare>
-#include <string>
 
 namespace jlib
 {
@@ -32,30 +32,18 @@ namespace jlib
 		// Sets the degree to the given float.
 		Angle(float Degree);
 
-		// Copy constructor.
-		Angle(const Angle& other) = default;
-		
-		// Move constructor.
-		Angle(Angle&& other) = default;
-
 		// float assignment operator.
 		// Sets the degree to the given float.
 		Angle& operator = (float Degree);
-
-		// Copy assignment operator.
-		Angle& operator = (const Angle& other) = default;
-
-		// Move assignment operator.
-		Angle& operator = (Angle&& other) = default;
-
-		// Destructor.
-		~Angle() = default;
 
 		// Returns a std::string representation of the Angle.
 		std::string toString() const;
 
 		// Returns a std::wstring representation of the Angle.
 		std::wstring toWideString() const;
+
+		// Returns a std::u32string representation of the Angle.
+		std::u32string toU32String() const;
 	};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,45 +73,6 @@ namespace jlib
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Overload of unary operator -
-jlib::Angle operator - (const jlib::Angle& A);
-
-// Overload of binary operator +
-jlib::Angle operator + (const jlib::Angle& A, const jlib::Angle& B);
-
-// Overload of binary operator +
-jlib::Angle operator + (const jlib::Angle& A, float degree);
-
-// Overload of binary operator -
-jlib::Angle operator - (const jlib::Angle& A, const jlib::Angle& B);
-
-// Overload of binary operator -
-jlib::Angle operator - (const jlib::Angle& A, float degree);
-
-// Overload of binary operator *
-jlib::Angle operator * (const jlib::Angle& A, float scalar);
-
-// Overload of binary operator /
-jlib::Angle operator / (const jlib::Angle& A, float scalar);
-
-// Overload of binary operator +=
-jlib::Angle& operator += (jlib::Angle& A, const jlib::Angle& B);
-
-// Overload of binary operator +=
-jlib::Angle& operator += (jlib::Angle& A, float degree);
-
-// Overload of binary operator -=
-jlib::Angle& operator -= (jlib::Angle& A, const jlib::Angle& B);
-
-// Overload of binary operator -=
-jlib::Angle& operator -= (jlib::Angle& A, float degree);
-
-// Overload of binary operator *=
-jlib::Angle& operator *= (jlib::Angle& A, float scalar);
-
-// Overload of binary operator /=
-jlib::Angle& operator /= (jlib::Angle& A, float scalar);
 
 // Overload of binary operator ==
 bool operator == (const jlib::Angle& A, const jlib::Angle& B);
@@ -166,3 +115,45 @@ std::strong_ordering operator <=> (const jlib::Angle& A, const jlib::Angle& B);
 
 // Overload of binary operator <=>
 std::strong_ordering operator <=> (const jlib::Angle& A, float degree);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Overload of unary operator -
+jlib::Angle operator - (const jlib::Angle& A);
+
+// Overload of binary operator +
+jlib::Angle operator + (const jlib::Angle& A, const jlib::Angle& B);
+
+// Overload of binary operator +
+jlib::Angle operator + (const jlib::Angle& A, float degree);
+
+// Overload of binary operator -
+jlib::Angle operator - (const jlib::Angle& A, const jlib::Angle& B);
+
+// Overload of binary operator -
+jlib::Angle operator - (const jlib::Angle& A, float degree);
+
+// Overload of binary operator *
+jlib::Angle operator * (const jlib::Angle& A, float scalar);
+
+// Overload of binary operator /
+jlib::Angle operator / (const jlib::Angle& A, float scalar);
+
+// Overload of binary operator +=
+jlib::Angle& operator += (jlib::Angle& A, const jlib::Angle& B);
+
+// Overload of binary operator +=
+jlib::Angle& operator += (jlib::Angle& A, float degree);
+
+// Overload of binary operator -=
+jlib::Angle& operator -= (jlib::Angle& A, const jlib::Angle& B);
+
+// Overload of binary operator -=
+jlib::Angle& operator -= (jlib::Angle& A, float degree);
+
+// Overload of binary operator *=
+jlib::Angle& operator *= (jlib::Angle& A, float scalar);
+
+// Overload of binary operator /=
+jlib::Angle& operator /= (jlib::Angle& A, float scalar);

@@ -27,13 +27,13 @@
 // JLibraryDevelopment
 // Keyboard.cpp
 // Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the Keyboard class.
 
 #include <JLibrary/System/Keyboard.hpp>
-#include <Windows.h>
-using namespace std;
 using namespace jlib;
+
+#include <windows.h>
 
 bool Keyboard::isKeyPressed(Key key)
 {

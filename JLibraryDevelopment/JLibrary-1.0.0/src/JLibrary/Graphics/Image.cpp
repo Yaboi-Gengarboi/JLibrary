@@ -27,22 +27,45 @@
 // JLibraryDevelopment
 // Image.cpp
 // Created on 2021-06-24 by Justyn Durnford
-// Last modified on 2021-06-29 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the Image class.
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <ExternalLibs/stb_image/stb_image.h>
+
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <ExternalLibs/stb_image/stb_image_write.h>
+
 #include <JLibrary/Graphics/Image.hpp>
 #include <JLibrary/System/NonCopyable.hpp>
-#include <algorithm>
-#include <cctype>
-#include <iostream>
-#include <utility>
-#include <vector>
-using namespace std;
 using namespace jlib;
+
+#include <algorithm>
+using std::copy;
+using std::swap_ranges;
+
+#include <cctype>
+using std::isalpha;
+using std::tolower;
+
+#include <cstring>
+using std::memcpy;
+
+#include <iostream>
+using std::cout;
+using std::endl;
+
+#include <iterator>
+using std::back_inserter;
+
+// <string>
+using std::string;
+
+#include <utility>
+using std::move;
+
+#include <vector>
+using std::vector;
 
 // Create a lowercase copy of the given std::string.
 string toLower(string str)
@@ -103,8 +126,7 @@ class ImageLoader : public NonCopyable
     }
 
     // Loads an image from a file on the disk.
-    bool loadImageFromFile(const string& filename, Array<unsigned char>& pixels, 
-                           unsigned int image_width, unsigned int image_height)
+    bool loadImageFromFile(const string& filename, Array<u8>& pixels, u32 image_width, u32 image_height)
     {
         pixels.clear();
 
@@ -112,7 +134,7 @@ class ImageLoader : public NonCopyable
         int width = 0;
         int height = 0;
         int channels = 0;
-        unsigned char* ptr = stbi_load(filename.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+        u8* ptr = stbi_load(filename.c_str(), &width, &height, &channels, STBI_rgb_alpha);
 
         if (ptr != nullptr)
         {
@@ -122,7 +144,7 @@ class ImageLoader : public NonCopyable
             if (width != 0 && height != 0)
             {
                 // Copy the loaded pixels to the pixel buffer.
-                pixels = Array<unsigned char>(width * height * 4);
+                pixels = Array<u8>(width * height * 4);
                 memcpy(&pixels[0], ptr, pixels.size());
             }
 
@@ -141,10 +163,10 @@ class ImageLoader : public NonCopyable
     }
 
     // Loads an image from a file in memory.
-    bool loadImageFromMemory(const void* data, size_t dataSize, Array<unsigned char>& pixels, 
-                             unsigned int image_width, unsigned int image_height)
+    bool loadImageFromMemory(const void* data, size_t dataSize, Array<u8>& pixels, 
+                             u32 image_width, u32 image_height)
     {
-        if (data != nullptr && dataSize != 0u)
+        if (data != nullptr && dataSize != 0)
         {
             pixels.clear();
 
@@ -152,9 +174,9 @@ class ImageLoader : public NonCopyable
             int width = 0;
             int height = 0;
             int channels = 0;
-            const unsigned char* buffer = static_cast<const unsigned char*>(data);
-            unsigned char* ptr = stbi_load_from_memory(buffer, static_cast<int>(dataSize), &width, 
-                                                       &height, &channels, STBI_rgb_alpha);
+            const u8* buffer = static_cast<const u8*>(data);
+            u8* ptr = stbi_load_from_memory(buffer, static_cast<int>(dataSize), &width, 
+                                            &height, &channels, STBI_rgb_alpha);
 
             if (ptr != nullptr)
             {
@@ -164,7 +186,7 @@ class ImageLoader : public NonCopyable
                 if (width != 0 && height != 0)
                 {
                     // Copy the loaded pixels to the pixel buffer.
-                    pixels = Array<unsigned char>(width * height * 4);
+                    pixels = Array<u8>(width * height * 4);
                     memcpy(&pixels[0], ptr, pixels.size());
                 }
 
@@ -177,8 +199,8 @@ class ImageLoader : public NonCopyable
     }
 
     // Loads an image from a custom stream.
-    bool loadImageFromStream(InputStream& stream, Array<unsigned char>& pixels, 
-                             unsigned int image_width, unsigned int image_height)
+    bool loadImageFromStream(InputStream& stream, Array<u8>& pixels, 
+                             u32 image_width, u32 image_height)
     {
         pixels.clear();
 
@@ -195,8 +217,8 @@ class ImageLoader : public NonCopyable
         int width = 0;
         int height = 0;
         int channels = 0;
-        unsigned char* ptr = stbi_load_from_callbacks(&callbacks, &stream, &width, 
-                                                      &height, &channels, STBI_rgb_alpha);
+        u8* ptr = stbi_load_from_callbacks(&callbacks, &stream, &width, 
+                                           &height, &channels, STBI_rgb_alpha);
 
         if (ptr != nullptr)
         {
@@ -206,7 +228,7 @@ class ImageLoader : public NonCopyable
             if (width && height)
             {
                 // Copy the loaded pixels to the pixel buffer.
-                pixels = Array<unsigned char>(width * height * 4);
+                pixels = Array<u8>(width * height * 4);
                 memcpy(&pixels[0], ptr, pixels.size());
             }
 
@@ -225,8 +247,8 @@ class ImageLoader : public NonCopyable
     }
 
     // Saves the Array of pixels as an image file.
-    bool saveImageToFile(const string& filename, const Array<unsigned char>& pixels, 
-                         unsigned int image_width, unsigned int image_height)
+    bool saveImageToFile(const string& filename, const Array<u8>& pixels, 
+                         u32 image_width, u32 image_height)
     {
         // Make sure the image is not empty.
         if (!pixels.isEmpty() && (image_width > 0) && (image_height > 0))
@@ -274,9 +296,9 @@ class ImageLoader : public NonCopyable
     }
 
     // Saves the Array of pixels as an encoded image buffer.
-    bool saveImageToMemory(Image::Format format, Array<unsigned char>& output,
-                           const Array<unsigned char>& pixels, unsigned int image_width, 
-                           unsigned int image_height)
+    bool saveImageToMemory(Image::Format format, Array<u8>& output,
+                           const Array<u8>& pixels, u32 image_width,
+                           u32 image_height)
     {
         // Make sure the image is not empty.
         if (!pixels.isEmpty() && (image_width > 0) && (image_height > 0))
@@ -313,9 +335,8 @@ class ImageLoader : public NonCopyable
     }
 
     // Saves the Array of pixels as an encoded image buffer.
-    bool saveImageToMemory(const string& format, Array<unsigned char>& output, 
-                           const Array<unsigned char>& pixels, unsigned int image_width, 
-                           unsigned int image_height)
+    bool saveImageToMemory(const string& format, Array<u8>& output, const Array<u8>& pixels, 
+                           u32 image_width, u32 image_height)
     {
         // Make sure the image is not empty.
         if (!pixels.isEmpty() && (image_width > 0) && (image_height > 0))
@@ -360,13 +381,13 @@ Image::Image()
 	height_ = 0;
 }
 
-void Image::create(unsigned int width, unsigned int height)
+void Image::create(u32 width, u32 height)
 {
     if (width != 0 && height != 0)
     {
         width_ = width;
         height_ = height;
-        pixels_ = Array<unsigned char>(width * height * 4, 0x00);
+        pixels_ = Array<u8>(width * height * 4, 0x00);
     }
     else
     {
@@ -379,19 +400,19 @@ void Image::create(unsigned int width, unsigned int height)
     }
 }
 
-void Image::create(unsigned int width, unsigned int height, const Color& color)
+void Image::create(u32 width, u32 height, const Color& color)
 {
     if (width != 0 && height != 0)
     {
         // Create a new pixel buffer first for exception safety's sake.
-        Array<unsigned char> new_pixels(width * height * 4);
+        Array<u8> new_pixels(width * height * 4);
 
         for (size_t i(0); i < new_pixels.size(); i += 4)
         {
-            new_pixels[i + 0] = color.r;
-            new_pixels[i + 1] = color.g;
-            new_pixels[i + 2] = color.b;
-            new_pixels[i + 3] = color.a;
+            new_pixels[i + 0] = color[0];
+            new_pixels[i + 1] = color[1];
+            new_pixels[i + 2] = color[2];
+            new_pixels[i + 3] = color[3];
         }
 
         // Commit the new pixel buffer.
@@ -412,13 +433,12 @@ void Image::create(unsigned int width, unsigned int height, const Color& color)
     }
 }
 
-void Image::create(unsigned int width, unsigned int height, unsigned char r,
-                   unsigned char g, unsigned char b, unsigned char a)
+void Image::create(u32 width, u32 height, u8 r, u8 g, u8 b, u8 a)
 {
     if (width != 0 && height != 0)
     {
         // Create a new pixel buffer first for exception safety's sake.
-        Array<unsigned char> new_pixels(width * height * 4);
+        Array<u8> new_pixels(width * height * 4);
 
         for (size_t i(0); i < new_pixels.size(); i += 4)
         {
@@ -446,12 +466,12 @@ void Image::create(unsigned int width, unsigned int height, unsigned char r,
     }
 }
 
-void Image::create(unsigned int width, unsigned int height, unsigned int color)
+void Image::create(u32 width, u32 height, u32 color)
 {
     if (width != 0 && height != 0)
     {
         // Create a new pixel buffer first for exception safety's sake.
-        Array<unsigned char> new_pixels(width * height * 4);
+        Array<u8> new_pixels(width * height * 4);
 
         for (size_t i(0); i < new_pixels.size(); i += 4)
         {
@@ -479,12 +499,12 @@ void Image::create(unsigned int width, unsigned int height, unsigned int color)
     }
 }
 
-void Image::create(unsigned int width, unsigned int height, const unsigned char* pixels)
+void Image::create(u32 width, u32 height, const u8* pixels)
 {
     if (pixels != nullptr && width != 0 && height != 0)
     {
         // Create a new pixel buffer first for exception safety's sake.
-        Array<unsigned char> new_pixels(pixels, pixels + width * height * 4);
+        Array<u8> new_pixels(pixels, pixels + width * height * 4);
 
         // Commit the new pixel buffer.
         pixels_ = move(new_pixels);
@@ -504,7 +524,7 @@ void Image::create(unsigned int width, unsigned int height, const unsigned char*
     }
 }
 
-void Image::create(unsigned int width, unsigned int height, const Array<unsigned char>& pixels)
+void Image::create(u32 width, u32 height, const Array<u8>& pixels)
 {
     if (!pixels.isEmpty() && width != 0 && height != 0)
     {
@@ -545,62 +565,45 @@ bool Image::saveToFile(const string& filename) const
     return ImageLoader::getInstance().saveImageToFile(filename, pixels_, width_, height_);
 }
 
-bool Image::saveToMemory(Array<unsigned char>& output, Image::Format format) const
+bool Image::saveToMemory(Array<u8>& output, Image::Format format) const
 {
     return ImageLoader::getInstance().saveImageToMemory(format, output, pixels_, width_, height_);
 }
 
-bool Image::saveToMemory(Array<unsigned char>& output, const string& format) const
+bool Image::saveToMemory(Array<u8>& output, const string& format) const
 {
     return ImageLoader::getInstance().saveImageToMemory(format, output, pixels_, width_, height_);
 }
 
-unsigned int Image::width() const
+u32 Image::width() const
 {
     return width_;
 }
 
-unsigned int Image::height() const
+u32 Image::height() const
 {
     return height_;
 }
 
-void Image::createMaskFromColor(const Color& color)
+void Image::createMaskFromColor(const Color& color, u8 alpha)
 {
     if (!pixels_.isEmpty())
     {
         // Replace the alpha of the pixels that match the transparent color.
-        unsigned char* ptr = &pixels_[0];
-        unsigned char* end = ptr + pixels_.size();
+        u8* ptr = &pixels_[0];
+        u8* end = ptr + pixels_.size();
         while (ptr < end)
         {
-            if ((ptr[0] == color.r) && (ptr[1] == color.g) && 
-                (ptr[2] == color.b) && (ptr[3] == color.a))
-                ptr[3] = 0x00;
-            ptr += 4;
-        }
-    }
-}
-
-void Image::createMaskFromColor(const Color& color, unsigned char alpha)
-{
-    if (!pixels_.isEmpty())
-    {
-        // Replace the alpha of the pixels that match the transparent color.
-        unsigned char* ptr = &pixels_[0];
-        unsigned char* end = ptr + pixels_.size();
-        while (ptr < end)
-        {
-            if ((ptr[0] == color.r) && (ptr[1] == color.g) &&
-                (ptr[2] == color.b) && (ptr[3] == color.a))
+            if ((ptr[0] == color[0]) && (ptr[1] == color[1]) &&
+                (ptr[2] == color[2]) && (ptr[3] == color[2]))
                 ptr[3] = alpha;
             ptr += 4;
         }
     }
 }
 
-void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y, 
-                     const IntRect& sourceRect = IntRect(), bool applyAlpha = true)
+void Image::copyFrom(const Image& source, u32 dest_x, u32 dest_y,
+                     const IntRect& sourceRect, bool applyAlpha)
 {
     // Make sure that both images are valid.
     if ((source.width_ == 0) || (source.height_ == 0) || (width_ == 0) || (height_ == 0))
@@ -641,8 +644,8 @@ void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest
     int          rows = height;
     int          srcStride = source.width_ * 4;
     int          dstStride = width_ * 4;
-    const unsigned char* srcPixels = &source.pixels_[0] + (srcRect.vertex.x + srcRect.vertex.y * source.width_) * 4;
-    unsigned char* dstPixels = &pixels_[0] + (dest_x + dest_y * width_) * 4;
+    const u8* srcPixels = &source.pixels_[0] + (srcRect.vertex.x + srcRect.vertex.y * source.width_) * 4;
+    u8* dstPixels = &pixels_[0] + (dest_x + dest_y * width_) * 4;
 
     // Copy the pixels.
     if (applyAlpha)
@@ -653,11 +656,11 @@ void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest
             for (int j = 0; j < width; ++j)
             {
                 // Get a direct pointer to the components of the current pixel.
-                const unsigned char* src = srcPixels + j * 4;
-                unsigned char* dst = dstPixels + j * 4;
+                const u8* src = srcPixels + j * 4;
+                u8* dst = dstPixels + j * 4;
 
                 // Interpolate RGBA components using the alpha value of the source pixel.
-                unsigned char alpha = src[3];
+                u8 alpha = src[3];
                 dst[0] = (src[0] * alpha + dst[0] * (255 - alpha)) / 255;
                 dst[1] = (src[1] * alpha + dst[1] * (255 - alpha)) / 255;
                 dst[2] = (src[2] * alpha + dst[2] * (255 - alpha)) / 255;
@@ -680,22 +683,22 @@ void Image::copyFrom(const Image& source, unsigned int dest_x, unsigned int dest
     }
 }
 
-Color Image::getPixel(unsigned int x, unsigned int y) const
+Color Image::getPixel(u32 x, u32 y) const
 {
-    const unsigned char* pixel = &pixels_[(x + y * width_) * 4];
+    const u8* pixel = &pixels_[(x + y * width_) * 4];
     return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
 
-void Image::setPixel(unsigned int x, unsigned int y, const Color& color)
+void Image::setPixel(u32 x, u32 y, const Color& color)
 {
-    unsigned char* pixel = &pixels_[(x + y * width_) * 4];
-    *pixel++ = color.r;
-    *pixel++ = color.g;
-    *pixel++ = color.b;
-    *pixel++ = color.a;
+    u8* pixel = &pixels_[(x + y * width_) * 4];
+    *pixel++ = color[0];
+    *pixel++ = color[1];
+    *pixel++ = color[2];
+    *pixel++ = color[3];
 }
 
-const unsigned char* Image::getPixelPtr() const
+const u8* Image::getPixelPtr() const
 {
     if (!pixels_.isEmpty())
         return pixels_.data();
@@ -710,8 +713,8 @@ void Image::flipHorizontally()
 
         for (size_t y = 0; y < height_; ++y)
         {
-            Array<unsigned char>::iterator l = pixels_.begin() + y * row_size;
-            Array<unsigned char>::iterator r = pixels_.begin() + (y + 1) * row_size - 4;
+            Array<u8>::iterator l = pixels_.begin() + y * row_size;
+            Array<u8>::iterator r = pixels_.begin() + (y + 1) * row_size - 4;
 
             for (size_t x = 0; x < width_ / 2; ++x)
             {
@@ -730,8 +733,8 @@ void Image::flipVertically()
     {
         size_t row_size = width_ * 4;
 
-        Array<unsigned char>::iterator t = pixels_.begin();
-        Array<unsigned char>::iterator b = pixels_.end() - row_size;
+        Array<u8>::iterator t = pixels_.begin();
+        Array<u8>::iterator b = pixels_.end() - row_size;
 
         for (size_t y = 0; y < height_ / 2; ++y)
         {

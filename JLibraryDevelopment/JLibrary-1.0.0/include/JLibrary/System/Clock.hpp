@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Clock.hpp
 // Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-07-04 by Justyn Durnford
 // Header file for the Clock class.
 
 #pragma once
@@ -36,6 +36,11 @@
 
 namespace jlib
 {
+	// Shorthand for std::chrono::time_point<std::chrono::system_clock>.
+	typedef std::chrono::time_point<std::chrono::system_clock> TimePoint;
+	// Shorthand for std::chrono::duration<float>.
+	typedef std::chrono::duration<float> Duration;
+
 	// 
 	class Clock
 	{
@@ -63,9 +68,15 @@ namespace jlib
 		~Clock() = default;
 
 		// 
-		std::chrono::duration<double> timeElapsed() const;
+		TimePoint startTime() const;
 
 		// 
-		std::chrono::duration<double> restart();
+		TimePoint now() const;
+
+		// 
+		Duration restart();
+
+		// 
+		Duration timeElapsed() const;
 	};
 }

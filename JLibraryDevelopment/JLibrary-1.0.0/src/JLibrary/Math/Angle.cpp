@@ -1,12 +1,27 @@
 // JLibraryDevelopment
 // Angle.cpp
 // Created on 2021-06-12 by Justyn Durnford
-// Last modified on 2021-06-23 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Source file for the Angle class.
 
 #include <JLibrary/Math/Angle.hpp>
-using namespace std;
 using namespace jlib;
+
+// <cmath>
+using std::cosf;
+using std::fmodf;
+using std::sinf;
+using std::tanf;
+
+// <compare>
+using std::strong_ordering;
+
+// <string>
+using std::string;
+using std::u32string;
+using std::wstring;
+using std::to_string;
+using std::to_wstring;
 
 const float Angle::PI = 3.141592654f;
 
@@ -33,7 +48,12 @@ string Angle::toString() const
 
 wstring Angle::toWideString() const
 {
-	return to_wstring(degree) + static_cast<wchar_t>('\370');
+	return str_to_wstr(toString());
+}
+
+u32string Angle::toU32String() const
+{
+	return str_to_u32str(toString());
 }
 
 float jlib::to_radians(float degree)
@@ -83,77 +103,6 @@ float jlib::cosine(const Angle& angle)
 float jlib::tangent(const Angle& angle)
 {
 	return tanf(to_radians(angle.degree));
-}
-
-Angle operator - (const Angle& A)
-{
-	return Angle(-A.degree);
-}
-
-Angle operator + (const Angle& A, const Angle& B)
-{
-	return Angle(A.degree + B.degree);
-}
-
-Angle operator + (const Angle& A, float degree)
-{
-	return Angle(A.degree + degree);
-}
-
-Angle operator - (const Angle& A, const Angle& B)
-{
-	return Angle(A.degree - B.degree);
-}
-
-Angle operator - (const Angle& A, float degree)
-{
-	return Angle(A.degree - degree);
-}
-
-Angle operator * (const Angle& A, float scalar)
-{
-	return Angle(A.degree * scalar);
-}
-
-Angle operator / (const Angle& A, float scalar)
-{
-	return Angle(A.degree / scalar);
-}
-
-Angle& operator += (Angle& A, const Angle& B)
-{
-	A.degree += B.degree;
-	return A;
-}
-
-Angle& operator += (Angle& A, float degree)
-{
-	A.degree += degree;
-	return A;
-}
-
-Angle& operator -= (Angle& A, const Angle& B)
-{
-	A.degree -= B.degree;
-	return A;
-}
-
-Angle& operator -= (Angle& A, float degree)
-{
-	A.degree -= degree;
-	return A;
-}
-
-Angle& operator *= (Angle& A, float scalar)
-{
-	A.degree *= scalar;
-	return A;
-}
-
-Angle& operator /= (Angle& A, float scalar)
-{
-	A.degree /= scalar;
-	return A;
 }
 
 bool operator == (const Angle& A, const Angle& B)
@@ -232,4 +181,75 @@ strong_ordering operator <=> (const Angle& A, float degree)
 	if (A.degree > degree)
 		return strong_ordering::greater;
 	return strong_ordering::equivalent;
+}
+
+Angle operator - (const Angle& A)
+{
+	return Angle(-A.degree);
+}
+
+Angle operator + (const Angle& A, const Angle& B)
+{
+	return Angle(A.degree + B.degree);
+}
+
+Angle operator + (const Angle& A, float degree)
+{
+	return Angle(A.degree + degree);
+}
+
+Angle operator - (const Angle& A, const Angle& B)
+{
+	return Angle(A.degree - B.degree);
+}
+
+Angle operator - (const Angle& A, float degree)
+{
+	return Angle(A.degree - degree);
+}
+
+Angle operator * (const Angle& A, float scalar)
+{
+	return Angle(A.degree * scalar);
+}
+
+Angle operator / (const Angle& A, float scalar)
+{
+	return Angle(A.degree / scalar);
+}
+
+Angle& operator += (Angle& A, const Angle& B)
+{
+	A.degree += B.degree;
+	return A;
+}
+
+Angle& operator += (Angle& A, float degree)
+{
+	A.degree += degree;
+	return A;
+}
+
+Angle& operator -= (Angle& A, const Angle& B)
+{
+	A.degree -= B.degree;
+	return A;
+}
+
+Angle& operator -= (Angle& A, float degree)
+{
+	A.degree -= degree;
+	return A;
+}
+
+Angle& operator *= (Angle& A, float scalar)
+{
+	A.degree *= scalar;
+	return A;
+}
+
+Angle& operator /= (Angle& A, float scalar)
+{
+	A.degree /= scalar;
+	return A;
 }

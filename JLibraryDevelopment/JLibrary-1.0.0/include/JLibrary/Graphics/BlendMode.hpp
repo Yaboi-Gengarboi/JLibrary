@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // BlendMode.hpp
 // Created on 2021-06-29 by Justyn Durnford
-// Last modified on 2021-06-30 by Justyn Durnford
+// Last modified on 2021-07-01 by Justyn Durnford
 // Header file for the BlendMode struct.
 
 #pragma once
@@ -82,21 +82,6 @@ namespace jlib
 		BlendMode(Factor colorSourceFactor, Factor colorDestinationFactor,
 				  Equation colorBlendEquation, Factor alphaSourceFactor,
 				  Factor alphaDestinationFactor, Equation alphaBlendEquation);
-
-		// Copy constructor.
-		BlendMode(const BlendMode& other) = default;
-
-		// Move constructor.
-		BlendMode(BlendMode&& other) = default;
-
-		// Copy assignment operator.
-		BlendMode& operator = (const BlendMode& other) = default;
-
-		// Move assignment operator.
-		BlendMode& operator = (BlendMode&& other) = default;
-
-		// Destructor.
-		~BlendMode() = default;
 	};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

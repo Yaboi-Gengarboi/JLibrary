@@ -25,30 +25,9 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// Mutex.cpp
-// Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
-// Source file for the Mutex class.
+// GlResource.cpp
+// Created on 2021-07-01 by Justyn Durnford
+// Last modified on 2021-07-01 by Justyn Durnford
+// Source file for the GlResource class.
 
-#include <JLibrary/System/Mutex.hpp>
-using namespace jlib;
-
-Mutex::Mutex()
-{
-	InitializeCriticalSection(&mutex_);
-}
-
-Mutex::~Mutex()
-{
-	DeleteCriticalSection(&mutex_);
-}
-
-void Mutex::lock()
-{
-	EnterCriticalSection(&mutex_);
-}
-
-void Mutex::unlock()
-{
-	LeaveCriticalSection(&mutex_);
-}
+#include <JLibrary/Graphics/GlResource.hpp>

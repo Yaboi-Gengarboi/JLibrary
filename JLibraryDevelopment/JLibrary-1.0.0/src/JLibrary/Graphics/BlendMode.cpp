@@ -27,11 +27,10 @@
 // JLibraryDevelopment
 // BlendMode.cpp
 // Created on 2021-06-30 by Justyn Durnford
-// Last modified on 2021-06-30 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the BlendMode struct.
 
 #include <JLibrary/Graphics/BlendMode.hpp>
-using namespace std;
 using namespace jlib;
 
 const BlendMode BlendAlpha(BlendMode::SrcAlpha, BlendMode::OneMinusSrcAlpha, BlendMode::Add,

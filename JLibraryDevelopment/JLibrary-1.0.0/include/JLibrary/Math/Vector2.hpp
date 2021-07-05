@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Vector2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Vector2 template class.
 
 #pragma once
@@ -92,29 +92,6 @@ namespace jlib
             y = static_cast<T>(other.y);
         }
 
-        // Copy constructor.
-        Vector2(const Vector2& other) = default;
-
-        // Move constructor.
-        Vector2(Vector2&& other) = default;
-
-        // Assigns the Vector2 from the given Point2.
-        // Sets the x component of the Vector2 to the x component of the given Point2.
-        // Sets the y component of the Vector2 to the y component of the given Point2.
-        Vector2& operator = (const Point2<T>& P)
-        {
-            x = P.x;
-            y = P.y;
-
-            return *this;
-        }
-
-        // Copy assignment operator.
-        Vector2& operator = (const Vector2& other) = default;
-
-        // Move assignment operator.
-        Vector2& operator = (Vector2 && other) = default;
-
         // Sets all the values of the Vector2 at once.
         // Sets the x component of the Vector2 to X.
         // Sets the y component of the Vector2 to Y.
@@ -125,13 +102,13 @@ namespace jlib
         }
 
         // Returns the magnitude of the Vector2.
-        inline float magnitude() const
+        float magnitude() const
         {
             return std::sqrtf(std::powf(x, 2.f) + std::powf(y, 2.f));
         }
 
         // Returns the endpoint of the Point2.
-        inline Point2<T> endpoint() const
+        Point2<T> endpoint() const
         {
             return Point2<T>(x, y);
         }
@@ -144,15 +121,21 @@ namespace jlib
         }
 
         // Returns a std::string representation of the Vector2.
-        inline std::string toString() const
+        std::string toString() const
         {
             return '<' + std::to_string(x) + ", " + std::to_string(y) + '>';
         }
 
         // Returns a std::wstring representation of the Vector2.
-        inline std::wstring toWideString() const
+        std::wstring toWideString() const
         {
-            return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L'>';
+            return str_to_wstr(toString());
+        }
+
+        // Returns a std::u32string representation of the Vector2.
+        std::u32string toU32String() const
+        {
+            return str_to_u32str(toString());
         }
     };
 
@@ -161,14 +144,14 @@ namespace jlib
 
     // Returns the dot product of the 2 given Vector2s.
     template <std_arithmetic T>
-    inline float dot_product(const Vector2<T>& A, const Vector2<T>& B)
+    float dot_product(const Vector2<T>& A, const Vector2<T>& B)
     {
         return A.x * B.x + A.y * B.y;
     }
 
     // Returns the scalar projection of A onto B.
     template <std_arithmetic T>
-    inline float scalar_proj(const Vector2<T>& A, const Vector2<T>& B)
+    float scalar_proj(const Vector2<T>& A, const Vector2<T>& B)
     {
         return dot_product(A, B) / A.magnitude();
     }
@@ -183,7 +166,7 @@ namespace jlib
 
     // Checks if the 2 given Vector2s are orthogonal to eachother.
     template <std_arithmetic T>
-    inline bool are_normal(const Vector2<T>& A, const Vector2<T>& B)
+    bool are_normal(const Vector2<T>& A, const Vector2<T>& B)
     {
         return dot_product(A, B) == 0.f;
     }
@@ -209,6 +192,20 @@ namespace jlib
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Overload of binary operator ==
+template <jlib::std_arithmetic T>
+bool operator == (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
+{
+    return (A.x == B.x) && (A.y == B.y);
+}
+
+// Overload of binary operator !=
+template <jlib::std_arithmetic T>
+bool operator != (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
+{
+    return (A.x != B.x) || (A.y != B.y);
+}
 
 // Overload of unary operator -
 template <jlib::std_arithmetic T>
@@ -283,18 +280,4 @@ jlib::Vector2<T>& operator /= (jlib::Vector2<T>& A, U scalar)
     A.y /= scalar;
 
     return A;
-}
-
-// Overload of binary operator ==
-template <jlib::std_arithmetic T>
-bool operator == (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
-{
-    return (A.x == B.x) && (A.y == B.y);
-}
-
-// Overload of binary operator !=
-template <jlib::std_arithmetic T>
-bool operator != (const jlib::Vector2<T>& A, const jlib::Vector2<T>& B)
-{
-    return (A.x != B.x) || (A.y != B.y);
 }

@@ -165,6 +165,8 @@
   <ItemGroup>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\BlendMode.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Color.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GlContext.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GlResource.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Image.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformable.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformation.cpp" />
@@ -179,6 +181,8 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\MemoryInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mouse.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mutex.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\StringConvert.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Thread.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +191,9 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\BlendMode.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Context.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlContext.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlResource.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Glyph.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Image.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp" />
@@ -218,6 +225,9 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mouse.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mutex.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\StringConvert.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Thread.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

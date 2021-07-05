@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Circle.hpp
 // Created on 2021-05-26 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Circle template class.
 
 #pragma once
@@ -83,21 +83,6 @@ namespace jlib
 			radius = static_cast<T>(other.radius);
 		}
 
-		// Copy constructor.
-		Circle(const Circle& other) = default;
-
-		// Move constructor.
-		Circle(Circle&& other) = default;
-
-		// Copy assignment operator.
-		Circle& operator = (const Circle& other) = default;
-
-		// Move assignment operator.
-		Circle& operator = (Circle&& other) = default;
-
-		// Destructor.
-		~Circle() = default;
-
 		// Sets all the values of the Circle at once.
 		// Sets the x component of the center of the Circle to X.
 		// Sets the y component of the center of the Circle to Y.
@@ -109,41 +94,47 @@ namespace jlib
 		}
 
 		// Returns the circumference of the Circle.
-		inline float circumference() const
+		float circumference() const
 		{
 			return 2.f * 3.1415927f * std::fabsf(radius);
 		}
 		
 		// Returns the area of the Circle.
-		inline float area() const
+		float area() const
 		{
 			return 3.1415927f * std::powf(std::fabsf(radius), 2.f);
 		}
 
 		// Checks if the given Point2 lies within or on the Circle.
 		template <std_arithmetic U>
-		inline bool contains(T X, T Y)
+		bool contains(T X, T Y)
 		{
 			return std::powf(X - center.x, 2.f) + std::powf(Y - center.y, 2.f) <= std::powf(std::fabsf(radius), 2.f);
 		}
 
 		// Checks if the given Point2 lies within or on the Circle.
 		template <std_arithmetic U>
-		inline bool contains(const Point2<U>& P)
+		bool contains(const Point2<U>& P)
 		{
 			return std::powf(P.x - center.x, 2.f) + std::powf(P.y - center.y, 2.f) <= std::powf(std::fabsf(radius), 2.f);
 		}
 
 		// Returns a std::string representation of the Circle.
-		inline std::string toString() const
+		std::string toString() const
 		{
 			return center.toString() + ", " + std::to_string(std::fabsf(radius));
 		}
 
-		// Returns a std::string representation of the Circle.
-		inline std::wstring toWideString() const
+		// Returns a std::wstring representation of the Circle.
+		std::wstring toWideString() const
 		{
-			return center.toWideString() + L", " + std::to_wstring(std::fabsf(radius));
+			return str_to_wstr(toString());
+		}
+
+		// Returns a std::u32string representation of the Circle.
+		std::u32string toU32String() const
+		{
+			return str_to_u32str(toString());
 		}
 	};
 
@@ -152,7 +143,7 @@ namespace jlib
 
 	// Checks if there is an intersection between the given Circles.
 	template <std_arithmetic T>
-	inline bool intersection(const Circle<T>& A, const Circle<T>& B)
+	bool intersection(const Circle<T>& A, const Circle<T>& B)
 	{
 		return std::powf(std::fabsf(A.radius) + std::fabsf(B.radius), 2.f) <= (std::powf(B.center.x - A.center.x, 2.f) + std::powf(B.center.y - A.center.y, 2.f));
 	}

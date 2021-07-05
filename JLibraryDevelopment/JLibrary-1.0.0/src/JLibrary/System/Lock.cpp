@@ -27,12 +27,11 @@
 // JLibraryDevelopment
 // Lock.cpp
 // Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-06-20 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the Lock class.
 
 #include <JLibrary/System/Lock.hpp>
 #include <JLibrary/System/Mutex.hpp>
-using namespace std;
 using namespace jlib;
 
 Lock::Lock(Mutex& mutex) : mutex_(mutex)

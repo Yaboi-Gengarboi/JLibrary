@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Rectangle.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Rectangle template class
 
 #pragma once
@@ -92,18 +92,6 @@ namespace jlib
 			height = static_cast<T>(other.height);
 		}
 
-		// Copy constructor.
-		Rectangle(const Rectangle& other) = default;
-
-		// Move constructor.
-		Rectangle(Rectangle&& other) = default;
-
-		// Copy assignment operator.
-		Rectangle& operator = (const Rectangle& other) = default;
-
-		// Move assignment operator.
-		Rectangle& operator = (Rectangle&& other) = default;
-
 		// Sets all the values of the Rectangle at once.
 		// Sets the x component of the vertex of the Rectangle to X.
 		// Sets the y component of the vertex of the Rectangle to Y.
@@ -117,37 +105,37 @@ namespace jlib
 		}
 
 		// Returns the perimeter of the Rectangle.
-		inline float perimeter() const
+		float perimeter() const
 		{
 			return 2.f * (width + height);
 		}
 
 		// Returns the area of the Rectangle.
-		inline float area() const
+		float area() const
 		{
 			return width * height;
 		}
 
 		// Returns the top-left vertex of the Rectangle.
-		inline Point2<T> topLeft() const
+		Point2<T> topLeft() const
 		{
 			return Point2<T>(std::min(vertex.x, vertex.x + width), std::min(vertex.y, vertex.y + height));
 		}
 
 		// Returns the top-right vertex of the Rectangle.
-		inline Point2<T> topRight() const
+		Point2<T> topRight() const
 		{
 			return Point2<T>(std::max(vertex.x, vertex.x + width), std::min(vertex.y, vertex.y + height));
 		}
 
 		// Returns the bottom-left vertex of the Rectangle.
-		inline Point2<T> bottomLeft() const
+		Point2<T> bottomLeft() const
 		{
 			return Point2<T>(std::min(vertex.x, vertex.x + width), std::max(vertex.y, vertex.y + height));
 		}
 
 		// Returns the bottom-right vertex of the Rectangle.
-		inline Point2<T> bottomRight() const
+		Point2<T> bottomRight() const
 		{
 			return Point2<T>(std::max(vertex.x, vertex.x + width), std::max(vertex.y, vertex.y + height));
 		}
@@ -173,15 +161,21 @@ namespace jlib
 		}
 
 		// Returns a std::string representation of the Rectangle.
-		inline std::string toString() const
+		std::string toString() const
 		{
 			return vertex.toString() + ", " + std::to_string(width) + ", " + std::to_string(height);
 		}
 
 		// Returns a std::wstring representation of the Rectangle.
-		inline std::wstring toWideString() const
+		std::wstring toWideString() const
 		{
-			return vertex.toWideString() + L", " + std::to_wstring(width) + L", " + std::to_wstring(height);
+			return str_to_wstr(toString());
+		}
+
+		// Returns a std::u32string representation of the Rectangle.
+		std::u32string toU32String() const
+		{
+			return str_to_u32str(toString());
 		}
 	};
 

@@ -27,11 +27,14 @@
 // JLibraryDevelopment
 // Color.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-29 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
 
+#include <JLibrary/System/Integer.hpp>
+#include <array>
+#include <initializer_list>
 #include <string>
 
 namespace jlib
@@ -40,68 +43,118 @@ namespace jlib
 	{
 		public:
 
-		const static unsigned char MAX = 255u;
+		const static u8 MAX = 255u;
 
-		unsigned char r;
-		unsigned char g;
-		unsigned char b;
-		unsigned char a;
+		std::array<u8, 4> data;
 
 		// Default constructor.
 		// Sets each component of the Color to 0.
 		Color();
 
-		// 3-unsigned char constructor.
+		// u8 constructor.
 		// Sets the red component of the Color to R.
 		// Sets the green component of the Color to G.
 		// Sets the blue component of the Color to B.
 		// Sets the alpha component of the Color to A.
-		Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A = MAX);
+		Color(u8 R, u8 G, u8 B, u8 A = MAX);
 
-		// 4-unsigned char constructor.
-		// Sets the red component of the Color to R.
-		// Sets the green component of the Color to G.
-		// Sets the blue component of the Color to B.
+		// std::array constructor.
+		// Sets the red component of the Color to the 1st element.
+		// Sets the green component of the Color to the 2nd element.
+		// Sets the blue component of the Color to the 3rd element.
+		// Sets the alpha component of the Color to the 4th element.
+		Color(const std::array<u8, 4>& arr);
+
+		// std::initializer_list constructor.
+		// Sets the red component of the Color to the 1st element.
+		// Sets the green component of the Color to the 2nd element.
+		// Sets the blue component of the Color to the 3rd element.
+		// Sets the alpha component of the Color to the 4th element.
+		Color(std::initializer_list<u8> list);
 
 		// unsigned int constructor.
 		// Calculates each byte of the given color and sets
 		// this color to the corresponding values.
-		Color(unsigned int color);
+		Color(u32 color);
 
-		// Copy constructor.
-		Color(const Color& other) = default;
+		// std::array assignment operator.
+		// Sets the red component of the Color to the 1st element.
+		// Sets the green component of the Color to the 2nd element.
+		// Sets the blue component of the Color to the 3rd element.
+		// Sets the alpha component of the Color to the 4th element.
+		Color& operator = (const std::array<u8, 4>& arr);
 
-		// Move constructor.
-		Color(Color&& other) = default;
+		// std::initializer_list assignment operator.
+		// Sets the red component of the Color to the 1st element.
+		// Sets the green component of the Color to the 2nd element.
+		// Sets the blue component of the Color to the 3rd element.
+		// Sets the alpha component of the Color to the 4th element.
+		Color& operator = (std::initializer_list<u8> list);
 
-		// Copy assignment operator.
-		Color& operator = (const Color& other) = default;
+		// unsigned int assignment operator.
+		// Calculates each byte of the given color and sets
+		// this color to the corresponding values.
+		Color& operator = (u32 color);
 
-		// Move assignment operator.
-		Color& operator = (Color && other) = default;
+		// Returns the red component of the Color.
+		u8& r();
 
-		// Destructor.
-		~Color() = default;
+		// Returns the red component of the Color.
+		const u8& r() const;
+
+		// Returns the green component of the Color.
+		u8& g();
+
+		// Returns the green component of the Color.
+		const u8& g() const;
+
+		// Returns the blue component of the Color.
+		u8& b();
+
+		// Returns the blue component of the Color.
+		const u8& b() const;
+
+		// Returns the alpha component of the Color.
+		u8& a();
+
+		// Returns the alpha component of the Color.
+		const u8& a() const;
 
 		// Sets all the values of the Color at once.
 		// Sets the red component of the Color to R.
 		// Sets the green component of the Color to G.
 		// Sets the blue component of the Color to B.
 		// Sets the alpha component of the Color to A.
-		void set(unsigned char R, unsigned char G, unsigned char B, unsigned char A);
+		void set(u8 R, u8 G, u8 B, u8 A);
+
+		// Sets all the values of the Color at once.
+		// Sets the red component of the Color to the 1st element.
+		// Sets the green component of the Color to the 2nd element.
+		// Sets the blue component of the Color to the 3rd element.
+		// Sets the alpha component of the Color to the 4th element.
+		void set(const std::array<u8, 4>& arr);
 
 		// Calculates each byte of the given color and sets
 		// this color to the corresponding values.
-		void set(unsigned int color);
+		void set(u32 color);
 
 		// Returns a 32-but unsigned integer representation of the Color.
-		unsigned int toInt() const;
+		u32 toInt() const;
+
+		// Returns a std::array copy of the Color's components.
+		std::array<u8, 4> toArray() const;
 
 		// Returns a std::string representation of the Color.
 		std::string toString() const;
 
 		// Returns a std::wstring representation of the Color.
 		std::wstring toWideString() const;
+
+		// Returns the element at the given index.
+		u8& operator [] (std::size_t index);
+
+		// Returns the element at the given index.
+		const u8& operator [] (std::size_t index) const;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,14 +184,13 @@ namespace jlib
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Returns the individual bytes of the unsigned int.
-	// Allocates memory on the heap. Call delete[] when done.
-	unsigned char* to_bytes(unsigned int i);
+	std::array<u8, 4> to_bytes(u32 i);
 
 	// Returns a hexadecimal std::string representation of the byte.
-	std::string to_hex_str(unsigned char byte);
+	std::string to_hex_str(u8 cbyte);
 
 	// Returns a hexadecimal std::wstring representation of the byte.
-	std::wstring to_hex_wstr(unsigned char byte);
+	std::wstring to_hex_wstr(u8 cbyte);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

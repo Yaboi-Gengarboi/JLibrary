@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Image.hpp
 // Created on 2021-06-21 by Justyn Durnford
-// Last modified on 2021-06-29 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Header file for the Image class.
 
 #pragma once
@@ -63,56 +63,40 @@ namespace jlib
 
 		private:
 
-		unsigned int width_;
-		unsigned int height_;
-		Array<unsigned char> pixels_;
+		u32 width_;
+		u32 height_;
+		Array<u8> pixels_;
 
 		public:
 
 		// Default constructor.
 		Image();
 
-		// Copy constructor.
-		Image(const Image& other) = default;
-
-		// Move constructor.
-		Image(Image&& other) = default;
-
-		// Copy assignment operator.
-		Image& operator = (const Image& other) = default;
-
-		// Move assignment operator.
-		Image& operator = (Image&& other) = default;
-
-		// Destructor.
-		~Image() = default;
-
 		// Creates the image and fills it with a transparent color.
-		void create(unsigned int width, unsigned int height);
+		void create(u32 width, u32 height);
 
 		// Creates the image and fills it with the given color.
-		void create(unsigned int width, unsigned int height, const Color& color);
+		void create(u32 width, u32 height, const Color& color);
 
 		// Creates the image and fills it the constructed color.
-		void create(unsigned int width, unsigned int height, unsigned char r, 
-					unsigned char g, unsigned char b, unsigned char a);
+		void create(u32 width, u32 height, u8 r, u8 g, u8 b, u8 a);
 
 		// Creates the image and fills it the constructed color.
-		void create(unsigned int width, unsigned int height, unsigned int color);
+		void create(u32 width, u32 height, u32 color);
 
 		// Creates the image from an array of pixels.
 		// The pixel array is assumed to contain 32-bit RGBA pixels,
 		// and have the given width and height. If not, this
 		// results in undefined behavior.
 		// If the pixel pointer is nullptr, an empty image is created.
-		void create(unsigned int width, unsigned int height, const unsigned char* pixels);
+		void create(u32 width, u32 height, const u8* pixels);
 
 		// Creates the image from the Array of pixels.
 		// The pixel vector is assumed to contain 32-bit RGBA pixels,
 		// and have the given width and height. If not, this
 		// results in undefined behavior.
 		// If the pixel Array is empty, an empty image is created.
-		void create(unsigned int width, unsigned int height, const Array<unsigned char>& pixels);
+		void create(u32 width, u32 height, const Array<u8>& pixels);
 
 		// Loads the image from a file on the disk.
 		// If this function fails, the image is left unchanged.
@@ -139,29 +123,24 @@ namespace jlib
 		// Saves the image to a buffer in memory.
 		// The format of the image MUST be specified.
 		// This function fails if the image is empty.
-		bool saveToMemory(Array<unsigned char>& output, Format format) const;
+		bool saveToMemory(Array<u8>& output, Format format) const;
 
 		// Saves the image to a buffer in memory.
 		// The format of the image MUST be specified.
 		// This function fails if the image is empty, or if
 		// the format was invalid.
-		bool saveToMemory(Array<unsigned char>& output, const std::string& format) const;
+		bool saveToMemory(Array<u8>& output, const std::string& format) const;
 
 		// Returns the width of the image.
-		unsigned int width() const;
+		u32 width() const;
 
 		// Returns the height of the image.
-		unsigned int height() const;
-
-		// Creates a transparency mask from a specified color-key.
-		// This function sets the alpha value of every pixel matching
-		// the given color to an alpha of 0 so that they become transparent.
-		void createMaskFromColor(const Color& color);
+		u32 height() const;
 
 		// Creates a transparency mask from a specified color-key.
 		// This function sets the alpha value of every pixel matching
 		// the given color to alpha so that they become transparent.
-		void createMaskFromColor(const Color& color, unsigned char alpha);
+		void createMaskFromColor(const Color& color, u8 alpha = 0);
 
 		// Copies pixels from another image onto this one.
 		// 
@@ -170,17 +149,17 @@ namespace jlib
 		// static image from several others, but if you need this
 		// kind of feature in real-time, you'd be better off 
 		// using a jlib::RenderTexture.
-		void copyFrom(const Image& source, unsigned int dest_x, unsigned int dest_y,
+		void copyFrom(const Image& source, u32 dest_x, u32 dest_y,
 					  const IntRect& sourceRect = IntRect(), bool applyAlpha = true);
 
 		// Returns the color of the pixel at coordinate (x, y).
-		Color getPixel(unsigned int x, unsigned int y) const;
+		Color getPixel(u32 x, u32 y) const;
 
 		// Changes the color of the pixel at coordinate (x, y) to the given Color.
-		void setPixel(unsigned int x, unsigned int y, const Color& color);
+		void setPixel(u32 x, u32 y, const Color& color);
 
 		// Returns a read-only pointer to the array of pixels.
-		const unsigned char* getPixelPtr() const;
+		const u8* getPixelPtr() const;
 
 		// Flips the image horizontally.
 		void flipHorizontally();

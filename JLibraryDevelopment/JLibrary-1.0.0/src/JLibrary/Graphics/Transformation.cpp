@@ -27,12 +27,22 @@
 // JLibraryDevelopment
 // Transformation.cpp
 // Created on 2021-05-29 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the Transformation class.
 
 #include <JLibrary/Graphics/Transformation.hpp>
-using namespace std;
 using namespace jlib;
+
+// <algorithm>
+using std::min;
+using std::max;
+
+// <cmath>
+using std::cosf;
+using std::sinf;
+
+// <cstddef>
+using std::size_t;
 
 Transformation::Transformation()
 {
@@ -133,9 +143,9 @@ Rectangle<float> Transformation::transformRectangle(const Rectangle<float>& R) c
 
 Transformation& Transformation::combine(const Transformation& other)
 {
-	for (size_t r(0u); r < matrix_.rowCount(); ++r)
+	for (size_t r(0); r < matrix_.rowCount(); ++r)
 	{
-		for (size_t c(0u); c < matrix_.colCount(); ++c)
+		for (size_t c(0); c < matrix_.colCount(); ++c)
 			matrix_(r, c) += other.matrix_(r, c);
 	}
 
@@ -154,16 +164,16 @@ Transformation& Transformation::translate(const Vector2f& offset)
 
 Transformation& Transformation::rotate(float angle)
 {
-	float x = cos(angle * 3.141592654f / 180.f);
-	float y = sin(angle * 3.141592654f / 180.f);
+	float x = cosf(angle * 3.141592654f / 180.f);
+	float y = sinf(angle * 3.141592654f / 180.f);
 
 	return combine(Transformation(x, -y, 0.f, y, x, 0.f, 0.f, 0.f, 1.f));
 }
 
 Transformation& Transformation::rotate(float angle, float center_x, float center_y)
 {
-	float x = cos(angle * 3.141592654f / 180.f);
-	float y = sin(angle * 3.141592654f / 180.f);
+	float x = cosf(angle * 3.141592654f / 180.f);
+	float y = sinf(angle * 3.141592654f / 180.f);
 
 	return combine(Transformation(x, -y, center_x * (1.f - x) + center_y * y,
 								  y, x, center_y * (1.f - x) - center_x * y,

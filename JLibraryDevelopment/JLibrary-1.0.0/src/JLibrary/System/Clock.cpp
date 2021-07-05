@@ -27,27 +27,41 @@
 // JLibraryDevelopment
 // Clock.cpp
 // Created on 2021-05-24 by Justyn Durnford
-// Last modified on 2021-06-13 by Justyn Durnford
+// Last modified on 2021-07-04 by Justyn Durnford
 // Source file for the Clock class.
 
 #include <JLibrary/System/Clock.hpp>
-using namespace std;
-using namespace chrono;
 using namespace jlib;
+
+// <chrono>
+using std::chrono::duration;
+using std::chrono::system_clock;
+using std::chrono::time_point;
 
 Clock::Clock()
 {
-	start_ = system_clock::now();
+	start_ = now();
 }
 
-duration<double> Clock::timeElapsed() const
+TimePoint Clock::startTime() const
 {
-	return system_clock::now() - start_;
+	return start_;
 }
 
-duration<double> Clock::restart()
+TimePoint Clock::now() const
 {
-	duration<double> time_elapsed(system_clock::now() - start_);
-	start_ = system_clock::now();
+	return system_clock::now();
+}
+
+Duration Clock::restart()
+{
+	TimePoint time(now());
+	Duration time_elapsed(time - start_);
+	start_ = time;
 	return time_elapsed;
+}
+
+Duration Clock::timeElapsed() const
+{
+	return now() - start_;
 }

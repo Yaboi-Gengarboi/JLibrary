@@ -27,78 +27,180 @@
 // JLibraryDevelopment
 // Color.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-29 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the Color class.
 
 #include <JLibrary/Graphics/Color.hpp>
-using namespace std;
 using namespace jlib;
+
+// <array>
+using std::array;
+
+#include <cstddef>
+using std::size_t;
+ 
+// <initializer_list>
+using std::initializer_list;
+   
+// <string>
+using std::string;
+using std::wstring;
 
 Color::Color()
 {
-	r = 0u;
-	g = 0u;
-	b = 0u;
-	a = 0u;
+	data = { 0, 0, 0, 0 };
 }
 
-Color::Color(unsigned char R, unsigned char G, unsigned char B, unsigned char A = MAX)
+Color::Color(u8 R, u8 G, u8 B, u8 A)
 {
-	r = R;
-	g = G;
-	b = B;
-	a = A;
+	data = { R, G, B, A };
 }
 
-Color::Color(unsigned int color)
+Color::Color(const array<u8, 4>& arr)
 {
-	r = (color & 0xff000000) >> 24;
-	g = (color & 0x00ff0000) >> 16;
-	b = (color & 0x0000ff00) >> 8;
-	a = (color & 0x000000ff) >> 0;
+	data = arr;
 }
 
-void Color::set(unsigned char R, unsigned char G, unsigned char B, unsigned char A)
+Color::Color(initializer_list<u8> list)
 {
-	r = R;
-	g = G;
-	b = B;
-	a = A;
+	data[0] = *(list.begin() + 0);
+	data[1] = *(list.begin() + 1);
+	data[2] = *(list.begin() + 2);
+	data[3] = *(list.begin() + 3);
 }
 
-void Color::set(unsigned int color)
+Color::Color(u32 color)
 {
-	r = (color & 0xff000000) >> 24;
-	g = (color & 0x00ff0000) >> 16;
-	b = (color & 0x0000ff00) >> 8;
-	a = (color & 0x000000ff) >> 0;
+	data[0] = (color & 0xff000000) >> 24;
+	data[1] = (color & 0x00ff0000) >> 16;
+	data[2] = (color & 0x0000ff00) >> 8;
+	data[3] = (color & 0x000000ff) >> 0;
 }
 
-unsigned int Color::toInt() const
+Color& Color::operator = (const array<u8, 4>& arr)
 {
-	return (r << 24) | (g << 16) | (b << 8) | a;
+	data = arr;
+	return *this;
+}
+
+Color& Color::operator = (initializer_list<u8> list)
+{
+	data[0] = *(list.begin() + 0);
+	data[1] = *(list.begin() + 1);
+	data[2] = *(list.begin() + 2);
+	data[3] = *(list.begin() + 3);
+
+	return *this;
+}
+
+Color& Color::operator = (u32 color)
+{
+	data[0] = (color & 0xff000000) >> 24;
+	data[1] = (color & 0x00ff0000) >> 16;
+	data[2] = (color & 0x0000ff00) >> 8;
+	data[3] = (color & 0x000000ff) >> 0;
+
+	return *this;
+}
+
+u8& Color::r()
+{
+	return data[0];
+}
+
+const u8& Color::r() const
+{
+	return data[0];
+}
+
+u8& Color::g()
+{
+	return data[1];
+}
+
+const u8& Color::g() const
+{
+	return data[1];
+}
+
+u8& Color::b()
+{
+	return data[2];
+}
+
+const u8& Color::b() const
+{
+	return data[2];
+}
+
+u8& Color::a()
+{
+	return data[3];
+}
+
+const u8& Color::a() const
+{
+	return data[3];
+}
+
+void Color::set(u8 R, u8 G, u8 B, u8 A)
+{
+	data = { R, G, B, A };
+}
+
+void Color::set(const array<u8, 4>& arr)
+{
+	data = arr;
+}
+
+void Color::set(u32 color)
+{
+	data[0] = (color & 0xff000000) >> 24;
+	data[1] = (color & 0x00ff0000) >> 16;
+	data[2] = (color & 0x0000ff00) >> 8;
+	data[3] = (color & 0x000000ff) >> 0;
+}
+
+u32 Color::toInt() const
+{
+	return (r() << 24) | (g() << 16) | (b() << 8) | a();
+}
+
+array<u8, 4> Color::toArray() const
+{
+	return data;
 }
 
 string Color::toString() const
 {
 	string str;
-	str.reserve(8u);
-	str += to_hex_str(r);
-	str += to_hex_str(g);
-	str += to_hex_str(b);
-	str += to_hex_str(a);
+	str.reserve(8);
+	str += to_hex_str(r());
+	str += to_hex_str(g());
+	str += to_hex_str(b());
+	str += to_hex_str(a());
 	return str;
 }
 
 wstring Color::toWideString() const
 {
 	wstring wstr;
-	wstr.reserve(8u);
-	wstr += to_hex_wstr(r);
-	wstr += to_hex_wstr(g);
-	wstr += to_hex_wstr(b);
-	wstr += to_hex_wstr(a);
+	wstr.reserve(8);
+	wstr += to_hex_wstr(r());
+	wstr += to_hex_wstr(g());
+	wstr += to_hex_wstr(b());
+	wstr += to_hex_wstr(a());
 	return wstr;
+}
+
+u8& Color::operator [] (size_t index)
+{
+	return data[index];
+}
+
+const u8& Color::operator [] (size_t index) const
+{
+	return data[index];
 }
 
 const Color Color::Black(0x00, 0x00, 0x00);
@@ -119,9 +221,9 @@ const Color Color::Teal(0x00, 0x80, 0x80);
 const Color Color::Navy(0x00, 0x00, 0x80);
 const Color Color::Transparent(0x00, 0x00, 0x00, 0x00);
 
-unsigned char* jlib::to_bytes(unsigned int i)
+array<u8, 4> jlib::to_bytes(u32 i)
 {
-	unsigned char* bytes = new unsigned char[4];
+	array<u8, 4> bytes;
 	
 	bytes[0] = (i & 0xff000000) >> 24;
 	bytes[1] = (i & 0x00ff0000) >> 16;
@@ -131,47 +233,47 @@ unsigned char* jlib::to_bytes(unsigned int i)
 	return bytes;
 }
 
-string jlib::to_hex_str(unsigned char byte)
+string jlib::to_hex_str(u8 cbyte)
 {
 	string hexstr("00");
 
-	for (unsigned char i = 0u; i < 2u; ++i)
+	for (u8 i = 0; i < 2; ++i)
 	{
-		switch (byte % 16u)
+		switch (cbyte % 16)
 		{
-			case 10u: hexstr[1u - i] = 'a';                break;
-			case 11u: hexstr[1u - i] = 'b';                break;
-			case 12u: hexstr[1u - i] = 'c';                break;
-			case 13u: hexstr[1u - i] = 'd';                break;
-			case 14u: hexstr[1u - i] = 'e';                break;
-			case 15u: hexstr[1u - i] = 'f';                break;
-			default:  hexstr[1u - i] = (byte % 16u) + 48u; break;
+			case 10: hexstr[1 - i] = 'a';               break;
+			case 11: hexstr[1 - i] = 'b';               break;
+			case 12: hexstr[1 - i] = 'c';               break;
+			case 13: hexstr[1 - i] = 'd';               break;
+			case 14: hexstr[1 - i] = 'e';               break;
+			case 15: hexstr[1 - i] = 'f';               break;
+			default: hexstr[1 - i] = (cbyte % 16) + 48; break;
 		}
 
-		byte /= 16u;
+		cbyte /= 16;
 	}
 
 	return hexstr;
 }
 
-wstring jlib::to_hex_wstr(unsigned char byte)
+wstring jlib::to_hex_wstr(u8 cbyte)
 {
 	wstring hexstr(L"00");
 
-	for (unsigned char i = 0u; i < 2u; ++i)
+	for (u8 i = 0; i < 2; ++i)
 	{
-		switch (byte % 16u)
+		switch (cbyte % 16)
 		{
-			case 10u: hexstr[1u - i] = L'a';                                     break;
-			case 11u: hexstr[1u - i] = L'b';                                     break;
-			case 12u: hexstr[1u - i] = L'c';                                     break;
-			case 13u: hexstr[1u - i] = L'd';                                     break;
-			case 14u: hexstr[1u - i] = L'e';                                     break;
-			case 15u: hexstr[1u - i] = L'f';                                     break;
-			default:  hexstr[1u - i] = static_cast<wchar_t>((byte % 16u) + 48u); break;
+			case 10: hexstr[1 - i] = L'a';                                    break;
+			case 11: hexstr[1 - i] = L'b';                                    break;
+			case 12: hexstr[1 - i] = L'c';                                    break;
+			case 13: hexstr[1 - i] = L'd';                                    break;
+			case 14: hexstr[1 - i] = L'e';                                    break;
+			case 15: hexstr[1 - i] = L'f';                                    break;
+			default: hexstr[1 - i] = static_cast<wchar_t>((cbyte % 16) + 48); break;
 		}
 
-		byte /= 16u;
+		cbyte /= 16u;
 	}
 
 	return hexstr;
@@ -179,10 +281,10 @@ wstring jlib::to_hex_wstr(unsigned char byte)
 
 bool operator == (const Color& A, const Color& B)
 {
-	return (A.r == B.r) && (A.g == B.g) && (A.b == B.b) && (A.a == B.a);
+	return A.data == B.data;
 }
 
 bool operator != (const Color& A, const Color& B)
 {
-	return (A.r != B.r) || (A.g != B.g) || (A.b != B.b) || (A.a != B.a);
+	return A.data != B.data;
 }

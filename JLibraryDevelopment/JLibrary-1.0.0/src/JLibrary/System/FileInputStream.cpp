@@ -27,13 +27,21 @@
 // JLibraryDevelopment
 // FileInputStream.cpp
 // Created on 2021-06-18 by Justyn Durnford
-// Last modified on 2021-06-19 by Justyn Durnford
+// Last modified on 2021-07-20 by Justyn Durnford
 // Source file for the FileInputStream class.
 
 #include <JLibrary/System/FileInputStream.hpp>
-#include <cstdio>
-using namespace std;
 using namespace jlib;
+
+// <cstdio>
+using std::fclose;
+using std::fopen;
+using std::fread;
+using std::fseek;
+using std::ftell;
+
+// <string>
+using std::string;
 
 FileInputStream::FileInputStream()
 {

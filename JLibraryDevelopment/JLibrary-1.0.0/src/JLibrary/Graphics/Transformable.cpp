@@ -27,13 +27,16 @@
 // JLibraryDevelopment
 // Transformable.cpp
 // Created on 2021-06-09 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the Transformable class.
 
 #include <JLibrary/Graphics/Transformable.hpp>
-#include <cmath>
-using namespace std;
 using namespace jlib;
+
+#include <cmath>
+using std::cosf;
+using std::fmodf;
+using std::sinf;
 
 Transformable::Transformable()
 {
@@ -76,8 +79,8 @@ const Transformation& Transformable::transformation() const
 	if (transformationUpdate_) // Update transformation
 	{
 		float angle = -rotation_ * 3.141592654f / 180.f;
-		float cosine = cos(angle);
-		float sine = sin(angle);
+		float cosine = cosf(angle);
+		float sine = sinf(angle);
 		float sxc = x_scale_ * cosine;
 		float syc = y_scale_ * cosine;
 		float sxs = x_scale_ * sine;
@@ -135,7 +138,7 @@ void Transformable::setOrigin(const Point2f& origin)
 
 void Transformable::setRotation(float degree)
 {
-	rotation_ = fmod(degree, 360.f);
+	rotation_ = fmodf(degree, 360.f);
 	if (rotation_ < 0.f)
 		rotation_ += 360.f;
 

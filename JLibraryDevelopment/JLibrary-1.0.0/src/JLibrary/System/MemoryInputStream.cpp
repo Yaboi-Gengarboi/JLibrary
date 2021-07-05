@@ -27,14 +27,14 @@
 // JLibraryDevelopment
 // MemoryInputStream.cpp
 // Created on 2021-06-19 by Justyn Durnford
-// Last modified on 2021-06-19 by Justyn Durnford
+// Last modified on 2021-07-02 by Justyn Durnford
 // Source file for the MemoryInputStream class.
 
 #include <JLibrary/System/MemoryInputStream.hpp>
-#include <cstdio>
-#include <cstring>
-using namespace std;
 using namespace jlib;
+
+#include <cstring>
+using std::memcpy;
 
 MemoryInputStream::MemoryInputStream()
 {
@@ -65,7 +65,7 @@ i64 MemoryInputStream::read(void* data, i64 byteCount)
 
     if (count > 0)
     {
-        memcpy_s(data, static_cast<size_t>(count), data_ + position_, static_cast<size_t>(count));
+        memcpy(data, data_ + position_, static_cast<size_t>(count));
         position_ += count;
     }
 

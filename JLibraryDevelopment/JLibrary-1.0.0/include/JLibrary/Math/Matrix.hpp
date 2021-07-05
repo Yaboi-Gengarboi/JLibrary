@@ -1,14 +1,12 @@
 // JLibraryDevelopment
 // Matrix.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-06-27 by Justyn Durnford
+// Last modified on 2021-07-03 by Justyn Durnford
 // Header file for the Matrix template class.
 
 #pragma once
 
 #include <Jlibrary/Math/Arithmetic.hpp>
-#include <concepts>
-#include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
 
@@ -414,6 +412,38 @@ namespace jlib
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+// Overload of binary operator == 
+template <std::regular T, std::size_t R, std::size_t C>
+bool operator == (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
+{
+	for (std::size_t row_i(0); row_i < R; ++row_i)
+	{
+		for (std::size_t col_i(0); col_i < C; ++col_i)
+		{
+			if (A(row_i, col_i) != B(row_i, col_i))
+				return false;
+		}
+	}
+
+	return true;
+}
+
+// Overload of binary operator != 
+template <std::regular T, std::size_t R, std::size_t C>
+bool operator != (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
+{
+	for (std::size_t row_i(0); row_i < R; ++row_i)
+	{
+		for (std::size_t col_i(0); col_i < C; ++col_i)
+		{
+			if (A(row_i, col_i) != B(row_i, col_i))
+				return true;
+		}
+	}
+
+	return false;
+}
+
 // Overload of unary operator -
 template <jlib::std_arithmetic T, std::size_t R, std::size_t C>
 jlib::Matrix<T, R, C> operator - (const jlib::Matrix<T, R, C>& A)
@@ -554,36 +584,4 @@ jlib::Matrix<T, R, C>& operator /= (jlib::Matrix<T, R, C>& M, U scalar)
 	}
 
 	return M;
-}
-
-// Overload of binary operator == 
-template <std::regular T, std::size_t R, std::size_t C>
-bool operator == (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
-{
-	for (std::size_t row_i(0); row_i < R; ++row_i)
-	{
-		for (std::size_t col_i(0); col_i < C; ++col_i)
-		{
-			if (A(row_i, col_i) != B(row_i, col_i))
-				return false;
-		}
-	}
-
-	return true;
-}
-
-// Overload of binary operator != 
-template <std::regular T, std::size_t R, std::size_t C>
-bool operator != (const jlib::Matrix<T, R, C>& A, const jlib::Matrix<T, R, C>& B)
-{
-	for (std::size_t row_i(0); row_i < R; ++row_i)
-	{
-		for (std::size_t col_i(0); col_i < C; ++col_i)
-		{
-			if (A(row_i, col_i) != B(row_i, col_i))
-				return true;
-		}
-	}
-
-	return false;
 }
