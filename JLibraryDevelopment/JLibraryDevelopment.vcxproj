@@ -204,6 +204,8 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderStates.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTarget.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Shader.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Sprite.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Text.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Texture.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformation.hpp" />

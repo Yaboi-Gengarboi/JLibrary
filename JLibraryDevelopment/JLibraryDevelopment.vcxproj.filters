@@ -257,5 +257,11 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Text.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Sprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
