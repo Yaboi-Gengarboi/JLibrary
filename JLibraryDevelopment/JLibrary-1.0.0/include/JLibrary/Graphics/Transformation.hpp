@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Transformation.hpp
 // Created on 2021-05-28 by Justyn Durnford
-// Last modified on 2021-06-237 by Justyn Durnford
+// Last modified on 2021-07-05 by Justyn Durnford
 // Header file for the Transformation class.
 
 #pragma once
@@ -105,13 +105,13 @@ namespace jlib
 		Transformation& translate(const Vector2f& offset);
 
 		//
-		Transformation& rotate(float angle);
+		Transformation& rotate(Angle angle);
 
 		// 
-		Transformation& rotate(float angle, float center_x, float center_y);
+		Transformation& rotate(Angle angle, float center_x, float center_y);
 
 		// 
-		Transformation& rotate(float angle, const Point2f& center);
+		Transformation& rotate(Angle angle, const Point2f& center);
 
 		// 
 		Transformation& scale(float scale_x, float scale_y);

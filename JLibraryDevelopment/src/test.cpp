@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-07-04 by Justyn Durnford
+// Last updated on 2021-07-06 by Justyn Durnford
 // Main file for testing.
 
 #ifndef NOMINMAX
@@ -313,12 +313,18 @@ void test_vector()
 
 int main()
 {
-	// Expected output:
-	// 118 / 30
-	// 3.93333
-	Fraction<u16> f(test_fraction(1, 2));
-	cout << f.toString() << endl;
-	cout << f.evaluate() << endl;
+	Point2<int> P(1, 2);
+	Point2<int> Q(3, 5);
+
+	cout << P.toString() << endl;
+	cout << Q.toString() << endl;
+	cout << distance_between(P, Q) << endl;
+
+	PointN<int, 4> R({ 3, 1, 4, 8 });
+	PointN<int, 4> S({ 9, 0, 2, 5 });
+	cout << R.toString() << endl;
+	cout << S.toString() << endl;
+	cout << distance_between(R, S) << endl;
 
 	return 0;
 }

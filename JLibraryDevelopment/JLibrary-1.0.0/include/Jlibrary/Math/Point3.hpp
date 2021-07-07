@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-03 by Justyn Durnford
+// Last modified on 2021-07-06 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
@@ -95,7 +95,7 @@ namespace jlib
 	template <std_arithmetic T>
 	float distance_between(const Point3<T>& A, const Point3<T>& B)
 	{
-		return std::sqrtf(std::powf(B.x - A.x, 2.f) + std::powf(B.y - A.y, 2.f) + std::powf(B.z - A.z, 2.f));
+		return std::sqrt(std::pow(B.x - A.x, 2.f) + std::pow(B.y - A.y, 2.f) + std::pow(B.z - A.z, 2.f));
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

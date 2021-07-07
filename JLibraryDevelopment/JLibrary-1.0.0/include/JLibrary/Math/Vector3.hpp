@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-03 by Justyn Durnford
+// Last modified on 2021-07-06 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
@@ -108,7 +108,7 @@ namespace jlib
             return std::sqrtf(std::powf(x, 2.f) + std::powf(y, 2.f) + std::powf(z, 2.f));
         }
 
-        // Returns the endpoint of the Point3.
+        // Returns the endpoint of the Vector3.
         Point3<T> endpoint() const
         {
             return Point3<T>(x, y, z);

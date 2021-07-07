@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Context.hpp
 // Created on 2021-06-30 by Justyn Durnford
-// Last modified on 2021-06-30 by Justyn Durnford
+// Last modified on 2021-07-05 by Justyn Durnford
 // Header file for the Context class and the ContextSettings struct.
 
 #pragma once
@@ -52,13 +52,13 @@ namespace jlib
 			Debug   = 4
 		};
 
-		u32 depthBits;         // Bits of the depth buffer.
-		u32 stencilBits;       // Bits of the stencil buffer.
-		u32 antialiasingLevel; // Level of antialiasing.
-		u32 majorVersion;      // Major number of the context version to create.
-		u32 minorVersion;      // Minor number of the context version to create.
-		u32 attributeFlags;    // The attribute flags to create the context with.
-		bool         sRgbCapable;       // Whether the context framebuffer is sRGB capable.
+		u32  depthBits;         // Bits of the depth buffer.
+		u32  stencilBits;       // Bits of the stencil buffer.
+		u32  antialiasingLevel; // Level of antialiasing.
+		u32  majorVersion;      // Major number of the context version to create.
+		u32  minorVersion;      // Minor number of the context version to create.
+		u32  attributeFlags;    // The attribute flags to create the context with.
+		bool sRgbCapable;       // Whether the context framebuffer is sRGB capable.
 
 		// Default constructor.
 		ContextSettings() = default;

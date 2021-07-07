@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Transformation.cpp
 // Created on 2021-05-29 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
+// Last modified on 2021-07-06 by Justyn Durnford
 // Source file for the Transformation class.
 
 #include <JLibrary/Graphics/Transformation.hpp>
@@ -162,25 +162,25 @@ Transformation& Transformation::translate(const Vector2f& offset)
 	return translate(offset.x, offset.y);
 }
 
-Transformation& Transformation::rotate(float angle)
+Transformation& Transformation::rotate(Angle angle)
 {
-	float x = cosf(angle * 3.141592654f / 180.f);
-	float y = sinf(angle * 3.141592654f / 180.f);
+	float x = cosf(to_radians(angle.degree));
+	float y = sinf(to_radians(angle.degree));
 
 	return combine(Transformation(x, -y, 0.f, y, x, 0.f, 0.f, 0.f, 1.f));
 }
 
-Transformation& Transformation::rotate(float angle, float center_x, float center_y)
+Transformation& Transformation::rotate(Angle angle, float center_x, float center_y)
 {
-	float x = cosf(angle * 3.141592654f / 180.f);
-	float y = sinf(angle * 3.141592654f / 180.f);
+	float x = cosf(to_radians(angle.degree));
+	float y = sinf(to_radians(angle.degree));
 
 	return combine(Transformation(x, -y, center_x * (1.f - x) + center_y * y,
 								  y, x, center_y * (1.f - x) - center_x * y,
 								  0.f, 0.f, 1.f));
 }
 
-Transformation& Transformation::rotate(float angle, const Point2f& center)
+Transformation& Transformation::rotate(Angle angle, const Point2f& center)
 {
 	return rotate(angle, center.x, center.y);
 }
