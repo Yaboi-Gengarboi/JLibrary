@@ -314,18 +314,8 @@ void test_vector()
 
 int main()
 {
-	Point2<int> P(1, 2);
-	Point2<int> Q(3, 5);
-
-	cout << P.toString() << endl;
-	cout << Q.toString() << endl;
-	cout << distance_between(P, Q) << endl;
-
-	PointN<int, 4> R({ 3, 1, 4, 8 });
-	PointN<int, 4> S({ 9, 0, 2, 5 });
-	cout << R.toString() << endl;
-	cout << S.toString() << endl;
-	cout << distance_between(R, S) << endl;
+	wstring text = Clipboard::getString();
+	wcout << text << endl;
 
 	return 0;
 }

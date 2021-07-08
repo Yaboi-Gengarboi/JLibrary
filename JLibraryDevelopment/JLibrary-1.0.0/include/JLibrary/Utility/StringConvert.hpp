@@ -16,4 +16,7 @@ namespace jlib
 
 	// Converts a std::string to a std::u32string.
 	std::u32string str_to_u32str(const std::string& str);
+
+	// Converts a std::wstring to a std::u32string.
+	std::u32string wstr_to_u32str(const std::wstring& wstr);
 }

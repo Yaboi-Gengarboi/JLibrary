@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-08 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
@@ -304,7 +304,7 @@ std::strong_ordering operator <=> (const jlib::Fraction<T>& A, float B)
 	if (A.evaluate() > B)
 		return std::strong_ordering::greater;
 
-	return std::strong_ordering::equal;
+	return std::strong_ordering::equivalent;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
