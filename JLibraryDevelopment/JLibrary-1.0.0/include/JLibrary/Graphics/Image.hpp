@@ -27,16 +27,16 @@
 // JLibraryDevelopment
 // Image.hpp
 // Created on 2021-06-21 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Image class.
 
 #pragma once
 
 #include <JLibrary/Graphics/Color.hpp>
 #include <JLibrary/Math/Rectangle.hpp>
-#include <JLibrary/System/Array.hpp>
-#include <JLibrary/System/InputStream.hpp>
 #include <JLibrary/System/Integer.hpp>
+#include <JLibrary/Utility/Array.hpp>
+#include <JLibrary/Utility/InputStream.hpp>
 #include <string>
 
 namespace jlib

@@ -48,12 +48,6 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Math\Angle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\MemoryInputStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,9 +60,6 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GlContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\StringConvert.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Lock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -79,6 +70,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\ThreadLocal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\FileInputStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\MemoryInputStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\StringConvert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,19 +146,7 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Integer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\InputStream.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\FileInputStream.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\MemoryInputStream.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Glyph.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Circle.hpp">
@@ -168,9 +156,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Image.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Array.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image.h">
@@ -195,12 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlContext.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\StringConvert.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread.hpp">
@@ -264,6 +243,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Shape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Array.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\FileInputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\MemoryInputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\NonCopyable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Pointer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\StringConvert.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\InputStream.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

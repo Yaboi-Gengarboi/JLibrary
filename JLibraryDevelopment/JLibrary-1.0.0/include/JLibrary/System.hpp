@@ -32,15 +32,8 @@
 
 #pragma once
 
-#include <JLibrary/System/Array.hpp>
 #include <JLibrary/System/Clock.hpp>
-#include <JLibrary/System/FileInputStream.hpp>
 #include <JLibrary/System/Gamepad.hpp>
-#include <JLibrary/System/InputStream.hpp>
 #include <JLibrary/System/Integer.hpp>
 #include <JLibrary/System/Keyboard.hpp>
-#include <JLibrary/System/MemoryInputStream.hpp>
 #include <JLibrary/System/Mouse.hpp>
-#include <JLibrary/System/NonCopyable.hpp>
-#include <JLibrary/System/Pointer.hpp>
-#include <JLibrary/System/StringConvert.hpp>

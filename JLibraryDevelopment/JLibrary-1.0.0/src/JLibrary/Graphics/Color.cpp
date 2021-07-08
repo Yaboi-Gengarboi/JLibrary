@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Color.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Source file for the Color class.
 
 #include <JLibrary/Graphics/Color.hpp>
@@ -45,6 +45,7 @@ using std::initializer_list;
 // <string>
 using std::string;
 using std::wstring;
+using std::u32string;
 
 Color::Color()
 {
@@ -184,13 +185,12 @@ string Color::toString() const
 
 wstring Color::toWideString() const
 {
-	wstring wstr;
-	wstr.reserve(8);
-	wstr += to_hex_wstr(r());
-	wstr += to_hex_wstr(g());
-	wstr += to_hex_wstr(b());
-	wstr += to_hex_wstr(a());
-	return wstr;
+	return str_to_wstr(toString());
+}
+
+u32string Color::toU32String() const
+{
+	return str_to_u32str(toString());
 }
 
 u8& Color::operator [] (size_t index)
@@ -258,25 +258,12 @@ string jlib::to_hex_str(u8 cbyte)
 
 wstring jlib::to_hex_wstr(u8 cbyte)
 {
-	wstring hexstr(L"00");
+	return str_to_wstr(to_hex_str(cbyte));
+}
 
-	for (u8 i = 0; i < 2; ++i)
-	{
-		switch (cbyte % 16)
-		{
-			case 10: hexstr[1 - i] = L'a';                                    break;
-			case 11: hexstr[1 - i] = L'b';                                    break;
-			case 12: hexstr[1 - i] = L'c';                                    break;
-			case 13: hexstr[1 - i] = L'd';                                    break;
-			case 14: hexstr[1 - i] = L'e';                                    break;
-			case 15: hexstr[1 - i] = L'f';                                    break;
-			default: hexstr[1 - i] = static_cast<wchar_t>((cbyte % 16) + 48); break;
-		}
-
-		cbyte /= 16u;
-	}
-
-	return hexstr;
+u32string jlib::to_hex_u32str(u8 cbyte)
+{
+	return str_to_u32str(to_hex_str(cbyte));
 }
 
 bool operator == (const Color& A, const Color& B)

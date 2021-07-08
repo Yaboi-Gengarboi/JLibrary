@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Font.hpp
 // Created on 2021-07-06 by Justyn Durnford
-// Last modified on 2021-07-06 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Font class.
 
 #pragma once
@@ -36,7 +36,7 @@
 #include <JLibrary/Graphics/Texture.hpp>
 #include <JLibrary/Math/Rectangle.hpp>
 #include <JLibrary/Math/Vector2.hpp>
-#include <JLibrary/System/StringConvert.hpp>
+#include <JLibrary/Utility/StringConvert.hpp>
 #include <map>
 #include <string>
 #include <vector>

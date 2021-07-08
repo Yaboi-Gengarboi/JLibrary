@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // test.cpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last updated on 2021-07-06 by Justyn Durnford
+// Last updated on 2021-07-07 by Justyn Durnford
 // Main file for testing.
 
 #ifndef NOMINMAX
@@ -11,6 +11,7 @@
 #include <JLibrary/Graphics.hpp>
 #include <JLibrary/Math.hpp>
 #include <JLibrary/System.hpp>
+#include <JLibrary/Utility.hpp>
 using namespace jlib;
 
 #include <compare>

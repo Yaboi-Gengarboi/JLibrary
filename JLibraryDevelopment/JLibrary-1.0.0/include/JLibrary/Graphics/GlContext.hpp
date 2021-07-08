@@ -27,14 +27,14 @@
 // JLibraryDevelopment
 // GlContext.hpp
 // Created on 2021-06-30 by Justyn Durnford
-// Last modified on 2021-07-04 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the GlContext class.
 
 #pragma once
 
 #include <JLibrary/Graphics/Context.hpp>
 #include <JLibrary/Graphics/GlResource.hpp>
-#include <JLibrary/System/NonCopyable.hpp>
+#include <JLibrary/Utility/NonCopyable.hpp>
 #include <string>
 
 namespace jlib

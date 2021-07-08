@@ -25,31 +25,40 @@
 ////////////////////////////////////////////////////////////
 // 
 // JLibraryDevelopment
-// MemoryInputStream.hpp
+// FileInputStream.hpp
 // Created on 2021-06-18 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
-// Header file for the MemoryInputStream class.
+// Last modified on 2021-07-07 by Justyn Durnford
+// Header file for the FileInputStream class.
 
 #pragma once
 
-#include <JLibrary/System/InputStream.hpp>
-#include <cstddef>
+#include <JLibrary/Utility/InputStream.hpp>
+#include <cstdio>
+#include <string>
 
 namespace jlib
 {
-	class MemoryInputStream : public InputStream
+	class FileInputStream : public InputStream
 	{
-		const char* data_;
-		i64 size_;
-		i64 position_;
+		std::FILE* file_;
 
 		public:
 
 		// Default constructor.
-		MemoryInputStream();
+		FileInputStream();
 
-		// Opens the stream from the memory data.
-		void open(const void* data, std::size_t byteCount);
+		// Disabled copy constructor.
+		FileInputStream(const FileInputStream& other) = delete;
+
+		// Disabled copy assignment operator.
+		FileInputStream& operator = (const FileInputStream& other) = delete;
+
+		// Destructor.
+		virtual ~FileInputStream();
+
+		// Opens the stream from a file path.
+		// Returns true on success, false on error
+		bool open(const std::string& filename);
 
 		// Reads data from the stream.
 		// Returns the number of bytes actually read, or -1 on error.

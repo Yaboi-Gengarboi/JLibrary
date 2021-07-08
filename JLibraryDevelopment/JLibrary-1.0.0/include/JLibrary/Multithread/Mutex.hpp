@@ -27,13 +27,12 @@
 // JLibraryDevelopment
 // Mutex.hpp
 // Created on 2021-06-20 by Justyn Durnford
-// Last modified on 2021-07-04 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Mutex class.
 
 #pragma once
 
-#include <JLibrary/System/NonCopyable.hpp>
-#include <memory>
+#include <JLibrary/Utility/NonCopyable.hpp>
 #include <windows.h>
 
 namespace jlib

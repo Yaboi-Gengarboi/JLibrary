@@ -27,10 +27,10 @@
 // JLibraryDevelopment
 // GlResource.hpp
 // Created on 2021-06-30 by Justyn Durnford
-// Last modified on 2021-07-01 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the GlResource class.
 
-#include <JLibrary/System/NonCopyable.hpp>
+#include <JLibrary/Utility/NonCopyable.hpp>
 
 #pragma once
 

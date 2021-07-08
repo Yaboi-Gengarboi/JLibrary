@@ -27,15 +27,15 @@
 // JLibraryDevelopment
 // Color.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
 
 #include <JLibrary/System/Integer.hpp>
+#include <JLibrary/Utility/StringConvert.hpp>
 #include <array>
 #include <initializer_list>
-#include <string>
 
 namespace jlib
 {
@@ -150,6 +150,9 @@ namespace jlib
 		// Returns a std::wstring representation of the Color.
 		std::wstring toWideString() const;
 
+		// Returns a std::u32string representation of the Color.
+		std::u32string toU32String() const;
+
 		// Returns the element at the given index.
 		u8& operator [] (std::size_t index);
 
@@ -191,6 +194,9 @@ namespace jlib
 
 	// Returns a hexadecimal std::wstring representation of the byte.
 	std::wstring to_hex_wstr(u8 cbyte);
+
+	// Returns a hexadecimal std::u32string representation of the byte.
+	std::u32string to_hex_u32str(u8 cbyte);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

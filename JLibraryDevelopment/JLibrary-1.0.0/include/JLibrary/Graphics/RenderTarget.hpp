@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // RenderTarget.hpp
 // Created on 2021-07-05 by Justyn Durnford
-// Last modified on 2021-07-05 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the RenderTarget class.
 
 #pragma once
@@ -35,6 +35,7 @@
 #include <JLibrary/Graphics/BlendMode.hpp>
 #include <JLibrary/Graphics/Color.hpp>
 #include <JLibrary/Graphics/PrimitiveType.hpp>
+#include <JLibrary/Graphics/Vertex2.hpp>
 #include <JLibrary/Graphics/VertexBuffer.hpp>
 #include <JLibrary/Graphics/View.hpp>
 #include <bitset>

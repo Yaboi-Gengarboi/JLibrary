@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-06 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Point2 template class.
 
 #pragma once
@@ -11,7 +11,7 @@
 #endif // NOMINMAX
 
 #include <JLibrary/Math/Arithmetic.hpp>
-#include <JLibrary/System/StringConvert.hpp>
+#include <JLibrary/Utility/StringConvert.hpp>
 #include <cmath>
 
 namespace jlib

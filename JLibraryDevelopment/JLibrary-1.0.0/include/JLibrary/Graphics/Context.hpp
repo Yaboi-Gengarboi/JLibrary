@@ -27,14 +27,14 @@
 // JLibraryDevelopment
 // Context.hpp
 // Created on 2021-06-30 by Justyn Durnford
-// Last modified on 2021-07-05 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Context class and the ContextSettings struct.
 
 #pragma once
 
 #include <JLibrary/Graphics/GlResource.hpp>
 #include <JLibrary/System/Integer.hpp>
-#include <JLibrary/System/NonCopyable.hpp>
+#include <JLibrary/Utility/NonCopyable.hpp>
 
 typedef void (*GlFunctionPointer)();
 

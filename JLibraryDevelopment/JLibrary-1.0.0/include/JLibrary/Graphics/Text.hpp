@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Text.hpp
 // Created on 2021-07-06 by Justyn Durnford
-// Last modified on 2021-07-06 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Text class.
 
 #pragma once
@@ -37,7 +37,7 @@
 #include <JLibrary/Graphics/Transformable.hpp>
 #include <JLibrary/Graphics/VertexArray.hpp>
 #include <JLibrary/Math/Rectangle.hpp>
-#include <JLibrary/System/StringConvert.hpp>
+#include <JLibrary/Utility/StringConvert.hpp>
 
 namespace jlib
 {

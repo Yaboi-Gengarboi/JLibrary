@@ -27,10 +27,10 @@
 // JLibraryDevelopment
 // MemoryInputStream.cpp
 // Created on 2021-06-19 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Source file for the MemoryInputStream class.
 
-#include <JLibrary/System/MemoryInputStream.hpp>
+#include <JLibrary/Utility/MemoryInputStream.hpp>
 using namespace jlib;
 
 #include <cstring>

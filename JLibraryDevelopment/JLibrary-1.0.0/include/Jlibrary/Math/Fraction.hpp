@@ -27,12 +27,12 @@
 // JLibraryDevelopment
 // Fraction.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-03 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Fraction template class.
 
 #pragma once
 
-#include <JLibrary/System/StringConvert.hpp>
+#include <JLibrary/Utility/StringConvert.hpp>
 #include <compare>
 
 namespace jlib

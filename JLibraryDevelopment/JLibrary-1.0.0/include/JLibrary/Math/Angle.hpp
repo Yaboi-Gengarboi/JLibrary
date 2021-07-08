@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Angle.hpp
 // Created on 2021-06-12 by Justyn Durnford
-// Last modified on 2021-07-03 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Header file for the Angle class.
 
 #pragma once
@@ -10,7 +10,7 @@
 #define NOMINMAX
 #endif // NOMINMAX
 
-#include <JLibrary/System/StringConvert.hpp>
+#include <JLibrary/Utility/StringConvert.hpp>
 #include <cmath>
 #include <compare>
 

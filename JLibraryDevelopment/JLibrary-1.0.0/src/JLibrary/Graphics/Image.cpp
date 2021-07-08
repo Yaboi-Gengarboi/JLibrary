@@ -27,7 +27,7 @@
 // JLibraryDevelopment
 // Image.cpp
 // Created on 2021-06-24 by Justyn Durnford
-// Last modified on 2021-07-02 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Source file for the Image class.
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -37,7 +37,7 @@
 #include <ExternalLibs/stb_image/stb_image_write.h>
 
 #include <JLibrary/Graphics/Image.hpp>
-#include <JLibrary/System/NonCopyable.hpp>
+#include <JLibrary/Utility/NonCopyable.hpp>
 using namespace jlib;
 
 #include <algorithm>

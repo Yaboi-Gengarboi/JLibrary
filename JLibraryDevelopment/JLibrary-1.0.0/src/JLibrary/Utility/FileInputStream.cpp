@@ -27,10 +27,10 @@
 // JLibraryDevelopment
 // FileInputStream.cpp
 // Created on 2021-06-18 by Justyn Durnford
-// Last modified on 2021-07-20 by Justyn Durnford
+// Last modified on 2021-07-07 by Justyn Durnford
 // Source file for the FileInputStream class.
 
-#include <JLibrary/System/FileInputStream.hpp>
+#include <JLibrary/Utility/FileInputStream.hpp>
 using namespace jlib;
 
 // <cstdio>

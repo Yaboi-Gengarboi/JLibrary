@@ -178,12 +178,12 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Thread.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\ThreadLocal.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clock.cpp" />
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\FileInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Gamepad.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Keyboard.cpp" />
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\MemoryInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Mouse.cpp" />
-    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\StringConvert.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\FileInputStream.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\MemoryInputStream.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\StringConvert.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -235,18 +235,19 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Thread.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\ThreadLocal.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Array.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\FileInputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Gamepad.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\InputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Integer.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Keyboard.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\MemoryInputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Mouse.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\NonCopyable.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Pointer.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\StringConvert.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Array.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\FileInputStream.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\InputStream.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\MemoryInputStream.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\NonCopyable.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Pointer.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\StringConvert.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
