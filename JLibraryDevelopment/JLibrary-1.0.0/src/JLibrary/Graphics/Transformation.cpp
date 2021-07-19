@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Transformation.cpp
 // Created on 2021-05-29 by Justyn Durnford
-// Last modified on 2021-07-06 by Justyn Durnford
+// Last modified on 2021-07-14 by Justyn Durnford
 // Source file for the Transformation class.
 
 #include <JLibrary/Graphics/Transformation.hpp>
@@ -44,6 +18,8 @@ using std::sinf;
 // <cstddef>
 using std::size_t;
 
+const Transformation Transformation::Identity;
+
 Transformation::Transformation()
 {
 	matrix_ =
@@ -55,7 +31,9 @@ Transformation::Transformation()
 	};
 }
 
-Transformation::Transformation(float a, float b, float c, float d, float e, float f, float g, float h, float i)
+Transformation::Transformation(float a, float b, float c, 
+							  float d, float e, float f, 
+							  float g, float h, float i)
 {
 	matrix_ =
 	{
@@ -78,20 +56,20 @@ Transformation Transformation::inverse() const
 	if (det == 0.f)
 		return Transformation();
 
-	return Transformation((matrix_(15) * matrix_(5) - matrix_(7) * matrix_(13)) / det,
-						 -(matrix_(15) * matrix_(4) - matrix_(7) * matrix_(12)) / det,
-						  (matrix_(13) * matrix_(4) - matrix_(5) * matrix_(12)) / det,
-						 -(matrix_(15) * matrix_(1) - matrix_(3) * matrix_(13)) / det,
-						  (matrix_(15) * matrix_(0) - matrix_(3) * matrix_(12)) / det,
-						 -(matrix_(13) * matrix_(0) - matrix_(1) * matrix_(12)) / det,
-						  (matrix_(7)  * matrix_(1) - matrix_(3) * matrix_(5))  / det,
-						 -(matrix_(7)  * matrix_(0) - matrix_(3) * matrix_(4))  / det,
-						  (matrix_(5)  * matrix_(0) - matrix_(1) * matrix_(4))  / det);
+	return Transformation((matrix_[15] * matrix_[5] - matrix_[7] * matrix_[13]) / det,
+						 -(matrix_[15] * matrix_[4] - matrix_[7] * matrix_[12]) / det,
+						  (matrix_[13] * matrix_[4] - matrix_[5] * matrix_[12]) / det,
+						 -(matrix_[15] * matrix_[1] - matrix_[3] * matrix_[13]) / det,
+						  (matrix_[15] * matrix_[0] - matrix_[3] * matrix_[12]) / det,
+						 -(matrix_[13] * matrix_[0] - matrix_[1] * matrix_[12]) / det,
+						  (matrix_[7]  * matrix_[1] - matrix_[3] * matrix_[5])  / det,
+						 -(matrix_[7]  * matrix_[0] - matrix_[3] * matrix_[4])  / det,
+						  (matrix_[5]  * matrix_[0] - matrix_[1] * matrix_[4])  / det);
 }
 
 Point2f Transformation::transformPoint(float X, float Y) const
 {
-	return Point2f(matrix_(0) * X + matrix_(4) * Y + matrix_(12), matrix_(1) * X + matrix_(5) * Y + matrix_(13));
+	return Point2f(matrix_[0] * X + matrix_[4] * Y + matrix_[12], matrix_[1] * X + matrix_[5] * Y + matrix_[13]);
 }
 
 Point2f Transformation::transformPoint(const Point2f& P) const
@@ -101,7 +79,7 @@ Point2f Transformation::transformPoint(const Point2f& P) const
 
 Vector2f Transformation::transformVector(float X, float Y) const
 {
-	return Vector2f(matrix_(0) * X + matrix_(4) * Y + matrix_(12), matrix_(1) * X + matrix_(5) * Y + matrix_(13));
+	return Vector2f(matrix_[0] * X + matrix_[4] * Y + matrix_[12], matrix_[1] * X + matrix_[5] * Y + matrix_[13]);
 }
 
 Vector2f Transformation::transformVector(const Vector2f& V) const

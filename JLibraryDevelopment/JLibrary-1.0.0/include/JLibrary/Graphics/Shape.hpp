@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Shape.hpp
 // Created on 2021-07-07 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-14 by Justyn Durnford
 // Header file for the Shape class.
 
 #pragma once
@@ -66,6 +40,9 @@ namespace jlib
         // Updates the outline vertices' color.
         void updateOutlineColors();
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
         protected:
 
         // Default constructor.
@@ -77,10 +54,19 @@ namespace jlib
         // getPointCount or getPoint is different).
         void update();
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
         public:
 
         // Destructor.
         virtual ~Shape();
+
+        // Gets the source texture of the shape.
+        // If the shape has no source texture, a nullptr is returned.
+        // The returned pointer is const, which means that you can't
+        // modify the texture when you retrieve it with this function.
+        const Texture* getTexture() const;
 
         // Changes the source texture of the shape.
         // The texture argument refers to a texture that must
@@ -95,11 +81,17 @@ namespace jlib
         // texture. If it is false, the texture rect is left unchanged.
         void setTexture(const Texture* texture, bool resetRect = false);
 
+        // Gets the sub-rectangle of the texture displayed by the shape.
+        const IntRect& getTextureRect() const;
+
         // Sets the sub-rectangle of the texture that the shape will display.
         /// The texture rect is useful when you don't want to display
         /// the whole texture, but rather a part of it.
         /// By default, the texture rect covers the entire texture.
         void setTextureRect(const IntRect& rect);
+
+        // Gets the fill color of the shape.
+        const Color& getFillColor() const;
 
         // Sets the fill color of the shape.
         // This color is modulated (multiplied) with the shape's
@@ -110,9 +102,15 @@ namespace jlib
         // By default, the shape's fill color is opaque white.
         void setFillColor(const Color& color);
 
+        // Gets the outline color of the shape.
+        const Color& getOutlineColor() const;
+
         // Sets the outline color of the shape.
         // By default, the shape's outline color is opaque white.
         void setOutlineColor(const Color& color);
+
+        // Gets the outline thickness of the shape.
+        float getOutlineThickness() const;
 
         // Sets the thickness of the shape's outline.
         // Note that negative values are allowed (so that the outline
@@ -120,24 +118,6 @@ namespace jlib
         // disables the outline.
         // By default, the outline thickness is 0.
         void setOutlineThickness(float thickness);
-
-        // Gets the source texture of the shape.
-        // If the shape has no source texture, a nullptr is returned.
-        // The returned pointer is const, which means that you can't
-        // modify the texture when you retrieve it with this function.
-        const Texture* getTexture() const;
-
-        // Gets the sub-rectangle of the texture displayed by the shape.
-        const IntRect& getTextureRect() const;
-
-        // Gets the fill color of the shape.
-        const Color& getFillColor() const;
-
-        // Gets the outline color of the shape.
-        const Color& getOutlineColor() const;
-
-        // Gets the outline thickness of the shape.
-        float getOutlineThickness() const;
 
         // Gets the total number of points of the shape.
         virtual std::size_t getPointCount() const = 0;

@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Vector3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-06 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Header file for the Vector3 template class.
 
 #pragma once
@@ -114,13 +88,6 @@ namespace jlib
             return Point3<T>(x, y, z);
         }
 
-        // Returns a unit vector in the direction of the Vector3.
-        Vector3<float> unitVector() const
-        {
-            float m = magnitude();
-            return Vector3<float>(x / m, y / m, z / m);
-        }
-
         // Returns a std::string representation of the Vector3.
         std::string toString() const
         {
@@ -130,18 +97,26 @@ namespace jlib
         // Returns a std::wstring representation of the Vector3.
         std::wstring toWideString() const
         {
-            return str_to_wstr(toString());
-        }
-
-        // Returns a std::u32string representation of the Vector3.
-        std::u32string toU32String() const
-        {
-            return str_to_u32str(toString());
+            return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L'>';
         }
     };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Converts the given Point3 to a Vector3.
+    template <std_arithmetic T>
+    Vector3<T> point_to_vector(const Point3<T>& P)
+    {
+        return Vector3<T>(P.x, P.y, P.z);
+    }
+
+    // Returns a unit vector in the direction of the Vector3.
+    template <std_arithmetic T>
+    Vector3<T> unit_vector(const Vector3<T>& A)
+    {
+        return Vector3<T>(A) / A.magnitude();
+    }
 
     // Returns the dot product of the 2 given Vector3s.
     template <std_arithmetic T>

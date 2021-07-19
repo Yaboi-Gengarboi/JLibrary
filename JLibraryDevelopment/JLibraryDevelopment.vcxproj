@@ -74,21 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>E:\JLibrary\JLibraryDevelopment\include;$(IncludePath)</IncludePath>
     <SourcePath>E:\JLibrary\JLibraryDevelopment\src;$(SourcePath)</SourcePath>
+    <LibraryPath>E:\JLibrary\JLibraryDevelopment\extlibs\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>E:\JLibrary\JLibraryDevelopment\include;$(IncludePath)</IncludePath>
     <SourcePath>E:\JLibrary\JLibraryDevelopment\src;$(SourcePath)</SourcePath>
+    <LibraryPath>E:\JLibrary\JLibraryDevelopment\extlibs\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>E:\JLibrary\JLibraryDevelopment\include;$(IncludePath)</IncludePath>
     <SourcePath>E:\JLibrary\JLibraryDevelopment\src;$(SourcePath)</SourcePath>
+    <LibraryPath>E:\JLibrary\JLibraryDevelopment\extlibs\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>E:\JLibrary\JLibraryDevelopment\include;$(IncludePath)</IncludePath>
     <SourcePath>E:\JLibrary\JLibraryDevelopment\src;$(SourcePath)</SourcePath>
+    <LibraryPath>E:\JLibrary\JLibraryDevelopment\extlibs\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,13 +101,14 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\extlibs\include\stb_image;E:\JLibrary\JLibraryDevelopment\extlibs\include\glad;E:\JLibrary\JLibraryDevelopment\extlibs\include\freetype2;E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\JLibrary\JLibraryDevelopment\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,7 +120,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\extlibs\include\stb_image;E:\JLibrary\JLibraryDevelopment\extlibs\include\glad;E:\JLibrary\JLibraryDevelopment\extlibs\include\freetype2;E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
@@ -123,7 +128,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\JLibrary\JLibraryDevelopment\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -133,13 +139,14 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\extlibs\include\stb_image;E:\JLibrary\JLibraryDevelopment\extlibs\include\glad;E:\JLibrary\JLibraryDevelopment\extlibs\include\freetype2;E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\JLibrary\JLibraryDevelopment\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,7 +158,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\JLibrary\JLibraryDevelopment\extlibs\include\stb_image;E:\JLibrary\JLibraryDevelopment\extlibs\include\glad;E:\JLibrary\JLibraryDevelopment\extlibs\include\freetype2;E:\JLibrary\JLibraryDevelopment\JLibrary-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
@@ -159,22 +166,43 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\JLibrary\JLibraryDevelopment\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\AnimatedSprite.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\BlendMode.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Color.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Context.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\EglContext.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Font.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GlContext.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GlResource.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GLSL.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Image.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderStates.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTarget.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTexture.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTextureImplDefault.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTextureImplFBO.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Shader.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Shape.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Sprite.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Text.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Texture.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\TextureSaver.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformable.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Transformation.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex2.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Vertex3.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\VertexArray.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\WglContext.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Math\Angle.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Lock.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Mutex.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Sleep.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Thread.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\ThreadLocal.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\System\Clipboard.cpp" />
@@ -186,17 +214,22 @@
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\FileInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\MemoryInputStream.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Utility\StringConvert.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\RenderWindow.cpp" />
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\VideoMode.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\View.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\Window.cpp" />
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\WindowImpl.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image.h" />
-    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image_write.h" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\AnimatedSprite.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\BlendMode.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Color.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Context.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\ContextSettings.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Drawable.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\EglContext.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Font.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlContext.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlResource.hpp" />
@@ -206,18 +239,23 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\PrimitiveType.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderStates.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTarget.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTexture.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTextureImpl.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTextureImplDefault.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTextureImplFBO.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Shader.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Shape.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Sprite.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Text.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Texture.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\TextureSaver.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformable.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Transformation.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex2.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\VertexArray.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Vertex3.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\VertexBuffer.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\View.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\WglContext.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Angle.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Arithmetic.hpp" />
@@ -235,8 +273,11 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Lock.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Mutex.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Sleep.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Thread.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\ThreadLocal.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\ThreadLocalPtr.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\OpenGL.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clipboard.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\System\Clock.hpp" />
@@ -251,10 +292,18 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\InputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\MemoryInputStream.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\NonCopyable.hpp" />
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Pointer.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Ptr.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\StringConvert.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\UTF.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\Event.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\RenderWindow.hpp" />
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\VideoMode.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\View.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\Window.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\WindowHandle.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\WindowImpl.hpp" />
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\WindowStyle.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

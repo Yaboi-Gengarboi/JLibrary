@@ -1,16 +1,13 @@
 // JLibraryDevelopment
 // Array.hpp
 // Created on 2021-06-25 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-15 by Justyn Durnford
 // Header file for the Array template class.
 
 #pragma once
 
-#include <compare>
 #include <concepts>
-#include <cstddef>
 #include <initializer_list>
-#include <iterator>
 #include <stdexcept>
 
 namespace jlib
@@ -179,15 +176,21 @@ namespace jlib
 		}
 
 		// Returns the size of the Array.
-		size_type size() const
+		size_type size() const noexcept
 		{
 			return size_;
 		}
 
 		// Returns true if the Array is empty.
-		bool isEmpty() const
+		bool isEmpty() const noexcept
 		{
 			return size_ != 0;
+		}
+
+		// Returns the underlying array pointer.
+		pointer data() noexcept
+		{
+			return data_;
 		}
 
 		// Returns the underlying array pointer.
@@ -197,46 +200,59 @@ namespace jlib
 		}
 
 		// 
-		iterator begin()
+		iterator begin() noexcept
 		{
 			return iterator(data_);
 		}
 
 		// 
-		const_iterator begin() const
+		const_iterator begin() const noexcept
 		{
 			return const_iterator(data_);
 		}
 
 		// 
-		const_iterator cbegin() const
+		const_iterator cbegin() const noexcept
 		{
 			return const_iterator(data_);
 		}
 
 		// 
-		iterator end()
+		iterator end() noexcept
 		{
 			return iterator(data_ + size_);
 		}
 
 		// 
-		const_iterator end() const
+		const_iterator end() const noexcept
 		{
 			return const_iterator(data_ + size_);
 		}
 
 		// 
-		const_iterator cend() const
+		const_iterator cend() const noexcept
 		{
 			return const_iterator(data_ + size_);
 		}
 
 		// Empties the Array.
-		void clear()
+		void clear() noexcept
 		{
 			delete[] data_;
 			size_ = 0;
+		}
+
+		// Swaps the contents of this Array buffer with those of another.
+		void swapWith(Array& other) noexcept
+		{
+			pointer this_data = data_;
+			size_type this_size = size_;
+
+			data_ = other.data_;
+			size_ = other.size_;
+
+			other.data_ = this_data;
+			other.size_ = this_size;
 		}
 
 		// Returns the first element of the Array.
@@ -310,13 +326,13 @@ namespace jlib
 		}
 
 		// Returns the element at the given index.
-		reference operator [] (size_type index)
+		reference operator [] (size_type index) noexcept
 		{
 			return data_[index];
 		}
 
 		// Returns the element at the given index.
-		const_reference operator [] (size_type index) const
+		const_reference operator [] (size_type index) const noexcept
 		{
 			return data_[index];
 		}
@@ -333,7 +349,7 @@ bool operator == (const jlib::Array<T>& A, const jlib::Array<T>& B)
 	if (A.size() != B.size())
 		return false;
 
-	for (std::size_t i(0u); i < A.size(); ++i)
+	for (std::size_t i = 0; i < A.size(); ++i)
 	{
 		if (A[i] != B[i])
 			return false;
@@ -349,7 +365,7 @@ bool operator != (const jlib::Array<T>& A, const jlib::Array<T>& B)
 	if (A.size() != B.size())
 		return true;
 
-	for (std::size_t i(0u); i < A.size(); ++i)
+	for (std::size_t i = 0; i < A.size(); ++i)
 	{
 		if (A[i] != B[i])
 			return true;

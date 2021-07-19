@@ -88,7 +88,79 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\VideoMode.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\EglContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\WglContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\GLSL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Shape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\VertexArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\View.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Multithread\Sleep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\WindowImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Window\RenderWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTextureImplDefault.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTextureImplFBO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\RenderTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\AnimatedSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JLibrary-1.0.0\src\JLibrary\Graphics\TextureSaver.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,12 +239,6 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Image.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\ExternalLibs\stb_image\stb_image_write.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Math\Table.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -185,7 +251,7 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlResource.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Context.hpp">
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\ContextSettings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\GlContext.hpp">
@@ -222,9 +288,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\VertexBuffer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\View.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTarget.hpp">
@@ -269,12 +332,6 @@
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\NonCopyable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Pointer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\StringConvert.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\InputStream.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -285,6 +342,72 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\VideoMode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\Window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\Event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\Context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\EglContext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\WindowHandle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\OpenGL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\ThreadLocalPtr.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\WglContext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\View.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Multithread\Sleep.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\WindowImpl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\WindowStyle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\UTF.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\Ptr.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Window\RenderWindow.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Utility\StringConvert.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTexture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTextureImpl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTextureImplDefault.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\RenderTextureImplFBO.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\TextureSaver.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JLibrary-1.0.0\include\JLibrary\Graphics\AnimatedSprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

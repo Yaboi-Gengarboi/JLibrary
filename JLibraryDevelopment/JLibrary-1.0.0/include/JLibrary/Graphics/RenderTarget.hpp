@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // RenderTarget.hpp
 // Created on 2021-07-05 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Header file for the RenderTarget class.
 
 #pragma once
@@ -37,7 +11,7 @@
 #include <JLibrary/Graphics/PrimitiveType.hpp>
 #include <JLibrary/Graphics/Vertex2.hpp>
 #include <JLibrary/Graphics/VertexBuffer.hpp>
-#include <JLibrary/Graphics/View.hpp>
+#include <JLibrary/Window/View.hpp>
 #include <bitset>
 
 namespace jlib
@@ -48,6 +22,7 @@ namespace jlib
         struct StatesCache
         {
             static const i32 VertexCacheSize = 4;
+
             u64 lastTextureID;
             BlendMode lastBlendMode;
             std::array<Vertex2, VertexCacheSize> vertexCache;
@@ -57,7 +32,7 @@ namespace jlib
             // - [1]: areGLStatesSet
             // - [2]: hasViewChanged
             // - [3]: isTextureCoordinateArrayEnabled
-            // - [4]: hasUsedVertexCache
+            // - [4]: useVertexCache
             std::bitset<5> flags;
         };
 
@@ -202,10 +177,10 @@ namespace jlib
                   std::size_t vertexCount, const RenderStates& states = RenderStates::Default);
 
         // Returns the width of the rendering region of the target.
-        virtual u32 width() const = 0;
+        virtual u32 getWidth() const = 0;
 
         // Returns the height of the rendering region of the target.
-        virtual u32 height() const = 0;
+        virtual u32 getHeight() const = 0;
 
         // Returns true if the render target will use sRGB encoding when drawing on it.
         virtual bool isSRGB() const;

@@ -1,13 +1,13 @@
 // JLibraryDevelopment
 // Matrix.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-03 by Justyn Durnford
+// Last modified on 2021-07-16 by Justyn Durnford
 // Header file for the Matrix template class.
 
 #pragma once
 
 #include <Jlibrary/Math/Arithmetic.hpp>
-#include <initializer_list>
+#include <array>
 #include <stdexcept>
 
 namespace jlib
@@ -30,39 +30,26 @@ namespace jlib
 		using const_reference = const T&;
 		using pointer = T*;
 		using const_pointer = const T*;
+		using iterator = T*;
+		using const_iterator = const T*;
 
 		private:
 
-		T** data_;
+		pointer data_;
 
 		// 
 		void allocate()
 		{
 			if (R != 0 && C != 0)
-			{
-				data_ = new T*[R];
-				for (std::size_t row_i(0); row_i < R; ++row_i)
-					data_[row_i] = new T[C];
-			}
+				data_ = new T[R * C];
 			else
 				data_ = nullptr;
 		}
 
 		// 
-		void deallocate() noexcept
+		void copyElements(pointer dst_begin, const_pointer src_begin, size_type count)
 		{
-			if (data_ != nullptr)
-			{
-				for (std::size_t row_i(0); row_i < R; ++row_i)
-					delete[] data_[row_i];
-				delete[] data_;
-			}
-		}
-
-		// 
-		void copyElements(T* dst_begin, const T* src_begin, std::size_t count)
-		{
-			for (std::size_t i(0); i < count; ++i)
+			for (size_type i(0); i < count; ++i)
 				dst_begin[i] = src_begin[i];
 		}
 
@@ -76,34 +63,32 @@ namespace jlib
 
 		// 1-parameter constructor.
 		// Sets every element of the Matrix to value.
-		Matrix(const T& value)
+		Matrix(const_reference value)
 		{
 			allocate();
 
-			for (std::size_t row_i(0); row_i < R; ++row_i)
-			{
-				for (std::size_t col_i(0); col_i < C; ++col_i)
-					data_[row_i][col_i] = value;
-			}
+			for (size_type i(0); i < R * C; ++i)
+				data_[i] = value;
 		}
 
 		// 2-dimensional std::initializer_list constructor.
 		Matrix(std::initializer_list<std::initializer_list<T>> list)
 		{
 			allocate();
-			std::size_t row_i(0);
+			size_type row_i = 0;
 
-			for (const auto& row : list)
-				copyElements(data_[row_i++], row.begin(), C);
+			for (const auto& elem : list)
+			{
+				copyElements(&data_[row_i * C], elem.begin(), C);
+				++row_i;
+			}
 		}
 
 		// Copy constructor.
 		Matrix(const Matrix& other)
 		{
 			allocate();
-
-			for (std::size_t row_i(0); row_i < R; ++row_i)
-				copyElements(data_[row_i], other.data_[row_i], C);
+			copyElements(data_, other.data_, R * C);
 		}
 
 		// Constructs the Matrix from another type of Matrix.
@@ -114,11 +99,8 @@ namespace jlib
 		{
 			allocate();
 
-			for (std::size_t row_i(0); row_i < R; ++row_i)
-			{
-				for (std::size_t col_i(0); col_i < C; ++col_i)
-					data_[row_i][col_i] = static_cast<T>(other.data_[row_i][col_i]);
-			}
+			for (size_type i(0); i < R * C; ++i)
+				data_[i] = static_cast<T>(other.data_[i]);
 		}
 
 		// Move constructor.
@@ -131,10 +113,13 @@ namespace jlib
 		// 2-dimensional std::initializer_list assignment operator.
 		Matrix& operator = (std::initializer_list<std::initializer_list<T>> list)
 		{
-			std::size_t row_i(0);
+			size_type row_i = 0;
 
-			for (const auto& row : list)
-				copyElements(data_[row_i++], row.begin(), C);
+			for (const auto& elem : list)
+			{
+				copyElements(&data_[row_i * C], elem.begin(), C);
+				++row_i;
+			}
 
 			return *this;
 		}
@@ -142,16 +127,14 @@ namespace jlib
 		// Copy assignment operator.
 		Matrix& operator = (const Matrix& other)
 		{
-			for (std::size_t row_i(0); row_i < R; ++row_i)
-				copyElements(data_[row_i], other.data_[row_i], C);
-
+			copyElements(data_, other.data_, R * C);
 			return *this;
 		}
 
 		// Move assignment operator.
 		Matrix& operator = (Matrix&& other) noexcept
 		{
-			deallocate();
+			delete[] data_;
 
 			data_ = other.data_;
 			other.data_ = nullptr;
@@ -162,155 +145,199 @@ namespace jlib
 		// Destructor.
 		~Matrix() noexcept
 		{
-			deallocate();
+			delete[] data_;
+		}
+
+		// Returns the nth element of the Matrix.
+		// Performs bounds-checking.
+		reference at(size_type n)
+		{
+			if (n >= R * C)
+				throw std::out_of_range("Invalid matrix index");
+
+			return data_[n];
+		}
+
+		// Returns the nth element of the Matrix.
+		// Performs bounds-checking.
+		const_reference at(size_type n) const
+		{
+			if (n >= R * C)
+				throw std::out_of_range("Invalid matrix index");
+
+			return data_[n];
+		}
+
+		// Returns the element at [row][col].
+		// Performs bounds-checking.
+		reference at(size_type row, size_type col)
+		{
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
+
+			return data_[(row * R) + col];
+		}
+
+		// Returns the element at [row][col].
+		// Performs bounds-checking.
+		const_reference at(size_type row, size_type col) const
+		{
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
+
+			return data_[(row * R) + col];
+		}
+
+		// Sets the nth element of the Matrix to value.
+		// Performs bounds-checking.
+		void set(size_type n, const_reference value)
+		{
+			if (n >= R * C)
+				throw std::out_of_range("Invalid matrix index");
+
+			data_[n] = value;
+		}
+
+		// Sets the element at [row][col] to value.
+		// Performs bounds-checking.
+		void set(size_type row, size_type col, const_reference value)
+		{
+			if (row >= R)
+				throw std::out_of_range("Invalid row index");
+			if (col >= C)
+				throw std::out_of_range("Invalid column index");
+
+			data_[(row * R) + col] = value;
+		}
+
+		// Returns the nth element of the Matrix.
+		reference operator [] (size_type n)
+		{
+			return data_[n];
+		}
+
+		// Returns the nth element of the Matrix.
+		const_reference operator [] (size_type n) const
+		{
+			return data_[n];
+		}
+
+		// Returns the element at [row][col].
+		reference operator () (size_type row, size_type col)
+		{
+			return data_[(row * R) + col];
+		}
+
+		// Returns the element at [row][col].
+		const_reference operator () (size_type row, size_type col) const
+		{
+			return data_[(row * R) + col];
 		}
 
 		// Returns the number of rows in the Matrix.
-		std::size_t rowCount() const
+		size_type rowCount() const
 		{
 			return R;
 		}
 
 		// Returns the number of columns in the Matrix.
-		std::size_t colCount() const
+		size_type colCount() const
 		{
 			return C;
 		}
 
+		// Returns the number of elements in the Matrix.
+		size_type size() const
+		{
+			return R * C;
+		}
+
 		// Returns a copy of the given row.
-		T* getRow(std::size_t row) const
+		std::array<T, C> getRow(size_type row) const
 		{
 			if (row >= R)
-				throw std::out_of_range("Invalid row index");
+				throw std::out_of_range("Invalid row index.");
 
-			T* arr = new T[C];
-			for (std::size_t col_i(0); col_i < C; ++col_i)
-				arr[col_i] = data_[row][col_i];
+			std::array<T, C> arr;
+
+			for (size_type col_i(0); col_i < C; ++col_i)
+				arr[col_i] = data_[(C * row) + col_i];
 
 			return arr;
 		}
 
 		// Returns a copy of the given column.
-		T* getCol(std::size_t col) const
+		std::array<T, R> getCol(size_type col) const
 		{
 			if (col >= C)
-				throw std::out_of_range("Invalid column index");
+				throw std::out_of_range("Invalid column index.");
 
-			T* arr = new T[R];
-			for (std::size_t row_i(0); row_i < R; ++row_i)
-				arr[row_i] = data_[row_i][col];
+			std::array<T, R> arr;
+
+			for (size_type row_i(0); row_i < C; ++row_i)
+				arr[row_i] = data_[(C * row_i) + col];
 
 			return arr;
 		}
 
 		// Returns the submatrix formed by the row and col indices.
-		template <std::size_t R2, std::size_t C2>
-		Matrix<T, R2, C2> submatrix(std::size_t row_begin, std::size_t col_begin) const
+		template <size_type R2, size_type C2>
+		Matrix<T, R2, C2> submatrix(size_type row_begin, size_type col_begin) const
 		{
 			if (row_begin >= R || row_begin + R2)
-				throw std::out_of_range("Invalid row index");
+				throw std::out_of_range("Invalid row index.");
 			if (col_begin >= C || col_begin + C >= C2)
-				throw std::out_of_range("Invalid column index");
+				throw std::out_of_range("Invalid column index.");
 
 			Matrix<T, R2, C2> M;
 
-			for (std::size_t row_i(0); row_i < R2; ++row_i)
+			for (size_type row_i(0); row_i < R2; ++row_i)
 			{
-				for (std::size_t col_i(0); col_i < C2; ++col_i)
-					M.data_[row_i][col_i] = data_[row_begin + row_i][col_begin + col_i];
+				for (size_type col_i(0); col_i < C2; ++col_i)
+					M.data_[(row_i * R) + col_i] = data_[(row_i * R) + col_i];
 			}
 
 			return M;
 		}
 
-		// Returns the nth element of the Matrix.
-		// Performs bounds-checking.
-		T& at(std::size_t n)
+		// 
+		iterator begin()
 		{
-			if (n >= R * C)
-				throw std::out_of_range("Invalid matrix index");
-
-			return data_[n / R][n % C];
+			return data_;
 		}
 
-		// Returns the nth element of the Matrix.
-		// Performs bounds-checking.
-		const T& at(std::size_t n) const
+		// 
+		const_iterator begin() const
 		{
-			if (n >= R * C)
-				throw std::out_of_range("Invalid matrix index");
-
-			return data_[n / R][n % C];
+			return data_;
 		}
 
-		// Returns the element at [row][col].
-		// Performs bounds-checking.
-		T& at(std::size_t row, std::size_t col)
+		// 
+		iterator end()
 		{
-			if (row >= R)
-				throw std::out_of_range("Invalid row index");
-			if (col >= C)
-				throw std::out_of_range("Invalid column index");
-
-			return data_[row][col];
+			return data_;
 		}
 
-		// Returns the element at [row][col].
-		// Performs bounds-checking.
-		const T& at(std::size_t row, std::size_t col) const
+		// 
+		const_iterator end() const
 		{
-			if (row >= R)
-				throw std::out_of_range("Invalid row index");
-			if (col >= C)
-				throw std::out_of_range("Invalid column index");
-
-			return data_[row][col];
+			return data_;
 		}
 
-		// Sets the nth element of the Matrix to value.
-		// Performs bounds-checking.
-		void set(std::size_t n, const T& value)
+		// 
+		iterator rowBegin(size_type row)
 		{
-			if (n >= R * C)
-				throw std::out_of_range("Invalid matrix index");
-
-			data_[n / R][n % C] = value;
+			return data_ + (R * row);
 		}
 
-		// Sets the element at [row][col] to value.
-		// Performs bounds-checking.
-		void set(std::size_t row, std::size_t col, const T& value)
+		// 
+		const_iterator rowBegin(size_type row) const
 		{
-			if (row >= R)
-				throw std::out_of_range("Invalid row index");
-			if (col >= C)
-				throw std::out_of_range("Invalid column index");
-
-			data_[row][col] = value;
-		}
-
-		// Returns the nth element of the Matrix.
-		T& operator () (std::size_t n)
-		{
-			return data_[n / R][n % C];
-		}
-
-		// Returns the nth element of the Matrix.
-		const T& operator () (std::size_t n) const
-		{
-			return data_[n / R][n % C];
-		}
-
-		// Returns the element at [row][col].
-		T& operator () (std::size_t row, std::size_t col)
-		{
-			return data_[row][col];
-		}
-
-		// Returns the element at [row][col].
-		const T& operator () (std::size_t row, std::size_t col) const
-		{
-			return data_[row][col];
+			return data_ + (R * row);
 		}
 	};
 
@@ -380,32 +407,29 @@ namespace jlib
 	}
 
 	// Returns the dot product of the given Matrices.
-	template <std_arithmetic T, std::size_t M, std::size_t N, std::size_t P>
-	Matrix<T, M, P> dot_product(const Matrix<T, M, N>& A, const Matrix<T, N, P>& B)
+	template <std_arithmetic T, std::size_t R, std::size_t C, std::size_t S>
+	Matrix<T, R, S> dot_product(const Matrix<T, R, C>& A, const Matrix<T, C, S>& B)
 	{
-		Matrix<T, M, P> C;
+		Matrix<T, R, S> M;
 		T value;
 
-		for (std::size_t m(0); m < M; ++m)
+		for (std::size_t r(0); r < R; ++r)
 		{
-			T* row(A.getRow(m));
+			std::array<T, C> row(A.getRow(r));
 
-			for (std::size_t p(0); p < P; ++p)
+			for (std::size_t s(0); s < S; ++s)
 			{
 				value = 0;
-				T* col(B.getCol(p));
+				std::array<R, C> col(B.getCol(s));
 
-				for (std::size_t n(0); n < N; ++n)
-					value += row[n] * col[n];
+				for (std::size_t c(0); c < C; ++c)
+					value += row[c] * col[c];
 
-				delete[] col;
-				C(m, p) = value;
+				M(r, s) = value;
 			}
-
-			delete[] row;
 		}
 
-		return C;
+		return M;
 	}
 }
 
@@ -492,21 +516,6 @@ jlib::Matrix<T, R, C> operator - (const jlib::Matrix<T, R, C>& A, const jlib::Ma
 // Overload of binary operator *
 template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
 jlib::Matrix<T, R, C> operator * (const jlib::Matrix<T, R, C>& A, U scalar)
-{
-	jlib::Matrix<T, C, R> M;
-	
-	for (std::size_t row_i(0); row_i < R; ++row_i)
-	{
-		for (std::size_t col_i(0); col_i < C; ++col_i)
-			M(row_i, col_i) = A(row_i, col_i) * scalar;
-	}
-
-	return M;
-}
-
-// Overload of binary operator *
-template <jlib::std_arithmetic T, jlib::std_arithmetic U, std::size_t R, std::size_t C>
-jlib::Matrix<T, R, C> operator * (U scalar, const jlib::Matrix<T, R, C>& A)
 {
 	jlib::Matrix<T, C, R> M;
 	

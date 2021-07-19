@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // View.hpp
 // Created on 2021-07-05 by Justyn Durnford
-// Last modified on 2021-07-05 by Justyn Durnford
+// Last modified on 2021-07-16 by Justyn Durnford
 // Header file for the View class.
 
 #pragma once
@@ -61,7 +35,10 @@ namespace jlib
         explicit View(const FloatRect& rectangle);
 
         // Constructs the view from its center and size.
-        View(const Vector2f& center, const Vector2f& size);
+        View(const Point2f& center, float width, float height);
+
+        // Gets the center of the view.
+        Point2f getCenter() const;
 
         // Sets the center of the view.
         void setCenter(float x, float y);
@@ -69,18 +46,30 @@ namespace jlib
         // Sets the center of the view.
         void setCenter(const Point2f& center);
 
+        // Gets the width of the view.
+        float getWidth() const;
+
         // Sets the width of the view.
-        float setWidth(float width) const;
+        void setWidth(float width);
+
+        // Gets the height of the view.
+        float getHeight() const;
 
         // Sets the height of the view.
-        float setHeight(float height) const;
+        void setHeight(float height);
 
         // Sets the size of the view.
         void setSize(float width, float height);
 
+        // Gets the current orientation of the view.
+        Angle getRotation() const;
+
         // Sets the orientation of the view.
         // The default rotation of a view is 0 degrees.
         void setRotation(Angle angle);
+
+        // Gets the target viewport rectangle of the view.
+        const FloatRect& getViewport() const;
 
         // Sets the target viewport.
         // The viewport is the rectangle into which the contents of the
@@ -94,21 +83,6 @@ namespace jlib
         // Resets the view to the given rectangle.
         // Note that this function also resets the rotation angle to 0.
         void reset(const FloatRect& rectangle);
-
-        // Gets the center of the view.
-        Point2f center() const;
-
-        // Gets the width of the view.
-        float width() const;
-
-        // Gets the height of the view.
-        float height() const;
-
-        // Gets the current orientation of the view.
-        Angle rotation() const;
-
-        // Gets the target viewport rectangle of the view.
-        FloatRect viewport() const;
 
         // Moves the view relative to its current position.
         void move(float offsetX, float offsetY);

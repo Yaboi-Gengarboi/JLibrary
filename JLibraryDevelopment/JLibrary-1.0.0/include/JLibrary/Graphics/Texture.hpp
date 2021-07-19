@@ -1,39 +1,13 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Texture.hpp
 // Created on 2021-07-05 by Justyn Durnford
-// Last modified on 2021-07-05 by Justyn Durnford
+// Last modified on 2021-07-14 by Justyn Durnford
 // Header file for the Texture class.
 
 #pragma once
 
+#include <JLibrary/Graphics/Context.hpp>
 #include <JLibrary/Graphics/Image.hpp>
-#include <JLibrary/Graphics/GlResource.hpp>
 #include <JLibrary/System/Integer.hpp>
 #include <bitset>
 
@@ -73,7 +47,7 @@ namespace jlib
         // non power of two sizes or not, and adjusts the size
         // accordingly.
         // The returned size is greater than or equal to the original size.
-        static unsigned int getValidSize(unsigned int size);
+        static u32 getValidSize(u32 size);
 
         // Invalidates the mipmap if one exists.
         // This also resets the texture's minifying function.
@@ -92,7 +66,7 @@ namespace jlib
         Texture();
 
         // Copy constructor.
-        Texture(const Texture& copy);
+        Texture(const Texture& other);
 
         // Copy assignment operator.
         Texture& operator = (const Texture& other);
@@ -314,7 +288,7 @@ namespace jlib
         bool generateMipmap();
 
         // Swaps the contents of this texture with those of another.
-        void swap(Texture& other);
+        void swapWith(Texture& other);
 
         // Gets the underlying OpenGL handle of the texture.
         // You shouldn't need to use this function, unless you have
@@ -337,9 +311,9 @@ namespace jlib
         static void bind(const Texture* texture, CoordinateType coordinateType = Normalized);
 
         // Gets the maximum texture size allowed.
-        /// This maximum size is defined by the graphics driver.
-        /// You can expect a value of 512 pixels for low-end graphics
-        /// card, and up to 8192 pixels or more for newer hardware.
+        // This maximum size is defined by the graphics driver.
+        // You can expect a value of 512 pixels for low-end graphics
+        // card, and up to 8192 pixels or more for newer hardware.
         static u32 getMaximumSize();
 	};
 }

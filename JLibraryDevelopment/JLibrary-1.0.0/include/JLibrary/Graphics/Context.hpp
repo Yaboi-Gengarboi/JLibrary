@@ -1,70 +1,63 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Context.hpp
-// Created on 2021-06-30 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
-// Header file for the Context class and the ContextSettings struct.
+// Created on 2021-07-08 by Justyn Durnford
+// Last modified on 2021-07-18 by Justyn Durnford
+// Header file for the Context class.
 
 #pragma once
 
-#include <JLibrary/Graphics/GlResource.hpp>
-#include <JLibrary/System/Integer.hpp>
-#include <JLibrary/Utility/NonCopyable.hpp>
-
-typedef void (*GlFunctionPointer)();
+#include <JLibrary/Graphics/GlContext.hpp>
 
 namespace jlib
 {
-	// Structure defining the settings of the OpenGL
-	// context attached to a window.
-	struct ContextSettings
+    // 
+	class Context : GlResource, NonCopyable
 	{
-		// Enumeration of the context attribute flags.
-		enum Attribute
-		{
-			Default = 0,
-			Core    = 1,
-			Debug   = 4
-		};
+		GlContext* context_;
 
-		u32  depthBits;         // Bits of the depth buffer.
-		u32  stencilBits;       // Bits of the stencil buffer.
-		u32  antialiasingLevel; // Level of antialiasing.
-		u32  majorVersion;      // Major number of the context version to create.
-		u32  minorVersion;      // Minor number of the context version to create.
-		u32  attributeFlags;    // The attribute flags to create the context with.
-		bool sRgbCapable;       // Whether the context framebuffer is sRGB capable.
+		public:
 
 		// Default constructor.
-		ContextSettings() = default;
+		// Creates and activates the context.
+		Context();
 
-		// Primary constructor.
-		ContextSettings(u32 depth = 0, u32 stencil = 0, u32 antialiasing = 0, u32 major = 1, 
-						u32 minor = 1, Attribute attributes = Default, bool sRgb = false);
+		// Destructor.
+		// Deactivates and destroys the context.
+		~Context();
+
+        // Activates or deactivate explicitly the context.
+        // Returns true if successful.
+        bool setActive(bool active);
+
+        // Gets the settings of the context.
+        // Note that these settings may be different than the ones
+        // passed to the constructor; they are indeed adjusted if the
+        // original settings are not directly supported by the system.
+        const ContextSettings& settings() const;
+
+        // Returns true if a given OpenGL extension is available.
+        static bool isExtensionAvailable(const char* name);
+
+        // Gets the address of an OpenGL function.
+        // Returns nullptr on failure.
+        static GlFunctionPointer getFunction(const char* name);
+
+        // Gets the currently active context.
+        // This function will only return jlib::Context objects.
+        // Contexts created e.g. by RenderTargets or for internal
+        // use will not be returned by this function.
+        // Returns nullptr if none are active.
+        static const Context* getActiveContext();
+
+        // Gets the currently active context's ID.
+        // The context ID is used to identify contexts when
+        // managing unshareable OpenGL resources.
+        // Returns 0 if no context is currently active.
+        static u64 getActiveContextId();
+
+        // Constructs a in-memory context.
+        // This constructor is for internal use, you don't need
+        // to bother with it.
+        Context(const ContextSettings& settings, u32 width, u32 height);
 	};
 }

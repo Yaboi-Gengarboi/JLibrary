@@ -7,16 +7,16 @@
 #include <JLibrary/Math/Angle.hpp>
 using namespace jlib;
 
-// <cmath>
+#include <cmath>
 using std::cosf;
 using std::fmodf;
 using std::sinf;
 using std::tanf;
 
-// <compare>
+#include <compare>
 using std::strong_ordering;
 
-// <string>
+#include <string>
 using std::string;
 using std::u32string;
 using std::wstring;
@@ -48,12 +48,7 @@ string Angle::toString() const
 
 wstring Angle::toWideString() const
 {
-	return str_to_wstr(toString());
-}
-
-u32string Angle::toU32String() const
-{
-	return str_to_u32str(toString());
+	return to_wstring(degree) + L'\370';
 }
 
 float jlib::to_radians(float degree)

@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // VertexBuffer.hpp
 // Created on 2021-07-05 by Justyn Durnford
-// Last modified on 2021-07-05 by Justyn Durnford
+// Last modified on 2021-07-15 by Justyn Durnford
 // Header file for the VertexBuffer class.
 
 #pragma once
@@ -59,15 +33,21 @@ namespace jlib
             Static   
         };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
         private:
 
-        unsigned int  buffer_;        
+        u32           buffer_;        
         std::size_t   size_;          
         PrimitiveType primitiveType_; 
         Usage         usage_;     
 
         // Draws the vertex buffer to a render target.
         virtual void draw(RenderTarget& target, RenderStates states) const;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
         public:
 
@@ -85,7 +65,7 @@ namespace jlib
         VertexBuffer(PrimitiveType type, Usage usage);
 
         // Copy constructor.
-        VertexBuffer(const VertexBuffer& copy);
+        VertexBuffer(const VertexBuffer& other);
 
         // Copy assignment operator
         VertexBuffer& operator = (const VertexBuffer& other);
@@ -133,28 +113,31 @@ namespace jlib
         // array, passing invalid arguments will lead to undefined
         // behavior.
         // Returns true if successful.
-        bool update(const Vertex2* vertices, std::size_t vertexCount, unsigned int offset);
+        bool update(const Vertex2* vertices, std::size_t vertexCount, u32 offset);
 
         // Copies the contents of another buffer into this buffer.
         // Returns true if successful.
         bool update(const VertexBuffer& vertexBuffer);
 
         // Swaps the contents of this vertex buffer with those of another.
-        void swap(VertexBuffer& other);
+        void swapWith(VertexBuffer& other);
 
         // Gets the underlying OpenGL handle of the vertex buffer.
         // You shouldn't need to use this function, unless you have
         // very specific stuff to implement that the JLibrary doesn't 
         // support, or implement a temporary workaround until a bug is fixed.
-        unsigned int getNativeHandle() const;
+        u32 getNativeHandle() const;
+
+        // Gets the type of primitives drawn by the vertex buffer.
+        PrimitiveType getPrimitiveType() const;
 
         // Sets the type of primitives to draw.
         // This function defines how the vertices must be interpreted
         // when it's time to draw them.
         void setPrimitiveType(PrimitiveType type);
 
-        // Gets the type of primitives drawn by the vertex buffer.
-        PrimitiveType getPrimitiveType() const;
+        // Gets the usage specifier of this vertex buffer.
+        Usage getUsage() const;
 
         // Sets the usage specifier of this vertex buffer.
         // This function provides a hint about how this vertex buffer is
@@ -163,9 +146,6 @@ namespace jlib
         // to be updated with new data for the usage specifier to
         // take effect.
         void setUsage(Usage usage);
-
-        // Gets the usage specifier of this vertex buffer.
-        Usage getUsage() const;
 
         // Binds a vertex buffer for rendering.
         // This function is not part of the graphics API, it mustn't be

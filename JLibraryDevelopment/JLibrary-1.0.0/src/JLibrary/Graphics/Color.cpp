@@ -1,51 +1,24 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Color.cpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Source file for the Color class.
 
 #include <JLibrary/Graphics/Color.hpp>
 using namespace jlib;
 
-// <array>
+#include <array>
 using std::array;
 
 #include <cstddef>
 using std::size_t;
  
-// <initializer_list>
+#include <initializer_list>
 using std::initializer_list;
    
-// <string>
+#include <string>
 using std::string;
 using std::wstring;
-using std::u32string;
 
 Color::Color()
 {
@@ -185,12 +158,13 @@ string Color::toString() const
 
 wstring Color::toWideString() const
 {
-	return str_to_wstr(toString());
-}
-
-u32string Color::toU32String() const
-{
-	return str_to_u32str(toString());
+	wstring str;
+	str.reserve(8);
+	str += to_hex_wstr(r());
+	str += to_hex_wstr(g());
+	str += to_hex_wstr(b());
+	str += to_hex_wstr(a());
+	return str;
 }
 
 u8& Color::operator [] (size_t index)
@@ -258,12 +232,25 @@ string jlib::to_hex_str(u8 cbyte)
 
 wstring jlib::to_hex_wstr(u8 cbyte)
 {
-	return str_to_wstr(to_hex_str(cbyte));
-}
+	wstring hexstr(L"00");
 
-u32string jlib::to_hex_u32str(u8 cbyte)
-{
-	return str_to_u32str(to_hex_str(cbyte));
+	for (u8 i = 0; i < 2; ++i)
+	{
+		switch (cbyte % 16)
+		{
+			case 10: hexstr[1 - i] = L'a';                                    break;
+			case 11: hexstr[1 - i] = L'b';                                    break;
+			case 12: hexstr[1 - i] = L'c';                                    break;
+			case 13: hexstr[1 - i] = L'd';                                    break;
+			case 14: hexstr[1 - i] = L'e';                                    break;
+			case 15: hexstr[1 - i] = L'f';                                    break;
+			default: hexstr[1 - i] = static_cast<wchar_t>((cbyte % 16) + 48); break;
+		}
+
+		cbyte /= 16;
+	}
+
+	return hexstr;
 }
 
 bool operator == (const Color& A, const Color& B)

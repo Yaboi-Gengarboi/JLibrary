@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // VectorN.hpp
 // Created on 2021-07-06 by Justyn Durnford
-// Last modified on 2021-07-06 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Header file for the VectorN template class.
 
 #pragma once
@@ -153,18 +153,6 @@ namespace jlib
 			return P;
 		}
 
-		// Returns a unit vector in the direction of the VectorN.
-		VectorN<float, N> unitVector() const
-		{
-			float m = magnitude();
-			VectorN<float, N> V;
-
-			for (std::size_t i(0); i < N; ++i)
-				V[i] = data[i] / m;
-
-			return V;
-		}
-
 		// Returns the element at the given index.
 		T& operator [] (std::size_t index)
 		{
@@ -198,18 +186,43 @@ namespace jlib
 		// Returns a std::wstring representation of the VectorN.
 		std::wstring toWideString() const
 		{
-			return str_to_wstr(toString());
-		}
+			if (N == 0)
+				return L"";
+			if (N == 1)
+				return L'<' + std::to_wstring(data[0]) + L'>';
 
-		// Returns a std::u32string representation of the VectorN.
-		std::u32string toU32String() const
-		{
-			return str_to_u32str(toString());
+			std::wstring str;
+
+			str += L'<';
+			for (std::size_t i(0); i < N - 1; ++i)
+				str += std::to_wstring(data[i]) + L", ";
+			str += std::to_wstring(data[N - 1]) + L'>';
+
+			return str;
 		}
 	};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Converts the given PointN to a VectorN.
+	template <std_arithmetic T, std::size_t N>
+	VectorN<T, N> point_to_vector(const PointN<T, N>& P)
+	{
+		VectorN<T, N> V;
+
+		for (std::size_t i = 0; i < N; ++i)
+			V[i] = P[i];
+
+		return V;
+	}
+
+	// Returns a unit vector in the direction of the VectorN.
+	template <std_arithmetic T, std::size_t N>
+	VectorN<float, N> unit_vector(const VectorN<T, N>& A)
+	{
+		return VectorN<T, N>(A) / A.magnitude();
+	}
 
 	// Returns the dot product of the 2 given VectorNs.
 	template <std_arithmetic T, std::size_t N>

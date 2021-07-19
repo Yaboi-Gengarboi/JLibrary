@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Angle.hpp
 // Created on 2021-06-12 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Header file for the Angle class.
 
 #pragma once
@@ -10,9 +10,9 @@
 #define NOMINMAX
 #endif // NOMINMAX
 
-#include <JLibrary/Utility/StringConvert.hpp>
 #include <cmath>
 #include <compare>
+#include <string>
 
 namespace jlib
 {
@@ -41,9 +41,6 @@ namespace jlib
 
 		// Returns a std::wstring representation of the Angle.
 		std::wstring toWideString() const;
-
-		// Returns a std::u32string representation of the Angle.
-		std::u32string toU32String() const;
 	};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

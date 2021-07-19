@@ -1,13 +1,13 @@
 // JLibraryDevelopment
 // StringConvert.cpp
 // Created on 2021-07-03 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-18 by Justyn Durnford
 // Source file for functions that handle conversions
 // between different types of strings.
 
 #include <JLibrary/Utility/StringConvert.hpp>
 
-// <string>
+#include <string>
 using std::size_t;
 using std::string;
 using std::u32string;

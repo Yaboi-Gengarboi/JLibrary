@@ -1,18 +1,18 @@
 // JLibraryDevelopment
 // Point3.hpp
 // Created on 2021-05-23 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Header file for the Point3 template class.
 
 #pragma once
 
 #ifndef NOMINMAX
-#define NOMINMAX
+	#define NOMINMAX
 #endif // NOMINMAX
 
 #include <JLibrary/Math/Arithmetic.hpp>
-#include <JLibrary/Utility/StringConvert.hpp>
 #include <cmath>
+#include <string>
 
 namespace jlib
 {
@@ -78,13 +78,7 @@ namespace jlib
 		// Returns a std::wstring representation of the Point3.
 		std::wstring toWideString() const
 		{
-			return str_to_wstr(toString());
-		}
-
-		// Returns a std::u32string representation of the Point3.
-		std::u32string toU32String() const
-		{
-			return str_to_u32str(toString());
+			return L'(' + std::to_wstring(x) + L", " + std::to_wstring(y) + L", " + std::to_wstring(z) + L')';
 		}
 	};
 

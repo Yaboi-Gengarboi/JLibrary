@@ -1,33 +1,7 @@
-////////////////////////////////////////////////////////////
-//
-// THIS IS A MODIFIED FILE FROM SFML 2.5.1
-// 
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2021 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
-// 
 // JLibraryDevelopment
 // Font.hpp
 // Created on 2021-07-06 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-13 by Justyn Durnford
 // Header file for the Font class.
 
 #pragma once
@@ -36,7 +10,6 @@
 #include <JLibrary/Graphics/Texture.hpp>
 #include <JLibrary/Math/Rectangle.hpp>
 #include <JLibrary/Math/Vector2.hpp>
-#include <JLibrary/Utility/StringConvert.hpp>
 #include <map>
 #include <string>
 #include <vector>
@@ -89,7 +62,7 @@ namespace jlib
 
 		// Shorthand for std::map<unsigned int, Page>
 		// Table mapping a character size to its page (texture).
-		typedef std::map<unsigned int, Page> PageTable;
+		typedef std::map<u32, Page> PageTable;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,10 +98,10 @@ namespace jlib
         Font();
 
         // Copy constructor.
-        Font(const Font& copy);
+        Font(const Font& other);
 
         // Copy assignment operator.
-        Font& operator =(const Font& other);
+        Font& operator = (const Font& other);
 
         // Destructor.
         ~Font();
@@ -213,7 +186,7 @@ namespace jlib
         // The contents of the returned texture changes as more glyphs
         // are requested, thus it is not very relevant. It is mainly
         // used internally by jlib::Text.
-        const Texture& getTexture(unsigned int characterSize) const;
+        const Texture& getTexture(u32 characterSize) const;
 
         // Enables or disable the smooth filter.
         // When the filter is activated, the font appears smoother

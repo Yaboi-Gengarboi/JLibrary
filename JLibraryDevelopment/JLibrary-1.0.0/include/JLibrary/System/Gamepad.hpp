@@ -1,7 +1,7 @@
 // JLibraryDevelopment
 // Gamepad.hpp
 // Created on 2021-05-25 by Justyn Durnford
-// Last modified on 2021-06-28 by Justyn Durnford
+// Last modified on 2021-07-18 by Justyn Durnford
 // Header file for the Joystick class and Gamepad class.
 
 #pragma once
@@ -9,7 +9,7 @@
 #pragma comment(lib,"Xinput9_1_0.lib")
 
 #ifndef NOMINMAX
-#define NOMINMAX
+	#define NOMINMAX
 #endif // NOMINMAX
 
 #include <JLibrary/Math/Vector2.hpp>
@@ -19,6 +19,7 @@
 
 namespace jlib
 {
+	// 
 	class Joystick
 	{
 		public:
@@ -75,6 +76,7 @@ namespace jlib
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+	// 
 	class Gamepad
 	{
 		public:

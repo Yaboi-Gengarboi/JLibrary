@@ -1,20 +1,20 @@
 // JLibraryDevelopment
 // Point2.hpp
 // Created on 2021-07-06 by Justyn Durnford
-// Last modified on 2021-07-07 by Justyn Durnford
+// Last modified on 2021-07-17 by Justyn Durnford
 // Header file for the PointN template class.
 
 #pragma once
 
 #ifndef NOMINMAX
-#define NOMINMAX
+	#define NOMINMAX
 #endif // NOMINMAX
 
 #include <JLibrary/Math/Arithmetic.hpp>
-#include <JLibrary/Utility/StringConvert.hpp>
 #include <array>
 #include <cmath>
 #include <stdexcept>
+#include <string>
 
 #pragma once
 
@@ -167,13 +167,19 @@ namespace jlib
 		// Returns a std::wstring representation of the PointN.
 		std::wstring toWideString() const
 		{
-			return str_to_wstr(toString());
-		}
+			if (N == 0)
+				return L"";
+			if (N == 1)
+				return L'(' + std::to_wstring(data[0]) + L')';
 
-		// Returns a std::u32string representation of the PointN.
-		std::u32string toU32String() const
-		{
-			return str_to_u32str(toString());
+			std::wstring str;
+
+			str += L'(';
+			for (std::size_t i(0); i < N - 1; ++i)
+				str += std::to_wstring(data[i]) + L", ";
+			str += std::to_wstring(data[N - 1]) + L')';
+
+			return str;
 		}
 	};
 
