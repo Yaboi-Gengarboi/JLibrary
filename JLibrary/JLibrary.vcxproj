@@ -18,14 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="source\main.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{18471dc4-339b-487e-b57f-c1bb9ab0ced3}</ProjectGuid>
-    <RootNamespace>JLibraryIdeaTest</RootNamespace>
+    <ProjectGuid>{3dee6ef8-a39e-4622-8c1b-6e7932c862ca}</ProjectGuid>
+    <RootNamespace>JLibrary</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
-    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
-    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
-    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>E:\JLibrary\JLibraryIdeaTest\include;$(IncludePath)</IncludePath>
-    <SourcePath>E:\JLibrary\JLibraryIdeaTest\source;$(SourcePath)</SourcePath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,8 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <EnableModules>true</EnableModules>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,8 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <EnableModules>true</EnableModules>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,8 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <EnableModules>true</EnableModules>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,8 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <EnableModules>true</EnableModules>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +150,44 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="Arithmetic.ixx" />
+    <ClCompile Include="Array.ixx" />
+    <ClCompile Include="Circle.ixx" />
+    <ClCompile Include="Clock.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Direction.cpp" />
+    <ClCompile Include="FixedArray.ixx" />
+    <ClCompile Include="FixedMatrix.ixx" />
+    <ClCompile Include="Fraction.ixx" />
+    <ClCompile Include="Gamepad.cpp" />
+    <ClCompile Include="Hexadecimal.cpp" />
+    <ClCompile Include="LineSegment.ixx" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.ixx" />
+    <ClCompile Include="MiscStringFunctions.cpp" />
+    <ClCompile Include="MiscTemplateFunctions.ixx" />
+    <ClCompile Include="Ptr.ixx" />
+    <ClCompile Include="Rect.ixx" />
+    <ClCompile Include="Square.ixx" />
+    <ClCompile Include="Triangle.ixx" />
+    <ClCompile Include="Vector2.ixx" />
+    <ClCompile Include="Vector3.ixx" />
+    <ClCompile Include="VectorN.ixx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Angle.hpp" />
+    <ClInclude Include="Clock.hpp" />
+    <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="Direction.hpp" />
+    <ClInclude Include="Gamepad.hpp" />
+    <ClInclude Include="Hexadecimal.hpp" />
+    <ClInclude Include="IntegerTypedefs.hpp" />
+    <ClInclude Include="MiscStringFunctions.hpp" />
+    <ClInclude Include="SFML_JLIB_Convert.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
