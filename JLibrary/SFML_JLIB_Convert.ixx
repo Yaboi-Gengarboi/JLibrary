@@ -1,10 +1,10 @@
 // JLibrary
-// SFML_JLIB_Convert.hpp
-// Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
-// Header file defining several functions to convert between SFML and JLIB code.
+// SFML_JLIB_Convert.ixx
+// Created on 2022-01-09 by Justyn Durnford
+// Last modified on 2022-01-09 by Justyn Durnford
+// Module file defining several functions to convert between SFML and JLIB code.
 
-#pragma once
+module;
 
 #ifdef INCLUDE_SFML
 
@@ -15,78 +15,78 @@
 
 #include <cmath>
 
+#endif // #ifdef INCLUDE_SFML
+
+export module SFML_JLIB_Convert;
+
 import Arithmetic;
 import Rect;
 import Square;
 import Vector2;
 import Vector3;
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// JLIB -> SFML                                                                                  //
-///////////////////////////////////////////////////////////////////////////////////////////////////
+#ifdef INCLUDE_SFML
 
-template <jlib::arithmetic T>
-sf::Vector2<T> jlib_to_sfml(const jlib::Vector2<T>& v)
+export namespace jlib
 {
-	return sf::Vector2<T>(v.x, v.y);
-}
+	template <arithmetic T>
+	sf::Vector2<T> to_sfml(const Vector2<T>& v)
+	{
+		return sf::Vector2<T>(v.x, v.y);
+	}
 
-template <jlib::arithmetic T>
-sf::Vector3<T> jlib_to_sfml(const jlib::Vector3<T>& v)
-{
-	return sf::Vector3<T>(v.x, v.y, v.z);
-}
+	template <arithmetic T>
+	sf::Vector3<T> to_sfml(const Vector3<T>& v)
+	{
+		return sf::Vector3<T>(v.x, v.y, v.z);
+	}
 
-template <jlib::arithmetic T>
-sf::Rect<T> jlib_to_sfml(const jlib::Rect<T>& r)
-{
-	return sf::Rect<T>(r.x, r.y, r.w, r.h);
-}
+	template <arithmetic T>
+	sf::Rect<T> to_sfml(const Rect<T>& r)
+	{
+		return sf::Rect<T>(r.x, r.y, r.w, r.h);
+	}
 
-template <jlib::arithmetic T>
-sf::Rect<T> jlib_to_sfml(const jlib::Square<T>& s)
-{
-	return sf::Rect<T>(s.x, s.y, s.l, s.l);
-}
+	template <arithmetic T>
+	sf::Rect<T> to_sfml(const Square<T>& s)
+	{
+		return sf::Rect<T>(s.x, s.y, s.l, s.l);
+	}
 
-sf::Color jlib_to_sfml(const jlib::Color& c)
-{
-	return sf::Color(c.r, c.g, c.b, c.a);
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// SFML -> JLIB                                                                                  //
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-template <jlib::arithmetic T>
-jlib::Vector2<T> sfml_to_jlib(const sf::Vector2<T>& v)
-{
-	return jlib::Vector2<T>(v.x, v.y);
-}
-
-template <jlib::arithmetic T>
-jlib::Vector3<T> sfml_to_jlib(const sf::Vector3<T>& v)
-{
-	return jlib::Vector3<T>(v.x, v.y, v.z);
-}
-
-template <jlib::arithmetic T>
-jlib::Rect<T> sfml_to_jlib(const sf::Rect<T>& r)
-{
-	return jlib::Rect<T>(r.left, r.top, r.width, r.height);
-}
-
-jlib::Color sfml_to_jlib(const sf::Color& c)
-{
-	return jlib::Color(c.r, c.g, c.b, c.a);
-}
+	sf::Color to_sfml(const Color& c)
+	{
+		return sf::Color(c.r, c.g, c.b, c.a);
+	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// JLIB Functions with SFML objects                                                              //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace jlib
-{
+	template <arithmetic T>
+	Vector2<T> to_jlib(const sf::Vector2<T>& v)
+	{
+		return Vector2<T>(v.x, v.y);
+	}
+
+	template <arithmetic T>
+	Vector3<T> to_jlib(const sf::Vector3<T>& v)
+	{
+		return jVector3<T>(v.x, v.y, v.z);
+	}
+
+	template <arithmetic T>
+	Rect<T> to_jlib(const sf::Rect<T>& r)
+	{
+		return Rect<T>(r.left, r.top, r.width, r.height);
+	}
+
+	Color to_jlib(const sf::Color& c)
+	{
+		return Color(c.r, c.g, c.b, c.a);
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 	template <arithmetic T>
 	constexpr float magnitude(const sf::Vector2<T>& v)
 	{

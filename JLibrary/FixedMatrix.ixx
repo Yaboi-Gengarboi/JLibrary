@@ -1,7 +1,7 @@
 // JLibrary
 // FixedMatrix.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-15 by Justyn Durnford
 // Module file for the FixedMatrix template class.
 
 module;
@@ -116,68 +116,116 @@ export namespace jlib
 			return R * C;
 		}
 
-		// 
-		pointer data()
+		// Returns the pointer of the FixedMatrix.
+		pointer data() noexcept
 		{
 			return _data.data();
 		}
 
-		// 
-		const_pointer data() const
+		// Returns the pointer of the FixedMatrix.
+		const_pointer data() const noexcept
 		{
 			return _data.data();
 		}
 
-		// 
-		iterator begin()
+		// Returns an iterator pointing to the first element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		iterator begin() noexcept
 		{
 			return _data.begin();
 		}
 
-		// 
-		const_iterator begin() const
+		// Returns an iterator pointing to the first element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_iterator begin() const noexcept
 		{
 			return _data.cbegin();
 		}
 
-		// 
-		const_iterator cbegin() const
+		// Returns an iterator pointing to the first element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_iterator cbegin() const noexcept
 		{
 			return _data.cbegin();
 		}
 
-		// 
-		iterator end()
+		// Returns a reverse iterator pointing to the first element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		reverse_iterator rbegin() noexcept
+		{
+			return std::reverse_iterator<iterator>(_data + R * C);
+		}
+
+		// Returns a reverse iterator pointing to the first element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_reverse_iterator rbegin() const noexcept
+		{
+			return std::reverse_iterator<const_iterator>(_data + R * C);
+		}
+
+		// Returns a reverse iterator pointing to the first element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_reverse_iterator crbegin() const noexcept
+		{
+			return std::reverse_iterator<const_iterator>(_data + R * C);
+		}
+
+		// Returns an iterator pointing to 1 past the last element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		iterator end() noexcept
 		{
 			return _data.end();
 		}
 
-		// 
-		const_iterator end() const
+		// Returns an iterator pointing to 1 past the last element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_iterator end() const noexcept
 		{
 			return _data.cend();
 		}
 
-		// 
-		const_iterator cend() const
+		// Returns an iterator pointing to 1 past the last element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_iterator cend() const noexcept
 		{
 			return _data.cend();
 		}
 
-		// 
-		iterator rowBegin(size_type row)
+		// Returns a reverse iterator pointing to 1 past the last element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		reverse_iterator rend() noexcept
+		{
+			return std::reverse_iterator<iterator>(_data);
+		}
+
+		// Returns a reverse iterator pointing to 1 past the last element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_reverse_iterator rend() const noexcept
+		{
+			return std::reverse_iterator<const_iterator>(_data);
+		}
+
+		// Returns a reverse iterator pointing to 1 past the last element of the FixedMatrix.
+		// Returns nullptr if the FixedMatrix is empty.
+		const_reverse_iterator crend() const noexcept
+		{
+			return std::reverse_iterator<const_iterator>(_data);
+		}
+
+		// Returns an iterator pointing to the first element of the given row.
+		iterator rowBegin(size_type row) noexcept
 		{
 			return _data.begin() + (C * row);
 		}
 
-		// 
-		const_iterator rowBegin(size_type row) const
+		// Returns an iterator pointing to the first element of the given row.
+		const_iterator rowBegin(size_type row) const noexcept
 		{
 			return _data.cbegin() + (C * row);
 		}
 
-		// Returns the nth element of the FixedMatrix.
-		// Performs bounds-checking.
+		// Returns the element at the given index of the FixedMatrix.
+		// Throws a std::out_of_range if given an invalid index.
 		reference at(size_type n)
 		{
 			if (n >= R * C)
@@ -186,8 +234,8 @@ export namespace jlib
 			return _data[n];
 		}
 
-		// Returns the nth element of the FixedMatrix.
-		// Performs bounds-checking.
+		// Returns the element at the given index of the FixedMatrix.
+		// Throws a std::out_of_range if given an invalid index.
 		const_reference at(size_type n) const
 		{
 			if (n >= R * C)
@@ -197,7 +245,7 @@ export namespace jlib
 		}
 
 		// Returns the element at [row][col].
-		// Performs bounds-checking.
+		// Throws a std::out_of_range if given an invalid index.
 		reference at(size_type row, size_type col)
 		{
 			if (row >= R)
@@ -209,7 +257,7 @@ export namespace jlib
 		}
 
 		// Returns the element at [row][col].
-		// Performs bounds-checking.
+		// Throws a std::out_of_range if given an invalid index.
 		const_reference at(size_type row, size_type col) const
 		{
 			if (row >= R)
@@ -221,19 +269,7 @@ export namespace jlib
 		}
 
 		// Returns the element at [pos.y][pos.x].
-		// Performs bounds-checking.
-		reference at(const Vector2<size_type>& pos)
-		{
-			if (pos.y >= R)
-				throw std::out_of_range("Invalid row index");
-			if (pos.x >= C)
-				throw std::out_of_range("Invalid column index");
-
-			return _data[(pos.y * C) + pos.x];
-		}
-
-		// Returns the element at [pos.y][pos.x].
-		// Performs bounds-checking.
+		// Throws a std::out_of_range if given an invalid index.
 		template <arithmetic U>
 		reference at(const Vector2<U>& pos)
 		{
@@ -248,19 +284,7 @@ export namespace jlib
 		}
 
 		// Returns the element at [pos.y][pos.x].
-		// Performs bounds-checking.
-		const_reference at(const Vector2<size_type>& pos) const
-		{
-			if (pos.y >= R)
-				throw std::out_of_range("Invalid row index");
-			if (pos.x >= C)
-				throw std::out_of_range("Invalid column index");
-
-			return _data[(pos.y * C) + pos.x];
-		}
-
-		// Returns the element at [pos.y][pos.x].
-		// Performs bounds-checking.
+		// Throws a std::out_of_range if given an invalid index.
 		template <arithmetic U>
 		const_reference at(const Vector2<U>& pos) const
 		{
@@ -272,8 +296,8 @@ export namespace jlib
 			return _data[(pos.y * C) + pos.x];
 		}
 
-		// Sets the nth element of the FixedMatrix to value.
-		// Performs bounds-checking.
+		// Sets the element at the given index to the given value.
+		// Throws a std::out_of_range if given an invalid index.
 		void set(size_type n, const_reference value)
 		{
 			if (n >= R * C)
@@ -282,8 +306,8 @@ export namespace jlib
 			_data[n] = value;
 		}
 
-		// Sets the element at [row][col] to value.
-		// Performs bounds-checking.
+		// Sets the element at [row][col] to the given value.
+		// Throws a std::out_of_range if given an invalid index.
 		void set(size_type row, size_type col, const_reference value)
 		{
 			if (row >= R)
@@ -295,19 +319,7 @@ export namespace jlib
 		}
 
 		// Sets the element at [pos.y][pos.x] to value.
-		// Performs bounds-checking.
-		void set(const Vector2<size_type>& pos, const_reference value)
-		{
-			if (pos.y >= R)
-				throw std::out_of_range("Invalid row index");
-			if (pos.x >= C)
-				throw std::out_of_range("Invalid column index");
-
-			_data[(pos.y * C) + pos.x] = value;
-		}
-
-		// Sets the element at [pos.y][pos.x] to value.
-		// Performs bounds-checking.
+		// Throws a std::out_of_range if given an invalid index.
 		template <arithmetic U>
 		void set(const Vector2<U>& pos, const_reference value)
 		{
@@ -375,37 +387,36 @@ export namespace jlib
 			_data.swapWith(other._data);
 		}
 
-		// Returns the nth element of the FixedMatrix.
+		// Returns the element at the given index the FixedMatrix.
+		// Does NOT perform bounds-checking.
 		reference operator [] (size_type n)
 		{
 			return _data[n];
 		}
 
-		// Returns the nth element of the FixedMatrix.
+		// Returns the element at the given index the FixedMatrix.
+		// Does NOT perform bounds-checking.
 		const_reference operator [] (size_type n) const
 		{
 			return _data[n];
 		}
 
 		// Returns the element at [row][col].
+		// Does NOT perform bounds-checking.
 		reference operator () (size_type row, size_type col)
 		{
 			return _data[(row * C) + col];
 		}
 
 		// Returns the element at [row][col].
+		// Does NOT perform bounds-checking.
 		const_reference operator () (size_type row, size_type col) const
 		{
 			return _data[(row * C) + col];
 		}
 
 		// Returns the element at [pos.y][pos.x].
-		reference operator () (const Vector2<size_type>& pos)
-		{
-			return _data[(pos.y * C) + pos.x];
-		}
-
-		// Returns the element at [pos.y][pos.x].
+		// Does NOT perform bounds-checking.
 		template <arithmetic U>
 		reference operator () (const Vector2<U>& pos)
 		{
@@ -414,12 +425,7 @@ export namespace jlib
 		}
 
 		// Returns the element at [pos.y][pos.x].
-		const_reference operator () (const Vector2<size_type>& pos) const
-		{
-			return _data[(pos.y * C) + pos.x];
-		}
-
-		// Returns the element at [pos.y][pos.x].
+		// Does NOT perform bounds-checking.
 		template <arithmetic U>
 		const_reference operator () (const Vector2<U>& pos) const
 		{

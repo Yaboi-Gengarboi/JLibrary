@@ -13,58 +13,13 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Module Files">
+      <UniqueIdentifier>{ad2e1c9d-5d64-438b-aab1-7377d921b034}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MiscTemplateFunctions.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Arithmetic.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ptr.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FixedArray.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Array.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fraction.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VectorN.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rect.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Square.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Circle.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Triangle.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LineSegment.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix.ixx">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FixedMatrix.ixx">
-      <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="Angle.cpp">
       <Filter>Source Files</Filter>
@@ -86,6 +41,57 @@
     </ClCompile>
     <ClCompile Include="MiscStringFunctions.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Arithmetic.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Array.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedArray.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedMatrix.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fraction.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LineSegment.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiscTemplateFunctions.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ptr.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SFML_JLIB_Convert.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorN.ixx">
+      <Filter>Module Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +122,7 @@
     <ClInclude Include="Constants.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SFML_JLIB_Convert.hpp">
+    <ClInclude Include="JLibrary.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

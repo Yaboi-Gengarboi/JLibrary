@@ -1,7 +1,7 @@
 // JLibrary
 // FixedArray.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-15 by Justyn Durnford
 // Module file for the FixedArray template class.
 
 module;
@@ -17,7 +17,10 @@ export module FixedArray;
 
 export namespace jlib
 {
-	// 
+	// This template class serves as a fixed-size container.
+	// This acts very much like a std::array, but a std::array
+	// does not allocate memory on the heap, which this class does.
+	// Iterators for this class are just simple pointers.
 	template <typename T, std::size_t N> class FixedArray
 	{
 		public:
@@ -38,6 +41,8 @@ export namespace jlib
 
 		pointer _data;
 
+		// This function allocates memory for the container.
+		// It may throw if it fails to do this.
 		void allocate()
 		{
 			if (N != 0)

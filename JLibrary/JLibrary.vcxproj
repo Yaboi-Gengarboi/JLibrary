@@ -170,6 +170,7 @@
     <ClCompile Include="MiscTemplateFunctions.ixx" />
     <ClCompile Include="Ptr.ixx" />
     <ClCompile Include="Rect.ixx" />
+    <ClCompile Include="SFML_JLIB_Convert.ixx" />
     <ClCompile Include="Square.ixx" />
     <ClCompile Include="Triangle.ixx" />
     <ClCompile Include="Vector2.ixx" />
@@ -185,8 +186,8 @@
     <ClInclude Include="Gamepad.hpp" />
     <ClInclude Include="Hexadecimal.hpp" />
     <ClInclude Include="IntegerTypedefs.hpp" />
+    <ClInclude Include="JLibrary.hpp" />
     <ClInclude Include="MiscStringFunctions.hpp" />
-    <ClInclude Include="SFML_JLIB_Convert.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

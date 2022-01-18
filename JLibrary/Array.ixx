@@ -1,7 +1,7 @@
 // JLibrary
 // Array.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-15 by Justyn Durnford
 // Module file for the Array template class.
 
 module;
@@ -16,7 +16,11 @@ export module Array;
 
 export namespace jlib
 {
-	// 
+	// This template class serves as a resizable container.
+	// Elements cannot be added or removed dynamically, but
+	// the Array can be resized manually. It does not allocate extra 
+	// memory, so if the Array is resized more than a few times,
+	// it may be in your best interest to use a std::vector instead.
 	template <typename T> class Array
 	{
 		public:
@@ -38,7 +42,8 @@ export namespace jlib
 		pointer _data;
 		size_type _size;
 
-		// 
+		// This function allocates memory for the container.
+		// It may throw if it fails to do this.
 		void allocate(size_type size)
 		{
 			if (size == 0)
@@ -62,7 +67,10 @@ export namespace jlib
 			}
 		}
 
-		// 
+		// This function deallocates the memory currently used
+		// by the container and reallocates sufficient memory
+		// for the new requested size.
+		// It may throw if it fails to do this.
 		void reallocate(size_type size)
 		{
 			if (size != _size)
@@ -356,6 +364,33 @@ export namespace jlib
 		{
 			delete[] _data;
 			_size = 0;
+		}
+
+		// Resizes the Array with the copied elements.
+		// It may throw if it fails to do this.
+		void resize(size_type new_size)
+		{
+			if (new_size == 0)
+				return;
+
+			if (new_size == 0)
+			{
+				delete[] _data;
+				_data = nullptr;
+				_size = 0;
+				return;
+			}
+
+			try
+			{
+				pointer new_data = new value_type[new_size];
+				std::copy(_data, _data + new_size, new_data);
+				delete[] _data;
+				_data = new_data;
+				_size = new_size;
+				new_data = nullptr;
+			}
+			catch (...) { throw; }
 		}
 
 		// Swaps the contents of this Array with another Array.
