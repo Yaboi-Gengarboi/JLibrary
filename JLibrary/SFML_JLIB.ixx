@@ -1,8 +1,8 @@
 // JLibrary
-// SFML_JLIB_Convert.ixx
+// SFML_JLIB.ixx
 // Created on 2022-01-09 by Justyn Durnford
-// Last modified on 2022-01-09 by Justyn Durnford
-// Module file defining several functions to convert between SFML and JLIB code.
+// Last modified on 2022-02-10 by Justyn Durnford
+// Module file defining several functions to convert and copy data between SFML and JLIB code.
 
 module;
 
@@ -11,15 +11,15 @@ module;
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
+#include "Arithmetic.hpp"
 #include "Color.hpp"
 
 #include <cmath>
 
 #endif // #ifdef INCLUDE_SFML
 
-export module SFML_JLIB_Convert;
+export module SFML_JLIB;
 
-import Arithmetic;
 import Rect;
 import Square;
 import Vector2;
@@ -82,6 +82,85 @@ export namespace jlib
 	Color to_jlib(const sf::Color& c)
 	{
 		return Color(c.r, c.g, c.b, c.a);
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	template <arithmetic T>
+	void copy_data(const jlib::Vector2<T>& from, sf::Vector2<T>& to)
+	{
+		to.x = from.x;
+		to.y = from.y;
+	}
+
+	template <arithmetic T>
+	void copy_data(const jlib::Vector3<T>& from, sf::Vector3<T>& to)
+	{
+		to.x = from.x;
+		to.y = from.y;
+		to.z = from.z;
+	}
+
+	template <arithmetic T>
+	void copy_data(const jlib::Rect& from, sf::Rect<T>& to)
+	{
+		to.left = from.x;
+		to.top = from.y;
+		to.width = from.w;
+		to.height = from.h;
+	}
+
+	template <arithmetic T>
+	void copy_data(const jlib::Square& from, sf::Rect<T>& to)
+	{
+		to.left = from.x;
+		to.top = from.y;
+		to.width = from.l;
+		to.height = from.l;
+	}
+
+	void copy_data(const jlib::Color& from, sf::Color& to)
+	{
+		to.r = from.r;
+		to.g = from.g;
+		to.b = from.b;
+		to.a = from.a;
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	template <arithmetic T>
+	void copy_data(const sf::Vector2<T>& from, jlib::Vector2<T>& to)
+	{
+		to.x = from.x;
+		to.y = from.y;
+	}
+
+	template <arithmetic T>
+	void copy_data(const sf::Vector3<T>& from, jlib::Vector3<T>& to)
+	{
+		to.x = from.x;
+		to.y = from.y;
+		to.z = from.z;
+	}
+
+	template <arithmetic T>
+	void copy_data(const sf::Rect& from, jlib::Rect<T>& to)
+	{
+		to.x = from.left;
+		to.y = from.top;
+		to.w = from.width;
+		to.h = from.height;
+	}
+
+	void copy_data(const sf::Color& from, jlib::Color& to)
+	{
+		to.r = from.r;
+		to.g = from.g;
+		to.b = from.b;
+		to.a = from.a;
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
