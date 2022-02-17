@@ -1,7 +1,7 @@
 // JLibrary
 // Array.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-15 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the Array template class.
 
 module;
@@ -9,10 +9,13 @@ module;
 #include <algorithm>
 #include <cstddef>
 #include <initializer_list>
+#include <iostream>
 #include <iterator>
 #include <stdexcept>
 
 export module Array;
+
+import MiscTemplateFunctions;
 
 export namespace jlib
 {
@@ -98,9 +101,7 @@ export namespace jlib
 		Array(size_type size, const_reference value)
 		{
 			allocate(size);
-
-			for (size_type i(0); i < _size; ++i)
-				_data[i] = value;
+			std::fill(_data, _data + _size, value);
 		}
 
 		// Constructs the Array with the contents in the range[begin, end).
@@ -133,10 +134,8 @@ export namespace jlib
 		template <typename U>
 		explicit Array(const Array<U>& other)
 		{
-			allocate(other._size);
-
-			for (size_type i(0); i < _size; ++i)
-				_data[i] = static_cast<T>(other._data[i]);
+			allocate(other.size());
+			jlib::copy(other.data(), other.data() + _size, _data);
 		}
 
 		// Move constructor.
@@ -194,42 +193,26 @@ export namespace jlib
 		}
 
 		// Returns the first element of the Array.
-		// Throws a std::out_of_range if the Array is empty.
 		reference first()
 		{
-			if (_size == 0)
-				throw std::out_of_range("ERROR: Empty array.");
-
 			return _data[0];
 		}
 
 		// Returns the first element of the Array.
-		// Throws a std::out_of_range if the Array is empty.
 		const_reference first() const
 		{
-			if (_size == 0)
-				throw std::out_of_range("ERROR: Empty array.");
-
 			return _data[0];
 		}
 
 		// Returns the last element of the Array.
-		// Throws a std::out_of_range if the Array is empty.
 		reference last()
 		{
-			if (_size == 0)
-				throw std::out_of_range("ERROR: Empty array.");
-
 			return _data[_size - 1];
 		}
 
 		// Returns the last element of the Array.
-		// Throws a std::out_of_range if the Array is empty.
 		const_reference last() const
 		{
-			if (_size == 0)
-				throw std::out_of_range("ERROR: Empty array.");
-
 			return _data[_size - 1];
 		}
 
@@ -359,6 +342,13 @@ export namespace jlib
 			_data[index] = value;
 		}
 
+		// Sets every element to the given value.
+		void setAll(const_reference value)
+		{
+			for (size_type i = 0; i < _size; ++i)
+				_data[i] = value;
+		}
+
 		// Empties the Array.
 		void clear() noexcept
 		{
@@ -445,5 +435,23 @@ export namespace jlib
 		}
 
 		return false;
+	}
+
+	// Prints the contents of the Array using the std::cout ostream.
+	// This code will not compile if type T does not overload the 
+	// std::ostream insertion operator <<.
+	template <typename T>
+	void print_array(const Array<T>& arr)
+	{
+		jlib::print_array(arr.data(), arr.size());
+	}
+
+	// Prints the contents of the Array using the std::wcout wostream.
+	// This code will not compile if type T does not overload the 
+	// std::wostream insertion operator <<.
+	template <typename T>
+	void print_array_wide(const Array<T>& arr)
+	{
+		jlib::print_array_wide(arr.data(), arr.size());
 	}
 }

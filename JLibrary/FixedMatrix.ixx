@@ -1,10 +1,12 @@
 // JLibrary
 // FixedMatrix.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-15 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the FixedMatrix template class.
 
 module;
+
+#include "Arithmetic.hpp"
 
 #include <algorithm>
 #include <array>
@@ -15,8 +17,8 @@ module;
 
 export module FixedMatrix;
 
-import Arithmetic;
 import FixedArray;
+import MiscTemplateFunctions;
 import Vector2;
 
 export namespace jlib
@@ -58,8 +60,7 @@ export namespace jlib
 		// Sets every element of the FixedMatrix to value.
 		FixedMatrix(const_reference value)
 		{
-			for (size_type i(0); i < R * C; ++i)
-				_data[i] = value;
+			std::fill(data(), data() + size(), value);
 		}
 
 		// 2-dimensional std::initializer_list constructor.
@@ -80,8 +81,7 @@ export namespace jlib
 		template <typename U>
 		explicit FixedMatrix(const FixedMatrix<U, R, C>& other)
 		{
-			for (size_type i(0); i < R * C; ++i)
-				_data[i] = static_cast<T>(other._data[i]);
+			jlib::copy(other.data(), other.data() + size(), data());
 		}
 
 		// 2-dimensional std::initializer_list assignment operator.

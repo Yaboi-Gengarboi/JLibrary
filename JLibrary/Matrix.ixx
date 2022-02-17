@@ -1,10 +1,12 @@
 // JLibrary
 // Matrix.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-15 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the Matrix template class.
 
 module;
+
+#include "Arithmetic.hpp"
 
 #include <algorithm>
 #include <cstddef>
@@ -14,8 +16,8 @@ module;
 
 export module Matrix;
 
-import Arithmetic;
 import Array;
+import MiscTemplateFunctions;
 import Vector2;
 
 export namespace jlib
@@ -97,9 +99,7 @@ export namespace jlib
 		Matrix(size_type rows, size_type cols, const_reference value)
 		{
 			allocate(rows, cols);
-
-			for (size_type i = 0; i < _rows * _cols; ++i)
-				_data[i] = value;
+			std::fill(data(), data() + size(), value);
 		}
 
 		// 2-dimensional std::initializer_list constructor.
@@ -135,10 +135,8 @@ export namespace jlib
 		template <typename U>
 		explicit Matrix(const Matrix<U>& other)
 		{
-			allocate(other._rows, other._cols);
-
-			for (size_type i = 0; i < _rows * _cols; ++i)
-				_data[i] = static_cast<T>(other._data[i]);
+			allocate(other.rowCount(), other.colCount());
+			jlib::copy(other.data(), other.data() + size(), data());
 		}
 
 		// Move constructor.

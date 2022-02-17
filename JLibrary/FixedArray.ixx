@@ -1,7 +1,7 @@
 // JLibrary
 // FixedArray.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-15 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the FixedArray template class.
 
 module;
@@ -10,10 +10,13 @@ module;
 #include <array>
 #include <cstddef>
 #include <initializer_list>
+#include <iostream>
 #include <iterator>
 #include <stdexcept>
 
 export module FixedArray;
+
+import MiscTemplateFunctions;
 
 export namespace jlib
 {
@@ -73,8 +76,16 @@ export namespace jlib
 		FixedArray(const_reference value)
 		{
 			allocate();
-			for (size_type i = 0; i < N; ++i)
-				_data[i] = value;
+			std::fill(_data, _data + N, value);
+		}
+
+		// Constructs the FixedArray with the contents in the range[begin, begin + N).
+		// This DOES NOT move the contents from the given range, it simply
+		// copies its contents into the new FixedArray.
+		FixedArray(const_pointer begin)
+		{
+			allocate();
+			std::copy(begin, begin + N, _data);
 		}
 
 		// std::initializer_list constructor.
@@ -103,8 +114,7 @@ export namespace jlib
 		explicit FixedArray(const FixedArray<U, N>& other)
 		{
 			allocate();
-			for (size_type i = 0; i < N; ++i)
-				_data[i] = static_cast<T>(other._data[i]);
+			jlib::copy(other.data(), other.data() + N, _data);
 		}
 
 		// Move constructor.
@@ -353,5 +363,23 @@ export namespace jlib
 		}
 
 		return false;
+	}
+
+	// Prints the contents of the FixedArray using the std::cout ostream.
+	// This code will not compile if type T does not overload the 
+	// std::ostream insertion operator <<.
+	template <typename T, std::size_t N>
+	void print_array(const FixedArray<T, N>& arr)
+	{
+		jlib::print_array(arr.data(), arr.size());
+	}
+
+	// Prints the contents of the FixedArray using the std::wcout wostream.
+	// This code will not compile if type T does not overload the 
+	// std::wostream insertion operator <<.
+	template <typename T, std::size_t N>
+	void print_array_wide(const FixedArray<T, N>& arr)
+	{
+		jlib::print_array_wide(arr.data(), arr.size());
 	}
 }
