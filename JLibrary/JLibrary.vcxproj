@@ -152,34 +152,43 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Angle.cpp" />
-    <ClCompile Include="Arithmetic.ixx" />
     <ClCompile Include="Array.ixx" />
     <ClCompile Include="Circle.ixx" />
-    <ClCompile Include="Clock.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="ComplexNumber.ixx" />
     <ClCompile Include="Direction.cpp" />
+    <ClCompile Include="Equation.ixx" />
     <ClCompile Include="FixedArray.ixx" />
     <ClCompile Include="FixedMatrix.ixx" />
     <ClCompile Include="Fraction.ixx" />
     <ClCompile Include="Gamepad.cpp" />
     <ClCompile Include="Hexadecimal.cpp" />
+    <ClCompile Include="IDClass.ixx" />
+    <ClCompile Include="LinearEquation1.ixx" />
+    <ClCompile Include="LinearEquation3.ixx" />
     <ClCompile Include="LineSegment.ixx" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.ixx" />
     <ClCompile Include="MiscStringFunctions.cpp" />
     <ClCompile Include="MiscTemplateFunctions.ixx" />
+    <ClCompile Include="Plane.ixx" />
+    <ClCompile Include="Polynomial.ixx" />
     <ClCompile Include="Ptr.ixx" />
     <ClCompile Include="Rect.ixx" />
-    <ClCompile Include="SFML_JLIB_Convert.ixx" />
+    <ClCompile Include="SFML_JLIB.ixx" />
     <ClCompile Include="Square.ixx" />
     <ClCompile Include="Triangle.ixx" />
     <ClCompile Include="Vector2.ixx" />
     <ClCompile Include="Vector3.ixx" />
+    <ClCompile Include="VectorEquation3.ixx" />
     <ClCompile Include="VectorN.ixx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Angle.hpp" />
-    <ClInclude Include="Clock.hpp" />
+    <ClInclude Include="Arithmetic.hpp" />
+    <ClInclude Include="Size_tLiteral.hpp" />
+    <ClInclude Include="Time.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="Direction.hpp" />
