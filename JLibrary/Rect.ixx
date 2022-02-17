@@ -1,7 +1,7 @@
 // JLibrary
 // Rect.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-28 by Justyn Durnford
 // Module file for the Rect template class.
 
 module;
@@ -10,6 +10,7 @@ module;
 #define NOMINMAX
 #endif // #ifndef NOMINMAX
 
+#include "Arithmetic.hpp"
 #include "IntegerTypedefs.hpp"
 
 #include <algorithm>
@@ -18,7 +19,6 @@ module;
 
 export module Rect;
 
-import Arithmetic;
 import FixedArray;
 import Vector2;
 

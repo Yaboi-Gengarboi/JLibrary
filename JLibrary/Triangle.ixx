@@ -1,17 +1,18 @@
 // JLibrary
 // Triangle.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-28 by Justyn Durnford
 // Module file for the Triangle template class.
 
 module;
+
+#include "Arithmetic.hpp"
 
 #include <ostream>
 #include <string>
 
 export module Triangle;
 
-import Arithmetic;
 import Vector2;
 
 export namespace jlib

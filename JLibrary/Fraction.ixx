@@ -1,10 +1,12 @@
 // JLibrary
 // Fraction.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-28 by Justyn Durnford
 // Module file for the Fraction template class.
 
 module;
+
+#include "Arithmetic.hpp"
 
 #include <cmath>
 #include <compare>
@@ -82,21 +84,83 @@ export namespace jlib
 			denom = new_denom;
 		}
 
+		// Copies the components of another Fraction.
+		void copyFrom(const Fraction& other)
+		{
+			numer = other.numer;
+			denom = other.denom;
+		}
+
+		// Copies the components of a different type of Fraction.
+		template <std::integral U>
+		void copyFrom(const Fraction<U>& other)
+		{
+			numer = static_cast<T>(other.numer);
+			denom = static_cast<T>(other.denom);
+		}
+
+		//
+		void add(const Fraction& other)
+		{
+			if (denom == other.denom)
+				numer += other.numer;
+			else
+			{
+				T old_denom = denom;
+
+				numer *= other.denom;
+				denom *= other.denom;
+
+				numer += other.numer * old_denom;
+			}
+		}
+
+		//
+		void subtract(const Fraction& other)
+		{
+			if (denom == other.denom)
+				numer -= other.numer;
+			else
+			{
+				T old_denom = denom;
+
+				numer *= other.denom;
+				denom *= other.denom;
+
+				numer -= other.numer * old_denom;
+			}
+		}
+
+		//
+		void multiply(const Fraction& other)
+		{
+			numer *= other.numer;
+			denom *= other.denom;
+		}
+
+		//
+		void divide(const Fraction& other)
+		{
+			numer *= other.denom;
+			denom *= other.numer;
+		}
+
 		// Raises both the numerator and denominator of the Fraction to the nth power.
-		template <std::unsigned_integral U> void pow(U N)
+		template <std::unsigned_integral U> void power(U N)
 		{
 			if (N == 1)
 				return;
-
-			if (N == 0)
+			else if (N == 0)
 			{
 				numer = static_cast<U>(1);
 				denom = static_cast<U>(1);
 				return;
 			}
-
-			numer = std::pow(numer, N);
-			denom = std::pow(denom, N);
+			else
+			{
+				numer = std::pow(numer, N);
+				denom = std::pow(denom, N);
+			}
 		}
 
 		// Returns the result of the Fraction as a float.
@@ -156,6 +220,19 @@ export namespace jlib
 			return fr;
 		}
 	};
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Converts the given Fraction to another type of Fraction.
+	template <arithmetic T, arithmetic U>
+	Fraction<T> convert(const Fraction<U>& A)
+	{
+		return Fraction<T>(static_cast<T>(A.numer), static_cast<T>(A.denom));
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Overload of binary operator ==
 	template <std::integral T>
@@ -354,19 +431,7 @@ export namespace jlib
 	template <std::integral T>
 	Fraction<T>& operator += (Fraction<T>& A, const Fraction<T>& B)
 	{
-		if (A.denom == B.denom)
-		{
-			A.numer += B.numer;
-			return A;
-		}
-
-		// else if (A.denom != B.denom)
-		T old_denom = A.denom;
-
-		A.numer *= B.denom;
-		A.denom *= B.denom;
-
-		A.numer += B.numer * old_denom;
+		A.add(B);
 		return A;
 	}
 
@@ -382,19 +447,7 @@ export namespace jlib
 	template <std::integral T>
 	Fraction<T>& operator -= (Fraction<T>& A, const Fraction<T>& B)
 	{
-		if (A.denom == B.denom)
-		{
-			A.numer -= B.numer;
-			return A;
-		}
-
-		// else if (A.denom != B.denom)
-		T old_denom = A.denom;
-
-		A.numer *= B.denom;
-		A.denom *= B.denom;
-
-		A.numer -= B.numer * old_denom;
+		A.subtract(B);
 		return A;
 	}
 
@@ -410,8 +463,7 @@ export namespace jlib
 	template <std::integral T>
 	Fraction<T>& operator *= (Fraction<T>& A, const Fraction<T>& B)
 	{
-		A.numer *= B.numer;
-		A.denom *= B.denom;
+		A.multiply(B);
 		return A;
 	}
 
@@ -427,8 +479,7 @@ export namespace jlib
 	template <std::integral T>
 	Fraction<T>& operator /= (Fraction<T>& A, const Fraction<T>& B)
 	{
-		A.numer *= B.denom;
-		A.denom *= B.numer;
+		A.divide(B);
 		return A;
 	}
 
