@@ -94,14 +94,6 @@ export namespace jlib
 			z = new_z;
 		}
 
-		// Copies the components of another Vector3.
-		void copyFrom(const Vector3& other)
-		{
-			x = other.x;
-			y = other.y;
-			z = other.z;
-		}
-
 		// Copies the components of a different type of Vector3.
 		template <arithmetic U>
 		void copyFrom(const Vector3<U>& other)
@@ -139,13 +131,6 @@ export namespace jlib
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	// Converts the given Vector3 to another type of Vector3.
-	template <arithmetic T, arithmetic U>
-	Vector3<T> convert(const Vector3<U>& A)
-	{
-		return Vector3<T>(static_cast<T>(A.x), static_cast<T>(A.y), static_cast<T>(A.z));
-	}
 
 	// Returns the distance between the 2 given Vector3s.
 	template <arithmetic T>
@@ -192,9 +177,9 @@ export namespace jlib
 
 	// Returns the scalar projection of A onto B.
 	template <arithmetic T>
-	float scalar_proj(const Vector3<T>& A, const Vector3<T>& B)
+	float comp_proj(const Vector3<T>& A, const Vector3<T>& B)
 	{
-		return dot_product(A, B) / A.magnitude();
+		return dot_product(A, B) / B.magnitude();
 	}
 
 	// Returns the vector projection of A onto B.

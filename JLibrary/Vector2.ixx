@@ -93,13 +93,6 @@ export namespace jlib
 			y = new_y;
 		}
 
-		// Copies the components of another Vector2.
-		void copyFrom(const Vector2& other)
-		{
-			x = other.x;
-			y = other.y;
-		}
-
 		// Copies the components of a different type of Vector2.
 		template <arithmetic U>
 		void copyFrom(const Vector2<U>& other)
@@ -143,13 +136,6 @@ export namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Converts the given Vector2 to another type of Vector2.
-	template <arithmetic T, arithmetic U>
-	Vector2<T> convert(const Vector2<U>& A)
-	{
-		return Vector2<T>(static_cast<T>(A.x), static_cast<T>(A.y));
-	}
-
 	// Returns the distance between the 2 given Vector2s, treated as points.
 	template <arithmetic T>
 	float distance(const Vector2<T>& A, const Vector2<T>& B)
@@ -181,7 +167,7 @@ export namespace jlib
 
 	// Returns the scalar projection of A onto B.
 	template <arithmetic T>
-	float scalar_proj(const Vector2<T>& A, const Vector2<T>& B)
+	float comp_proj(const Vector2<T>& A, const Vector2<T>& B)
 	{
 		return dot_product(A, B) / B.magnitude();
 	}

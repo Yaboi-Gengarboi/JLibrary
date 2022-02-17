@@ -1,11 +1,12 @@
 // JLibrary
 // VectorN.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the VectorN template class.
 
 module;
 
+#include "Arithmetic.hpp"
 #include "IntegerTypedefs.hpp"
 
 #include <cmath>
@@ -14,8 +15,8 @@ module;
 
 export module VectorN;
 
-import Arithmetic;
 import FixedArray;
+import MiscTemplateFunctions;
 
 export namespace jlib
 {
@@ -70,8 +71,7 @@ export namespace jlib
 		template <arithmetic U>
 		VectorN(const VectorN<U, N>& other)
 		{
-			for (size_type i(0); i < N; ++i)
-				_data[i] = static_cast<T>(other._data[i]);
+			jlib::copy(other.data(), other.data() + N, data());
 		}
 
 		// Constructs the VectorN from the given coordinates.
@@ -81,11 +81,11 @@ export namespace jlib
 			return *this;
 		}
 
-		// Copies the components of a different type of JVector2.
+		// Copies the components of a different type of VectorN.
 		template <arithmetic U>
 		void copyFrom(const VectorN<U, N>& other)
 		{
-			std::copy(other._data, other._data + N, _data);
+			jlib::copy(other.data(), other.data() + N, data());
 		}
 
 		// Returns the amount of dimensions the VectorN has.
@@ -95,42 +95,26 @@ export namespace jlib
 		}
 
 		// Returns the first element of the VectorN.
-		// Throws a std::out_of_range if the VectorN is empty.
 		reference first()
 		{
-			if (N == 0)
-				throw std::out_of_range("ERROR: The PointN has 0 dimensions.");
-
 			return _data[0];
 		}
 
 		// Returns the first element of the VectorN.
-		// Throws a std::out_of_range if the VectorN is empty.
 		const_reference first() const
 		{
-			if (N == 0)
-				throw std::out_of_range("ERROR: The PointN has 0 dimensions.");
-
 			return _data[0];
 		}
 
 		// Returns the last element of the VectorN.
-		// Throws a std::out_of_range if the VectorN is empty.
 		reference last()
 		{
-			if (N == 0)
-				throw std::out_of_range("ERROR: The PointN has 0 dimensions.");
-
 			return _data[N - 1];
 		}
 
 		// Returns the last element of the VectorN.
-		// Throws a std::out_of_range if the VectorN is empty.
 		const_reference last() const
 		{
-			if (N == 0)
-				throw std::out_of_range("ERROR: The PointN has 0 dimensions.");
-
 			return _data[N - 1];
 		}
 
@@ -263,9 +247,21 @@ export namespace jlib
 			float value = 0.0f;
 
 			for (size_type i = 0; i < N; ++i)
-				value += std::powf(data[i], 2);
+				value += std::powf(_data[i], 2);
 
 			return std::sqrtf(value);
+		}
+
+		// Returns a unit vector in the direction of this VectorN.
+		VectorN<float, N> unitVector() const
+		{
+			float m = magnitude();
+			VectorN<float, N> new_vec(*this);
+
+			for (size_type i = 0; i < N; ++i)
+				new_vec[i] /= m;
+
+			return new_vec;
 		}
 
 		// Returns a std::string representation of the VectorN.
@@ -317,19 +313,15 @@ export namespace jlib
 		}
 	};
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Returns the distance between the 2 given JVectorNs.
 	template <arithmetic T, std::size_t N>
 	float distance(const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
 		VectorN<T, N> C(A, B);
 		return C.magnitude();
-	}
-
-	// Returns a unit vector in the direction of the VectorN.
-	template <arithmetic T, std::size_t N>
-	VectorN<float, N> unit_vector(const VectorN<T, N>& A)
-	{
-		return VectorN<T, N>(A) / A.magnitude();
 	}
 
 	// Returns the dot product of the 2 given JVectorNs.
@@ -346,9 +338,9 @@ export namespace jlib
 
 	// Returns the scalar projection of A onto B.
 	template <arithmetic T, std::size_t N>
-	float scalar_proj(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	float comp_proj(const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
-		return dot_product(A, B) / A.magnitude();
+		return dot_product(A, B) / B.magnitude();
 	}
 
 	// Returns the vector projection of A onto B.
@@ -364,14 +356,20 @@ export namespace jlib
 		return V;
 	}
 
-	typedef jlib::VectorN<bool, 4>   JVector4b;
-	typedef jlib::VectorN<i8, 4>     JVector4c;
-	typedef jlib::VectorN<u8, 4>     JVector4uc;
-	typedef jlib::VectorN<i16, 4>    JVector4s;
-	typedef jlib::VectorN<u16, 4>    JVector4us;
-	typedef jlib::VectorN<i32, 4>    JVector4i;
-	typedef jlib::VectorN<u32, 4>    JVector4u;
-	typedef jlib::VectorN<float, 4>  JVector4f;
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	typedef jlib::VectorN<bool, 4>   Vector4b;
+	typedef jlib::VectorN<i8, 4>     Vector4c;
+	typedef jlib::VectorN<u8, 4>     Vector4uc;
+	typedef jlib::VectorN<i16, 4>    Vector4s;
+	typedef jlib::VectorN<u16, 4>    Vector4us;
+	typedef jlib::VectorN<i32, 4>    Vector4i;
+	typedef jlib::VectorN<u32, 4>    Vector4u;
+	typedef jlib::VectorN<float, 4>  Vector4f;
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Overload of binary operator ==
 	template <arithmetic T, std::size_t N>
