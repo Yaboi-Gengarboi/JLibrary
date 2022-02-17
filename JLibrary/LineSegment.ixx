@@ -1,10 +1,12 @@
 // JLibrary
 // LineSegment.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-28 by Justyn Durnford
 // Module file for the LineSegment template class.
 
 module;
+
+#include "Arithmetic.hpp"
 
 #include <initializer_list>
 #include <ostream>
@@ -12,7 +14,6 @@ module;
 
 export module LineSegment;
 
-import Arithmetic;
 import Vector2;
 
 export namespace jlib
