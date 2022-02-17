@@ -1,17 +1,16 @@
 // JLibrary
 // Vector3.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the Vector3 template class.
 
 module;
 
 #include "Angle.hpp"
+#include "Arithmetic.hpp"
 #include "IntegerTypedefs.hpp"
 
 export module Vector3;
-
-import Arithmetic;
 
 export namespace jlib
 {
@@ -95,7 +94,15 @@ export namespace jlib
 			z = new_z;
 		}
 
-		// Copies the components of a different type of Vector2.
+		// Copies the components of another Vector3.
+		void copyFrom(const Vector3& other)
+		{
+			x = other.x;
+			y = other.y;
+			z = other.z;
+		}
+
+		// Copies the components of a different type of Vector3.
 		template <arithmetic U>
 		void copyFrom(const Vector3<U>& other)
 		{
@@ -130,15 +137,14 @@ export namespace jlib
 		}
 	};
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Converts the given Vector3 to another type of Vector3.
 	template <arithmetic T, arithmetic U>
 	Vector3<T> convert(const Vector3<U>& A)
 	{
-		T x = static_cast<T>(A.x);
-		T y = static_cast<T>(A.y);
-		T z = static_cast<T>(A.z);
-
-		return Vector3<T>(x, y, z);
+		return Vector3<T>(static_cast<T>(A.x), static_cast<T>(A.y), static_cast<T>(A.z));
 	}
 
 	// Returns the distance between the 2 given Vector3s.
@@ -153,24 +159,21 @@ export namespace jlib
 	template <arithmetic T>
 	float distance_x(const Vector3<T>& A, const Vector3<T>& B)
 	{
-		float x = B.x - A.x;
-		return x;
+		return B.x - A.x;
 	}
 
 	// Returns the y-distance between the 2 given Vector3s.
 	template <arithmetic T>
 	float distance_y(const Vector3<T>& A, const Vector3<T>& B)
 	{
-		float y = B.y - A.y;
-		return y;
+		return B.y - A.y;
 	}
 
 	// Returns the z-distance between the 2 given Vector3s.
 	template <arithmetic T>
 	float distance_z(const Vector3<T>& A, const Vector3<T>& B)
 	{
-		float z = B.z - A.z;
-		return z;
+		return B.z - A.z;
 	}
 
 	// Returns the dot product of the 2 given Vector3s.
@@ -209,6 +212,9 @@ export namespace jlib
 		return dot_product(A, B) == 0.f;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	typedef jlib::Vector3<bool>   Vector3b;
 	typedef jlib::Vector3<i8>     Vector3c;
 	typedef jlib::Vector3<u8>     Vector3uc;
@@ -217,6 +223,9 @@ export namespace jlib
 	typedef jlib::Vector3<i32>    Vector3i;
 	typedef jlib::Vector3<u32>    Vector3u;
 	typedef jlib::Vector3<float>  Vector3f;
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Overload of binary operator ==
 	template <arithmetic T>

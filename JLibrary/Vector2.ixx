@@ -1,17 +1,16 @@
 // JLibrary
 // Vector2.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-02-17 by Justyn Durnford
 // Module file for the Vector2 template class.
 
 module;
 
 #include "Angle.hpp"
+#include "Arithmetic.hpp"
 #include "IntegerTypedefs.hpp"
 
 export module Vector2;
-
-import Arithmetic;
 
 export namespace jlib
 {
@@ -94,6 +93,13 @@ export namespace jlib
 			y = new_y;
 		}
 
+		// Copies the components of another Vector2.
+		void copyFrom(const Vector2& other)
+		{
+			x = other.x;
+			y = other.y;
+		}
+
 		// Copies the components of a different type of Vector2.
 		template <arithmetic U>
 		void copyFrom(const Vector2<U>& other)
@@ -111,7 +117,7 @@ export namespace jlib
 		// Returns the unit vector of this Vector2.
 		Vector2<float> unitVector() const
 		{
-			constexpr float m = magnitude();
+			float m = magnitude();
 			return Vector2<float>(x / m, y / m);
 		}
 
@@ -134,17 +140,17 @@ export namespace jlib
 		}
 	};
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Converts the given Vector2 to another type of Vector2.
 	template <arithmetic T, arithmetic U>
 	Vector2<T> convert(const Vector2<U>& A)
 	{
-		T x = static_cast<T>(A.x);
-		T y = static_cast<T>(A.y);
-
-		return Vector2<T>(x, y);
+		return Vector2<T>(static_cast<T>(A.x), static_cast<T>(A.y));
 	}
 
-	// Returns the distance between the 2 given Vector2s.
+	// Returns the distance between the 2 given Vector2s, treated as points.
 	template <arithmetic T>
 	float distance(const Vector2<T>& A, const Vector2<T>& B)
 	{
@@ -156,16 +162,14 @@ export namespace jlib
 	template <arithmetic T>
 	float distance_x(const Vector2<T>& A, const Vector2<T>& B)
 	{
-		float x = B.x - A.x;
-		return x;
+		return B.x - A.x;
 	}
 
 	// Returns the vertical distance between the 2 given Vector2s.
 	template <arithmetic T>
 	float distance_y(const Vector2<T>& A, const Vector2<T>& B)
 	{
-		float y = B.y - A.y;
-		return y;
+		return B.y - A.y;
 	}
 
 	// Returns the dot product of the 2 given Vector2s.
@@ -179,15 +183,15 @@ export namespace jlib
 	template <arithmetic T>
 	float scalar_proj(const Vector2<T>& A, const Vector2<T>& B)
 	{
-		return dot_product(A, B) / A.magnitude();
+		return dot_product(A, B) / B.magnitude();
 	}
 
 	// Returns the vector projection of A onto B.
 	template <arithmetic T>
 	Vector2<float> vector_proj(const Vector2<T>& A, const Vector2<T>& B)
 	{
-		float f = (dot_product(A, B) / dot_product(A, A));
-		return Vector2<float>(A.x * f, A.y * f);
+		float f = (dot_product(A, B) / dot_product(B, B));
+		return Vector2<float>(B.x * f, B.y * f);
 	}
 
 	// Returns the angle between the 2 given Vector2s.
@@ -204,6 +208,9 @@ export namespace jlib
 		return dot_product(A, B) == 0.0f;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	typedef jlib::Vector2<bool>   Vector2b;
 	typedef jlib::Vector2<i8>     Vector2c;
 	typedef jlib::Vector2<u8>     Vector2uc;
@@ -212,6 +219,9 @@ export namespace jlib
 	typedef jlib::Vector2<i32>    Vector2i;
 	typedef jlib::Vector2<u32>    Vector2u;
 	typedef jlib::Vector2<float>  Vector2f;
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Overload of binary operator ==
 	template <arithmetic T>
