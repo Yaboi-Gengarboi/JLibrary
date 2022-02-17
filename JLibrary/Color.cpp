@@ -1,8 +1,10 @@
 // JLibrary
 // Color.cpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-24 by Justyn Durnford
 // Source file for the Color class.
+
+#pragma warning( disable : 4244 ) 
 
 #include "Color.hpp"
 #include "Hexadecimal.hpp"

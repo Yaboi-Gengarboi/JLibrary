@@ -1,4 +1,8 @@
-
+// JLibrary
+// IntegerTypedefs.hpp
+// Created on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-01-20 by Justyn Durnford
+// Header file defining several integer typedefs.
 
 #pragma once
 
