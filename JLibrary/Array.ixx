@@ -1,7 +1,7 @@
 // JLibrary
 // Array.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-17 by Justyn Durnford
+// Last modified on 2022-02-27 by Justyn Durnford
 // Module file for the Array template class.
 
 module;
@@ -181,140 +181,140 @@ export namespace jlib
 		}
 
 		// Returns the size of the Array.
-		size_type size() const noexcept
+		constexpr size_type size() const noexcept
 		{
 			return _size;
 		}
 
 		// Returns true if the Array is empty.
-		bool isEmpty() const noexcept
+		constexpr bool isEmpty() const noexcept
 		{
 			return _size != 0;
 		}
 
 		// Returns the first element of the Array.
-		reference first()
+		constexpr reference first()
 		{
 			return _data[0];
 		}
 
 		// Returns the first element of the Array.
-		const_reference first() const
+		constexpr const_reference first() const
 		{
 			return _data[0];
 		}
 
 		// Returns the last element of the Array.
-		reference last()
+		constexpr reference last()
 		{
 			return _data[_size - 1];
 		}
 
 		// Returns the last element of the Array.
-		const_reference last() const
+		constexpr const_reference last() const
 		{
 			return _data[_size - 1];
 		}
 
 		// Returns the pointer of the Array.
-		pointer data() noexcept
+		constexpr pointer data() noexcept
 		{
 			return _data;
 		}
 
 		// Returns the pointer of the Array.
-		const_pointer data() const noexcept
+		constexpr const_pointer data() const noexcept
 		{
 			return _data;
 		}
 
 		// Returns an iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
-		iterator begin() noexcept
+		constexpr iterator begin() noexcept
 		{
 			return iterator(_data);
 		}
 
 		// Returns an iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_iterator begin() const noexcept
+		constexpr const_iterator begin() const noexcept
 		{
 			return const_iterator(_data);
 		}
 
 		// Returns an iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_iterator cbegin() const noexcept
+		constexpr const_iterator cbegin() const noexcept
 		{
 			return const_iterator(_data);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
-		reverse_iterator rbegin() noexcept
+		constexpr reverse_iterator rbegin() noexcept
 		{
 			return reverse_iterator(_data);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_reverse_iterator rbegin() const noexcept
+		constexpr const_reverse_iterator rbegin() const noexcept
 		{
 			return const_reverse_iterator(_data);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_reverse_iterator crbegin() const noexcept
+		constexpr const_reverse_iterator crbegin() const noexcept
 		{
 			return const_reverse_iterator(_data);
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the Array.
 		// Returns nullptr if the Array is empty.
-		iterator end() noexcept
+		constexpr iterator end() noexcept
 		{
 			return iterator(_data + _size);
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_iterator end() const noexcept
+		constexpr const_iterator end() const noexcept
 		{
 			return const_iterator(_data + _size);
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_iterator cend() const noexcept
+		constexpr const_iterator cend() const noexcept
 		{
 			return const_iterator(_data + _size);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the Array.
 		// Returns nullptr if the Array is empty.
-		reverse_iterator rend() noexcept
+		constexpr reverse_iterator rend() noexcept
 		{
 			return reverse_iterator(_data + _size);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_reverse_iterator rend() const noexcept
+		constexpr const_reverse_iterator rend() const noexcept
 		{
 			return const_reverse_iterator(_data + _size);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the Array.
 		// Returns nullptr if the Array is empty.
-		const_reverse_iterator crend() const noexcept
+		constexpr const_reverse_iterator crend() const noexcept
 		{
 			return const_reverse_iterator(_data + _size);
 		}
 
 		// Returns the element at the given index of the Array.
 		// Throws a std::out_of_range if given an invalid index.
-		reference at(size_type index)
+		constexpr reference at(size_type index)
 		{
 			if (index >= _size)
 				throw std::out_of_range("ERROR: Invalid array index.");
@@ -324,7 +324,7 @@ export namespace jlib
 
 		// Returns the element at the given index of the Array.
 		// Throws a std::out_of_range if given an invalid index.
-		const_reference at(size_type index) const
+		constexpr const_reference at(size_type index) const
 		{
 			if (index >= _size)
 				throw std::out_of_range("ERROR: Invalid array index.");
@@ -334,7 +334,7 @@ export namespace jlib
 
 		// Sets the element at the given index to the given value.
 		// Throws a std::out_of_range if given an invalid index.
-		void set(size_type index, const_reference value)
+		constexpr void set(size_type index, const_reference value)
 		{
 			if (index >= _size)
 				throw std::out_of_range("ERROR: Invalid array index.");
@@ -343,16 +343,17 @@ export namespace jlib
 		}
 
 		// Sets every element to the given value.
-		void setAll(const_reference value)
+		constexpr void setAll(const_reference value)
 		{
 			for (size_type i = 0; i < _size; ++i)
 				_data[i] = value;
 		}
 
 		// Empties the Array.
-		void clear() noexcept
+		constexpr void clear() noexcept
 		{
 			delete[] _data;
+			_data = nullptr;
 			_size = 0;
 		}
 
@@ -392,14 +393,14 @@ export namespace jlib
 
 		// Returns the element at the given index the Array.
 		// Does NOT perform bounds-checking.
-		reference operator [] (size_type index)
+		constexpr reference operator [] (size_type index)
 		{
 			return _data[index];
 		}
 
 		// Returns the element at the given index the Array.
 		// Does NOT perform bounds-checking.
-		const_reference operator [] (size_type index) const
+		constexpr const_reference operator [] (size_type index) const
 		{
 			return _data[index];
 		}

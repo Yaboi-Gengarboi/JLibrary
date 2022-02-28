@@ -1,7 +1,7 @@
 // JLibrary
 // FixedArray.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-17 by Justyn Durnford
+// Last modified on 2022-02-27 by Justyn Durnford
 // Module file for the FixedArray template class.
 
 module;
@@ -172,128 +172,128 @@ export namespace jlib
 		}
 
 		// Returns the first element of the FixedArray.
-		reference first()
+		constexpr reference first()
 		{
 			return _data[0];
 		}
 
 		// Returns the first element of the FixedArray.
-		const_reference first() const
+		constexpr const_reference first() const
 		{
 			return _data[0];
 		}
 
 		// Returns the last element of the FixedArray.
-		reference last()
+		constexpr reference last()
 		{
 			return _data[N - 1];
 		}
 
 		// Returns the last element of the FixedArray.
-		const_reference last() const
+		constexpr const_reference last() const
 		{
 			return _data[N - 1];
 		}
 
 		// Returns the pointer of the FixedArray.
-		pointer data() noexcept
+		constexpr pointer data() noexcept
 		{
 			return _data;
 		}
 
 		// Returns the pointer of the FixedArray.
-		const_pointer data() const noexcept
+		constexpr const_pointer data() const noexcept
 		{
 			return _data;
 		}
 
 		// Returns an iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		iterator begin() noexcept
+		constexpr iterator begin() noexcept
 		{
 			return _data;
 		}
 
 		// Returns an iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_iterator begin() const noexcept
+		constexpr const_iterator begin() const noexcept
 		{
 			return _data;
 		}
 
 		// Returns an iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_iterator cbegin() const noexcept
+		constexpr const_iterator cbegin() const noexcept
 		{
 			return _data;
 		}
 
 		// Returns a reverse iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		reverse_iterator rbegin() noexcept
+		constexpr reverse_iterator rbegin() noexcept
 		{
 			return std::reverse_iterator<iterator>(_data + N);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_reverse_iterator rbegin() const noexcept
+		constexpr const_reverse_iterator rbegin() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data + N);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_reverse_iterator crbegin() const noexcept
+		constexpr const_reverse_iterator crbegin() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data + N);
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		iterator end() noexcept
+		constexpr iterator end() noexcept
 		{
 			return _data + N;
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_iterator end() const noexcept
+		constexpr const_iterator end() const noexcept
 		{
 			return _data + N;
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_iterator cend() const noexcept
+		constexpr const_iterator cend() const noexcept
 		{
 			return _data + N;
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		reverse_iterator rend() noexcept
+		constexpr reverse_iterator rend() noexcept
 		{
 			return std::reverse_iterator<iterator>(_data);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_reverse_iterator rend() const noexcept
+		constexpr const_reverse_iterator rend() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
-		const_reverse_iterator crend() const noexcept
+		constexpr const_reverse_iterator crend() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data);
 		}
 
 		// Returns the element at the given index of the FixedArray.
 		// Throws a std::out_of_range if given an invalid index.
-		reference at(size_type index)
+		constexpr reference at(size_type index)
 		{
 			if (index >= N)
 				throw std::out_of_range("ERROR: Invalid array index.");
@@ -302,7 +302,7 @@ export namespace jlib
 
 		// Returns the element at the given index of the FixedArray.
 		// Throws a std::out_of_range if given an invalid index.
-		const_reference at(size_type index) const
+		constexpr const_reference at(size_type index) const
 		{
 			if (index >= N)
 				throw std::out_of_range("ERROR: Invalid array index.");
@@ -311,7 +311,7 @@ export namespace jlib
 
 		// Sets the element at the given index to the given value.
 		// Throws a std::out_of_range if given an invalid index.
-		void set(size_type index, const_reference value)
+		constexpr void set(size_type index, const_reference value)
 		{
 			if (index >= N)
 				throw std::out_of_range("ERROR: Invalid array index.");
@@ -326,14 +326,14 @@ export namespace jlib
 
 		// Returns the element at the given index the FixedArray.
 		// Does NOT perform bounds-checking.
-		reference operator [] (size_type index)
+		constexpr reference operator [] (size_type index)
 		{
 			return _data[index];
 		}
 
 		// Returns the element at the given index the FixedArray.
 		// Does NOT perform bounds-checking.
-		const_reference operator [] (size_type index) const
+		constexpr const_reference operator [] (size_type index) const
 		{
 			return _data[index];
 		}
