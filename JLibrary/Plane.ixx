@@ -1,19 +1,20 @@
 // JLibrary
 // Plane.ixx
 // Created on 2022-01-19 by Justyn Durnford
-// Last modified on 2022-02-11 by Justyn Durnford
+// Last modified on 2022-03-18 by Justyn Durnford
 // Module file for the Plane template class.
 
 module;
 
+#include "Angle.hpp"
 #include "Arithmetic.hpp"
 
-#include <array>
+#include <cmath>
 #include <string>
 
 export module Plane;
 
-import LinearEquation3;
+import LinearEquation2;
 import Vector3;
 
 export namespace jlib
@@ -81,15 +82,63 @@ export namespace jlib
 		~Plane() = default;
 
 		// 
-		bool doesPointLieOnPlane(const Vector3<T>& P)
+		bool contains(const Vector3<T>& P) const
 		{
 			return (normal.x * (P.x - point.x) + normal.y * (P.y - point.y) + normal.z * (P.z - point.z)) == 0;
 		}
 
 		// 
-		LinearEquation3<T> getEquation() const
+		LinearEquation2<T> getEquation() const
 		{
-			return LinearEquation3<T>(normal.x, normal.y, normal.z, point.x, point.y, point.z);
+			LinearEquation2<T> eq;
+
+			eq.coefficients[0] = normal.x / -(normal.z);
+			eq.coefficients[1] = normal.y / -(normal.z);
+
+			eq.offsets[0] = point.x;
+			eq.offsets[1] = point.y;
+
+			eq.z_offset = point.z;
+
+			return eq;
 		}
 	};
+
+	// 
+	template <arithmetic T>
+	bool are_parallel(const Plane<T>& A, const Plane<T>& B)
+	{
+		float xm = static_cast<float>(A.normal.x) / static_cast<float>(B.normal.x);
+		float ym = static_cast<float>(A.normal.y) / static_cast<float>(B.normal.y);
+		float zm = static_cast<float>(A.normal.z) / static_cast<float>(B.normal.z);
+
+		return (xm == ym) && (xm == zm);
+	}
+
+	// 
+	template <arithmetic T>
+	bool are_orthogonal(const Plane<T>& A, const Plane<T>& B)
+	{
+		return angle_between(A.normal, B.normal).value == 90.0f;
+	}
+
+	// Finds the distance between the 2 given planes, assuming they are parallel.
+	template <arithmetic T>
+	float distance_bewteen(const Plane<T>& A, const Plane<T>& B)
+	{
+		if (are_parallel(A, B))
+		{
+			Vector3<T> PQ(A.point, B.point);
+			return std::fabsf(comp_proj(PQ, A.normal));
+		}
+
+		return 0.0f;
+	}
+
+	// Calculates the angle between the 2 given planes.
+	template <arithmetic T>
+	Angle angle_between(const Plane<T>& A, const Plane<T>& B)
+	{
+		return arccosine(dot_product(A.normal, B.normal) / (A.normal.magnitude() * B.normal.magnitude()));
+	}
 }

@@ -1,8 +1,8 @@
 // JLibrary
 // Vector2.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-17 by Justyn Durnford
-// Module file for the Vector2 template class.
+// Last modified on 2022-05-17 by Justyn Durnford
+// Module file for the Vector2 template struct.
 
 module;
 
@@ -14,12 +14,10 @@ export module Vector2;
 
 export namespace jlib
 {
-	// Utility template class for representing, manipulating
+	// Utility template struct for representing, manipulating
 	// and computing with vectors in 2-dimensional space.
-	template <arithmetic T> class Vector2
+	template <arithmetic T> struct Vector2
 	{
-		public:
-
 		T x;
 		T y;
 
@@ -28,8 +26,8 @@ export namespace jlib
 		// Sets the y component of the Vector2 to 0.
 		Vector2()
 		{
-			x = static_cast<T>(0);
-			y = static_cast<T>(0);
+			x = 0;
+			y = 0;
 		}
 
 		// Constructs the Vector2 from the given coordinates.
@@ -41,13 +39,13 @@ export namespace jlib
 			y = new_y;
 		}
 
-		// Constructs the Vector2 from the given Angle and magnitude.
-		// Sets the x component of the Vector2 to F * cosine(angle).
-		// Sets the y component of the Vector2 to F * sine(angle).
-		Vector2(T F, Angle angle)
+		// Constructs the Vector2 from the given polar.
+		// Sets the x component of the Vector2 to radius * cosine(theta).
+		// Sets the y component of the Vector2 to radius * sine(theta).
+		Vector2(T radius, Angle theta)
 		{
-			x = static_cast<T>(F * cosine(angle));
-			y = static_cast<T>(F * sine(angle));
+			x = static_cast<T>(radius * cosine(theta));
+			y = static_cast<T>(radius * sine(theta));
 		}
 
 		// Constructs the Vector2 as the displacement vector of the two points.
@@ -101,75 +99,233 @@ export namespace jlib
 			y = static_cast<T>(other.y);
 		}
 
-		// Returns the magnitude of the Vector2.
-		constexpr float magnitude() const
+		// Adds the components of the given Vector2 onto this one.
+		void add(const Vector2& other)
 		{
-			return std::sqrtf(std::powf(static_cast<float>(x), 2.0f) + std::powf(static_cast<float>(y), 2.0f));
+			x += other.x;
+			y += other.y;
 		}
 
-		// Returns the unit vector of this Vector2.
-		Vector2<float> unitVector() const
+		// Subtracts the components of the given Vector2 onto this one.
+		void subtract(const Vector2& other)
 		{
-			float m = magnitude();
-			return Vector2<float>(x / m, y / m);
+			x -= other.x;
+			y -= other.y;
 		}
 
-		// Returns a normal vector of this Vector2.
-		Vector2 normal()
+		// Multiplies the components of the given Vector2 onto this one.
+		void multiply(const Vector2& other)
 		{
-			return Vector2(-y, x);
+			x *= other.x;
+			y *= other.y;
 		}
 
-		// Returns a std::string representation of the Vector2.
-		std::string toString() const
+		// Multiplies each component of the Vector2 by the given scalar value.
+		template <arithmetic U>
+		void multiply(U scalar)
 		{
-			return '<' + std::to_string(x) + ", " + std::to_string(y) + '>';
+			x *= scalar;
+			y *= scalar;
 		}
 
-		// Returns a std::wstring representation of the Vector2.
-		std::wstring toWideString() const
+		// Divides the components of the given Vector2 onto this one.
+		void divide(const Vector2& other)
 		{
-			return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L'>';
+			x /= other.x;
+			y /= other.y;
+		}
+
+		// Divides each component of the Vector2 by the given scalar value.
+		template <arithmetic U>
+		void divide(U scalar)
+		{
+			x /= scalar;
+			y /= scalar;
 		}
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	// Returns a Vector2 whose elements are the absolute values of 
+	// each of the given elements.
+	template <arithmetic T>
+	inline Vector2<T> abs(T x, T y)
+	{
+		return Vector2<T>(std::abs(x), std::abs(y));
+	}
+
+	// Returns a Vector2 whose elements are the absolute values of 
+	// each of the specified Vector2's elements.
+	template <arithmetic T>
+	inline Vector2<T> abs(const Vector2<T>& vec)
+	{
+		return abs(vec.x, vec.y);
+	}
+
+	// Returns the angle between the 2 given Vector2s.
+	template <arithmetic T>
+	inline Angle angle_between(const Vector2<T>& A, const Vector2<T>& B)
+	{
+		return arccosine(dot_product(A, B) / (magnitude(A) * magnitude(B)));
+	}
+
+	// Checks if the 2 given Vector2s are orthogonal to eachother.
+	template <arithmetic T>
+	constexpr bool are_normal(const Vector2<T>& A, const Vector2<T>& B)
+	{
+		return dot_product(A, B) == 0.0f;
+	}
+
+	// Returns the scalar projection of A onto B.
+	template <arithmetic T>
+	constexpr float comp_proj(const Vector2<T>& A, const Vector2<T>& B)
+	{
+		return dot_product(A, B) / B.magnitude();
+	}
+
 	// Returns the distance between the 2 given Vector2s, treated as points.
 	template <arithmetic T>
-	float distance(const Vector2<T>& A, const Vector2<T>& B)
+	constexpr float distance(const Vector2<T>& A, const Vector2<T>& B)
 	{
-		Vector2<T> C(A, B);
-		return C.magnitude();
+		return std::sqrtf(distance_squared(A, B));
+	}
+
+	// Returns the distance squared between the 2 given Vector2s, treated as points.
+	template <arithmetic T>
+	constexpr float distance_squared(const Vector2<T>& A, const Vector2<T>& B)
+	{
+		return std::powf(static_cast<float>(B.x - A.x), 2.0f) + std::powf(static_cast<float>(B.y - A.y), 2.0f);
 	}
 
 	// Returns the horizontal distance between the 2 given Vector2s.
 	template <arithmetic T>
-	float distance_x(const Vector2<T>& A, const Vector2<T>& B)
+	constexpr float distance_x(const Vector2<T>& A, const Vector2<T>& B)
 	{
 		return B.x - A.x;
 	}
 
 	// Returns the vertical distance between the 2 given Vector2s.
 	template <arithmetic T>
-	float distance_y(const Vector2<T>& A, const Vector2<T>& B)
+	constexpr float distance_y(const Vector2<T>& A, const Vector2<T>& B)
 	{
 		return B.y - A.y;
 	}
 
 	// Returns the dot product of the 2 given Vector2s.
 	template <arithmetic T>
-	float dot_product(const Vector2<T>& A, const Vector2<T>& B)
+	constexpr float dot_product(const Vector2<T>& A, const Vector2<T>& B)
 	{
 		return A.x * B.x + A.y * B.y;
 	}
 
-	// Returns the scalar projection of A onto B.
+	// Returns the magnitude of the Vector2 constructed by the elements x and y.
 	template <arithmetic T>
-	float comp_proj(const Vector2<T>& A, const Vector2<T>& B)
+	constexpr float magnitude(T x, T y)
 	{
-		return dot_product(A, B) / B.magnitude();
+		return std::sqrtf(std::powf(static_cast<float>(x), 2.0f) + std::powf(static_cast<float>(y), 2.0f));
+	}
+
+	// Returns the magnitude of the given Vector2.
+	template <arithmetic T>
+	constexpr float magnitude(const Vector2<T>& vec)
+	{
+		return magnitude(vec.x, vec.y);
+	}
+
+	// Returns a Vector2 whose elements are the maximum of each of the 
+	// pairs of elements in two specified Vector2s.
+	template <arithmetic T>
+	inline Vector2<T> max(const Vector2<T>& A, const Vector2<T>& B)
+	{
+		return Vector2<T>(std::max(A.x, B.x), std::max(A.y, B.y));
+	}
+
+	// Returns a Vector2 whose elements are the minimum of each of the 
+	// pairs of elements in two specified Vector2s.
+	template <arithmetic T>
+	inline Vector2<T> min(const Vector2<T>& A, const Vector2<T>& B)
+	{
+		return Vector2<T>(std::min(A.x, B.x), std::min(A.y, B.y));
+	}
+
+	// Normalizes the Vector2 by scaling each of its components so that it
+	// has a magnitude of 1.
+	template <arithmetic T>
+	void normalize(Vector2<T>& vec)
+	{
+		vec.divide(magnitude(vec));
+	}
+
+	// Returns a normal vector of the Vector2 constructed by the elements x and y.
+	template <arithmetic T>
+	inline Vector2<T> normal_vector(T x, T y)
+	{
+		return Vector2<T>(-y, x);
+	}
+
+	// Returns a normal vector of the given Vector2.
+	template <arithmetic T>
+	inline Vector2<T> normal_vector(const Vector2<T>& vec)
+	{
+		return normal_vector(vec);
+	}
+
+	// Prints the given Vector2 to std::cout.
+	template <arithmetic T>
+	inline void print(const Vector2<T>& vec)
+	{
+		std::cout << to_string(vec);
+	}
+
+	// Prints the given Vector2 to std::cout with a newline.
+	template <arithmetic T>
+	inline void println(const Vector2<T>& vec)
+	{
+		std::cout << to_string(vec) << '\n';
+	}
+
+	// Returns a std::string representation of the Vector2 constructed by the elements x and y.
+	template <arithmetic T>
+	inline std::string to_string(T x, T y)
+	{
+		return '<' + std::to_string(x) + ", " + std::to_string(y) + '>';
+	}
+
+	// Returns a std::string representation of the given Vector2.
+	template <arithmetic T>
+	inline std::string to_string(const Vector2<T>& vec)
+	{
+		return '<' + std::to_string(vec.x) + ", " + std::to_string(vec.y) + '>';
+	}
+
+	// Returns a std::wstring representation of the Vector2 constructed by the elements x and y.
+	template <arithmetic T>
+	inline std::wstring to_wstring(T x, T y)
+	{
+		return L'<' + std::to_wstring(x) + L", " + std::to_wstring(y) + L'>';
+	}
+
+	// Returns a std::wstring representation of the given Vector2.
+	template <arithmetic T>
+	inline std::wstring to_wstring(const Vector2<T>& vec)
+	{
+		return L'<' + std::to_wstring(vec.x) + L", " + std::to_wstring(vec.y) + L'>';
+	}
+
+	// Returns a unit vector of the Vector2 constructed by the elements x and y.
+	template <arithmetic T>
+	Vector2<float> unit_vector(T x, T y)
+	{
+		const float mag = magnitude(x, y);
+		return Vector2f(static_cast<float>(x) / mag, static_cast<float>(y) / mag);
+	}
+
+	// Returns a unit vector of the given Vector2.
+	template <arithmetic T>
+	Vector2<float> unit_vector(const Vector2<T>& vec)
+	{
+		return unit_vector(vec.x, vec.y);
 	}
 
 	// Returns the vector projection of A onto B.
@@ -178,20 +334,6 @@ export namespace jlib
 	{
 		float f = (dot_product(A, B) / dot_product(B, B));
 		return Vector2<float>(B.x * f, B.y * f);
-	}
-
-	// Returns the angle between the 2 given Vector2s.
-	template <arithmetic T>
-	Angle angle_between(const Vector2<T>& A, const Vector2<T>& B)
-	{
-		return arccosine(dot_product(A, B) / (A.magnitude() * B.magnitude()));
-	}
-
-	// Checks if the 2 given Vector2s are orthogonal to eachother.
-	template <arithmetic T>
-	bool are_normal(const Vector2<T>& A, const Vector2<T>& B)
-	{
-		return dot_product(A, B) == 0.0f;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -204,7 +346,11 @@ export namespace jlib
 	typedef jlib::Vector2<u16>    Vector2us;
 	typedef jlib::Vector2<i32>    Vector2i;
 	typedef jlib::Vector2<u32>    Vector2u;
+	typedef jlib::Vector2<i64>    Vector2l;
+	typedef jlib::Vector2<u64>    Vector2ul;
+	typedef jlib::Vector2<size_t> Vector2uz;
 	typedef jlib::Vector2<float>  Vector2f;
+	typedef jlib::Vector2<double> Vector2d;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,28 +373,28 @@ export namespace jlib
 	template <arithmetic T>
 	bool operator < (const Vector2<T>& A, const Vector2<T>& B)
 	{
-		return A.magnitude() < B.magnitude();
+		return magnitude(A) < magnitude(B);
 	}
 
 	// Overload of binary operator <=
 	template <arithmetic T>
 	bool operator <= (const Vector2<T>& A, const Vector2<T>& B)
 	{
-		return A.magnitude() <= B.magnitude();
+		return magnitude(A) <= magnitude(B);
 	}
 
 	// Overload of binary operator >
 	template <arithmetic T>
 	bool operator > (const Vector2<T>& A, const Vector2<T>& B)
 	{
-		return A.magnitude() > B.magnitude();
+		return magnitude(A) > magnitude(B);
 	}
 
 	// Overload of binary operator >=
 	template <arithmetic T>
 	bool operator >= (const Vector2<T>& A, const Vector2<T>& B)
 	{
-		return A.magnitude() >= B.magnitude();
+		return magnitude(A) >= magnitude(B);
 	}
 
 	// Overload of unary operator -
@@ -318,9 +464,7 @@ export namespace jlib
 	template <arithmetic T>
 	Vector2<T>& operator += (Vector2<T>& A, const Vector2<T>& B)
 	{
-		A.x += B.x;
-		A.y += B.y;
-
+		A.add(B);
 		return A;
 	}
 
@@ -328,9 +472,15 @@ export namespace jlib
 	template <arithmetic T>
 	Vector2<T>& operator -= (Vector2<T>& A, const Vector2<T>& B)
 	{
-		A.x -= B.x;
-		A.y -= B.y;
-
+		A.subtract(B);
+		return A;
+	}
+	
+	// Overload of binary operator *=
+	template <arithmetic T>
+	Vector2<T>& operator *= (Vector2<T>& A, const Vector2<T>& B)
+	{
+		A.multiply(B);
 		return A;
 	}
 
@@ -338,9 +488,7 @@ export namespace jlib
 	template <arithmetic T, arithmetic U>
 	Vector2<T>& operator *= (Vector2<T>& A, U scalar)
 	{
-		A.x *= scalar;
-		A.y *= scalar;
-
+		A.multiply(scalar);
 		return A;
 	}
 
@@ -348,25 +496,31 @@ export namespace jlib
 	template <arithmetic T, arithmetic U>
 	Vector2<T>& operator /= (Vector2<T>& A, U scalar)
 	{
-		A.x /= scalar;
-		A.y /= scalar;
+		A.divide(scalar);
+		return A;
+	}
 
+	// Overload of binary operator /=
+	template <arithmetic T>
+	Vector2<T>& operator /= (Vector2<T>& A, const Vector2<T>& B)
+	{
+		A.divide(B);
 		return A;
 	}
 
 	// Overload of std::ostream operator <<
 	template <arithmetic T>
-	std::ostream& operator << (std::ostream& os, const Vector2<T>& A)
+	std::ostream& operator << (std::ostream& os, const Vector2<T>& vec)
 	{
-		os << A.toString();
+		os << to_string(vec);
 		return os;
 	}
 
 	// Overload of std::wostream operator <<
 	template <arithmetic T>
-	std::wostream& operator << (std::wostream& wos, const Vector2<T>& A)
+	std::wostream& operator << (std::wostream& wos, const Vector2<T>& vec)
 	{
-		wos << A.toWideString();
+		wos << to_wstring(vec);
 		return wos;
 	}
 }

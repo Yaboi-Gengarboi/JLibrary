@@ -1,7 +1,7 @@
 // JLibrary
 // Angle.cpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-15 by Justyn Durnford
 // Source file for the Angle class.
 
 #include "Angle.hpp"
@@ -23,7 +23,8 @@ using std::tanf;
 #include <compare>
 using std::strong_ordering;
 
-#include <ostream>
+#include <iostream>
+using std::cout;
 using std::ostream;
 using std::wostream;
 
@@ -140,165 +141,175 @@ namespace jlib
 			return A;
 		return A;
 	}
-}
 
-bool operator == (jlib::Angle A, jlib::Angle B)
-{
-	return A.degree == B.degree;
-}
+	void print(const Angle& angle)
+	{
+		cout << angle.toString();
+	}
 
-bool operator == (jlib::Angle A, float degree)
-{
-	return A.degree == degree;
-}
+	void println(const Angle& angle)
+	{
+		cout << angle.toString() << '\n';
+	}
 
-bool operator != (jlib::Angle A, jlib::Angle B)
-{
-	return A.degree != B.degree;
-}
+	bool operator == (Angle A, Angle B)
+	{
+		return A.degree == B.degree;
+	}
 
-bool operator != (jlib::Angle A, float degree)
-{
-	return A.degree != degree;
-}
+	bool operator == (Angle A, float degree)
+	{
+		return A.degree == degree;
+	}
 
-bool operator < (jlib::Angle A, jlib::Angle B)
-{
-	return A.degree < B.degree;
-}
+	bool operator != (Angle A, Angle B)
+	{
+		return A.degree != B.degree;
+	}
 
-bool operator < (jlib::Angle A, float degree)
-{
-	return A.degree < degree;
-}
+	bool operator != (Angle A, float degree)
+	{
+		return A.degree != degree;
+	}
 
-bool operator <= (jlib::Angle A, jlib::Angle B)
-{
-	return A.degree <= B.degree;
-}
+	bool operator < (Angle A, Angle B)
+	{
+		return A.degree < B.degree;
+	}
 
-bool operator <= (jlib::Angle A, float degree)
-{
-	return A.degree <= degree;
-}
+	bool operator < (Angle A, float degree)
+	{
+		return A.degree < degree;
+	}
 
-bool operator > (jlib::Angle A, jlib::Angle B)
-{
-	return A.degree > B.degree;
-}
+	bool operator <= (Angle A, Angle B)
+	{
+		return A.degree <= B.degree;
+	}
 
-bool operator > (jlib::Angle A, float degree)
-{
-	return A.degree > degree;
-}
+	bool operator <= (Angle A, float degree)
+	{
+		return A.degree <= degree;
+	}
 
-bool operator >= (jlib::Angle A, jlib::Angle B)
-{
-	return A.degree >= B.degree;
-}
+	bool operator > (Angle A, Angle B)
+	{
+		return A.degree > B.degree;
+	}
 
-bool operator >= (jlib::Angle A, float degree)
-{
-	return A.degree >= degree;
-}
+	bool operator > (Angle A, float degree)
+	{
+		return A.degree > degree;
+	}
 
-strong_ordering operator <=> (jlib::Angle A, jlib::Angle B)
-{
-	if (A.degree < B.degree)
-		return strong_ordering::less;
-	if (A.degree > B.degree)
-		return strong_ordering::greater;
-	return strong_ordering::equivalent;
-}
+	bool operator >= (Angle A, Angle B)
+	{
+		return A.degree >= B.degree;
+	}
 
-strong_ordering operator <=> (jlib::Angle A, float degree)
-{
-	if (A.degree < degree)
-		return strong_ordering::less;
-	if (A.degree > degree)
-		return strong_ordering::greater;
-	return strong_ordering::equivalent;
-}
+	bool operator >= (Angle A, float degree)
+	{
+		return A.degree >= degree;
+	}
 
-jlib::Angle operator - (jlib::Angle A)
-{
-	return jlib::Angle(-A.degree);
-}
+	strong_ordering operator <=> (Angle A, Angle B)
+	{
+		if (A.degree < B.degree)
+			return strong_ordering::less;
+		if (A.degree > B.degree)
+			return strong_ordering::greater;
+		return strong_ordering::equivalent;
+	}
 
-jlib::Angle operator + (jlib::Angle A, jlib::Angle B)
-{
-	return jlib::Angle(A.degree + B.degree);
-}
+	strong_ordering operator <=> (Angle A, float degree)
+	{
+		if (A.degree < degree)
+			return strong_ordering::less;
+		if (A.degree > degree)
+			return strong_ordering::greater;
+		return strong_ordering::equivalent;
+	}
 
-jlib::Angle operator + (jlib::Angle A, float degree)
-{
-	return jlib::Angle(A.degree + degree);
-}
+	Angle operator - (Angle A)
+	{
+		return Angle(-A.degree);
+	}
 
-jlib::Angle operator - (jlib::Angle A, jlib::Angle B)
-{
-	return jlib::Angle(A.degree - B.degree);
-}
+	Angle operator + (Angle A, Angle B)
+	{
+		return Angle(A.degree + B.degree);
+	}
 
-jlib::Angle operator - (jlib::Angle A, float degree)
-{
-	return jlib::Angle(A.degree - degree);
-}
+	Angle operator + (Angle A, float degree)
+	{
+		return Angle(A.degree + degree);
+	}
 
-jlib::Angle operator * (jlib::Angle A, float scalar)
-{
-	return jlib::Angle(A.degree * scalar);
-}
+	Angle operator - (Angle A, Angle B)
+	{
+		return Angle(A.degree - B.degree);
+	}
 
-jlib::Angle operator / (jlib::Angle A, float scalar)
-{
-	return jlib::Angle(A.degree / scalar);
-}
+	Angle operator - (Angle A, float degree)
+	{
+		return Angle(A.degree - degree);
+	}
 
-jlib::Angle& operator += (jlib::Angle& A, jlib::Angle B)
-{
-	A.degree += B.degree;
-	return A;
-}
+	Angle operator * (Angle A, float scalar)
+	{
+		return Angle(A.degree * scalar);
+	}
 
-jlib::Angle& operator += (jlib::Angle& A, float degree)
-{
-	A.degree += degree;
-	return A;
-}
+	Angle operator / (Angle A, float scalar)
+	{
+		return Angle(A.degree / scalar);
+	}
 
-jlib::Angle& operator -= (jlib::Angle& A, jlib::Angle B)
-{
-	A.degree -= B.degree;
-	return A;
-}
+	Angle& operator += (Angle& A, Angle B)
+	{
+		A.degree += B.degree;
+		return A;
+	}
 
-jlib::Angle& operator -= (jlib::Angle& A, float degree)
-{
-	A.degree -= degree;
-	return A;
-}
+	Angle& operator += (Angle& A, float degree)
+	{
+		A.degree += degree;
+		return A;
+	}
 
-jlib::Angle& operator *= (jlib::Angle& A, float scalar)
-{
-	A.degree *= scalar;
-	return A;
-}
+	Angle& operator -= (Angle& A, Angle B)
+	{
+		A.degree -= B.degree;
+		return A;
+	}
 
-jlib::Angle& operator /= (jlib::Angle& A, float scalar)
-{
-	A.degree /= scalar;
-	return A;
-}
+	Angle& operator -= (Angle& A, float degree)
+	{
+		A.degree -= degree;
+		return A;
+	}
 
-ostream& operator << (ostream& os, jlib::Angle A)
-{
-	os << A.toString();
-	return os;
-}
+	Angle& operator *= (Angle& A, float scalar)
+	{
+		A.degree *= scalar;
+		return A;
+	}
 
-wostream& operator << (wostream& wos, jlib::Angle A)
-{
-	wos << A.toWideString();
-	return wos;
+	Angle& operator /= (Angle& A, float scalar)
+	{
+		A.degree /= scalar;
+		return A;
+	}
+
+	ostream& operator << (ostream& os, Angle A)
+	{
+		os << A.toString();
+		return os;
+	}
+
+	wostream& operator << (wostream& wos, Angle A)
+	{
+		wos << A.toWideString();
+		return wos;
+	}
 }

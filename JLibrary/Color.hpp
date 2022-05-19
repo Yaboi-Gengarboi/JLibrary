@@ -1,7 +1,7 @@
 // JLibrary
 // Color.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-15 by Justyn Durnford
 // Header file for the Color class.
 
 #pragma once
@@ -10,10 +10,11 @@
 
 #include <array>
 #include <initializer_list>
-#include <ostream>
+#include <iostream>
 
 namespace jlib
 {
+	// Class that represents a color that can be drawn.
 	class Color
 	{
 		public:
@@ -22,23 +23,23 @@ namespace jlib
 
 		enum : u32
 		{
-			Black = 0x000000ff,
-			White = 0xffffffff,
-			Red = 0xff0000ff,
-			Green = 0x00ff00ff,
-			Blue = 0x0000ffff,
-			Cyan = 0x00ffffff,
-			Magenta = 0xff00ffff,
-			Yellow = 0xffff00ff,
-			Silver = 0xc0c0c0ff,
-			Gray = 0x808080ff,
-			Maroon = 0x800000ff,
-			Olive = 0x808000ff,
+			Black     = 0x000000ff,
+			White     = 0xffffffff,
+			Red       = 0xff0000ff,
+			Green     = 0x00ff00ff,
+			Blue      = 0x0000ffff,
+			Cyan      = 0x00ffffff,
+			Magenta   = 0xff00ffff,
+			Yellow    = 0xffff00ff,
+			Silver    = 0xc0c0c0ff,
+			Gray      = 0x808080ff,
+			Maroon    = 0x800000ff,
+			Olive     = 0x808000ff,
 			DarkGreen = 0x008000ff,
-			Purple = 0x800080ff,
-			Teal = 0x008080ff,
-			Navy = 0x000080ff,
-			Clear = 0x00000000
+			Purple    = 0x800080ff,
+			Teal      = 0x008080ff,
+			Navy      = 0x000080ff,
+			Clear     = 0x00000000
 		};
 
 		u8 r, g, b, a;
@@ -141,14 +142,14 @@ namespace jlib
 	// Returns the individual bytes of the unsigned int.
 	std::array<u8, 4> to_bytes(u32 i);
 
-	// Returns a hexadecimal std::string representation of the byte.
-	std::string to_hex_str(u8 cbyte);
-
-	// Returns a hexadecimal std::wstring representation of the byte.
-	std::wstring to_hex_wstr(u8 cbyte);
-
 	// Copies the color bytes into the given destination.
 	void copy_color_data(const Color* src, u8* dst, std::size_t bytes);
+
+	// Prints the Color to std::cout.
+	void print(const Color& color);
+
+	// Prints the Color to std::cout with a new line.
+	void println(const Color& color);
 }
 
 // Overload of binary operator ==

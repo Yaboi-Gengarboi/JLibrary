@@ -1,7 +1,7 @@
 // JLibrary
 // Hexadecimal.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-17 by Justyn Durnford
 // Header file defining several hexadecimal-related functions.
 
 #pragma once
@@ -44,9 +44,21 @@ namespace jlib
 		return wstr_stream.str();
 	}
 
+	// Returns a hexadecimal std::string representation of the byte.
+	std::string to_hex_string(unsigned char byte, bool prepend = false);
+
+	// Returns a hexadecimal std::wstring representation of the byte.
+	std::wstring to_hex_wstring(unsigned char byte, bool prepend = false);
+
 	// Returns a hexadecimal std::string representation of the float.
 	std::string to_hex_string(float number, bool prepend = false, bool fill = false);
 
 	// Returns a hexadecimal std::wstring representation of the float.
 	std::wstring to_hex_wstring(float number, bool prepend = false, bool fill = false);
+
+	// Returns a hexadecimal std::string of the memory pointed to.
+	std::string to_hex_string(const void* ptr, std::size_t byte_count);
+
+	// Returns a hexadecimal std::wstring of the memory pointed to.
+	std::wstring to_hex_wstring(const void* ptr, std::size_t byte_count);
 }

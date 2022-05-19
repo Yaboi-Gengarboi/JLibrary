@@ -1,7 +1,7 @@
 // JLibrary
 // Circle.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-28 by Justyn Durnford
+// Last modified on 2022-02-22 by Justyn Durnford
 // Module file for the Circle template class.
 
 module;
@@ -19,14 +19,14 @@ import Vector2;
 
 export namespace jlib
 {
-	// 
+	// Utility template class for representing, manipulating
+	// and computing with circles in 2-dimensional space.
 	template <arithmetic T> class Circle
 	{
 		public:
 
-		T x;
-		T y;
-		T r;
+		Vector2<T> center;
+		T radius;
 
 		// Default constructor.
 		// Sets the x component of the center of the Circle to 0.
@@ -34,28 +34,26 @@ export namespace jlib
 		// Sets the radius of the Circle to 0.
 		Circle()
 		{
-			r = static_cast<T>(0);
+			radius = T(0);
 		}
 
 		// 3-parameter constructor.
 		// Sets the x component of the center of the Circle to new_x.
 		// Sets the y component of the center of the Circle to new_y.
-		// Sets the radius of the Circle to new_r.
-		Circle(T new_x, T new_y, T new_r)
+		// Sets the radius of the Circle to new_radius.
+		Circle(T new_x, T new_y, T new_radius)
 		{
-			x = new_x;
-			y = new_y;
-			r = new_r;
+			center.set(new_x, new_y);
+			radius = new_radius;
 		}
 
-		// Point constructor.
-		// Sets the center of the Circle to the given point.
-		// Sets the radius of the Circle to new_r.
-		Circle(const Vector2<T>& center, T new_r)
+		// Vector2 constructor.
+		// Sets the center of the Circle to new_center.
+		// Sets the radius of the Circle to new_radius.
+		Circle(const Vector2<T>& new_center, T new_radius)
 		{
-			x = center.x;
-			y = center.y;
-			r = new_r;
+			center = new_center;
+			radius = new_radius;
 		}
 
 		// Constructs the Circle from another type of Circle.
@@ -64,68 +62,80 @@ export namespace jlib
 		template <arithmetic U>
 		explicit Circle(const Circle<U>& other)
 		{
-			x = static_cast<T>(other.x);
-			y = static_cast<T>(other.y);
-			r = static_cast<T>(other.r);
+			center.copyFrom(other.center);
+			radius = T(other.radius);
 		}
 
 		// Sets all the values of the Circle at once.
 		// Sets the x component of the center of the Circle to new_x.
 		// Sets the y component of the center of the Circle to new_y.
-		// Sets the radius of the Circle to new_r.
-		void set(T new_x, T new_y, T new_r)
+		// Sets the radius of the Circle to new_radius.
+		void set(T new_x, T new_y, T new_radius)
 		{
-			x = new_x;
-			y = new_y;
-			r = new_r;
+			center.set(new_x, new_y);
+			radius = new_radius;
 		}
 
 		// Sets all the values of the Circle at once.
-		// Sets the center of the Circle to the given point.
-		// Sets the radius of the Circle to new_r.
-		void set(const Vector2<T>& center, T new_r)
+		// Sets the center of the Circle to new_center.
+		// Sets the radius of the Circle to new_radius.
+		void set(const Vector2<T>& new_center, T new_radius)
 		{
-			x = center.x;
-			y = center.y;
-			r = new_r;
+			center = new_center;
+			radius = new_radius;
 		}
 
 		// Returns the circumference of the Circle.
-		float circumference() const
+		constexpr float circumference() const
 		{
-			return JLIB_2PI * std::fabsf(r);
+			return JLIB_2PI * std::fabsf(radius);
 		}
 
 		// Returns the area of the Circle.
-		float area() const
+		constexpr float area() const
 		{
-			return JLIB_PI * std::powf(std::fabsf(r), 2.0f);
+			return JLIB_PI * std::powf(std::fabsf(radius), 2.0f);
+		}
+
+		// Checks if the given point lies within or on the Circle.
+		bool contains(T x, T y)
+		{
+			return contains(Vector2<T>(x, y));
 		}
 
 		// Checks if the given point lies within or on the Circle.
 		template <arithmetic U>
-		bool contains(T X, T Y)
+		bool contains(U x, U y)
 		{
-			return std::powf(X - x, 2.f) + std::powf(Y - y, 2.0f) <= std::powf(std::fabsf(r), 2.0f);
+			return contains(Vector2<U>(x, y));
+		}
+
+		// Checks if the given point lies within or on the Circle.
+		bool contains(const Vector2<T>& point)
+		{
+			return distance(center, point) <= radius;
 		}
 
 		// Checks if the given point lies within or on the Circle.
 		template <arithmetic U>
-		bool contains(const Vector2<U>& P)
+		bool contains(const Vector2<U>& point)
 		{
-			return std::powf(P.x - x, 2.0f) + std::powf(P.y - y, 2.0f) <= std::powf(std::fabsf(r), 2.0f);
+			Vector2f A(center);
+			Vector2f B(point);
+
+			return distance(A, B) <= radius;
 		}
 
 		// Returns a std::string representation of the Circle.
 		std::string toString() const
 		{
-			return Vector2<T>(x, y).toString() + " @ " + std::to_string(std::fabsf(r));
+			return center.toString() + " @ " + std::to_string(std::fabsf(radius));
 		}
 
 		// Returns a std::wstring representation of the Circle.
 		std::wstring toWideString() const
 		{
-			return Vector2<T>(x, y).toWideString() + L" @ " + std::to_wstring(std::fabsf(r));
+			return center.toWideString() + L" @ " + std::to_wstring(std::fabsf(radius));
 		}
 	};
 
@@ -133,21 +143,21 @@ export namespace jlib
 	template <arithmetic T>
 	bool intersection(const Circle<T>& A, const Circle<T>& B)
 	{
-		return std::powf(std::fabsf(A.r) + std::fabsf(B.r), 2.0f) <= (std::powf(B.x - A.x, 2.0f) + std::powf(B.y - A.y, 2.0f));
+		return std::powf(std::fabsf(A.radius) + std::fabsf(B.radius), 2.0f) <= (std::powf(B.x - A.x, 2.0f) + std::powf(B.y - A.y, 2.0f));
 	}
 
 	// Overload of binary operator == 
 	template <arithmetic T>
 	bool operator == (const Circle<T>& A, const Circle<T>& B)
 	{
-		return (A.x == B.x) && (A.y == B.y) && (A.r == B.r);
+		return (A.center == B.center) && (A.radius == B.radius);
 	}
 
 	// Overload of binary operator != 
 	template <arithmetic T>
 	bool operator != (const Circle<T>& A, const Circle<T>& B)
 	{
-		return (A.x != B.x) || (A.y != B.y) || (A.r != B.r);
+		return (A.center != B.center) || (A.radius != B.radius);
 	}
 
 	// Overload of std::ostream operator <<

@@ -1,7 +1,7 @@
 // JLibrary
 // VectorN.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-17 by Justyn Durnford
+// Last modified on 2022-05-18 by Justyn Durnford
 // Module file for the VectorN template class.
 
 module;
@@ -9,19 +9,21 @@ module;
 #include "Arithmetic.hpp"
 #include "IntegerTypedefs.hpp"
 
+#include <algorithm>
+#include <array>
 #include <cmath>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
 export module VectorN;
 
-import FixedArray;
 import MiscTemplateFunctions;
 
 export namespace jlib
 {
 	// Utility template class for representing, manipulating
-	// and computing with vectors with N-dimensions.
+	// and computing with vectors with user-defined dimensions.
 	template <arithmetic T, std::size_t N> class VectorN
 	{
 		public:
@@ -33,23 +35,29 @@ export namespace jlib
 		using const_pointer = const value_type*;
 		using reference = value_type&;
 		using const_reference = const value_type&;
-		using iterator = value_type*;
-		using const_iterator = const value_type*;
-		using reverse_iterator = std::reverse_iterator<iterator>;
-		using const_reverse_iterator = const std::reverse_iterator<iterator>;
+		using iterator = std::array<T, N>::iterator;
+		using const_iterator = std::array<T, N>::const_iterator;
+		using reverse_iterator = std::array<T, N>::reverse_iterator;
+		using const_reverse_iterator = std::array<T, N>::const_reverse_iterator;
 
 		private:
 
-		FixedArray<T, N> _data;
+		std::array<T, N> _data;
 
 		public:
 
 		// Default constructor.
-		// Sets each component of the VectorN to 0.
 		VectorN()
 		{
 			for (size_type i = 0; i < N; ++i)
 				_data[i] = static_cast<T>(0);
+		}
+
+		// Value constructor.
+		// Sets every dimension of the VectorN to the given value.
+		VectorN(value_type value)
+		{
+			std::fill(_data.begin(), _data.end(), value);
 		}
 
 		// Constructs the VectorN from the given coordinates.
@@ -65,9 +73,15 @@ export namespace jlib
 				_data[i] = B._data[i] - A._data[i];
 		}
 
+		// Default copy constructor.
+		VectorN(const VectorN& other) = default;
+
+		// Default move constructor.
+		VectorN(VectorN&& other) = default;
+
 		// Constructs the VectorN from another type of VectorN.
 		// This constructor doesn't replace the copy constructor,
-		// it's called only when U != T.
+		// it's called only when U != charT or V != valT.
 		template <arithmetic U>
 		VectorN(const VectorN<U, N>& other)
 		{
@@ -81,6 +95,12 @@ export namespace jlib
 			return *this;
 		}
 
+		// Default copy assignment operator.
+		VectorN& operator = (const VectorN& other) = default;
+
+		// Default move assignment operator.
+		VectorN& operator = (VectorN&& other) = default;
+
 		// Copies the components of a different type of VectorN.
 		template <arithmetic U>
 		void copyFrom(const VectorN<U, N>& other)
@@ -89,134 +109,92 @@ export namespace jlib
 		}
 
 		// Returns the amount of dimensions the VectorN has.
-		size_type dimensions() const
+		constexpr size_type dimensions() const noexcept
 		{
 			return N;
 		}
 
 		// Returns the first element of the VectorN.
-		reference first()
+		constexpr reference front()
 		{
 			return _data[0];
 		}
 
 		// Returns the first element of the VectorN.
-		const_reference first() const
+		constexpr const_reference front() const
 		{
 			return _data[0];
 		}
 
 		// Returns the last element of the VectorN.
-		reference last()
+		constexpr reference back()
 		{
 			return _data[N - 1];
 		}
 
 		// Returns the last element of the VectorN.
-		const_reference last() const
+		constexpr const_reference back() const
 		{
 			return _data[N - 1];
 		}
 
 		// Returns the pointer to the elements of the VectorN.
-		pointer data()
+		constexpr pointer data() noexcept
 		{
 			return _data.data();
 		}
 
 		// Returns the pointer to the elements of the VectorN.
-		const_pointer data() const
+		constexpr const_pointer data() const noexcept
 		{
 			return _data.data();
 		}
 
 		// Returns an iterator pointing to the first element of the VectorN.
 		// Returns nullptr if the dimension count is 0.
-		iterator begin()
+		constexpr iterator begin() noexcept
 		{
-			return _data;
+			return _data.begin();
 		}
 
 		// Returns an iterator pointing to the first element of the VectorN.
 		// Returns nullptr if the dimension count is 0.
-		const_iterator begin() const
+		constexpr const_iterator begin() const noexcept
 		{
-			return _data;
+			return _data.cbegin();
 		}
 
 		// Returns an iterator pointing to the first element of the VectorN.
 		// Returns nullptr if the dimension count is 0.
-		const_iterator cbegin() const
+		constexpr const_iterator cbegin() const noexcept
 		{
-			return _data;
-		}
-
-		// Returns a reverse iterator pointing to the first element of the VectorN.
-		// Returns nullptr if the dimension count is 0.
-		reverse_iterator rbegin()
-		{
-			return _data;
-		}
-
-		// Returns a reverse iterator pointing to the first element of the VectorN.
-		// Returns nullptr if the dimension count is 0.
-		const_reverse_iterator rbegin() const
-		{
-			return _data;
-		}
-
-		// Returns a reverse iterator pointing to the first element of the VectorN.
-		// Returns nullptr if the dimension count is 0.
-		const_reverse_iterator crbegin() const
-		{
-			return _data;
+			return _data.cbegin();
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the VectorN.
 		// Returns nullptr if the dimension count is 0.
-		iterator end()
+		constexpr iterator end() noexcept
 		{
-			return _data + N;
+			return _data.end();
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the VectorN.
 		// Returns nullptr if the dimension count is 0.
-		const_iterator end() const
+		constexpr const_iterator end() const noexcept
 		{
-			return _data + N;
+			return _data.cend();
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the VectorN.
 		// Returns nullptr if the dimension count is 0.
-		const_iterator cend() const
+		constexpr const_iterator cend() const noexcept
 		{
-			return _data + N;
-		}
-
-		// Returns a reverse iterator pointing to 1 past the last element of the VectorN.
-		// Returns nullptr if the dimension count is 0.
-		reverse_iterator rend()
-		{
-			return _data + N;
-		}
-
-		// Returns a reverse iterator pointing to 1 past the last element of the VectorN.
-		// Returns nullptr if the dimension count is 0.
-		const_reverse_iterator rend() const
-		{
-			return _data + N;
-		}
-
-		// Returns a reverse iterator pointing to 1 past the last element of the VectorN.
-		// Returns nullptr if the dimension count is 0.
-		const_reverse_iterator crend() const
-		{
-			return _data + N;
+			return _data.cend();
 		}
 
 		// Returns the element at the given index.
 		// Throws a std::out_of_range if given an invalid index.
-		reference at(size_type index)
+		constexpr reference at(size_type index)
 		{
 			if (index >= N)
 				throw std::out_of_range("ERROR: Invalid VectorN index.");
@@ -225,7 +203,7 @@ export namespace jlib
 
 		// Returns the element at the given index.
 		// Throws a std::out_of_range if given an invalid index.
-		const_reference at(size_type index) const
+		constexpr const_reference at(size_type index) const
 		{
 			if (index >= N)
 				throw std::out_of_range("ERROR: Invalid VectorN index.");
@@ -234,80 +212,21 @@ export namespace jlib
 
 		// Sets the element at the given index to the given value.
 		// Throws a std::out_of_range if given an invalid index.
-		void set(size_type index, const_reference value)
+		constexpr void set(size_type index, const_reference value)
 		{
 			if (index >= N)
 				throw std::out_of_range("ERROR: Invalid VectorN index.");
 			_data[index] = value;
 		}
 
-		// Returns the magnitude of the VectorN.
-		float magnitude() const
-		{
-			float value = 0.0f;
-
-			for (size_type i = 0; i < N; ++i)
-				value += std::powf(_data[i], 2);
-
-			return std::sqrtf(value);
-		}
-
-		// Returns a unit vector in the direction of this VectorN.
-		VectorN<float, N> unitVector() const
-		{
-			float m = magnitude();
-			VectorN<float, N> new_vec(*this);
-
-			for (size_type i = 0; i < N; ++i)
-				new_vec[i] /= m;
-
-			return new_vec;
-		}
-
-		// Returns a std::string representation of the VectorN.
-		std::string toString() const
-		{
-			if (N == 0)
-				return "";
-			if (N == 1)
-				return '<' + std::to_string(_data[0]) + '>';
-
-			std::string str;
-
-			str += '<';
-			for (size_type i = 0; i < N - 1; ++i)
-				str += std::to_string(_data[i]) + ", ";
-			str += std::to_string(_data[N - 1]) + '>';
-
-			return str;
-		}
-
-		// Returns a std::wstring representation of the VectorN.
-		std::wstring toWideString() const
-		{
-			if (N == 0)
-				return L"";
-			if (N == 1)
-				return L'<' + std::to_wstring(_data[0]) + L'>';
-
-			std::wstring str;
-
-			str += L'<';
-			for (size_type i = 0; i < N - 1; ++i)
-				str += std::to_wstring(_data[i]) + L", ";
-			str += std::to_wstring(_data[N - 1]) + L'>';
-
-			return str;
-		}
-
 		// Returns the element at the given index.
-		reference operator [] (size_type index)
+		constexpr reference operator [] (size_type index)
 		{
 			return _data[index];
 		}
 
 		// Returns the element at the given index.
-		const_reference operator [] (size_type index) const
+		constexpr const_reference operator [] (size_type index) const
 		{
 			return _data[index];
 		}
@@ -316,17 +235,46 @@ export namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Returns the distance between the 2 given JVectorNs.
+	// Returns a VectorN whose elements are the absolute values of 
+	// each of the specified VectorN's elements.
 	template <arithmetic T, std::size_t N>
-	float distance(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	const VectorN<T, N>& abs(const VectorN<T, N>& vec)
 	{
-		VectorN<T, N> C(A, B);
-		return C.magnitude();
+		VectorN<T, N> new_vec;
+
+		for (std::size_t i = 0; i < N; ++i)
+			new_vec[i] = std::abs(vec[i]);
 	}
 
-	// Returns the dot product of the 2 given JVectorNs.
+	// Returns the scalar projection of A onto B.
 	template <arithmetic T, std::size_t N>
-	float dot_product(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	constexpr float comp_proj(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	{
+		return dot_product(A, B) / magnitude(B);
+	}
+
+	// Returns the distance between the 2 given VectorNs.
+	template <arithmetic T, std::size_t N>
+	constexpr float distance(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	{
+		return std::sqrtf(distance_squared(A, B));
+	}
+
+	// Returns the distance squared between the 2 given Vector2s, treated as points.
+	template <arithmetic T, std::size_t N>
+	constexpr float distance_squared(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	{
+		float result = 0.0f;
+
+		for (std::size_t i = 0; i < N; ++i)
+			result += std::powf(static_cast<float>(B[i] - A[i]), 2.0f);
+
+		return result;
+	}
+
+	// Returns the dot product of the 2 given VectorNs.
+	template <arithmetic T, std::size_t N>
+	constexpr float dot_product(const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
 		float value = 0.0f;
 
@@ -336,18 +284,125 @@ export namespace jlib
 		return value;
 	}
 
-	// Returns the scalar projection of A onto B.
+	// Returns the magnitude of the given VectorN.
 	template <arithmetic T, std::size_t N>
-	float comp_proj(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	constexpr float magnitude(const VectorN<T, N>& vec)
 	{
-		return dot_product(A, B) / B.magnitude();
+		float value = 0.0f;
+
+		for (std::size_t i = 0; i < N; ++i)
+			value += std::powf(static_cast<float>(vec[i]), 2);
+
+		return std::sqrtf(value);
+	}
+
+	// Returns a VectorN whose elements are the maximum of each of the 
+	// pairs of elements in two specified VectorNs.
+	template <arithmetic T, std::size_t N>
+	VectorN<T, N> max(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	{
+		VectorN<T, N> C;
+
+		for (std::size_t i = 0; i < N; ++i)
+			C[i] = std::max(A[i], B[i]);
+
+		return C;
+	}
+
+	// Returns a VectorN whose elements are the minimum of each of the 
+	// pairs of elements in two specified VectorNs.
+	template <arithmetic T, std::size_t N>
+	VectorN<T, N> min(const VectorN<T, N>& A, const VectorN<T, N>& B)
+	{
+		VectorN<T, N> C;
+
+		for (std::size_t i = 0; i < N; ++i)
+			C[i] = std::min(A[i], B[i]);
+
+		return C;
+	}
+
+	// Normalizes the VectorN by scaling each of its components so that it
+	// has a magnitude of 1.
+	template <arithmetic T, std::size_t N>
+	void normalize(VectorN<T, N>& vec)
+	{
+		const float m = magnitude(vec);
+
+		for (std::size_t i = 0; i < N; ++i)
+			vec[i] /= m;
+	}
+
+	// Prints the given VectorN to std::cout.
+	template <arithmetic T, std::size_t N>
+	void print(const VectorN<T, N>& vec)
+	{
+		std::cout << to_string(vec);
+	}
+
+	// Prints the given VectorN to std::cout with a newline.
+	template <arithmetic T, std::size_t N>
+	void println(const VectorN<T, N>& vec)
+	{
+		std::cout << to_string(vec) << '\n';
+	}
+
+	// Returns a std::string representation of the given VectorN.
+	template <arithmetic T, std::size_t N>
+	std::string to_string(const VectorN<T, N>& vec)
+	{
+		if (N == 0)
+			return "";
+		if (N == 1)
+			return '<' + std::to_string(vec[0]) + '>';
+
+		std::string str;
+
+		str += '<';
+		for (std::size_t i = 0; i < N - 1; ++i)
+			str += std::to_string(vec[i]) + ", ";
+		str += std::to_string(vec[N - 1]) + '>';
+
+		return str;
+	}
+
+	// Returns a std::wstring representation of the given VectorN.
+	template <arithmetic T, std::size_t N>
+	std::wstring to_wstring(const VectorN<T, N>& vec)
+	{
+		if (N == 0)
+			return L"";
+		if (N == 1)
+			return L'<' + std::to_wstring(vec[0]) + L'>';
+
+		std::wstring wstr;
+
+		wstr += L'<';
+		for (std::size_t i = 0; i < N - 1; ++i)
+			wstr += std::to_wstring(vec[i]) + L", ";
+		wstr += std::to_wstring(vec[N - 1]) + L'>';
+
+		return wstr;
+	}
+
+	// Returns a unit vector of the given VectorN.
+	template <arithmetic T, std::size_t N>
+	VectorN<float, N> unit_vector(const VectorN<T, N>& vec)
+	{
+		const float m = magnitude(vec);
+		VectorN<float, N> new_vec(vec);
+
+		for (std::size_t i = 0; i < N; ++i)
+			new_vec[i] /= m;
+
+		return new_vec;
 	}
 
 	// Returns the vector projection of A onto B.
 	template <arithmetic T, std::size_t N>
 	VectorN<float, N> vector_proj(const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
-		float f = (dot_product(A, B) / dot_product(A, A));
+		const float f = (dot_product(A, B) / dot_product(A, A));
 		VectorN<float, N> V;
 
 		for (std::size_t i(0); i < N; ++i)
@@ -366,7 +421,11 @@ export namespace jlib
 	typedef jlib::VectorN<u16, 4>    Vector4us;
 	typedef jlib::VectorN<i32, 4>    Vector4i;
 	typedef jlib::VectorN<u32, 4>    Vector4u;
+	typedef jlib::VectorN<i64, 4>    Vector4l;
+	typedef jlib::VectorN<u64, 4>    Vector4ul;
+	typedef jlib::VectorN<size_t, 4> Vector4uz;
 	typedef jlib::VectorN<float, 4>  Vector4f;
+	typedef jlib::VectorN<double, 4> Vector4d;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -401,28 +460,28 @@ export namespace jlib
 	template <arithmetic T, std::size_t N>
 	bool operator < (const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
-		return A.magnitude() < B.magnitude();
+		return magnitude(A) < magnitude(B);
 	}
 
 	// Overload of binary operator <=
 	template <arithmetic T, std::size_t N>
 	bool operator <= (const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
-		return A.magnitude() <= B.magnitude();
+		return magnitude(A) <= magnitude(B);
 	}
 
 	// Overload of binary operator >
 	template <arithmetic T, std::size_t N>
 	bool operator > (const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
-		return A.magnitude() > B.magnitude();
+		return magnitude(A) > magnitude(B);
 	}
 
 	// Overload of binary operator >=
 	template <arithmetic T, std::size_t N>
 	bool operator >= (const VectorN<T, N>& A, const VectorN<T, N>& B)
 	{
-		return A.magnitude() >= B.magnitude();
+		return magnitude(A) >= magnitude(B);
 	}
 
 	// Overload of unary operator -
@@ -577,7 +636,7 @@ export namespace jlib
 	template <arithmetic T, std::size_t N>
 	std::ostream& operator << (std::ostream& os, const VectorN<T, N>& A)
 	{
-		os << A.toString();
+		os << to_string(A);
 		return os;
 	}
 
@@ -585,7 +644,7 @@ export namespace jlib
 	template <arithmetic T, std::size_t N>
 	std::wostream& operator << (std::wostream& wos, const VectorN<T, N>& A)
 	{
-		wos << A.toWideString();
+		wos << to_wstring(A);
 		return wos;
 	}
 }

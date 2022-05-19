@@ -1,13 +1,14 @@
 // JLibrary
 // LinearEquation3.ixx
 // Created on 2022-01-19 by Justyn Durnford
-// Last modified on 2022-02-11 by Justyn Durnford
+// Last modified on 2022-03-04 by Justyn Durnford
 // Module file for the LinearEquation3 template class.
 
 module;
 
 #include "Arithmetic.hpp"
 
+#include <array>
 #include <cmath>
 #include <initializer_list>
 #include <ostream>
@@ -15,50 +16,65 @@ module;
 
 export module LinearEquation3;
 
-import FixedArray;
+import Equation;
 
 export namespace jlib
 {
 	// 
-	template <arithmetic T> class LinearEquation3
+	template <arithmetic T> class LinearEquation3 : public Equation<T>
 	{
 		public:
 
-		FixedArray<T, 3> coefficients;
-		FixedArray<T, 3> offsets;
+		std::array<T, 3> coefficients;
+		std::array<T, 3> offsets;
+		T w_offset;
 
 		// 
 		LinearEquation3()
 		{
-			coefficients = { static_cast<T>(0), static_cast<T>(0), static_cast<T>(0) };
-			offsets = { static_cast<T>(0), static_cast<T>(0), static_cast<T>(0) };
+			coefficients[0] = static_cast<T>(0);
+			coefficients[1] = static_cast<T>(0);
+			coefficients[2] = static_cast<T>(0);
+			offsets[0] = static_cast<T>(0);
+			offsets[1] = static_cast<T>(0);
+			offsets[2] = static_cast<T>(0);
+			w_offset = static_cast<T>(0);
 		}
 
 		//
-		LinearEquation3(T x_coeff, T y_coeff, T z_coeff, T x_off, T y_off, T z_off)
+		LinearEquation3(T x_coeff, T y_coeff, T z_coeff, T x_off, T y_off, T z_off, T w_off)
 		{
-			coefficients = { x_coeff, y_coeff, z_coeff };
-			offsets = { x_off, y_off, z_off };
+			coefficients[0] = x_coeff;
+			coefficients[1] = y_coeff;
+			coefficients[2] = z_coeff;
+			offsets[0] = x_off;
+			offsets[1] = y_off;
+			offsets[2] = z_off;
+			w_offset = w_off;
 		}
 
 		// 
-		LinearEquation3(std::initializer_list<T> new_coefficients, std::initializer_list<T> new_offsets)
+		LinearEquation3(std::initializer_list<T> new_coefficients, std::initializer_list<T> new_offsets, T w_off)
 		{
 			for (int i = 0; i < 3; ++i)
 			{
 				coefficients[i] = *(new_coefficients.begin() + i);
 				offsets[i] = *(new_offsets.begin() + i);
 			}
+
+			w_offset = w_off;
 		}
 
 		// 
-		LinearEquation3(const FixedArray<T, 3>& new_coefficients, const FixedArray<T, 3>& new_offsets)
+		LinearEquation3(const std::array<T, 3>& new_coefficients, const std::array<T, 3>& new_offsets, T w_off)
 		{
 			for (int i = 0; i < 3; ++i)
 			{
 				coefficients[i] = new_coefficients[i];
 				offsets[i] = new_offsets[i];
 			}
+
+			w_offset = w_off;
 		}
 
 		// 
@@ -136,7 +152,7 @@ export namespace jlib
 		// 
 		std::string toString() const
 		{
-			std::string str;
+			std::string str("w = ");
 
 			str += std::to_string(coefficients[0]) + "(x ";
 			if (offsets[0] > 0)
@@ -160,7 +176,12 @@ export namespace jlib
 			if (offsets[2] > 0)
 				str += "- " + std::to_string(offsets[2]) + ") = 0";
 			else
-				str += "+ " + std::to_string(std::abs(offsets[2])) + ") = 0";
+				str += "+ " + std::to_string(std::abs(offsets[2])) + ") ";
+
+			if (w_offset > 0)
+				str += "+ " + std::to_string(w_offset);
+			else
+				str += "- " + std::to_string(std::abs(w_offset));
 
 			return str;
 		}
@@ -168,7 +189,7 @@ export namespace jlib
 		// 
 		std::wstring toWideString() const
 		{
-			std::wstring wstr;
+			std::wstring wstr(L"w = ");
 
 			wstr += std::to_wstring(coefficients[0]) + L"(x ";
 			if (offsets[0] > 0)
@@ -192,7 +213,12 @@ export namespace jlib
 			if (offsets[2] > 0)
 				wstr += L"- " + std::to_wstring(offsets[2]) + L") = 0";
 			else
-				wstr += L"+ " + std::to_wstring(std::abs(offsets[2])) + L") = 0";
+				wstr += L"+ " + std::to_wstring(std::abs(offsets[2])) + L") ";
+
+			if (w_offset > 0)
+				wstr += L"+ " + std::to_wstring(w_offset);
+			else
+				wstr += L"- " + std::to_wstring(std::abs(w_offset));
 
 			return wstr;
 		}

@@ -1,14 +1,14 @@
 // JLibrary
 // Angle.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-15 by Justyn Durnford
 // Header file for the Angle class.
 
 #pragma once
 
 #include <array>
 #include <compare>
-#include <ostream>
+#include <iostream>
 #include <string>
 
 namespace jlib
@@ -25,6 +25,10 @@ namespace jlib
 	// Returns the sine and cosine of the given degree.
 	std::array<float, 2> sincos(float degree);
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Class that represents angles as degrees.
 	class Angle
 	{
 		public:
@@ -49,6 +53,9 @@ namespace jlib
 		std::wstring toWideString() const;
 	};
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Returns the sine of the Angle.
 	float sine(Angle angle);
 
@@ -58,13 +65,13 @@ namespace jlib
 	// Returns the tangent of the Angle.
 	float tangent(Angle angle);
 
-	// 
+	// Returns the arcsine of the given value.
 	Angle arcsine(float value);
 
-	// 
+	// Returns the arccosine of the given value.
 	Angle arccosine(float value);
 
-	// 
+	// Returns the arctangent of the given value.
 	Angle arctangent(float value);
 
 	// Returns the smallest of the two Angles.
@@ -72,91 +79,100 @@ namespace jlib
 
 	// Returns the largest of the two Angles.
 	Angle& greatest(Angle& A, Angle& B);
+
+	// Prints the Angle to std::cout.
+	void print(const Angle& angle);
+
+	// Prints the Angle to std::cout with a new line.
+	void println(const Angle& angle);
+
+	// Overload of binary operator ==
+	bool operator == (Angle A, Angle B);
+
+	// Overload of binary operator ==
+	bool operator == (Angle A, float degree);
+
+	// Overload of binary operator !=
+	bool operator != (Angle A, Angle B);
+
+	// Overload of binary operator !=
+	bool operator != (Angle A, float degree);
+
+	// Overload of binary operator <
+	bool operator < (Angle A, Angle B);
+
+	// Overload of binary operator <
+	bool operator < (Angle A, float degree);
+
+	// Overload of binary operator <=
+	bool operator <= (Angle A, Angle B);
+
+	// Overload of binary operator <=
+	bool operator <= (Angle A, float degree);
+
+	// Overload of binary operator >
+	bool operator > (Angle A, Angle B);
+
+	// Overload of binary operator >
+	bool operator > (Angle A, float degree);
+
+	// Overload of binary operator >=
+	bool operator >= (Angle A, Angle B);
+
+	// Overload of binary operator >=
+	bool operator >= (Angle A, float degree);
+
+	// Overload of binary operator <=>
+	std::strong_ordering operator <=> (Angle A, Angle B);
+
+	// Overload of binary operator <=>
+	std::strong_ordering operator <=> (Angle A, float degree);
+
+	// Overload of unary operator -
+	Angle operator - (Angle A);
+
+	// Overload of binary operator +
+	Angle operator + (Angle A, Angle B);
+
+	// Overload of binary operator +
+	Angle operator + (Angle A, float degree);
+
+	// Overload of binary operator -
+	Angle operator - (Angle A, Angle B);
+
+	// Overload of binary operator -
+	Angle operator - (Angle A, float degree);
+
+	// Overload of binary operator *
+	Angle operator * (Angle A, float scalar);
+
+	// Overload of binary operator /
+	Angle operator / (Angle A, float scalar);
+
+	// Overload of binary operator +=
+	Angle& operator += (Angle& A, Angle B);
+
+	// Overload of binary operator +=
+	Angle& operator += (Angle& A, float degree);
+
+	// Overload of binary operator -=
+	Angle& operator -= (Angle& A, Angle B);
+
+	// Overload of binary operator -=
+	Angle& operator -= (Angle& A, float degree);
+
+	// Overload of binary operator *=
+	Angle& operator *= (Angle& A, float scalar);
+
+	// Overload of binary operator /=
+	Angle& operator /= (Angle& A, float scalar);
+
+	// Overload of std::ostream operator <<
+	std::ostream& operator << (std::ostream& os, Angle A);
+
+	// Overload of std::wostream operator <<
+	std::wostream& operator << (std::wostream& wos, Angle A);
 }
 
-// Overload of binary operator ==
-bool operator == (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator ==
-bool operator == (jlib::Angle A, float degree);
-
-// Overload of binary operator !=
-bool operator != (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator !=
-bool operator != (jlib::Angle A, float degree);
-
-// Overload of binary operator <
-bool operator < (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator <
-bool operator < (jlib::Angle A, float degree);
-
-// Overload of binary operator <=
-bool operator <= (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator <=
-bool operator <= (jlib::Angle A, float degree);
-
-// Overload of binary operator >
-bool operator > (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator >
-bool operator > (jlib::Angle A, float degree);
-
-// Overload of binary operator >=
-bool operator >= (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator >=
-bool operator >= (jlib::Angle A, float degree);
-
-// Overload of binary operator <=>
-std::strong_ordering operator <=> (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator <=>
-std::strong_ordering operator <=> (jlib::Angle A, float degree);
-
-// Overload of unary operator -
-jlib::Angle operator - (jlib::Angle A);
-
-// Overload of binary operator +
-jlib::Angle operator + (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator +
-jlib::Angle operator + (jlib::Angle A, float degree);
-
-// Overload of binary operator -
-jlib::Angle operator - (jlib::Angle A, jlib::Angle B);
-
-// Overload of binary operator -
-jlib::Angle operator - (jlib::Angle A, float degree);
-
-// Overload of binary operator *
-jlib::Angle operator * (jlib::Angle A, float scalar);
-
-// Overload of binary operator /
-jlib::Angle operator / (jlib::Angle A, float scalar);
-
-// Overload of binary operator +=
-jlib::Angle& operator += (jlib::Angle& A, jlib::Angle B);
-
-// Overload of binary operator +=
-jlib::Angle& operator += (jlib::Angle& A, float degree);
-
-// Overload of binary operator -=
-jlib::Angle& operator -= (jlib::Angle& A, jlib::Angle B);
-
-// Overload of binary operator -=
-jlib::Angle& operator -= (jlib::Angle& A, float degree);
-
-// Overload of binary operator *=
-jlib::Angle& operator *= (jlib::Angle& A, float scalar);
-
-// Overload of binary operator /=
-jlib::Angle& operator /= (jlib::Angle& A, float scalar);
-
-// Overload of std::ostream operator <<
-std::ostream& operator << (std::ostream& os, jlib::Angle A);
-
-// Overload of std::wostream operator <<
-std::wostream& operator << (std::wostream& wos, jlib::Angle A);
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////

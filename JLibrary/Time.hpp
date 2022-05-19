@@ -1,7 +1,7 @@
 // JLibrary
 // Time.hpp
 // Created on 2022-02-12 by Justyn Durnford
-// Last modified on 2022-02-13 by Justyn Durnford
+// Last modified on 2022-02-23 by Justyn Durnford
 // Header file that includes classes and functions
 // dealing with time.
 
@@ -166,28 +166,46 @@ namespace jlib
 		// since the timer was last started.
 		Duration getElapsedTime() const;
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 		// Returns the current second.
-		u8 getCurrentSecond() const;
+		static u8 getCurrentSecond();
 
 		// Returns the current minute.
-		u8 getCurrentMinute() const;
+		static u8 getCurrentMinute();
 
 		// Returns the current hour.
-		u8 getCurrentHour() const;
+		static u8 getCurrentHour();
 
 		// Returns the current time.
-		Time getCurrentTime() const;
+		static Time getCurrentTime();
 
 		// Returns the current day.
-		u8 getCurrentDay() const;
+		static u8 getCurrentDay();
 
 		// Returns the current month.
-		u8 getCurrentMonth() const;
+		static u8 getCurrentMonth();
 
 		// Returns the current year.
-		u32 getCurrentYear() const;
+		static u32 getCurrentYear();
 
 		// Returns the current date.
-		Date getCurrentDate() const;
+		static Date getCurrentDate();
 	};
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	// 
+	void print(const Time& time);
+
+	// 
+	void println(const Time& time);
+
+	// 
+	void print(const Date& date);
+
+	// 
+	void println(const Date& date);
 }

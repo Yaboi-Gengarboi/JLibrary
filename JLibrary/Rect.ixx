@@ -1,7 +1,7 @@
 // JLibrary
 // Rect.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-28 by Justyn Durnford
+// Last modified on 2022-02-22 by Justyn Durnford
 // Module file for the Rect template class.
 
 module;
@@ -14,73 +14,68 @@ module;
 #include "IntegerTypedefs.hpp"
 
 #include <algorithm>
+#include <array>
 #include <ostream>
 #include <string>
 
 export module Rect;
 
-import FixedArray;
 import Vector2;
 
 export namespace jlib
 {
-	// 
+	// Utility template class for representing, manipulating
+	// and computing with rectangles in 2-dimensional space.
 	template <arithmetic T> class Rect
 	{
 		public:
 
-		T x;
-		T y;
-		T w;
-		T h;
+		Vector2<T> vertex;
+		T length;
+		T height;
 
 		// Default constructor.
 		// Sets the x component of the vertex of the Rect to 0.
 		// Sets the y component of the vertex of the Rect to 0.
-		// Sets the width of the Rect to 0.
+		// Sets the length of the Rect to 0.
 		// Sets the height of the Rect to 0.
 		Rect()
 		{
-			x = static_cast<T>(0);
-			y = static_cast<T>(0);
-			w = static_cast<T>(0);
-			h = static_cast<T>(0);
+			length = T(0);
+			height = T(0);
 		}
 
 		// 4-parameter constructor.
 		// Sets the x component of the vertex of the Rect to new_x.
 		// Sets the y component of the vertex of the Rect to new_y.
-		// Sets the width of the Rect to new_w.
-		// Sets the height of the Rect to new_h.
-		Rect(T new_x, T new_y, T new_w, T new_h)
+		// Sets the length of the Rect to new_length.
+		// Sets the height of the Rect to new_height.
+		Rect(T new_x, T new_y, T new_length, T new_height)
 		{
-			x = new_x;
-			y = new_y;
-			w = new_w;
-			h = new_h;
+			vertex.set(new_x, new_y);
+			length = new_length;
+			height = new_height;
 		}
 
 		// Single Vector2 constructor.
-		// Sets the vertex of the Rect to the given point.
-		// Sets the width of the Rect to new_w.
-		// Sets the height of the Rect to new_h.
-		Rect(const Vector2<T>& vertex, T new_w, T new_h)
+		// Sets the vertex of the Rect to new_vertex.
+		// Sets the length of the Rect to new_length.
+		// Sets the height of the Rect to new_height.
+		Rect(const Vector2<T>& new_vertex, T new_length, T new_height)
 		{
-			x = vertex.x;
-			y = vertex.y;
-			w = new_w;
-			h = new_h;
+			vertex = new_vertex;
+			length = new_length;
+			height = new_height;
 		}
 
 		// Double Vector2 constructor.
-		// Sets the vertex of the Rect to the given point.
+		// Sets the vertex of the Rect to new_vertex.
 		// Sets the dimensions of the Rect to the given dimensions.
-		Rect(const Vector2<T>& vertex, const Vector2<T>& dimensions)
+		Rect(const Vector2<T>& new_vertex, const Vector2<T>& dimensions)
 		{
-			x = vertex.x;
-			y = vertex.y;
-			w = dimensions.x;
-			h = dimensions.y;
+			vertex = new_vertex;
+			length = dimensions.x;
+			height = dimensions.y;
 		}
 
 		// Default copy constructor.
@@ -95,10 +90,9 @@ export namespace jlib
 		template <arithmetic U>
 		explicit Rect(const Rect<U>& other)
 		{
-			x = static_cast<T>(other.x);
-			y = static_cast<T>(other.y);
-			w = static_cast<T>(other.w);
-			h = static_cast<T>(other.h);
+			vertex.copyFrom(other.vertex);
+			length = T(other.length);
+			height = T(other.height);
 		}
 
 		// Default copy assignment operator.
@@ -113,92 +107,89 @@ export namespace jlib
 		// Sets all the values of the Rect at once.
 		// Sets the x component of the vertex of the Rect to new_x.
 		// Sets the y component of the vertex of the Rect to new_y.
-		// Sets the width of the Rect to new_w.
-		// Sets the height of the Rect to new_h.
-		void set(T new_x, T new_y, T new_w, T new_h)
+		// Sets the length of the Rect to new_length.
+		// Sets the height of the Rect to new_height.
+		void set(T new_x, T new_y, T new_length, T new_height)
 		{
-			x = new_x;
-			y = new_y;
-			w = new_w;
-			h = new_h;
+			vertex.set(new_x, new_y);
+			length = new_length;
+			height = new_height;
 		}
 
 		// Sets the x component of the vertex of the Rect to new_x.
 		// Sets the y component of the vertex of the Rect to new_y.
 		void setVertex(T new_x, T new_y)
 		{
-			x = new_x;
-			y = new_y;
+			vertex.set(new_x, new_y);
 		}
 
-		// Sets the vertex of the Rect to the given point.
-		void setVertex(const Vector2<T>& vertex)
+		// Sets the vertex of the Rect to new_vertex.
+		void setVertex(const Vector2<T>& new_vertex)
 		{
-			x = vertex.x;
-			y = vertex.y;
+			vertex = new_vertex;
 		}
 
-		// Sets the width of the Rect to new_w.
-		// Sets the height of the Rect to new_h.
-		void setDimensions(T new_w, T new_h)
+		// Sets the length of the Rect to new_length.
+		// Sets the height of the Rect to new_height.
+		void setDimensions(T new_length, T new_height)
 		{
-			w = new_w;
-			h = new_h;
+			length = new_length;
+			height = new_height;
 		}
 
 		// Sets the dimensions of the Rect to the given dimensions.
 		void setDimensions(const Vector2<T>& dimensions)
 		{
-			w = dimensions.x;
-			h = dimensions.y;
+			length = dimensions.x;
+			height = dimensions.y;
 		}
 
 		// Returns the perimeter of the Rect.
-		float perimeter() const
+		constexpr float perimeter() const
 		{
-			return 2.0f * (w + h);
+			return 2.0f * (length + height);
 		}
 
 		// Returns the area of the Rect.
-		float area() const
+		constexpr float area() const
 		{
-			return w * h;
+			return length * height;
 		}
 
 		// Returns the top-left vertex of the Rect.
 		Vector2<T> topLeft() const
 		{
-			return Vector2<T>(std::min(x, x + w), std::min(y, y + h));
+			return Vector2<T>(std::min(vertex.x, vertex.x + length), std::min(vertex.y, vertex.y + height));
 		}
 
 		// Returns the top-right vertex of the Rect.
 		Vector2<T> topRight() const
 		{
-			return Vector2<T>(std::max(x, x + w), std::min(y, y + h));
+			return Vector2<T>(std::max(vertex.x, vertex.x + length), std::min(vertex.y, vertex.y + height));
 		}
 
 		// Returns the bottom-left vertex of the Rect.
 		Vector2<T> bottomLeft() const
 		{
-			return Vector2<T>(std::min(x, x + w), std::max(y, y + h));
+			return Vector2<T>(std::min(vertex.x, vertex.x + length), std::max(vertex.y, vertex.y + height));
 		}
 
 		// Returns the bottom-right vertex of the Rect.
 		Vector2<T> bottomRight() const
 		{
-			return Vector2<T>(std::max(x, x + w), std::max(y, y + h));
+			return Vector2<T>(std::max(vertex.x, vertex.x + length), std::max(vertex.y, vertex.y + height));
 		}
 
 		// Returns the dimensions of the Rect.
 		Vector2<T> dimensions() const
 		{
-			return Vector2<T>(w, h);
+			return Vector2<T>(length, height);
 		}
 
 		// Returns a FixedArray containing the vertices of the Rect.
-		FixedArray<Vector2<T>, 4> getVertices() const
+		std::array<Vector2<T>, 4> getVertices() const
 		{
-			FixedArray<Vector2<T>, 4> arr;
+			std::array<Vector2<T>, 4> arr;
 
 			arr[0] = topLeft();
 			arr[1] = topRight();
@@ -209,34 +200,51 @@ export namespace jlib
 		}
 
 		// Checks if the given point lies within or on the Rect.
-		template <arithmetic U>
-		bool contains(U X, U Y)
+		bool contains(T x, T y)
 		{
-			T minX = std::min(x, static_cast<T>(x + w));
-			T maxX = std::max(x, static_cast<T>(x + w));
-			T minY = std::min(y, static_cast<T>(y + h));
-			T maxY = std::max(y, static_cast<T>(y + h));
+			T min_x = std::min(vertex.x, vertex.x + length);
+			T max_x = std::max(vertex.x, vertex.x + length);
+			T min_y = std::min(vertex.y, vertex.y + height);
+			T max_y = std::max(vertex.y, vertex.y + height);
 
-			return (x >= minX) && (x < maxX) && (y >= minY) && (y < maxY);
+			return (x >= min_x) && (x <= max_x) && (y >= min_y) && (y <= max_y);
+		}
+
+		// Checks if the given point lies within or on the Rect.
+		template <arithmetic U>
+		bool contains(U x, U y)
+		{
+			float min_x = std::min(float(vertex.x), float(vertex.x + length));
+			float max_x = std::max(float(vertex.x), float(vertex.x + length));
+			float min_y = std::min(float(vertex.y), float(vertex.y + height));
+			float max_y = std::max(float(vertex.y), float(vertex.y + height));
+
+			return (x >= min_x) && (x <= max_x) && (y >= min_y) && (y <= max_y);
+		}
+
+		// Checks if the given point lies within or on the Rect.
+		bool contains(const Vector2<T>& point)
+		{
+			return contains(point.x, point.y);
 		}
 
 		// Checks if the given point lies within or on the Rect.
 		template <arithmetic U>
 		bool contains(const Vector2<U>& point)
 		{
-			return contains(point.x, point.y);
+			return contains(float(point.x), float(point.y));
 		}
 
 		// Returns a std::string representation of the Rect.
 		std::string toString() const
 		{
-			return Vector2<T>(x, y).toString() + ", [" + std::to_string(w) + " x " + std::to_string(h) + ']';
+			return vertex.toString() + ", [" + std::to_string(length) + " x " + std::to_string(height) + ']';
 		}
 
 		// Returns a std::wstring representation of the Rect.
 		std::wstring toWideString() const
 		{
-			return Vector2<T>(x, y).toWideString() + L", [" + std::to_wstring(w) + L" x " + std::to_wstring(h) + L']';
+			return vertex.toWideString() + L", [" + std::to_wstring(length) + L" x " + std::to_wstring(height) + L']';
 		}
 	};
 
@@ -249,27 +257,34 @@ export namespace jlib
 		Vector2<T> ABR(A.bottomRight());
 		Vector2<T> BBR(B.bottomRight());
 
-		if ((ABR.x < BTL.x) || (ABR.y < BTL.y) || (BBR.x < ATL.x) || (BBR.y < ATL.y))
+		if ((ABR.vertex.x < BTL.vertex.x) || (ABR.vertex.y < BTL.vertex.y) || 
+			(BBR.vertex.x < ATL.vertex.x) || (BBR.vertex.y < ATL.vertex.y))
 			return false;
 		return true;
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	typedef jlib::Rect<i32>       IntRect;
 	typedef jlib::Rect<u32>       UIntRect;
 	typedef jlib::Rect<float>     FloatRect;
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Overload of binary operator ==
 	template <arithmetic T>
 	bool operator == (const Rect<T>& A, const Rect<T>& B)
 	{
-		return (A.x == B.x) && (A.y == B.y) && (A.w == B.w) && (A.h == B.h);
+		return (A.vertex == B.vertex) && (A.length == B.length) && (A.height == B.height);
 	}
 
 	// Overload of binary operator !=
 	template <arithmetic T>
 	bool operator != (const Rect<T>& A, const Rect<T>& B)
 	{
-		return (A.x != B.x) || (A.y != B.y) || (A.w != B.w) || (A.h != B.h);
+		return (A.vertex != B.vertex) || (A.length != B.length) || (A.height != B.height);
 	}
 
 	// Overload of std::ostream operator <<

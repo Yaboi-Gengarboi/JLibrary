@@ -36,9 +36,6 @@
     <ClCompile Include="Hexadecimal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MiscStringFunctions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Array.ixx">
       <Filter>Module Files</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
     <ClCompile Include="Vector3.ixx">
       <Filter>Module Files</Filter>
     </ClCompile>
-    <ClCompile Include="VectorN.ixx">
-      <Filter>Module Files</Filter>
-    </ClCompile>
     <ClCompile Include="Plane.ixx">
       <Filter>Module Files</Filter>
     </ClCompile>
@@ -97,9 +91,6 @@
       <Filter>Module Files</Filter>
     </ClCompile>
     <ClCompile Include="ComplexNumber.ixx">
-      <Filter>Module Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IDClass.ixx">
       <Filter>Module Files</Filter>
     </ClCompile>
     <ClCompile Include="Equation.ixx">
@@ -114,11 +105,47 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Conversions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearEquation2.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ColumnIterator.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorN.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MiscStringFunctions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Angle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -149,7 +176,31 @@
     <ClInclude Include="Arithmetic.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Size_tLiteral.hpp">
+    <ClInclude Include="Chance.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Conversions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Literals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="String.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,14 @@
 // JLibrary
 // Array.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-27 by Justyn Durnford
+// Last modified on 2022-03-17 by Justyn Durnford
 // Module file for the Array template class.
 
 module;
 
 #include <algorithm>
+#include <compare>
+#include <concepts>
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
@@ -228,6 +230,18 @@ export namespace jlib
 			return _data;
 		}
 
+		// Returns a pointer to 1 past the last element of the Array.
+		constexpr pointer dataEnd() noexcept
+		{
+			return _data + _size;
+		}
+
+		// Returns a pointer to 1 past the last element of the Array.
+		constexpr const_pointer dataEnd() const noexcept
+		{
+			return _data + _size;
+		}
+
 		// Returns an iterator pointing to the first element of the Array.
 		// Returns nullptr if the Array is empty.
 		constexpr iterator begin() noexcept
@@ -406,37 +420,8 @@ export namespace jlib
 		}
 	};
 
-	// Overload of binary operator ==
-	template <typename T>
-	bool operator == (const Array<T>& A, const Array<T>& B)
-	{
-		if (A.size() != B.size())
-			return false;
-
-		for (std::size_t i = 0; i < A.size(); ++i)
-		{
-			if (A[i] != B[i])
-				return false;
-		}
-
-		return true;
-	}
-
-	// Overload of binary operator !=
-	template <typename T>
-	bool operator != (const Array<T>& A, const Array<T>& B)
-	{
-		if (A.size() != B.size())
-			return true;
-
-		for (std::size_t i = 0; i < A.size(); ++i)
-		{
-			if (A[i] != B[i])
-				return true;
-		}
-
-		return false;
-	}
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Prints the contents of the Array using the std::cout ostream.
 	// This code will not compile if type T does not overload the 
@@ -454,5 +439,148 @@ export namespace jlib
 	void print_array_wide(const Array<T>& arr)
 	{
 		jlib::print_array_wide(arr.data(), arr.size());
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Overload of binary operator ==
+	template <std::totally_ordered T>
+	bool operator == (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() != B.size())
+			return false;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] != B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator !=
+	template <std::totally_ordered T>
+	bool operator != (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() != B.size())
+			return true;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] != B[i])
+				return true;
+		}
+
+		return false;
+	}
+
+	// Overload of binary operator <
+	template <std::totally_ordered T>
+	bool operator < (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() < B.size())
+			return true;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] >= B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator <=
+	template <std::totally_ordered T>
+	bool operator <= (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() < B.size())
+			return true;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] > B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator >
+	template <std::totally_ordered T>
+	bool operator > (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() > B.size())
+			return true;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] <= B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator >=
+	template <std::totally_ordered T>
+	bool operator >= (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() > B.size())
+			return true;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] < B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator <=>
+	template <std::totally_ordered T>
+	std::strong_ordering operator <=> (const Array<T>& A, const Array<T>& B)
+	{
+		if (A.size() < B.size())
+			return std::strong_ordering::less;
+		if (A.size() > B.size())
+			return std::strong_ordering::greater;
+
+		for (std::size_t i = 0; i < A.size(); ++i)
+		{
+			if (A[i] < B[i])
+				return std::strong_ordering::less;
+			else if (A[i] > B[i])
+				return std::strong_ordering::greater;
+		}
+
+		return std::strong_ordering::equal;
+	}
+
+	// Overload of std::ostream operator <<
+	template <std::totally_ordered T>
+	std::ostream& operator << (std::ostream& os, const Array<T>& A)
+	{
+		os << "{ ";
+
+		for (std::size_t i = 0; i < A.size() - 1; ++i)
+			os << A[i] << ", ";
+
+		os << A[A.size() - 1] << " }\n";
+	}
+
+	// Overload of std::wostream operator <<
+	template <std::totally_ordered T>
+	std::wostream& operator << (std::wostream& wos, const Array<T>& A)
+	{
+		wos << L"{ ";
+
+		for (std::size_t i = 0; i < A.size() - 1; ++i)
+			wos << A[i] << L", ";
+
+		wos << A[A.size() - 1] << L" }\n";
 	}
 }

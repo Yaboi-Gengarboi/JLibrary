@@ -1,7 +1,7 @@
 // JLibrary
 // Ptr.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-04-11 by Justyn Durnford
 // Module file for the Ptr template class.
 
 module;
@@ -67,25 +67,25 @@ export namespace jlib
 		~Ptr() = default;
 
 		// Resets the pointer to nullptr.
-		void reset()
+		constexpr void reset() noexcept
 		{
 			_ptr = nullptr;
 		}
 
 		// Returns the underlying raw-pointer.
-		T* get()
+		constexpr T* get() noexcept
 		{
 			return _ptr;
 		}
 
 		// Returns the underlying raw-pointer.
-		const T* get() const
+		constexpr const T* get() const noexcept
 		{
 			return _ptr;
 		}
 
 		// Releases and returns the underlying raw-pointer.
-		T* release()
+		constexpr T* release() noexcept
 		{
 			T* ptr = _ptr;
 			_ptr = nullptr;
@@ -93,31 +93,55 @@ export namespace jlib
 		}
 
 		// Dereference operator.
-		T& operator * ()
+		constexpr T& operator * () noexcept
 		{
 			return *_ptr;
 		}
 
 		// Dereference operator.
-		const T& operator * () const
+		constexpr const T& operator * () const noexcept
 		{
 			return *_ptr;
 		}
 
 		// Structure pointer dereference operator.
-		T* operator -> ()
+		constexpr T* operator -> () noexcept
 		{
 			return _ptr;
 		}
 
+		// Structure pointer dereference operator.
+		constexpr const T* operator -> () const noexcept
+		{
+			return _ptr;
+		}
+
+		// Subscript operator.
+		constexpr T& operator [] (std::ptrdiff_t offset) noexcept
+		{
+			return _ptr[offset];
+		}
+
+		// Subscript operator.
+		constexpr const T& operator [] (std::ptrdiff_t offset) const noexcept
+		{
+			return _ptr[offset];
+		}
+
 		// Conversion operator to implicitly convert the pointer to its raw pointer type (T*).
-		operator T* () const
+		constexpr operator T* () noexcept
 		{
 			return static_cast<T*>(_ptr);
 		}
 
+		// Conversion operator to implicitly convert the pointer to its raw pointer type (T*).
+		constexpr operator const T* () const noexcept
+		{
+			return static_cast<const T*>(_ptr);
+		}
+
 		// Returns true if the Pointer != nullptr.
-		operator bool() const
+		constexpr operator bool() const
 		{
 			return _ptr != nullptr;
 		}
@@ -152,6 +176,26 @@ export namespace jlib
 			return p;
 		}
 	};
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Prints the value of the pointer to std::cout.
+	template <typename T>
+	void print(const Ptr<T>& pointer)
+	{
+		std::cout << pointer.get();
+	}
+
+	// Prints the value of the pointer to std::cout with a new line.
+	template <typename T>
+	void println(const Ptr<T>& pointer)
+	{
+		std::cout << pointer.get() << '\n';
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Overload of binary operator +
 	template <typename T>

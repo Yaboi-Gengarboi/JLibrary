@@ -1,7 +1,7 @@
 // JLibrary
 // Gamepad.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-16 by Justyn Durnford
 // Header file for the Joystick and Gamepad classes.
 
 #pragma once
@@ -20,7 +20,7 @@ import Vector2;
 
 namespace jlib
 {
-	// 
+	// Class that represents a controller joystick.
 	class Joystick
 	{
 		public:
@@ -71,7 +71,7 @@ namespace jlib
 
 namespace jlib
 {
-	// 
+	// Class that represents a gamepad controller.
 	class Gamepad
 	{
 		public:
@@ -99,7 +99,6 @@ namespace jlib
 
 		u8 _port;
 		XINPUT_STATE _state;
-		WORD _oldButtonStates;
 
 		public:
 
@@ -120,31 +119,31 @@ namespace jlib
 		// Sets the values of each Trigger to 0.0f.
 		Gamepad(u8 Port, float lx_dz, float ly_dz, float rx_dz, float ry_dz);
 
-		// 
+		// Returns true if the gamepad is connected.
 		bool isConnected();
 
-		// 
+		// Returns the port ID of the gamepad.
 		u8 getPort() const;
 
-		// 
+		// Returns the state of the gamepad.
 		XINPUT_STATE getState() const;
 
-		// 
+		// Returns true if the given button has been pressed.
 		bool isButtonPressed(Button button) const;
 
-		// 
-		bool isButtonHeld(Button button) const;
+		// Returns the states of the gamepad's buttons.
+		WORD getButtonStates() const;
 
-		// 
-		bool isButtonReleased(Button button) const;
-
-		// 
+		// Updates the gamepad.
 		void update();
 	};
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Overload of binary operator ==
+	bool operator == (const Gamepad& A, const Gamepad& B);
+
+	// Overload of binary operator !=
+	bool operator != (const Gamepad& A, const Gamepad& B);
 }
-
-// Overload of binary operator ==
-bool operator == (const jlib::Gamepad& A, const jlib::Gamepad& B);
-
-// Overload of binary operator !=
-bool operator != (const jlib::Gamepad& A, const jlib::Gamepad& B);

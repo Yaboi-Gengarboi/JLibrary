@@ -1,8 +1,8 @@
 // JLibrary
 // Fraction.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-28 by Justyn Durnford
-// Module file for the Fraction template class.
+// Last modified on 2022-04-19 by Justyn Durnford
+// Module file for the Fraction template struct.
 
 module;
 
@@ -11,20 +11,18 @@ module;
 #include <cmath>
 #include <compare>
 #include <concepts>
-#include <ostream>
+#include <iostream>
 #include <string>
 
 export module Fraction;
 
 export namespace jlib
 {
-	// This class provides an "exact" representation of the quotient of two 
+	// This struct provides an "exact" representation of the quotient of two 
 	// integers by storing them and allowing fraction arithmetic with them. 
 	// Use the member function result() to obtain the result of the fraction.
-	template <std::integral T> class Fraction
+	template <std::integral T> struct Fraction
 	{
-		public:
-
 		T numer;
 		T denom;
 
@@ -84,13 +82,6 @@ export namespace jlib
 			denom = new_denom;
 		}
 
-		// Copies the components of another Fraction.
-		void copyFrom(const Fraction& other)
-		{
-			numer = other.numer;
-			denom = other.denom;
-		}
-
 		// Copies the components of a different type of Fraction.
 		template <std::integral U>
 		void copyFrom(const Fraction<U>& other)
@@ -99,7 +90,7 @@ export namespace jlib
 			denom = static_cast<T>(other.denom);
 		}
 
-		//
+		// Adds the given Fraction onto this one.
 		void add(const Fraction& other)
 		{
 			if (denom == other.denom)
@@ -115,7 +106,7 @@ export namespace jlib
 			}
 		}
 
-		//
+		// Subtracts the given Fraction onto this one.
 		void subtract(const Fraction& other)
 		{
 			if (denom == other.denom)
@@ -131,61 +122,18 @@ export namespace jlib
 			}
 		}
 
-		//
+		// Multiplies the given Fraction onto this one.
 		void multiply(const Fraction& other)
 		{
 			numer *= other.numer;
 			denom *= other.denom;
 		}
 
-		//
+		// Divides the given Fraction onto this one.
 		void divide(const Fraction& other)
 		{
 			numer *= other.denom;
 			denom *= other.numer;
-		}
-
-		// Raises both the numerator and denominator of the Fraction to the nth power.
-		template <std::unsigned_integral U> void power(U N)
-		{
-			if (N == 1)
-				return;
-			else if (N == 0)
-			{
-				numer = static_cast<U>(1);
-				denom = static_cast<U>(1);
-				return;
-			}
-			else
-			{
-				numer = std::pow(numer, N);
-				denom = std::pow(denom, N);
-			}
-		}
-
-		// Returns the result of the Fraction as a float.
-		// This function may throw if a division by 0 is attempted.
-		float result() const
-		{
-			return static_cast<float>(numer) / static_cast<float>(denom);
-		}
-
-		// Returns true if the denominator of the Fraction is NOT 0.
-		bool isValid() const
-		{
-			return (denom != 0);
-		}
-
-		// Returns a std::string representation of the Fraction.
-		std::string toString() const
-		{
-			return std::to_string(numer) + " / " + std::to_string(denom);
-		}
-
-		// Returns a std::wstring representation of the Fraction.
-		std::wstring toWideString() const
-		{
-			return std::to_wstring(numer) + L" / " + std::to_wstring(denom);
 		}
 
 		// Preincrement operator.
@@ -224,11 +172,70 @@ export namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Converts the given Fraction to another type of Fraction.
-	template <arithmetic T, arithmetic U>
-	Fraction<T> convert(const Fraction<U>& A)
+	// Returns a Fraction whose elements are the absolute values of 
+	// each of the specified Fraction elements.
+	template <arithmetic T>
+	inline Fraction<T> abs(const Fraction<T>& frac)
 	{
-		return Fraction<T>(static_cast<T>(A.numer), static_cast<T>(A.denom));
+		return Fraction<T>(std::abs(frac.numer), std::abs(frac.denom));
+	}
+
+	// Compares the given Fractions and returns a std::strong_ordering 
+	// describing the comparison.
+	template <arithmetic T>
+	inline std::strong_ordering compare(const Fraction<T>& A, const Fraction<T>& B)
+	{
+		return result(A) <=> result(B);
+	}
+
+	// Returns true if the denominator of the Fraction is NOT 0.
+	template <arithmetic T>
+	constexpr bool is_valid(const Fraction<T>& frac)
+	{
+		return frac.denom != 0;
+	}
+
+	// Returns the given Fraction raised to the given power.
+	template <std::integral T, std::unsigned_integral U>
+	inline Fraction<T> pow(const Fraction<T>& frac, U power)
+	{
+		return Fraction<T>(std::pow(frac.numer, power), std::pow(frac.denom, power));
+	}
+
+	// Prints the given Fraction to the std::cout ostream.
+	template <std::integral T>
+	inline void print(const Fraction<T>& frac)
+	{
+		std::cout << to_string(frac);
+	}
+
+	// Prints the given Fraction to the std::cout ostream with a newline.
+	template <std::integral T>
+	inline void println(const Fraction<T>& frac)
+	{
+		std::cout << to_string(frac) << '\n';
+	}
+
+	// Returns the result of the given Fraction as a float.
+	// This function may throw if a division by 0 is attempted.
+	template <std::integral T>
+	constexpr float result(const Fraction<T>& frac)
+	{
+		return static_cast<float>(frac.numer) / static_cast<float>(frac.denom);
+	}
+
+	// Returns a std::string representation of the given Fraction.
+	template <arithmetic T>
+	inline std::string to_string(const Fraction<T>& frac)
+	{
+		return std::to_string(frac.numer) + " / " + std::to_string(frac.denom);
+	}
+
+	// Returns a std::wstring representation of the given Fraction.
+	template <arithmetic T>
+	inline std::wstring to_wstring(const Fraction<T>& frac)
+	{
+		return std::to_wstring(frac.numer) + L" / " + std::to_wstring(frac.denom);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -322,26 +329,14 @@ export namespace jlib
 	template <std::integral T>
 	std::strong_ordering operator <=> (const Fraction<T>& A, const Fraction<T>& B)
 	{
-		if (A.result() < B.result())
-			return std::strong_ordering::less;
-
-		if (A.result() > B.result())
-			return std::strong_ordering::greater;
-
-		return std::strong_ordering::equal;
+		return result(A) <=> result(B);
 	}
 
 	// Overload of binary operator <=>
 	template <std::integral T>
 	std::strong_ordering operator <=> (const Fraction<T>& A, float B)
 	{
-		if (A.result() < B)
-			return std::strong_ordering::less;
-
-		if (A.result() > B)
-			return std::strong_ordering::greater;
-
-		return std::strong_ordering::equivalent;
+		return result(A) <=> B;
 	}
 
 	// Overload of unary operator -
@@ -493,17 +488,17 @@ export namespace jlib
 
 	// Overload of std::ostream operator << 
 	template <std::integral T>
-	std::ostream& operator << (std::ostream& os, const Fraction<T>& A)
+	std::ostream& operator << (std::ostream& os, const Fraction<T>& frac)
 	{
-		os << A.toString();
+		os << to_string(frac);
 		return os;
 	}
 
 	// Overload of std::wostream operator << 
 	template <std::integral T>
-	std::wostream& operator << (std::wostream& wos, const Fraction<T>& A)
+	std::wostream& operator << (std::wostream& wos, const Fraction<T>& frac)
 	{
-		wos << A.toWideString();
+		wos << to_wstring(frac);
 		return wos;
 	}
 }

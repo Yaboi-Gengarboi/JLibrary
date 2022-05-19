@@ -1,7 +1,7 @@
 // JLibrary
 // Direction.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-15 by Justyn Durnford
 // Header file for the Direction class.
 
 #pragma once
@@ -13,7 +13,7 @@ import Vector2;
 
 namespace jlib
 {
-	// 
+	// Struct that represents a cardinal direction.
 	struct Direction
 	{
 		public:

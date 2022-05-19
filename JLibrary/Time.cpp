@@ -1,7 +1,7 @@
 // JLibrary
 // Time.cpp
 // Created on 2022-02-12 by Justyn Durnford
-// Last modified on 2022-02-13 by Justyn Durnford
+// Last modified on 2022-02-23 by Justyn Durnford
 // Source file that includes classes and functions
 // dealing with time.
 
@@ -20,6 +20,9 @@ using std::strong_ordering;
 using std::time_t;
 using std::tm;
 using std::time;
+
+#include <iostream>
+using std::cout;
 
 #include <string>
 using std::string;
@@ -532,22 +535,22 @@ namespace jlib
 		return getCurrentTimePoint() - _start;
 	}
 
-	u8 Clock::getCurrentSecond() const
+	u8 Clock::getCurrentSecond()
 	{
 		return getCurrentTime().second;
 	}
 
-	u8 Clock::getCurrentMinute() const
+	u8 Clock::getCurrentMinute()
 	{
 		return getCurrentTime().minute;
 	}
 
-	u8 Clock::getCurrentHour() const
+	u8 Clock::getCurrentHour()
 	{
 		return getCurrentTime().hour;
 	}
 
-	Time Clock::getCurrentTime() const
+	Time Clock::getCurrentTime()
 	{
 		const time_t now = time(nullptr);
 		tm cal_time;
@@ -556,27 +559,47 @@ namespace jlib
 		return Time(cal_time.tm_hour, cal_time.tm_min, cal_time.tm_sec);
 	}
 
-	u8 Clock::getCurrentDay() const
+	u8 Clock::getCurrentDay()
 	{
 		return getCurrentDate().day;
 	}
 
-	u8 Clock::getCurrentMonth() const
+	u8 Clock::getCurrentMonth()
 	{
 		return getCurrentDate().month;
 	}
 
-	u32 Clock::getCurrentYear() const
+	u32 Clock::getCurrentYear()
 	{
 		return getCurrentDate().year;
 	}
 
-	Date Clock::getCurrentDate() const
+	Date Clock::getCurrentDate()
 	{
 		const time_t now = time(nullptr);
 		tm cal_time;
 		localtime_s(&cal_time, &now);
 
 		return Date(cal_time.tm_mday, cal_time.tm_mon + 1, cal_time.tm_year + 1900);
+	}
+
+	void print(const Time& time)
+	{
+		cout << time.toString();
+	}
+
+	void println(const Time& time)
+	{
+		cout << time.toString() << '\n';
+	}
+
+	void print(const Date& date)
+	{
+		cout << date.toString();
+	}
+
+	void println(const Date& date)
+	{
+		cout << date.toString() << '\n';
 	}
 }

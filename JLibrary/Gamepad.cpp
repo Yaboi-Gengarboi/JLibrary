@@ -1,10 +1,11 @@
 // JLibrary
 // Gamepad.cpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-05-16 by Justyn Durnford
 // Source file for the Joystick and Gamepad classes.
 
 #include "Gamepad.hpp"
+import MiscTemplateFunctions;
 
 namespace jlib
 {
@@ -134,18 +135,23 @@ namespace jlib
 
 	void Gamepad::update()
 	{
-		// Save current button states.
-		_oldButtonStates = _state.Gamepad.wButtons;
-
 		// Update the Gamepad State.
 		ZeroMemory(&_state, sizeof(XINPUT_STATE));
 		XInputGetState(_port, &_state);
 
 		// Update the left and right joysticks.
-		leftStick.position.x = static_cast<float>(_state.Gamepad.sThumbLX) / 32768.0f + 0.0000155f;
-		leftStick.position.y = static_cast<float>(_state.Gamepad.sThumbLY) / 32768.0f + 0.0000155f;
-		rightStick.position.x = static_cast<float>(_state.Gamepad.sThumbRX) / 32768.0f + 0.0000155f;
-		rightStick.position.y = static_cast<float>(_state.Gamepad.sThumbRY) / 32768.0f + 0.0000155f;
+		leftStick.position.x =  static_cast<float>(_state.Gamepad.sThumbLX) / 32767.0f;
+		leftStick.position.y =  static_cast<float>(_state.Gamepad.sThumbLY) / 32767.0f;
+		rightStick.position.x = static_cast<float>(_state.Gamepad.sThumbRX) / 32767.0f;
+		rightStick.position.y = static_cast<float>(_state.Gamepad.sThumbRY) / 32767.0f;
+
+		// Clamp minimum joystick value.
+		// This is necessary because the minumum value of a short
+		// is further away from 0 than the maximum value is.
+		clamp_min(leftStick.position.x, -1.0f);
+		clamp_min(leftStick.position.y, -1.0f);
+		clamp_min(rightStick.position.x, -1.0f);
+		clamp_min(rightStick.position.y, -1.0f);
 
 		// Update the left and right triggers.
 		leftTrigger = _state.Gamepad.bLeftTrigger / 255.0f;
@@ -157,23 +163,18 @@ namespace jlib
 		return _state.Gamepad.wButtons & button;
 	}
 
-	bool Gamepad::isButtonHeld(Button button) const
+	WORD Gamepad::getButtonStates() const
 	{
-		return (_state.Gamepad.wButtons & button) && (_oldButtonStates & button);
+		return _state.Gamepad.wButtons;
 	}
 
-	bool Gamepad::isButtonReleased(Button button) const
+	bool operator == (const Gamepad& A, const Gamepad& B)
 	{
-		return !(_state.Gamepad.wButtons & button) && (_oldButtonStates & button);
+		return A.getPort() == B.getPort();
 	}
-}
 
-bool operator == (const jlib::Gamepad& A, const jlib::Gamepad& B)
-{
-	return A.getPort() == B.getPort();
-}
-
-bool operator != (const jlib::Gamepad& A, const jlib::Gamepad& B)
-{
-	return A.getPort() != B.getPort();
+	bool operator != (const Gamepad& A, const Gamepad& B)
+	{
+		return A.getPort() != B.getPort();
+	}
 }

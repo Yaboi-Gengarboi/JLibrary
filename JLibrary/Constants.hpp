@@ -1,7 +1,7 @@
 // JLibrary
 // Constants.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-08 by Justyn Durnford
+// Last modified on 2022-02-21 by Justyn Durnford
 // Header file defining several numeric constants.
 
 #pragma once
@@ -12,6 +12,7 @@ namespace jlib
 {
 	constexpr float JLIB_PI     = std::numbers::pi_v<float>;
 	constexpr float JLIB_2PI    = std::numbers::pi_v<float> * 2.0f;
+	constexpr float JLIB_4PI    = std::numbers::pi_v<float> * 4.0f;
 	constexpr float JLIB_PI_2   = std::numbers::pi_v<float> / 2.0f;
 	constexpr float JLIB_PI_3   = std::numbers::pi_v<float> / 3.0f;
 	constexpr float JLIB_PI_4   = std::numbers::pi_v<float> / 4.0f;

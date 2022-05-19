@@ -1,7 +1,7 @@
 // JLibrary
 // IntegerTypedefs.hpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-20 by Justyn Durnford
+// Last modified on 2022-02-20 by Justyn Durnford
 // Header file defining several integer typedefs.
 
 #pragma once
@@ -60,22 +60,34 @@ namespace jlib
 	constexpr u16 U16_MAX = static_cast<i16>(65535);
 
 	// Minimum 32-bit signed integer value (-2147483648).
-	constexpr i32 I32_MIN = static_cast<i32>(-2147483648);
+	constexpr i32 I32_MIN = -2147483648;
 	// Maximum 32-bit signed integer value (2147483647).
-	constexpr i32 I32_MAX = static_cast<i32>(2147483647);
+	constexpr i32 I32_MAX = 2147483647;
 
 	// Minimum 32-bit unsigned integer value (0).
-	constexpr u32 U32_MIN = static_cast<i32>(0);
+	constexpr u32 U32_MIN = 0u;
 	// Maximum 32-bit unsigned integer value (4294967295).
-	constexpr u32 U32_MAX = static_cast<i32>(4294967295);
+	constexpr u32 U32_MAX = 4294967295u;
 
 	// Minimum 64-bit signed integer value (-9223372036854775808).
-	constexpr i64 I64_MIN = static_cast<i64>(-9223372036854775807 - 1);
+	constexpr i64 I64_MIN = -9223372036854775807ll - 1ll;
 	// Maximum 64-bit signed integer value (9223372036854775807).
-	constexpr i64 I64_MAX = static_cast<i64>(9223372036854775807);
+	constexpr i64 I64_MAX = 9223372036854775807ll;
 
 	// Minimum 64-bit unsigned integer value (0).
-	constexpr u64 U64_MIN = static_cast<u64>(0);
+	constexpr u64 U64_MIN = 0ull;
 	// Maximum 64-bit unsigned integer value (18446744073709551615).
-	constexpr u64 U64_MAX = static_cast<u64>(18446744073709551615);
+	constexpr u64 U64_MAX = 18446744073709551615ull;
+
+	// Minimum 32-bit floating point value (1.175494351e-38f).
+	constexpr float F32_MIN = 1.175494351e-38f;
+
+	// Maximum 32-bit floating point value (3.402823466e+38f).
+	constexpr float F32_MAX = 3.402823466e+38f;
+
+	// Minimum 64-bit floating point value (2.2250738585072014e-308).
+	constexpr double F64_MIN = 2.2250738585072014e-308;
+
+	// Maximum 64-bit floating point value (1.7976931348623158e+308).
+	constexpr double F64_MAX = 1.7976931348623158e+308;
 }

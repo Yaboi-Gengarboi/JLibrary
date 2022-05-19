@@ -1,7 +1,7 @@
 // JLibrary
 // MiscTemplateFunctions.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-17 by Justyn Durnford
+// Last modified on 2022-03-19 by Justyn Durnford
 // Header file defining several template functions.
 
 module;
@@ -11,7 +11,7 @@ module;
 #include <array>
 #include <functional>
 #include <iostream>
-#include <initializer_list>
+#include <numeric>
 
 export module MiscTemplateFunctions;
 
@@ -74,22 +74,6 @@ export namespace jlib
 		return (value >= lower) && (value <= upper);
 	}
 
-	// Calls the function func on the elements in the range [first, last).
-	template <typename T>
-	void for_each(T* first, T* last, std::function<void(T&)> func)
-	{
-		for (T* ptr = first; ptr < last; ++ptr)
-			func(*ptr);
-	}
-
-	// Sets every element in the range [first, last) to value.
-	template <typename T>
-	void set_all(T* first, T* last, const T& value)
-	{
-		for (T* ptr = first; ptr < last; ++ptr)
-			*ptr = value;
-	}
-
 	// Copies every element in the range[from_first, from_first + size) to
 	// the elements in the range [to_first, to_first + size).
 	// This should be used when the types To and From are different.
@@ -103,21 +87,21 @@ export namespace jlib
 
 	// Returns the sum of the passed numbers.
 	template <arithmetic T>
-	T add_all(std::initializer_list<T> list)
+	T add_all(T* first, T* last)
 	{
-		T sum = static_cast<T>(0);
+		T sum = 0;
 
-		for (auto iter = list.begin(); iter != list.end(); ++iter)
-			sum += *iter;
+		for (T* ptr = first; ptr < last; ++ptr)
+			sum += *ptr;
 
 		return sum;
 	}
 
 	// Returns the average of the passed numbers.
 	template <arithmetic T>
-	T average(std::initializer_list<T> list)
+	float average(T* first, T* last)
 	{
-		return add_all(list) / list.size();
+		return float(add_all(first, last)) / (last - first);
 	}
 
 	// 
@@ -132,20 +116,6 @@ export namespace jlib
 		arr[1] = (-b + discriminant) / (2.0f * a);
 
 		return arr;
-	}
-
-	// Converts the degree from celcius to fahrenheit.
-	template <arithmetic T>
-	T to_fahrenheit(T temp)
-	{
-		return temp * (9.0f / 5.0f) + 32;
-	}
-
-	// Converts the degree from fahrenheit to celcius.
-	template <arithmetic T>
-	T to_celcius(T temp)
-	{
-		return (temp - 32) * (5.0f / 9.0f);
 	}
 
 	// Prints the contents of the array of data using the std::cout ostream.

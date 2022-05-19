@@ -1,7 +1,7 @@
 // JLibrary
 // Color.cpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-24 by Justyn Durnford
+// Last modified on 2022-02-23 by Justyn Durnford
 // Source file for the Color class.
 
 #pragma warning( disable : 4244 ) 
@@ -14,19 +14,14 @@ import MiscTemplateFunctions;
 #include <array>
 using std::array;
 
-#include <bit>
-using std::bit_cast;
-
 #include <cstring>
 using std::memcpy;
 
 #include <initializer_list>
 using std::initializer_list;
 
-#include <iomanip>
-using std::hex;
-
-#include <ostream>
+#include <iostream>
+using std::cout;
 using std::ostream;
 using std::wostream;
 
@@ -144,24 +139,12 @@ namespace jlib
 
 	string Color::toString() const
 	{
-		string str;
-		str.reserve(8);
-		str += to_hex_str(r);
-		str += to_hex_str(g);
-		str += to_hex_str(b);
-		str += to_hex_str(a);
-		return str;
+		return to_hex_string(toInt(), false, true);
 	}
 
 	wstring Color::toWideString() const
 	{
-		wstring str;
-		str.reserve(8);
-		str += to_hex_wstr(r);
-		str += to_hex_wstr(g);
-		str += to_hex_wstr(b);
-		str += to_hex_wstr(a);
-		return str;
+		return to_hex_wstring(toInt(), false, true);
 	}
 
 	array<u8, 4> to_bytes(u32 i)
@@ -176,56 +159,19 @@ namespace jlib
 		return bytes;
 	}
 
-	string to_hex_str(u8 cbyte)
-	{
-		string hexstr("00");
-
-		for (u8 i = 0; i < 2; ++i)
-		{
-			switch (cbyte % 16)
-			{
-				case 10: hexstr[1 - i] = 'a';               break;
-				case 11: hexstr[1 - i] = 'b';               break;
-				case 12: hexstr[1 - i] = 'c';               break;
-				case 13: hexstr[1 - i] = 'd';               break;
-				case 14: hexstr[1 - i] = 'e';               break;
-				case 15: hexstr[1 - i] = 'f';               break;
-				default: hexstr[1 - i] = (cbyte % 16) + 48; break;
-			}
-
-			cbyte /= 16;
-		}
-
-		return hexstr;
-	}
-
-	wstring to_hex_wstr(u8 cbyte)
-	{
-		wstring hexstr(L"00");
-
-		for (u8 i = 0; i < 2; ++i)
-		{
-			switch (cbyte % 16)
-			{
-				case 10: hexstr[1 - i] = L'a';                                    break;
-				case 11: hexstr[1 - i] = L'b';                                    break;
-				case 12: hexstr[1 - i] = L'c';                                    break;
-				case 13: hexstr[1 - i] = L'd';                                    break;
-				case 14: hexstr[1 - i] = L'e';                                    break;
-				case 15: hexstr[1 - i] = L'f';                                    break;
-				default: hexstr[1 - i] = static_cast<wchar_t>((cbyte % 16) + 48); break;
-			}
-
-			cbyte /= 16;
-		}
-
-		return hexstr;
-	}
-
 	void copy_color_data(const Color* src, u8* dst, size_t bytes)
 	{
-		const u8* ptr = bit_cast<const u8*>(src);
-		memcpy(dst, ptr, bytes);
+		memcpy(dst, reinterpret_cast<const u8*>(src), bytes);
+	}
+
+	void print(const Color& color)
+	{
+		cout << color.toString();
+	}
+
+	void println(const Color& color)
+	{
+		cout << color.toString() << '\n';
 	}
 }
 

@@ -1,7 +1,7 @@
 // JLibrary
 // FixedMatrix.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-17 by Justyn Durnford
+// Last modified on 2022-05-13 by Justyn Durnford
 // Module file for the FixedMatrix template class.
 
 module;
@@ -10,6 +10,7 @@ module;
 
 #include <algorithm>
 #include <array>
+#include <compare>
 #include <cstddef>
 #include <initializer_list>
 #include <iterator>
@@ -17,6 +18,7 @@ module;
 
 export module FixedMatrix;
 
+import ColumnIterator;
 import FixedArray;
 import MiscTemplateFunctions;
 import Vector2;
@@ -44,6 +46,10 @@ export namespace jlib
 		using const_pointer = const value_type*;
 		using iterator = FixedArray<T, R* C>::iterator;
 		using const_iterator = FixedArray<T, R* C>::const_iterator;
+		using row_iterator = iterator;
+		using const_row_iterator = const_iterator;
+		using column_iterator = ColumnIterator<T>;
+		using const_column_iterator = ColumnIterator<const T>;
 		using reverse_iterator = FixedArray<T, R* C>::reverse_iterator;
 		using const_reverse_iterator = FixedArray<T, R* C>::const_reverse_iterator;
 
@@ -81,7 +87,7 @@ export namespace jlib
 		template <typename U>
 		explicit FixedMatrix(const FixedMatrix<U, R, C>& other)
 		{
-			jlib::copy(other.data(), other.data() + size(), data());
+			jlib::copy(other.data(), other.dataEnd(), data());
 		}
 
 		// 2-dimensional std::initializer_list assignment operator.
@@ -117,116 +123,164 @@ export namespace jlib
 		}
 
 		// Returns the pointer of the FixedMatrix.
-		pointer data() noexcept
+		constexpr pointer data() noexcept
 		{
 			return _data.data();
 		}
 
 		// Returns the pointer of the FixedMatrix.
-		const_pointer data() const noexcept
+		constexpr const_pointer data() const noexcept
 		{
 			return _data.data();
 		}
 
+		// Returns a pointer to 1 past the last element of the FixedMatrix.
+		constexpr pointer dataEnd() noexcept
+		{
+			return _data.dataEnd();
+		}
+
+		// Returns a pointer to 1 past the last element of the FixedMatrix.
+		constexpr const_pointer dataEnd() const noexcept
+		{
+			return _data.dataEnd();
+		}
+
 		// Returns an iterator pointing to the first element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		iterator begin() noexcept
+		constexpr iterator begin() noexcept
 		{
 			return _data.begin();
 		}
 
 		// Returns an iterator pointing to the first element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_iterator begin() const noexcept
+		constexpr const_iterator begin() const noexcept
 		{
 			return _data.cbegin();
 		}
 
 		// Returns an iterator pointing to the first element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_iterator cbegin() const noexcept
+		constexpr const_iterator cbegin() const noexcept
 		{
 			return _data.cbegin();
 		}
 
 		// Returns a reverse iterator pointing to the first element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		reverse_iterator rbegin() noexcept
+		constexpr reverse_iterator rbegin() noexcept
 		{
 			return std::reverse_iterator<iterator>(_data + R * C);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_reverse_iterator rbegin() const noexcept
+		constexpr const_reverse_iterator rbegin() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data + R * C);
 		}
 
 		// Returns a reverse iterator pointing to the first element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_reverse_iterator crbegin() const noexcept
+		constexpr const_reverse_iterator crbegin() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data + R * C);
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		iterator end() noexcept
+		constexpr iterator end() noexcept
 		{
 			return _data.end();
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_iterator end() const noexcept
+		constexpr const_iterator end() const noexcept
 		{
 			return _data.cend();
 		}
 
 		// Returns an iterator pointing to 1 past the last element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_iterator cend() const noexcept
+		constexpr const_iterator cend() const noexcept
 		{
 			return _data.cend();
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		reverse_iterator rend() noexcept
+		constexpr reverse_iterator rend() noexcept
 		{
 			return std::reverse_iterator<iterator>(_data);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_reverse_iterator rend() const noexcept
+		constexpr const_reverse_iterator rend() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data);
 		}
 
 		// Returns a reverse iterator pointing to 1 past the last element of the FixedMatrix.
 		// Returns nullptr if the FixedMatrix is empty.
-		const_reverse_iterator crend() const noexcept
+		constexpr const_reverse_iterator crend() const noexcept
 		{
 			return std::reverse_iterator<const_iterator>(_data);
 		}
 
 		// Returns an iterator pointing to the first element of the given row.
-		iterator rowBegin(size_type row) noexcept
+		constexpr row_iterator rowBegin(size_type row) noexcept
 		{
 			return _data.begin() + (C * row);
 		}
 
 		// Returns an iterator pointing to the first element of the given row.
-		const_iterator rowBegin(size_type row) const noexcept
+		constexpr const_row_iterator rowBegin(size_type row) const noexcept
 		{
 			return _data.cbegin() + (C * row);
 		}
 
+		// Returns an iterator pointing to 1 past the last element of the given row.
+		constexpr row_iterator rowEnd(size_type row) noexcept
+		{
+			return _data.begin() + (C * row) + C;
+		}
+
+		// Returns an iterator pointing to 1 past the last element of the given row.
+		constexpr const_row_iterator rowEnd(size_type row) const noexcept
+		{
+			return _data.begin() + (C * row) + C;
+		}
+
+		// Returns an iterator pointing to the first element of the given column.
+		column_iterator colBegin(size_type col) noexcept
+		{
+			return column_iterator(_data.data() + col, C);
+		}
+
+		// Returns an iterator pointing to the first element of the given column.
+		const_column_iterator colBegin(size_type col) const noexcept
+		{
+			return const_column_iterator(_data.data() + col, C);
+		}
+
+		// Returns an iterator pointing to 1 past the last element of the given column.
+		column_iterator colEnd(size_type col) noexcept
+		{
+			return column_iterator(_data.dataEnd() + col, C);
+		}
+
+		// Returns an iterator pointing to 1 past the last element of the given column.
+		const_column_iterator colEnd(size_type col) const noexcept
+		{
+			return column_iterator(_data.dataEnd() + col, C);
+		}
+
 		// Returns the element at the given index of the FixedMatrix.
 		// Throws a std::out_of_range if given an invalid index.
-		reference at(size_type n)
+		constexpr reference at(size_type n)
 		{
 			if (n >= R * C)
 				throw std::out_of_range("Invalid matrix index");
@@ -236,7 +290,7 @@ export namespace jlib
 
 		// Returns the element at the given index of the FixedMatrix.
 		// Throws a std::out_of_range if given an invalid index.
-		const_reference at(size_type n) const
+		constexpr const_reference at(size_type n) const
 		{
 			if (n >= R * C)
 				throw std::out_of_range("Invalid matrix index");
@@ -246,7 +300,7 @@ export namespace jlib
 
 		// Returns the element at [row][col].
 		// Throws a std::out_of_range if given an invalid index.
-		reference at(size_type row, size_type col)
+		constexpr reference at(size_type row, size_type col)
 		{
 			if (row >= R)
 				throw std::out_of_range("Invalid row index");
@@ -258,7 +312,7 @@ export namespace jlib
 
 		// Returns the element at [row][col].
 		// Throws a std::out_of_range if given an invalid index.
-		const_reference at(size_type row, size_type col) const
+		constexpr const_reference at(size_type row, size_type col) const
 		{
 			if (row >= R)
 				throw std::out_of_range("Invalid row index");
@@ -271,7 +325,7 @@ export namespace jlib
 		// Returns the element at [pos.y][pos.x].
 		// Throws a std::out_of_range if given an invalid index.
 		template <arithmetic U>
-		reference at(const Vector2<U>& pos)
+		constexpr reference at(const Vector2<U>& pos)
 		{
 			Vector2<size_t> v(static_cast<size_t>(pos.x), static_cast<size_t>(pos.y));
 
@@ -286,7 +340,7 @@ export namespace jlib
 		// Returns the element at [pos.y][pos.x].
 		// Throws a std::out_of_range if given an invalid index.
 		template <arithmetic U>
-		const_reference at(const Vector2<U>& pos) const
+		constexpr const_reference at(const Vector2<U>& pos) const
 		{
 			if (pos.y >= R)
 				throw std::out_of_range("Invalid row index");
@@ -298,7 +352,7 @@ export namespace jlib
 
 		// Sets the element at the given index to the given value.
 		// Throws a std::out_of_range if given an invalid index.
-		void set(size_type n, const_reference value)
+		constexpr void set(size_type n, const_reference value)
 		{
 			if (n >= R * C)
 				throw std::out_of_range("Invalid matrix index");
@@ -308,7 +362,7 @@ export namespace jlib
 
 		// Sets the element at [row][col] to the given value.
 		// Throws a std::out_of_range if given an invalid index.
-		void set(size_type row, size_type col, const_reference value)
+		constexpr void set(size_type row, size_type col, const_reference value)
 		{
 			if (row >= R)
 				throw std::out_of_range("Invalid row index");
@@ -321,7 +375,7 @@ export namespace jlib
 		// Sets the element at [pos.y][pos.x] to value.
 		// Throws a std::out_of_range if given an invalid index.
 		template <arithmetic U>
-		void set(const Vector2<U>& pos, const_reference value)
+		constexpr void set(const Vector2<U>& pos, const_reference value)
 		{
 			Vector2<size_t> v(static_cast<size_t>(pos.x), static_cast<size_t>(pos.y));
 
@@ -331,6 +385,12 @@ export namespace jlib
 				throw std::out_of_range("Invalid column index");
 
 			_data[(v.y * C) + v.x] = value;
+		}
+
+		// Sets each element of the FixedMatrix to the given value.
+		constexpr void setAll(const_reference value)
+		{
+			std::fill(data(), dataEnd(), value);
 		}
 
 		// Returns a copy of the given row.
@@ -382,35 +442,35 @@ export namespace jlib
 		}
 
 		// Swaps the contents of this FixedMatrix with another FixedMatrix.
-		void swapWith(FixedMatrix& other) noexcept
+		constexpr void swapWith(FixedMatrix& other) noexcept
 		{
 			_data.swapWith(other._data);
 		}
 
 		// Returns the element at the given index the FixedMatrix.
 		// Does NOT perform bounds-checking.
-		reference operator [] (size_type n)
+		constexpr reference operator [] (size_type n)
 		{
 			return _data[n];
 		}
 
 		// Returns the element at the given index the FixedMatrix.
 		// Does NOT perform bounds-checking.
-		const_reference operator [] (size_type n) const
+		constexpr const_reference operator [] (size_type n) const
 		{
 			return _data[n];
 		}
 
 		// Returns the element at [row][col].
 		// Does NOT perform bounds-checking.
-		reference operator () (size_type row, size_type col)
+		constexpr reference operator () (size_type row, size_type col)
 		{
 			return _data[(row * C) + col];
 		}
 
 		// Returns the element at [row][col].
 		// Does NOT perform bounds-checking.
-		const_reference operator () (size_type row, size_type col) const
+		constexpr const_reference operator () (size_type row, size_type col) const
 		{
 			return _data[(row * C) + col];
 		}
@@ -418,7 +478,7 @@ export namespace jlib
 		// Returns the element at [pos.y][pos.x].
 		// Does NOT perform bounds-checking.
 		template <arithmetic U>
-		reference operator () (const Vector2<U>& pos)
+		constexpr reference operator () (const Vector2<U>& pos)
 		{
 			Vector2<size_t> v(static_cast<size_t>(pos.x), static_cast<size_t>(pos.y));
 			return _data[(v.y * C) + v.x];
@@ -427,7 +487,7 @@ export namespace jlib
 		// Returns the element at [pos.y][pos.x].
 		// Does NOT perform bounds-checking.
 		template <arithmetic U>
-		const_reference operator () (const Vector2<U>& pos) const
+		constexpr const_reference operator () (const Vector2<U>& pos) const
 		{
 			Vector2<size_t> v(static_cast<size_t>(pos.x), static_cast<size_t>(pos.y));
 			return _data[(v.y * C) + v.x];

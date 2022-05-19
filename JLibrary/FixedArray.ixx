@@ -1,13 +1,15 @@
 // JLibrary
 // FixedArray.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-02-27 by Justyn Durnford
+// Last modified on 2022-03-17 by Justyn Durnford
 // Module file for the FixedArray template class.
 
 module;
 
 #include <algorithm>
 #include <array>
+#include <compare>
+#include <concepts>
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
@@ -207,6 +209,18 @@ export namespace jlib
 			return _data;
 		}
 
+		// Returns a pointer to 1 past the last element of the FixedArray.
+		constexpr pointer dataEnd() noexcept
+		{
+			return _data + N;
+		}
+
+		// Returns a pointer to 1 past the last element of the FixedArray.
+		constexpr const_pointer dataEnd() const noexcept
+		{
+			return _data + N;
+		}
+
 		// Returns an iterator pointing to the first element of the FixedArray.
 		// Returns nullptr if the FixedArray is empty.
 		constexpr iterator begin() noexcept
@@ -318,6 +332,13 @@ export namespace jlib
 			_data[index] = value;
 		}
 
+		// Sets every element to the given value.
+		constexpr void setAll(const_reference value)
+		{
+			for (size_type i = 0; i < N; ++i)
+				_data[i] = value;
+		}
+
 		// Swaps the contents of this FixedArray with another FixedArray.
 		void swapWith(FixedArray& other) noexcept
 		{
@@ -339,31 +360,8 @@ export namespace jlib
 		}
 	};
 
-	// Overload of binary operator ==
-	template <typename T, std::size_t N>
-	bool operator == (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
-	{
-		for (std::size_t i = 0; i < N; ++i)
-		{
-			if (A[i] != B[i])
-				return false;
-		}
-
-		return true;
-	}
-
-	// Overload of binary operator !=
-	template <typename T, std::size_t N>
-	bool operator != (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
-	{
-		for (std::size_t i = 0; i < N; ++i)
-		{
-			if (A[i] != B[i])
-				return true;
-		}
-
-		return false;
-	}
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Prints the contents of the FixedArray using the std::cout ostream.
 	// This code will not compile if type T does not overload the 
@@ -381,5 +379,125 @@ export namespace jlib
 	void print_array_wide(const FixedArray<T, N>& arr)
 	{
 		jlib::print_array_wide(arr.data(), arr.size());
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Overload of binary operator ==
+	template <std::totally_ordered T, std::size_t N>
+	bool operator == (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] != B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator !=
+	template <std::totally_ordered T, std::size_t N>
+	bool operator != (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] != B[i])
+				return true;
+		}
+
+		return false;
+	}
+
+	// Overload of binary operator <
+	template <std::totally_ordered T, std::size_t N>
+	bool operator < (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] >= B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator <=
+	template <std::totally_ordered T, std::size_t N>
+	bool operator <= (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] > B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator >
+	template <std::totally_ordered T, std::size_t N>
+	bool operator > (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] <= B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator >=
+	template <std::totally_ordered T, std::size_t N>
+	bool operator >= (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] < B[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	// Overload of binary operator <=>
+	template <std::totally_ordered T, std::size_t N>
+	std::strong_ordering operator <=> (const FixedArray<T, N>& A, const FixedArray<T, N>& B)
+	{
+		for (std::size_t i = 0; i < N; ++i)
+		{
+			if (A[i] < B[i])
+				return std::strong_ordering::less;
+			else if (A[i] > B[i])
+				return std::strong_ordering::greater;
+		}
+
+		return std::strong_ordering::equal;
+	}
+
+	// Overload of std::ostream operator <<
+	template <std::totally_ordered T, std::size_t N>
+	std::ostream& operator << (std::ostream& os, const FixedArray<T, N>& A)
+	{
+		os << "{ ";
+
+		for (std::size_t i = 0; i < N - 1; ++i)
+			os << A[i] << ", ";
+
+		os << A[N - 1] << " }\n";
+	}
+
+	// Overload of std::wostream operator <<
+	template <std::totally_ordered T, std::size_t N>
+	std::wostream& operator << (std::wostream& wos, const FixedArray<T, N>& A)
+	{
+		wos << L"{ ";
+
+		for (std::size_t i = 0; i < N - 1; ++i)
+			wos << A[i] << L", ";
+
+		wos << A[N - 1] << L" }\n";
 	}
 }

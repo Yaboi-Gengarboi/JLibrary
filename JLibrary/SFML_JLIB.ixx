@@ -1,12 +1,10 @@
 // JLibrary
 // SFML_JLIB.ixx
 // Created on 2022-01-09 by Justyn Durnford
-// Last modified on 2022-02-10 by Justyn Durnford
+// Last modified on 2022-05-18 by Justyn Durnford
 // Module file defining several functions to convert and copy data between SFML and JLIB code.
 
 module;
-
-#ifdef INCLUDE_SFML
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -16,16 +14,12 @@ module;
 
 #include <cmath>
 
-#endif // #ifdef INCLUDE_SFML
-
 export module SFML_JLIB;
 
 import Rect;
 import Square;
 import Vector2;
 import Vector3;
-
-#ifdef INCLUDE_SFML
 
 export namespace jlib
 {
@@ -103,7 +97,7 @@ export namespace jlib
 	}
 
 	template <arithmetic T>
-	void copy_data(const jlib::Rect& from, sf::Rect<T>& to)
+	void copy_data(const jlib::Rect<T>& from, sf::Rect<T>& to)
 	{
 		to.left = from.x;
 		to.top = from.y;
@@ -112,7 +106,7 @@ export namespace jlib
 	}
 
 	template <arithmetic T>
-	void copy_data(const jlib::Square& from, sf::Rect<T>& to)
+	void copy_data(const jlib::Square<T>& from, sf::Rect<T>& to)
 	{
 		to.left = from.x;
 		to.top = from.y;
@@ -147,7 +141,7 @@ export namespace jlib
 	}
 
 	template <arithmetic T>
-	void copy_data(const sf::Rect& from, jlib::Rect<T>& to)
+	void copy_data(const sf::Rect<T>& from, jlib::Rect<T>& to)
 	{
 		to.x = from.left;
 		to.y = from.top;
@@ -216,5 +210,3 @@ export namespace jlib
 		return L'<' + std::to_wstring(v.x) + L", " + std::to_wstring(v.y) + L", " + std::to_wstring(v.z) + L'>';
 	}
 }
-
-#endif // #ifdef INCLUDE_SFML
