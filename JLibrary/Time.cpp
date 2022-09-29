@@ -1,7 +1,7 @@
 // JLibrary
 // Time.cpp
 // Created on 2022-02-12 by Justyn Durnford
-// Last modified on 2022-02-23 by Justyn Durnford
+// Last modified on 2022-09-23 by Justyn Durnford
 // Source file that includes classes and functions
 // dealing with time.
 
@@ -500,11 +500,6 @@ namespace jlib
 		_stopped = false;
 	}
 
-	TimePoint Clock::getCurrentTimePoint() const
-	{
-		return system_clock::now();
-	}
-
 	Duration Clock::stopTimer()
 	{
 		_end = getCurrentTimePoint();
@@ -525,6 +520,11 @@ namespace jlib
 		_start = t_now;
 		_stopped = false;
 		return time_elapsed;
+	}
+
+	TimePoint Clock::getCurrentTimePoint() const
+	{
+		return system_clock::now();
 	}
 
 	Duration Clock::getElapsedTime() const

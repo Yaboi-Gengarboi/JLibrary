@@ -1,7 +1,7 @@
 // JLibrary
 // Array.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-03-17 by Justyn Durnford
+// Last modified on 2022-09-12 by Justyn Durnford
 // Module file for the Array template class.
 
 module;
@@ -561,7 +561,7 @@ export namespace jlib
 	}
 
 	// Overload of std::ostream operator <<
-	template <std::totally_ordered T>
+	template <typename T>
 	std::ostream& operator << (std::ostream& os, const Array<T>& A)
 	{
 		os << "{ ";
@@ -573,7 +573,7 @@ export namespace jlib
 	}
 
 	// Overload of std::wostream operator <<
-	template <std::totally_ordered T>
+	template <typename T>
 	std::wostream& operator << (std::wostream& wos, const Array<T>& A)
 	{
 		wos << L"{ ";

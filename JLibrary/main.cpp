@@ -1,7 +1,7 @@
 // JLibrary
 // main.cpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-05-18 by Justyn Durnford
+// Last modified on 2022-09-21 by Justyn Durnford
 // Test file for the JLibrary static library.
 
 #define AND &&
@@ -10,12 +10,27 @@
 #define ISNOT !=
 #define LET const auto
 
+#include "Buffer.hpp"
+#include "Conversions.hpp"
 #include "Gamepad.hpp"
+#include "Hexadecimal.hpp"
+#include "Time.hpp"
+import FixedGrid;
+import FixedMatrix;
+import LinearEquation1;
+import Ptr;
 import VectorN;
+
 using namespace jlib;
 
 #include <concepts>
 using std::strong_ordering;
+
+#include <fstream>
+using std::fstream;
+using std::ifstream;
+using std::basic_ios;
+using std::ofstream;
 
 #include <iostream>
 using std::cin;
@@ -27,7 +42,17 @@ using std::endl;
 #include <string>
 using std::string;
 using std::wstring;
+using std::getline;
 using std::to_string;
+
+#include <vector>
+using std::vector;
+
+template <arithmetic T>
+void println(const T& value)
+{
+	cout << value << '\n';
+}
 
 void println(bool b)
 {
@@ -47,29 +72,28 @@ void println(strong_ordering ordering)
 		cout << "equal\n";
 }
 
-int main()
+void println(const string& str)
 {
-	Gamepad controller;
-	Vector2f oldPosition;
-	Vector2f newPosition;
-	WORD oldButtonStates = 0;
-	WORD newButtonStates = 0;
-	controller.update();
+	cout << str << '\n';
+}
 
-	while (controller.isConnected())
-	{
-		newPosition = controller.leftStick.position;
-		newButtonStates = controller.getButtonStates();
+void println(const string* strs, size_t len)
+{
+	for (size_t i = 0; i < len; ++i)
+		cout << strs[i] << '\n';
+}
 
-		if (oldPosition ISNOT newPosition OR oldButtonStates ISNOT newButtonStates)
-		{
-			oldPosition = newPosition;
-			oldButtonStates = newButtonStates;
-			cout << oldPosition << ", " << oldButtonStates << '\n';
-		}
+int main(int argc, char** argv)
+{
+	ifstream fin("test.txt");
 
-		controller.update();
-	}
+	vector<string> lines;
+	string line;
+
+	while (getline(fin, line))
+		lines.push_back(line);
+
+	println(lines.data(), lines.size());
 
 	return 0;
 }

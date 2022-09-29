@@ -178,10 +178,11 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Chance.cpp" />
     <ClCompile Include="Circle.ixx" />
+    <ClCompile Include="Clamp.ixx" />
     <ClCompile Include="ColumnIterator.ixx" />
-    <ClCompile Include="Conversions.cpp" />
-    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="BitMatrix.ixx" />
+    <ClCompile Include="FixedGrid.ixx" />
     <ClCompile Include="LinearEquation2.ixx" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sphere.ixx" />
@@ -221,7 +222,6 @@
     <ClInclude Include="Buffer.hpp" />
     <ClInclude Include="Chance.hpp" />
     <ClInclude Include="Conversions.hpp" />
-    <ClInclude Include="FileManager.hpp" />
     <ClInclude Include="Literals.hpp" />
     <ClInclude Include="Mouse.hpp" />
     <ClInclude Include="String.hpp" />

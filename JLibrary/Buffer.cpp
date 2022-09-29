@@ -1,7 +1,7 @@
 // JLibrary
 // Buffer.cpp
 // Created on 2022-04-11 by Justyn Durnford
-// Last modified on 2022-05-15 by Justyn Durnford
+// Last modified on 2022-07-02 by Justyn Durnford
 // Source file for the Buffer class.
 
 #include "Buffer.hpp"
@@ -219,9 +219,9 @@ namespace jlib
 		return _data;
 	}
 
-	string Buffer::toString() const
+	string Buffer::toString(bool uppercase) const
 	{
-		return to_hex_string(_data, _size);
+		return to_hex_string(_data, _size, uppercase);
 	}
 
 	void print(const Buffer& buffer)

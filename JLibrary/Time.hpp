@@ -1,7 +1,7 @@
 // JLibrary
 // Time.hpp
 // Created on 2022-02-12 by Justyn Durnford
-// Last modified on 2022-02-23 by Justyn Durnford
+// Last modified on 2022-09-23 by Justyn Durnford
 // Header file that includes classes and functions
 // dealing with time.
 
@@ -25,7 +25,7 @@ namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// 
+	// Simple structure that represents a point in time accurate to 1 second.
 	struct Time
 	{
 		u8 hour;
@@ -69,7 +69,7 @@ namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// 
+	// Simple structure that represents a date of a year.
 	struct Date
 	{
 		u8 day;
@@ -113,7 +113,8 @@ namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// 
+	// Class that provides functions to observe the date and time
+	// as well as provide stopwatch-timer functionality.
 	class Clock
 	{
 		TimePoint _start;
@@ -123,7 +124,6 @@ namespace jlib
 		public:
 
 		// Default constructor.
-		//
 		Clock();
 
 		// Copy constructor.
@@ -141,26 +141,28 @@ namespace jlib
 		// Destructor.
 		~Clock() = default;
 
-		// 
+		// Returns the starting point of the timer.
 		TimePoint getStartTime() const;
 
-		// 
+		// Returns the ending point of the timer.
 		TimePoint getEndTime() const;
 
-		// 
+		// Starts the timer.
 		void startTimer();
 
-		// 
-		TimePoint getCurrentTimePoint() const;
-
-		// 
+		// Stops the timer and returns the total 
+		// seconds that have passed since the timer 
+		// was last started.
 		Duration stopTimer();
 
-		// 
+		// Resumes the timer if it has been stopped.
 		Duration resumeTimer();
 
-		// 
+		// Restarts the timer.
 		Duration restartTimer();
+
+		// Returns the current point in time.
+		TimePoint getCurrentTimePoint() const;
 
 		// Returns the total seconds that have passed
 		// since the timer was last started.
@@ -197,15 +199,15 @@ namespace jlib
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// 
+	// Prints the given time to the standard output stream.
 	void print(const Time& time);
 
-	// 
+	// Prints the given time to the standard output stream with a newline.
 	void println(const Time& time);
 
-	// 
+	// Prints the given date to the standard output stream.
 	void print(const Date& date);
 
-	// 
+	// Prints the given date to the standard output stream with a newline.
 	void println(const Date& date);
 }

@@ -1,7 +1,7 @@
 // JLibrary
 // FixedMatrix.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-05-13 by Justyn Durnford
+// Last modified on 2022-09-12 by Justyn Durnford
 // Module file for the FixedMatrix template class.
 
 module;
@@ -10,7 +10,6 @@ module;
 
 #include <algorithm>
 #include <array>
-#include <compare>
 #include <cstddef>
 #include <initializer_list>
 #include <iterator>
@@ -55,7 +54,7 @@ export namespace jlib
 
 		private:
 
-		FixedArray<T, R* C> _data;
+		FixedArray<T, R * C> _data;
 
 		public:
 
@@ -447,14 +446,14 @@ export namespace jlib
 			_data.swapWith(other._data);
 		}
 
-		// Returns the element at the given index the FixedMatrix.
+		// Returns the element at the given index of the FixedMatrix.
 		// Does NOT perform bounds-checking.
 		constexpr reference operator [] (size_type n)
 		{
 			return _data[n];
 		}
 
-		// Returns the element at the given index the FixedMatrix.
+		// Returns the element at the given index of the FixedMatrix.
 		// Does NOT perform bounds-checking.
 		constexpr const_reference operator [] (size_type n) const
 		{

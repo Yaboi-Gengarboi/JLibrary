@@ -1,11 +1,17 @@
 // JLibrary
 // Hexadecimal.cpp
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-05-15 by Justyn Durnford
+// Last modified on 2022-07-04 by Justyn Durnford
 // Source file for Hexadecimal.hpp.
 
 #include "Hexadecimal.hpp"
 #include "String.hpp"
+
+#include <algorithm>
+using std::transform;
+
+#include <cctype>
+using std::toupper;
 
 #include <bit>
 using std::endian;
@@ -16,6 +22,9 @@ using std::hex;
 using std::setfill;
 using std::setw;
 
+#include <stdexcept>
+using std::invalid_argument;
+
 #include <sstream>
 using std::stringstream;
 using std::wstringstream;
@@ -24,10 +33,11 @@ using std::wstringstream;
 using std::size_t;
 using std::string;
 using std::wstring;
+using std::stoi;
 
 namespace jlib
 {
-	string to_hex_string(unsigned char byte, bool prepend)
+	string to_hex_string(unsigned char byte, bool prepend, bool uppercase)
 	{
 		stringstream str_stream;
 
@@ -35,31 +45,31 @@ namespace jlib
 			str_stream << "0x";
 
 		str_stream << setfill('0') << setw(2) << hex << int(byte);
-		return str_stream.str();
+
+		string str(str_stream.str());
+
+		if (uppercase)
+			transform(str.begin(), str.end(), str.begin(), toupper);
+
+		return str;
 	}
 
-	wstring to_hex_wstring(unsigned char byte, bool prepend)
+	wstring to_hex_wstring(unsigned char byte, bool prepend, bool uppercase)
 	{
-		wstringstream wstr_stream;
-
-		if (prepend)
-			wstr_stream << L"0x";
-
-		wstr_stream << setfill(L'0') << setw(2) << hex << int(byte);
-		return wstr_stream.str();
+		return str_to_wstr(to_hex_string(byte, prepend, uppercase));
 	}
 
-	string to_hex_string(float number, bool prepend, bool fill)
+	string to_hex_string(float number, bool prepend, bool fill, bool uppercase)
 	{
-		return to_hex_string<int>(bit_cast<int>(number), prepend, fill);
+		return to_hex_string<int>(bit_cast<int>(number), prepend, fill, uppercase);
 	}
 
-	wstring to_hex_wstring(float number, bool prepend, bool fill)
+	wstring to_hex_wstring(float number, bool prepend, bool fill, bool uppercase)
 	{
-		return to_hex_wstring<int>(bit_cast<int>(number), prepend, fill);
+		return to_hex_wstring<int>(bit_cast<int>(number), prepend, fill, uppercase);
 	}
 
-	string to_hex_string(const void* ptr, size_t byte_count)
+	string to_hex_string(const void* ptr, size_t byte_count, bool uppercase)
 	{
 		string str;
 		str.reserve(byte_count * 2);
@@ -78,11 +88,29 @@ namespace jlib
 			str_stream.str("");
 		}
 
+		if (uppercase)
+			transform(str.begin(), str.end(), str.begin(), toupper);
+
 		return str;
 	}
 
-	wstring to_hex_wstring(const void* ptr, size_t byte_count)
+	wstring to_hex_wstring(const void* ptr, size_t byte_count, bool uppercase)
 	{
-		return str_to_wstr(to_hex_string(ptr, byte_count));
+		return str_to_wstr(to_hex_string(ptr, byte_count, uppercase));
+	}
+
+	float hex_to_float(const string& str)
+	{
+		if (str.size() != 8)
+			throw invalid_argument("\"float hex_to_float(const std::string& str)\" threw an error: String is not long enough.");
+
+		int i;
+
+		if (str.find("0x") == 0)
+			i = stoi(str.substr(2), nullptr, 16);
+		else
+			i = stoi(str, nullptr, 16);
+
+		return bit_cast<float>(i);
 	}
 }

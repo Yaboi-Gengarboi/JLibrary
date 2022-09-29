@@ -1,7 +1,7 @@
 // JLibrary
 // Triangle.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-01-28 by Justyn Durnford
+// Last modified on 2022-09-28 by Justyn Durnford
 // Module file for the Triangle template class.
 
 module;
@@ -17,7 +17,8 @@ import Vector2;
 
 export namespace jlib
 {
-	// 
+	// Utility template class for representing, manipulating
+	// and computing with triangles in 2-dimensional space.
 	template <arithmetic T> class Triangle
 	{
 		public:

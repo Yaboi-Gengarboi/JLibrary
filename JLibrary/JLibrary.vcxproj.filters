@@ -105,9 +105,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Conversions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Chance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -129,9 +126,6 @@
     <ClCompile Include="ColumnIterator.ixx">
       <Filter>Module Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -142,6 +136,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VectorN.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BitMatrix.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedGrid.ixx">
+      <Filter>Module Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Clamp.ixx">
       <Filter>Module Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,9 +183,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Conversions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.hpp">

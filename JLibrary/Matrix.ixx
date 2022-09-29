@@ -1,7 +1,7 @@
 // JLibrary
 // Matrix.ixx
 // Created on 2022-01-08 by Justyn Durnford
-// Last modified on 2022-05-13 by Justyn Durnford
+// Last modified on 2022-03-17 by Justyn Durnford
 // Module file for the Matrix template class.
 
 module;
@@ -9,7 +9,6 @@ module;
 #include "Arithmetic.hpp"
 
 #include <algorithm>
-#include <compare>
 #include <cstddef>
 #include <initializer_list>
 #include <iterator>
@@ -23,15 +22,6 @@ import Vector2;
 
 export namespace jlib
 {
-	//
-	//template <typename T> class ColumnIterator
-	//{
-	//
-	//};
-
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
 	// Utility template class for representing and          
 	// computing matrices of varying sizes.
 	// 
@@ -431,12 +421,6 @@ export namespace jlib
 			_data[(v.y * _cols) + v.x] = value;
 		}
 
-		// Sets each element of the FixedMatrix to the given value.
-		void setAll(const_reference value)
-		{
-			std::fill(data(), dataEnd(), value);
-		}
-
 		// Empties the Matrix.
 		constexpr void clear() noexcept
 		{
@@ -477,7 +461,7 @@ export namespace jlib
 		}
 
 		// Swaps the contents of this Matrix with another Matrix.
-		constexpr void swapWith(Matrix& other) noexcept
+		void swapWith(Matrix& other) noexcept
 		{
 			_data.swapWith(other._data);
 			std::swap(_rows, other._rows);
@@ -498,39 +482,19 @@ export namespace jlib
 			return _data[n];
 		}
 
-		#if __cplusplus <= 202002L
+		// Returns the element at [row][col].
+		// Does NOT perform bounds-checking.
+		constexpr reference operator () (size_type row, size_type col)
+		{
+			return _data[(row * _cols) + col];
+		}
 
-			// Returns the element at [row][col].
-			// Does NOT perform bounds-checking.
-			constexpr reference operator () (size_type row, size_type col)
-			{
-				return _data[(row * _cols) + col];
-			}
-
-			// Returns the element at [row][col].
-			// Does NOT perform bounds-checking.
-			constexpr const_reference operator () (size_type row, size_type col) const
-			{
-				return _data[(row * _cols) + col];
-			}
-
-		#else
-
-			// Returns the element at [row][col].
-			// Does NOT perform bounds-checking.
-			constexpr reference operator [] (size_type row, size_type col)
-			{
-				return _data[(row * _cols) + col];
-			}
-
-			// Returns the element at [row][col].
-			// Does NOT perform bounds-checking.
-			constexpr const_reference operator [] (size_type row, size_type col) const
-			{
-				return _data[(row * _cols) + col];
-			}
-
-		#endif // #if __cplusplus <= 202002L
+		// Returns the element at [row][col].
+		// Does NOT perform bounds-checking.
+		constexpr const_reference operator () (size_type row, size_type col) const
+		{
+			return _data[(row * _cols) + col];
+		}
 
 		// Returns the element at [pos.y][pos.x].
 		// Does NOT perform bounds-checking.

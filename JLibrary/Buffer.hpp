@@ -1,7 +1,7 @@
 // JLibrary
 // Buffer.hpp
 // Created on 2022-04-11 by Justyn Durnford
-// Last modified on 2022-05-15 by Justyn Durnford
+// Last modified on 2022-09-15 by Justyn Durnford
 // Header file for the Buffer class.
 
 #pragma once
@@ -135,26 +135,26 @@ namespace jlib
 		void write(const void* src, std::size_t byte_count);
 
 		// Writes a 32-bit integer into the buffer.
-		void writeInt(int value, std::size_t index) const;
+		void writeInt(int value, std::size_t index = 0) const;
 
 		// Writes a 32-bit floating-point into the buffer.
-		void writeFloat(float value, std::size_t index) const;
+		void writeFloat(float value, std::size_t index = 0) const;
 
 		// Writes an object into the buffer.
 		template <typename T>
-		void writeT(T& value, std::size_t index)
+		void writeT(T& value, std::size_t index = 0)
 		{
 			*(reinterpret_cast<T*>(_data + index)) = value;
 		}
 
-		// Returns a reinterpret_cast<T>* pointer.
+		// Returns a reinterpret_cast<T*> pointer.
 		template <typename T>
 		T* reinterpret() noexcept
 		{
 			return reinterpret_cast<T*>(_data);
 		}
 
-		// Returns a reinterpret_cast<T>* pointer.
+		// Returns a reinterpret_cast<T*> pointer.
 		template <typename T>
 		const T* reinterpret() const noexcept
 		{
@@ -165,7 +165,7 @@ namespace jlib
 		explicit operator bool() const noexcept;
 
 		// Returns a std::string constructed from the contents of the buffer in hex.
-		std::string toString() const;
+		std::string toString(bool uppercase = false) const;
 	};
 
 	///////////////////////////////////////////////////////////////////////////////////////////////

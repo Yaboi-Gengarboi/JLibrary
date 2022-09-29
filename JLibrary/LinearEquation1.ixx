@@ -1,17 +1,15 @@
 // JLibrary
 // LinearEquation1.ixx
 // Created on 2022-02-11 by Justyn Durnford
-// Last modified on 2022-03-04 by Justyn Durnford
+// Last modified on 2022-09-14 by Justyn Durnford
 // Module file for the LinearEquation1 template class.
 
 module;
 
 #include "Arithmetic.hpp"
+#include "String.hpp"
 
 #include <cmath>
-#include <initializer_list>
-#include <ostream>
-#include <string>
 
 export module LinearEquation1;
 
@@ -25,32 +23,26 @@ export namespace jlib
 		public:
 
 		T coefficient;
-		T offset;
-		T y_offset;
+		T constant;
 
 		// Default constructor.
 		LinearEquation1()
 		{
 			coefficient = static_cast<T>(0);
-			offset = static_cast<T>(0);
-			y_offset = static_cast<T>(0);
+			constant = static_cast<T>(0);
 		}
 
 		// 
-		LinearEquation1(T new_coefficient, T new_offset, T new_y_offset)
+		LinearEquation1(T new_coefficient, T new_constant)
 		{
 			coefficient = new_coefficient;
-			offset = new_offset;
-			y_offset = new_y_offset;
+			constant = new_constant;
 		}
-
-		// Destructor.
-		~LinearEquation1() = default;
 
 		// 
 		T function(T x) const
 		{
-			return coefficient * (x - offset) + y_offset;
+			return coefficient * x + constant;
 		}
 
 		//
@@ -74,37 +66,22 @@ export namespace jlib
 		// 
 		std::string toString() const
 		{
-			std::string str("y = ");
-
-			if (coefficient == 0)
-			{
-				if (y_offset == 0)
-					str += "0";
-				else 
-					str += std::to_string(y_offset);
-
-				return str;
-			}
-
-			if (offset == 0)
+			std::string str("f(x) = ");
+			
+			if (coefficient == 1)
+				str += "x";
+			else if (coefficient != 0)
 				str += std::to_string(coefficient) + "x";
 			else
 			{
-				str += std::to_string(coefficient) + "(x ";
-
-				if (offset > 0)
-					str += "- " + std::to_string(offset) + ")";
-				else
-					str += "+ " + std::to_string(std::abs(offset)) + ")";
+				str += std::to_string(constant);
+				return str;
 			}
 
-			if (y_offset == 0)
-				return str;
-			
-			if (y_offset > 0)
-				str += " + " + std::to_string(y_offset);
-			else
-				str += " - " + std::to_string(std::abs(y_offset));
+			if (constant < 0)
+				str += " - " + std::to_string(std::abs(constant));
+			else if (constant > 0)
+				str += " + " + std::to_string(constant);
 
 			return str;
 		}
@@ -112,41 +89,7 @@ export namespace jlib
 		// 
 		std::wstring toWideString() const
 		{
-			std::wstring wstr(L"y = ");
-
-			if (coefficient == 0)
-			{
-				if (y_offset == 0)
-					wstr += L"0";
-				else
-					wstr += std::to_wstring(y_offset);
-
-				return wstr;
-			}
-
-			if (offset == 0)
-				wstr += std::to_wstring(coefficient) + L"x";
-			else
-			{
-				wstr += std::to_wstring(coefficient) + L"(x ";
-
-				if (offset > 0)
-					wstr += L"- " + std::to_wstring(offset) + L")";
-				else
-					wstr += L"+ " + std::to_wstring(std::abs(offset)) + L")";
-			}
-
-			if (y_offset == 0)
-				return wstr;
-			else
-			{
-				if (y_offset > 0)
-					wstr += L" + " + std::to_wstring(y_offset);
-				else
-					wstr += L" - " + std::to_wstring(std::abs(y_offset));
-			}
-
-			return wstr;
+			return str_to_wstr(toString());
 		}
 	};
 }

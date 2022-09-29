@@ -1,7 +1,7 @@
-// JLibrary
+// UnitConverter
 // Conversions.hpp
 // Created on 2022-02-20 by Justyn Durnford
-// Last modified on 2022-09-14 by Justyn Durnford
+// Last modified on 2022-09-09 by Justyn Durnford
 // Header file declaring several conversion functions.
 
 #pragma once
